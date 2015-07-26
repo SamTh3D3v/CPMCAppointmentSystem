@@ -8,9 +8,17 @@
              mc:Ignorable="d">
     
     <Application.Resources>
-        <!--Global View Model Locator-->
-        <vm:ViewModelLocator x:Key="Locator"
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ControlLibrary;component/ResourcesDictionaries/ResourceLibrary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--This is a WorkArround-->
+            <Style TargetType="{x:Type Rectangle}"></Style>
+            <!--Global View Model Locator-->    
+            <vm:ViewModelLocator x:Key="Locator"
                              d:IsDataSource="True" />
+        </ResourceDictionary>
+        
     </Application.Resources>
     
 </Application>

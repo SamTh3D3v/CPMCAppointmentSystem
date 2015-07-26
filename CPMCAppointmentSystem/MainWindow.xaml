@@ -8,7 +8,7 @@
         Height="300"
         Width="300"
         Title="MVVM Light Application"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        DataContext="{Binding MainWindow, Source={StaticResource Locator}}">
     
     <Window.Resources>
         <ResourceDictionary>
@@ -20,13 +20,7 @@
 
     <Grid x:Name="LayoutRoot">
 
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
+      <Frame />
 
     </Grid>
 </Window>
