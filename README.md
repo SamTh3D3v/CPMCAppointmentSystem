@@ -1,3 +1,6 @@
+
+![alt tag](http://i.imgur.com/0YVZlOS.png)
+
 # CPMCAppointmentSystem
 
 a software solution to manage Appointments in a medical facility precisely designed for CPMC center,
