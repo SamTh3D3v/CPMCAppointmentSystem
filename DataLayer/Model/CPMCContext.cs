@@ -13,9 +13,11 @@ namespace DataLayer.Model
             : base("CpmcAppointmentDb")  //"CpmcConnectionString"
         {
             //DeFault Db Initializer
-            //-> Database.SetInitializer<CpmcContext>(new DropCreateDatabaseIfModelChanges<CpmcContext>());
+           // Database.SetInitializer<CpmcContext>(new DropCreateDatabaseIfModelChanges<CpmcContext>());
+
             //Disable initializer
             //-> Database.SetInitializer<CpmcContext>(null);
+
             //-> By Using the DataMigration
             Database.SetInitializer(
                 new MigrateDatabaseToLatestVersion<CpmcContext, Migrations.Configuration>()); //"CpmcConnectionString"
@@ -25,6 +27,7 @@ namespace DataLayer.Model
         public DbSet<Pathology> Pathologies { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<RendezVous> RendezVouses { get; set; }
+        public DbSet<Specialite> Specialites { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Willaya> Willayas { get; set; }

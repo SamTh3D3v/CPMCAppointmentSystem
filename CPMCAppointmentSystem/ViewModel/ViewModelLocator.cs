@@ -32,8 +32,6 @@ namespace CPMCAppointmentSystem.ViewModel
             SetupMainNavigationService();                       
            // SetupInnerNavigationService();            
         }
-
-
         private static void SetupMainNavigationService()
         {
             MainNavigationService = new FrameNavigationService("MainFrame");
@@ -41,7 +39,6 @@ namespace CPMCAppointmentSystem.ViewModel
             MainNavigationService.Configure("MainView", new Uri("../View/MainView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(() => MainNavigationService);
         }
-
         private static void SetupInnerNavigationService()
         {
             InnerFrameNavigationService = new FrameNavigationService("InnerFrame");
@@ -49,9 +46,6 @@ namespace CPMCAppointmentSystem.ViewModel
             InnerFrameNavigationService.Configure("CalendarView",new Uri("../View/SettingsView.xaml",UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(()=>InnerFrameNavigationService);
         }
-
-
-       
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]

@@ -24,13 +24,16 @@ namespace DataLayer.Model
         public String Prenom { get; set; }
         public DateTime DateDeNaissance { get; set; }
         public String TelephoneFixe { get; set; }
-        public String TelephoneMobile { get; set; }
-
-
+        public String TelephoneMobile { get; set; }        
+        public Guid SpecialiteId { get; set; }
+        [ForeignKey("SpecialiteId")]
+        public virtual  ICollection<Specialite> Specialites { get; set; }
         [Required]
         public virtual User User { get; set; }              
         public virtual ICollection<Pathology> Pathologies { get; set; }    
         public virtual ICollection<Patient> Patients { get; set; }    
 
     }
+
+   
 }

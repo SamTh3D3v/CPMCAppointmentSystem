@@ -22,9 +22,11 @@ namespace DataLayer.Model
         public DateTime DateTimeRdv { get; set; }
         [Required]
         public String LieuRdv { get; set; }        
-
+        public Guid MedecinId { get; set; }
         public Guid PatientId { get; set; }
         [ForeignKey("PatientId")]
         public virtual Patient Patient { get; set; }
+        [ForeignKey("MedecinId")]
+        public virtual Medecin Medecin { get; set; }
     }
 }
