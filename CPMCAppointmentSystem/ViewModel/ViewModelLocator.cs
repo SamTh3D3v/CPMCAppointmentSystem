@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Controls;
 using CPMCAppointmentSystem.Helpers;
 using GalaSoft.MvvmLight;
@@ -28,24 +29,24 @@ namespace CPMCAppointmentSystem.ViewModel
             }
 
             SimpleIoc.Default.Register<MainWindowViewModel>();
-            SetupMainNavigationService();
-            SetupInnerNavigationService();
+            SetupMainNavigationService();                       
+           // SetupInnerNavigationService();            
         }
 
 
         private static void SetupMainNavigationService()
         {
             MainNavigationService = new FrameNavigationService("MainFrame");
-            MainNavigationService.Configure("LoginView", new Uri("../Views/LoginView.xaml", UriKind.Relative));
-            MainNavigationService.Configure("MainView", new Uri("../Views/MainView.xaml", UriKind.Relative));
+            MainNavigationService.Configure("LoginView", new Uri("../View/LoginView.xaml", UriKind.Relative));
+            MainNavigationService.Configure("MainView", new Uri("../View/MainView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(() => MainNavigationService);
         }
 
         private static void SetupInnerNavigationService()
         {
             InnerFrameNavigationService = new FrameNavigationService("InnerFrame");
-            InnerFrameNavigationService.Configure("CalendarView",new Uri("../Views/CalendarView.xaml"));
-            InnerFrameNavigationService.Configure("CalendarView",new Uri("../Views/Settings.xaml"));
+            InnerFrameNavigationService.Configure("CalendarView",new Uri("../View/CalendarView.xaml",UriKind.Relative));
+            InnerFrameNavigationService.Configure("CalendarView",new Uri("../View/SettingsView.xaml",UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(()=>InnerFrameNavigationService);
         }
 
