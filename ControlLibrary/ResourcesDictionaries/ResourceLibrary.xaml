@@ -1,4 +1,33 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <!--Load Brush Resources-->
+        <ResourceDictionary Source="Brushes/DefaultColorTheme.xaml"/>
+        <ResourceDictionary Source="Brushes/Icons.xaml"/>
+        
+        <!--Base Controls Style-->
+        <ResourceDictionary Source="BaseControlStyles/ButtonStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/CheckBoxStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/ComboBoxStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/ListViewStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/RadioButtonStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/ScrollBarStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/ScrollViewerStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/TabControlStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/TabItemStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/TextBoxStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/ToggleButtonStyle.xaml"/>
+        
+        <!--Custom Controls Styles-->
+        <ResourceDictionary Source="CustomControlsStyles/PopupButtonStyle.xaml"/>
+        <ResourceDictionary Source="CustomControlsStyles/SelectorToggleButtonStyle.xaml"/>
+        <ResourceDictionary Source="CustomControlsStyles/TimelineStyle.xaml"/>
+        
+        <!--Named Styles-->
+        
+        <ResourceDictionary Source="NamedStyles/CloseButtonStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/HelpButtonStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/SearchTextBoxStyle.xaml"/>        
+    </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>
