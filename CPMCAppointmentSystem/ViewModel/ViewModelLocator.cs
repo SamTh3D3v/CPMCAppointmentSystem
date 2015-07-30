@@ -35,15 +35,15 @@ namespace CPMCAppointmentSystem.ViewModel
         private static void SetupMainNavigationService()
         {
             MainNavigationService = new FrameNavigationService("MainFrame");
-            MainNavigationService.Configure("LoginView", new Uri("../View/LoginView.xaml", UriKind.Relative));
-            MainNavigationService.Configure("MainView", new Uri("../View/MainView.xaml", UriKind.Relative));
+            MainNavigationService.Configure(App.LoginViewKey, new Uri("../View/LoginView.xaml", UriKind.Relative));
+            MainNavigationService.Configure(App.MainViewKey, new Uri("../View/MainView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(() => MainNavigationService);
         }
         private static void SetupInnerNavigationService()
         {
             InnerFrameNavigationService = new FrameNavigationService("InnerFrame");
-            InnerFrameNavigationService.Configure("CalendarView",new Uri("../View/CalendarView.xaml",UriKind.Relative));
-            InnerFrameNavigationService.Configure("CalendarView",new Uri("../View/SettingsView.xaml",UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.CalendarViewKey,new Uri("../View/CalendarView.xaml",UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.SettingsViewKey,new Uri("../View/SettingsView.xaml",UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(()=>InnerFrameNavigationService);
         }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",

@@ -1,4 +1,6 @@
-﻿using DataLayer.Model;
+﻿using System.Windows.Input;
+using CPMCAppointmentSystem.Helpers;
+using DataLayer.Model;
 using GalaSoft.MvvmLight;
 using CPMCAppointmentSystem.Model;
 using GalaSoft.MvvmLight.Command;
@@ -6,13 +8,13 @@ using GalaSoft.MvvmLight.Command;
 namespace CPMCAppointmentSystem.ViewModel
 {
 
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : NavigableViewModelBase
     {
         #region Fields
-        
+
         #endregion
         #region Properties
-        
+
         #endregion
         #region Commands
         private RelayCommand _mainViewLoadedCommand;
@@ -24,38 +26,28 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_mainViewLoadedCommand = new RelayCommand(
                     () =>
                     {
-                        using (var context=new CpmcContext())
-                        {
-                            context.Willayas.Add(new Willaya()
-                            {
-                                WillayaId = 16,
-                                Designation = "Alger"
-                            });
-                        }
-                        
-                        
+                        MainFrameNavigationService.NavigateTo(App.LoginViewKey);                        
+                        //using (var context = new CpmcContext())
+                        //{
+                        //    context.Willayas.Add(new Willaya()
+                        //    {
+                        //        WillayaId = 16,
+                        //        Designation = "Alger"
+                        //    });
+                        //}
                     }));
             }
         }
         #endregion
         #region Ctors and Methods
-        
+
         #endregion
-        
-        private readonly IDataService _dataService;   
-        public MainWindowViewModel(IDataService dataService)
+
+        private readonly IDataService _dataService;
+        public MainWindowViewModel(IFrameNavigationService mainFrameNavigationService,IFrameNavigationService innerFrameNavigationService)
+            : base(mainFrameNavigationService,innerFrameNavigationService)
         {
-            _dataService = dataService;
-            _dataService.GetData(
-                (item, error) =>
-                {
-                    if (error != null)
-                    {
-                        // Report error here
-                        return;
-                    }
-                    
-                });
+
         }
 
         public override void Cleanup()

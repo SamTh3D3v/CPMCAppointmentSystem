@@ -51,6 +51,10 @@
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ResourcesDictionaries\BaseControlStyles\FrameStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ResourcesDictionaries\BaseControlStyles\ToggleButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

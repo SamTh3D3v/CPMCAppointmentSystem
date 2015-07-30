@@ -8,6 +8,10 @@
 	Title="LoginView">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         
     </Grid>
 </Page>

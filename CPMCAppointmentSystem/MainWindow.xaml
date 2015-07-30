@@ -10,25 +10,14 @@
         Height="300"
         Width="300"
         Title="MVVM Light Application" 
-        DataContext="{Binding MainWindow, Source={StaticResource Locator}}">
-    
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="Skins/MainSkin.xaml" />-->
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+        DataContext="{Binding MainWindow, Source={StaticResource Locator}}">    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=MainViewLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
     <Grid x:Name="LayoutRoot">
-
-      <Frame />
-
+        <Frame x:Name="MainFrame" />
     </Grid>
 </Window>
