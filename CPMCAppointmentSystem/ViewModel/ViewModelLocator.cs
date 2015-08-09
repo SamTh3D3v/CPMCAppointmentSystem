@@ -29,6 +29,7 @@ namespace CPMCAppointmentSystem.ViewModel
             }
 
             SimpleIoc.Default.Register<MainWindowViewModel>();
+            SimpleIoc.Default.Register<LoginViewModel>();  
             SetupMainNavigationService();                       
            // SetupInnerNavigationService();            
         }
@@ -55,7 +56,18 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return ServiceLocator.Current.GetInstance<MainWindowViewModel>();
             }
-        }       
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public LoginViewModel LoginViewLodel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<LoginViewModel>();
+            }
+        }
         public static void Cleanup()
         {
         }

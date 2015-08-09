@@ -8,6 +8,6 @@
 	Title="MainView">
 
     <Grid>
-        <TextBlock Text="Login View" FontFamily="Segoe UI" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Text="Main View" FontFamily="Segoe UI" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
     </Grid>
 </Page>
