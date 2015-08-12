@@ -12,7 +12,7 @@
 
     <Grid Background="{StaticResource BodyBackgroundBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Source="{StaticResource SideLogo}"></Image>
-            <TextBlock Text="Appointement Sytem" Grid.Column="1" Style="{StaticResource TitleTextBlockStyle}" Foreground="{StaticResource HeaderTextBrush}"></TextBlock>
+            <TextBlock Text="Appointement Sytem" Grid.Column="1" Style="{StaticResource TitleTextBlockStyle}" FontSize="17" Foreground="{StaticResource HeaderTextBrush}"></TextBlock>
         </Grid>
         <Border Grid.Row="1" Background="{StaticResource InnerBodyBackgroundBrush}" Width="425" VerticalAlignment="Center" CornerRadius="5" >
             <Grid Margin="10">

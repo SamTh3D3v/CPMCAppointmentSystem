@@ -31,7 +31,7 @@ namespace CPMCAppointmentSystem.ViewModel
             SimpleIoc.Default.Register<MainWindowViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();  
             SetupMainNavigationService();                       
-           // SetupInnerNavigationService();            
+             SetupInnerNavigationService();            
         }
         private static void SetupMainNavigationService()
         {
