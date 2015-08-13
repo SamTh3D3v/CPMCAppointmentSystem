@@ -7,7 +7,7 @@ using CPMCAppointmentSystem.Helpers;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
-    class PathologiesViewModel:NavigableViewModelBase
+    public class PathologiesViewModel:NavigableViewModelBase
     {
         #region Fields
         
@@ -19,7 +19,7 @@ namespace CPMCAppointmentSystem.ViewModel
         
         #endregion
         #region Ctors and Methods
-        public PathologiesViewModel(IFrameNavigationService mainFrameNavigationService, IFrameNavigationService innerFrameNavigationService)
+        public PathologiesViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
         }

@@ -59,7 +59,7 @@ namespace CPMCAppointmentSystem.ViewModel
         #endregion
         #region Ctors and Methods
 
-        public LoginViewModel(IFrameNavigationService mainNavigationService,IFrameNavigationService innerNavigationService)
+        public LoginViewModel(IFrameNavigationService mainNavigationService, IInnerFrameNavigationService innerNavigationService)
             : base(mainNavigationService, innerNavigationService)
         {
             

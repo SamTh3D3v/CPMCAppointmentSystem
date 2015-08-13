@@ -93,6 +93,7 @@
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Helpers\FrameNavigationService.cs" />
     <Compile Include="Helpers\IFrameNavigationService.cs" />
+    <Compile Include="Helpers\InnerFrameNavigationService.cs" />
     <Compile Include="Helpers\NavigableViewModelBase.cs" />
     <Compile Include="SampleData\DataItem.cs" />
     <Compile Include="SampleData\DataService.cs" />

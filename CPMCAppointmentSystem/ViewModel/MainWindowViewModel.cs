@@ -44,7 +44,7 @@ namespace CPMCAppointmentSystem.ViewModel
         #endregion
 
         private readonly IDataService _dataService;
-        public MainWindowViewModel(IFrameNavigationService mainFrameNavigationService,IFrameNavigationService innerFrameNavigationService)
+        public MainWindowViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService,innerFrameNavigationService)
         {
 

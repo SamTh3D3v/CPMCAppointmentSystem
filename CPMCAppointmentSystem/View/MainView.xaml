@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
-	Title="MainView">
+	Title="MainView" DataContext="{Binding Source={StaticResource Locator},Path=MainViewModel}">
 
     <Grid Background="{StaticResource BodyBackgroundBrush}">
         <Grid.RowDefinitions>
@@ -20,7 +20,7 @@
             </Grid.ColumnDefinitions>
             <Image Source="{StaticResource SideLogo}"/>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <Button Content="Calendar" Width="100" />
+                <Button Content="Calendar" Width="100" Command="{Binding CalendarCommand}" />
                 <Button Content="Patients" Width="100" />
                 <Button Content="My Patients" Width="100" />
                 <Button Content="Doctors" Width="100" />
@@ -30,6 +30,6 @@
             
 
         </Grid>
-        <Frame Grid.Row="1" x:Name="InnerFrame"/>
+        <Frame Grid.Row="1" x:Name="InnerFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
     </Grid>
 </Page>

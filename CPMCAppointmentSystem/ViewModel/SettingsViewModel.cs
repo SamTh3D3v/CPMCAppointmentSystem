@@ -7,7 +7,7 @@ using CPMCAppointmentSystem.Helpers;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
-    class SettingsViewModel:NavigableViewModelBase
+    public class SettingsViewModel:NavigableViewModelBase
     {
         #region Fields
         
@@ -19,7 +19,7 @@ namespace CPMCAppointmentSystem.ViewModel
         
         #endregion
         #region Ctors and Methods
-        public SettingsViewModel(IFrameNavigationService mainFrameNavigationService, IFrameNavigationService innerFrameNavigationService)
+        public SettingsViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
         }

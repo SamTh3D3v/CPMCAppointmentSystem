@@ -10,5 +10,9 @@ namespace CPMCAppointmentSystem.Helpers
     public interface IFrameNavigationService : INavigationService
     {
         object Parameter { get; }
+    } 
+    public interface IInnerFrameNavigationService : INavigationService
+    {
+        object Parameter { get; }
     }
 }

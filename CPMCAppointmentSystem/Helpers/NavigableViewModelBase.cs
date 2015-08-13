@@ -12,12 +12,12 @@ namespace CPMCAppointmentSystem.Helpers
         #region Fields
 
         protected IFrameNavigationService MainFrameNavigationService;
-        protected IFrameNavigationService InnerFrameNavigationService;
+        protected IInnerFrameNavigationService InnerFrameNavigationService;
 
         #endregion
         #region Ctors and Methods
 
-        public NavigableViewModelBase(IFrameNavigationService mainFrameNavigationService,IFrameNavigationService innerFrameNavigationService)
+        public NavigableViewModelBase(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
         {
             MainFrameNavigationService = mainFrameNavigationService;
             InnerFrameNavigationService = innerFrameNavigationService;
