@@ -21,11 +21,11 @@
             <Image Source="{StaticResource SideLogo}"/>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
                 <Button Content="Calendar" Width="100" Command="{Binding CalendarCommand}" />
-                <Button Content="Patients" Width="100" />
-                <Button Content="My Patients" Width="100" />
-                <Button Content="Doctors" Width="100" />
-                <Button Content="Pathologies" Width="100" />
-                <Button Content="Settings" Width="100" />
+                <Button Content="Patients" Width="100" Command="{Binding PatientsCommand}"/>
+                <Button Content="My Patients" Width="100" Command="{Binding MyPatientsCommand}"/>
+                <Button Content="Doctors" Width="100" Command="{Binding DoctorsCommand}"/>
+                <Button Content="Pathologies" Width="100" Command="{Binding PathologiesCommand}"/>
+                <Button Content="Settings" Width="100" Command="{Binding SettingsCommand}"/>
             </StackPanel>
             
 

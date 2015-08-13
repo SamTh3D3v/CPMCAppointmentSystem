@@ -28,7 +28,7 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
         private RelayCommand _patientsCommand;  
-        public RelayCommand PaientsCommand
+        public RelayCommand PatientsCommand
         {
             get
             {
