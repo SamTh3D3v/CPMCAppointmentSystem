@@ -7,9 +7,8 @@ using GalaSoft.MvvmLight.Views;
 
 namespace CPMCAppointmentSystem.Helpers
 {
-    public interface IFrameNavigationService : INavigationService
+    public interface IInnerFrameNavigationService : INavigationService
     {
         object Parameter { get; }
-    } 
-  
+    }
 }
