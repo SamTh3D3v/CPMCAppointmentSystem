@@ -1,5 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <BitmapImage x:Key="SideLogo" UriSource="/ControlLibrary;component/Images/Logos/CPMCLogo.png"></BitmapImage>
+    <BitmapImage x:Key="AddNewDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/AddNew_dark.png"></BitmapImage>
+    <BitmapImage x:Key="AddNewLight" UriSource="/ControlLibrary;component/Images/Icons/Light/AddNew_light.png"></BitmapImage>
     
 </ResourceDictionary>

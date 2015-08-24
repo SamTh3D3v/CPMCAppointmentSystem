@@ -1,16 +1,13 @@
 ﻿using System.Windows;
 using CPMCAppointmentSystem.ViewModel;
+using Syncfusion.Windows.Shared;
 
 namespace CPMCAppointmentSystem
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+
+    public partial class MainWindow : ChromelessWindow
     {
-        /// <summary>
-        /// Initializes a new instance of the MainWindow class.
-        /// </summary>
+   
         public MainWindow()
         {
             InitializeComponent();

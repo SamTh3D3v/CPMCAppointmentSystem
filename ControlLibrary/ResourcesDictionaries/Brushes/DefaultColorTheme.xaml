@@ -1,10 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush Color="#252c32" x:Key="HeaderBackgroundBrush"/>
+    <SolidColorBrush Color="#2e363e" x:Key="HeaderBackgroundBrush"/>
     <SolidColorBrush Color="#26c3bb" x:Key="HeaderLightLogoBrush"/>
     <SolidColorBrush Color="#4f5c63" x:Key="HeaderDarkLogoBrush"/>
     <SolidColorBrush Color="#ffffff" x:Key="HeaderTextBrush"/>
     <SolidColorBrush Color="#ffffff" x:Key="BodyBackgroundBrush"/>
     <SolidColorBrush Color="#f1f1f1" x:Key="InnerBodyBackgroundBrush"/>
-    <SolidColorBrush Color="#767a80" x:Key="InnerBodyTextBrush"/>    
+    <SolidColorBrush Color="#767a80" x:Key="InnerBodyTextBrush"/>
+    <SolidColorBrush Color="#f1f5f7ff" x:Key="NavigationPanelBackgroundBrush"/>
+    <SolidColorBrush Color="#242c33" x:Key="ButtonClickedBrush"/>    
+    
 </ResourceDictionary>

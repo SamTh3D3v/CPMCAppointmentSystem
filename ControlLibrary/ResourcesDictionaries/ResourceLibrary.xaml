@@ -28,7 +28,8 @@
         
         <ResourceDictionary Source="NamedStyles/CloseButtonStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/HelpButtonStyle.xaml"/>
-        <ResourceDictionary Source="NamedStyles/SearchTextBoxStyle.xaml"/>        
+        <ResourceDictionary Source="NamedStyles/SearchTextBoxStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/HeaderToggleButtonStyle.xaml"/>        
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

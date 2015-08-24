@@ -1,4 +1,4 @@
-﻿<Window x:Class="CPMCAppointmentSystem.MainWindow"
+﻿<syncfusion:ChromelessWindow x:Class="CPMCAppointmentSystem.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,12 +6,14 @@
         xmlns:ignore="http://www.ignore.com"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d ignore"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
-        WindowState="Maximized"
+        WindowState="Maximized"                            
         Title="CPMC AppointementSystem" 
-        DataContext="{Binding MainWindow, Source={StaticResource Locator}}">    
+        syncfusion:SkinStorage.VisualStyle="Metro"
+        DataContext="{Binding MainWindow, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=MainViewLoadedCommand}"
@@ -21,4 +23,4 @@
     <Grid x:Name="LayoutRoot">
         <Frame x:Name="MainFrame" />
     </Grid>
-</Window>
+</syncfusion:ChromelessWindow>
