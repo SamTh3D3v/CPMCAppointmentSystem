@@ -20,13 +20,12 @@
             </Grid.ColumnDefinitions>
             <Image Source="{StaticResource SideLogo}"/>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <ToggleButton Content="Calendar" Width="100" Command="{Binding CalendarCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
-
-                <ToggleButton Content="Patients" Width="100" Command="{Binding PatientsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
-                <ToggleButton Content="My Patients" Width="100" Command="{Binding MyPatientsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
-                <ToggleButton Content="Doctors" Width="100" Command="{Binding DoctorsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
-                <ToggleButton Content="Pathologies" Width="100" Command="{Binding PathologiesCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
-                <ToggleButton Content="Settings" Width="100" Command="{Binding SettingsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
+                <RadioButton GroupName="menu" Content="Calendar" Width="100" Command="{Binding CalendarCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
+                <RadioButton GroupName="menu" Content="Patients"  Width="100" Command="{Binding PatientsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
+                <RadioButton GroupName="menu" Content="My Patients" Width="100" Command="{Binding MyPatientsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
+                <RadioButton GroupName="menu" Content="Doctors"  Width="100" Command="{Binding DoctorsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
+                <RadioButton GroupName="menu" Content="Pathologies"  Width="100" Command="{Binding PathologiesCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
+                <RadioButton GroupName="menu" Content="Settings" Width="100" Command="{Binding SettingsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
             </StackPanel>
             
 

@@ -21,6 +21,6 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid x:Name="LayoutRoot">
-        <Frame x:Name="MainFrame" />
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </syncfusion:ChromelessWindow>

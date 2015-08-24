@@ -11,9 +11,9 @@ namespace CPMCAppointmentSystem.ViewModel
     public class MainViewModel : NavigableViewModelBase
     {
         #region Fields
-
+       
         #endregion
-        #region Properties
+        #region Properties      
 
         #endregion
         #region Commands
