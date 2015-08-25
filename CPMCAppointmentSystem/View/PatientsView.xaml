@@ -50,12 +50,13 @@
                 <ColumnDefinition Width="3"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Margin="5,20">
+            <Grid Grid.Column="0" Margin="5,20">               
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -96,10 +97,32 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                
-                <TextBlock Grid.Column="0" Grid.Row="3" Text="TelephoneFixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="TelFixBox" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="3"  Text="TelephoneFixe">
+
+                <TextBlock Grid.Column="0" Grid.Row="3" Text="Date de naiss" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <Syncfusion:DateTimeEdit Margin="2"   x:Name="BirthDateBox" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="3"  Text="Date de naissance" >
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=BirthDateBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+
+
+
+
+
+
+
+
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="TelephoneFixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBox x:Name="TelFixBox" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="4"  Text="TelephoneFixe">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -111,9 +134,9 @@
                     </TextBlock.Style>
                 </TextBlock>
                 
-                <TextBlock Grid.Column="0" Grid.Row="4" Text="Mobile 1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="4"  Text="Mobile 1">
+                <TextBlock Grid.Column="0" Grid.Row="5" Text="Mobile 1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBox x:Name="Mob1Box" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="5"  Text="Mobile 1">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -125,9 +148,9 @@
                     </TextBlock.Style>
                 </TextBlock>
                 
-                <TextBlock Grid.Column="0" Grid.Row="5" Text="Mobile 2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="Mob2Box" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="5"  Text="Mobile 2" >
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Mobile 2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBox x:Name="Mob2Box" Grid.Column="1" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="6"  Text="Mobile 2" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -139,9 +162,9 @@
                     </TextBlock.Style>
                 </TextBlock>
                 
-                <TextBlock Grid.Column="0" Grid.Row="6" Text="Adress" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="AdressBox" Grid.Column="1" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="6"  Text="Adress">
+                <TextBlock Grid.Column="0" Grid.Row="7" Text="Adress" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBox x:Name="AdressBox" Grid.Column="1" Grid.Row="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="7"  Text="Adress">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -152,7 +175,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <Grid Grid.Column="1" Grid.Row="7" >
+                <Grid Grid.Column="1" Grid.Row="8" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -195,15 +218,9 @@
                         </TextBlock.Style>
                     </TextBlock>
                     
-                </Grid>
-                
-                
-                
-                
-                
-                
+                </Grid>   
             </Grid>
-            <GridSplitter Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1"/>
+            <GridSplitter Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1" VerticalAlignment="Stretch"/>
             <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Syncfusion:TabControlExt  EnableLabelEdit="False" Syncfusion:SkinStorage.VisualStyle="Metro" Margin="5,30,5,5"
                                   CloseButtonType="Hide" ShowTabItemContextMenu="False"

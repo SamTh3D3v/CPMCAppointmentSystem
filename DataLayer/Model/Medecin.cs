@@ -1,15 +1,18 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using DataLayer.Annotations;
 
 namespace DataLayer.Model
 {
     [Table("Medecin")]
-    public class Medecin
+    public class Medecin : INotifyPropertyChanged
     {
         public Medecin()
         {
@@ -31,8 +34,16 @@ namespace DataLayer.Model
         [Required]
         public virtual User User { get; set; }              
         public virtual ICollection<Pathology> Pathologies { get; set; }    
-        public virtual ICollection<Patient> Patients { get; set; }    
+        public virtual ICollection<Patient> Patients { get; set; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
    

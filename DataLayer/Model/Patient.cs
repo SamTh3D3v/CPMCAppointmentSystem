@@ -29,6 +29,8 @@ namespace DataLayer.Model
         [Required]
         public String TelephoneMobile1 { get; set; }
         public String TelephoneMobile2 { get; set; }  
+        [Required]
+        public DateTime DateDeNaissance { get; set; }
       
 
         public virtual Adresse Adresse { get; set; }
