@@ -7,10 +7,12 @@
     <BitmapImage x:Key="SideLogo" UriSource="/ControlLibrary;component/Images/Logos/CPMCLogo.png"></BitmapImage>
     <BitmapImage x:Key="AddNewDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/AddNew_dark.png"></BitmapImage>    
     <BitmapImage x:Key="FaceDark" UriSource="/ControlLibrary;component/Images/Icons/Light/AddNew_light.png"></BitmapImage>
+    <BitmapImage x:Key="ConnectionDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Connexion_dark.png"/>
     
     
     
     <!--Light-->
     <BitmapImage x:Key="AddNewLight" UriSource="/ControlLibrary;component/Images/Icons/Light/AddNew_light.png"></BitmapImage>
+    <BitmapImage x:Key="ConnectionLight" UriSource="/ControlLibrary;component/Images/Icons/Light/Connexion_light.png"/>
     
 </ResourceDictionary>
