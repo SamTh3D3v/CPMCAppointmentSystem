@@ -48,7 +48,7 @@
                         </Style>
                     </PasswordBox.Resources>
                 </PasswordBox>
-                <Button Grid.Row="3" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=PassBox}" Background="{StaticResource HeaderBackgroundBrush}">
+                <Button Grid.Row="3" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=PassBox}" Style="{StaticResource LoginButtonStyle}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource ConnectionLight}" Height="50"/>

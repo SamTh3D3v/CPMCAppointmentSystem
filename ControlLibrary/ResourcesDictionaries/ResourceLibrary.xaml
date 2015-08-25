@@ -31,6 +31,7 @@
         <ResourceDictionary Source="NamedStyles/SearchTextBoxStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/HeaderToggleButtonStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/HintTextBlockStyle.xaml"/>        
+        <ResourceDictionary Source="NamedStyles/LoginButtonStyle.xaml"/>        
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>
