@@ -56,6 +56,16 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_doctorsCommand = new RelayCommand(
                     () => InnerFrameNavigationService.NavigateTo(App.DoctorsViewKey)));
             }
+        }        
+        private RelayCommand _specialitiesCommand;
+        public RelayCommand SpecialitiesCommand
+        {
+            get
+            {
+                return _specialitiesCommand
+                    ?? (_specialitiesCommand = new RelayCommand(
+                    () => InnerFrameNavigationService.NavigateTo(App.SpecialityViewKey)));
+            }
         }
         private RelayCommand _settingsCommand;
         public RelayCommand SettingsCommand

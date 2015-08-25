@@ -57,7 +57,7 @@ namespace CPMCAppointmentSystem.ViewModel
             InnerFrameNavigationService.Configure(App.MyPatientsViewKey, new Uri("../View/MyPatientsView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.PathologiesViewKey, new Uri("../View/PathologiesView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.PatientsViewKey, new Uri("../View/PatientsView.xaml", UriKind.Relative));
-            InnerFrameNavigationService.Configure(App.SpecialityViewKey, new Uri("../View/SpecialityView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.SpecialityViewKey, new Uri("../View/SpecialiteView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IInnerFrameNavigationService>(() => InnerFrameNavigationService);
         }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",

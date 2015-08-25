@@ -9,6 +9,10 @@
     <BitmapImage x:Key="FaceDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Face_dark.png"></BitmapImage>
     <BitmapImage x:Key="ConnectionDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Connexion_dark.png"/>
     
+    <BitmapImage x:Key="DoctorDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Doctor.png"/>
+    <BitmapImage x:Key="PathologyDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Pathology.png"/>
+    <BitmapImage x:Key="SpecialityDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Speciality.png"/>
+    
     
     
     <!--Light-->

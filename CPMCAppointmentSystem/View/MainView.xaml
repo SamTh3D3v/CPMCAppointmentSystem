@@ -24,6 +24,7 @@
                 <RadioButton GroupName="menu" Content="Patients"  Width="100" Command="{Binding PatientsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
                 <RadioButton GroupName="menu" Content="My Patients" Width="100" Command="{Binding MyPatientsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
                 <RadioButton GroupName="menu" Content="Doctors"  Width="100" Command="{Binding DoctorsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
+                <RadioButton GroupName="menu" Content="Specialities"  Width="100" Command="{Binding SpecialitiesCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
                 <RadioButton GroupName="menu" Content="Pathologies"  Width="100" Command="{Binding PathologiesCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
                 <RadioButton GroupName="menu" Content="Settings" Width="100" Command="{Binding SettingsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
             </StackPanel>
