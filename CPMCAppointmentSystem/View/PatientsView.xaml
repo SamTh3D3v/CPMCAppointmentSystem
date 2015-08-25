@@ -65,45 +65,135 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Image Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
+                <Image Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>    <!--To be updated with the proper control-->
                 <TextBlock Grid.Column="1" Grid.Row="0" Text="GeneratedID" VerticalAlignment="Center" Margin="5"/>
                 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <TextBox x:Name="NomBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="1"  Text="Nom" Style="{StaticResource HintTextBlockStyle}"/>
+                <TextBlock Grid.Column="1" Grid.Row="1"  Text="Nom" >
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=NomBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="2"  Text="Prenom" Style="{StaticResource HintTextBlockStyle}"/>
+                <TextBox x:Name="PrenomBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="2"  Text="Prenom" >
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=PrenomBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="TelephoneFixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="3"  Text="TelephoneFixe" Style="{StaticResource HintTextBlockStyle}"/>
+                <TextBox x:Name="TelFixBox" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="3"  Text="TelephoneFixe">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=TelFixBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Mobile 1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="4"  Text="Mobile 1" Style="{StaticResource HintTextBlockStyle}"/>
+                <TextBox x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="4"  Text="Mobile 1">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=Mob1Box}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Mobile 2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="5"  Text="Mobile 2" Style="{StaticResource HintTextBlockStyle}"/>
+                <TextBox x:Name="Mob2Box" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="5"  Text="Mobile 2" >
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=Mob2Box}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 
                 <TextBlock Grid.Column="0" Grid.Row="6" Text="Adress" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox Grid.Column="1" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="6"  Text="Adress" Style="{StaticResource HintTextBlockStyle}"/>
+                <TextBox x:Name="AdressBox" Grid.Column="1" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="6"  Text="Adress">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=AdressBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <Grid Grid.Column="1" Grid.Row="7" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0"/>
-                    <TextBlock Grid.Column="0"   Text="City" Style="{StaticResource HintTextBlockStyle}"/>
-                    <TextBox Grid.Column="1"/>
-                    <TextBlock Grid.Column="1"   Text="Willaya" Style="{StaticResource HintTextBlockStyle}"/>
-                    <TextBox Grid.Column="2"/>
-                    <TextBlock Grid.Column="2"   Text="Zip" Style="{StaticResource HintTextBlockStyle}"/>
+                    <TextBox x:Name="CityBox" Grid.Column="0"/>
+                    <TextBlock Grid.Column="0"   Text="City" >
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=CityBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBox x:Name="WillayaBox" Grid.Column="1"/>
+                    <TextBlock Grid.Column="1"   Text="Willaya">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=WillayaBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBox x:Name="ZipBox" Grid.Column="2"/>
+                    <TextBlock Grid.Column="2"   Text="Zip">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=ZipBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                     
                 </Grid>
                 

@@ -7,12 +7,7 @@
         <Setter Property="Margin" Value="5,0,0,0"/>
         <Setter Property="Padding" Value="6,3,0,0"/>
         <Setter Property="Foreground" Value="DarkGray"/>
-        <Setter Property="Visibility" Value="Collapsed"/>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Text, ElementName=NomBox}" Value="">
-                <Setter Property="Visibility" Value="Visible"/>
-            </DataTrigger>
-        </Style.Triggers>
+        <Setter Property="Visibility" Value="Collapsed"/>        
     </Style>
 
 </ResourceDictionary>
