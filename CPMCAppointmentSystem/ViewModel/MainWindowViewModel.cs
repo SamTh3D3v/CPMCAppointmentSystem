@@ -26,15 +26,11 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_mainViewLoadedCommand = new RelayCommand(
                     () =>
                     {
-                        MainFrameNavigationService.NavigateTo(App.LoginViewKey);                        
-                        //using (var context = new CpmcContext())
-                        //{
-                        //    context.Willayas.Add(new Willaya()
-                        //    {
-                        //        WillayaId = 16,
-                        //        Designation = "Alger"
-                        //    });
-                        //}
+                        MainFrameNavigationService.NavigateTo(App.LoginViewKey);
+                        using (var context = new CpmcContext())
+                        {                            
+                            var res=context.Patients;
+                        }
                     }));
             }
         }

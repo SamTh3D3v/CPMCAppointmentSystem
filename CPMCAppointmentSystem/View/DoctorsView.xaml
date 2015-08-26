@@ -130,9 +130,9 @@
             <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <syncfusion:TabControlExt  EnableLabelEdit="False" syncfusion:SkinStorage.VisualStyle="Metro" Margin="5,30,5,5"
                                   CloseButtonType="Hide" ShowTabItemContextMenu="False"
-                                  ShowTabListContextMenu="False">
+                                  ShowTabListContextMenu="False" TabStripPlacement="Left">
 
-                    <syncfusion:TabItemExt  MinHeight="35" x:Name="PathologiesTab">
+                    <syncfusion:TabItemExt  MinHeight="35" x:Name="PathologiesTab" >
                         <syncfusion:TabItemExt.HeaderTemplate>
                             <DataTemplate>
                                 <Grid>

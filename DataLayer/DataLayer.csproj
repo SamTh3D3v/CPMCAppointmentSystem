@@ -51,6 +51,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Adresse.cs" />
     <Compile Include="Model\CpmcContext.cs" />
+    <Compile Include="Model\CpmcDBInitializer.cs" />
     <Compile Include="Model\Medecin.cs" />
     <Compile Include="Model\Pathology.cs" />
     <Compile Include="Model\Patient.cs" />

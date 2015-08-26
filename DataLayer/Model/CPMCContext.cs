@@ -13,10 +13,14 @@ namespace DataLayer.Model
             : base("CpmcAppointmentDb")  //"CpmcConnectionString"
         {
             //DeFault Db Initializer
-           // Database.SetInitializer<CpmcContext>(new DropCreateDatabaseIfModelChanges<CpmcContext>());
+            //Database.SetInitializer<CpmcContext>(new DropCreateDatabaseIfModelChanges<CpmcContext>());
 
             //Disable initializer
             //-> Database.SetInitializer<CpmcContext>(null);
+
+            //Custom Db Inializer to populate Db With Fake Data
+            //Database.SetInitializer<CpmcContext>(new CpmcDbInitializer());
+            
 
             //-> By Using the DataMigration
             Database.SetInitializer(

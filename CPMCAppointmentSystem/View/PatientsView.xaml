@@ -224,7 +224,7 @@
             <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Syncfusion:TabControlExt  EnableLabelEdit="False" Syncfusion:SkinStorage.VisualStyle="Metro" Margin="5,30,5,5"
                                   CloseButtonType="Hide" ShowTabItemContextMenu="False"
-                                  ShowTabListContextMenu="False">
+                                  ShowTabListContextMenu="False" TabStripPlacement="Left">
                     
                     <Syncfusion:TabItemExt  MinHeight="35" x:Name="AppointementTab">
                         <Syncfusion:TabItemExt.HeaderTemplate>
