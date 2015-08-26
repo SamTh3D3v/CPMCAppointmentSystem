@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
-using Syncfusion.Windows.Forms.Tools.Navigation;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -15,6 +15,7 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Fields
         private ObservableCollection<Patient> _patientList;
         private Patient _selectedPatient;
+        private CpmcContext _dbContext=new CpmcContext();
         #endregion
         #region Properties        
         public ObservableCollection<Patient> PatientList
@@ -56,6 +57,18 @@ namespace CPMCAppointmentSystem.ViewModel
         
         #endregion
         #region Commands
+        private RelayCommand _patientsViewLoadedCommand;
+        public RelayCommand PatientsViewLoadedCommand
+        {
+            get
+            {
+                return _patientsViewLoadedCommand
+                    ?? (_patientsViewLoadedCommand = new RelayCommand(async () =>
+                    {                        
+                        PatientList = new ObservableCollection<Patient>(await Task.Run(()=>_dbContext.Patients));
+                    }));
+            }
+        }
         private RelayCommand _addPatientCommand;
         public RelayCommand AddPatientCommand
         {
