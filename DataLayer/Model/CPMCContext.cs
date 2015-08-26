@@ -16,7 +16,7 @@ namespace DataLayer.Model
             //Database.SetInitializer<CpmcContext>(new DropCreateDatabaseIfModelChanges<CpmcContext>());
 
             //Disable initializer
-            //-> Database.SetInitializer<CpmcContext>(null);
+            // Database.SetInitializer<CpmcContext>(null);
 
             //Custom Db Inializer to populate Db With Fake Data
             //Database.SetInitializer<CpmcContext>(new CpmcDbInitializer());

@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Linq;
+using System.Windows.Input;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight;
@@ -29,7 +30,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         MainFrameNavigationService.NavigateTo(App.LoginViewKey);
                         using (var context = new CpmcContext())
                         {                            
-                            var res=context.Patients;
+                            var res=context.Willayas.FirstOrDefault();
                         }
                     }));
             }
