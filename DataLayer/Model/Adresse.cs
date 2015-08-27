@@ -16,23 +16,20 @@ namespace DataLayer.Model
         {
             
         }
-        [Key,ForeignKey("Patient")]
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid AdressId { get; set; }                     
-        public Guid PatientId { get; set; }  
+        public Guid AdressId { get; set; }                             
         [Required]     
-        public string AddressDesignation { get; set; }                        
+        public string AddressDesignation { get; set; }                   
         public string City { get; set; }
         [Required]   
-        public String CodePosatal { get; set; }
-        [Required]
+        public String CodePosatal { get; set; }        
         public string Pays { get; set; }
         [Required]
         public int WillayaId { get; set; }
         [ForeignKey("WillayaId")]                
-        public virtual Willaya Willaya { get; set; }
-        [ForeignKey("PatientId")]
-        public virtual Patient Patient { get; set; }
+        public virtual Willaya Willaya { get; set; }        
+        //public virtual Patient Patient { get; set; }
         
     }
 }

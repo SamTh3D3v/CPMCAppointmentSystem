@@ -47,7 +47,12 @@
                                        AllowGrouping="True"
                                        ItemsSource="{Binding PatientList}"
                                    SelectedItem="{Binding SelectedPatient,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
+                                       ShowGroupDropArea="True" >                
+                <!--<Syncfusion:SfDataGrid.Columns>
+                    
+                    
+                </Syncfusion:SfDataGrid.Columns>-->
+            </Syncfusion:SfDataGrid>
 
         </Grid>
         <GridSplitter Grid.Column="1" Width="1" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>

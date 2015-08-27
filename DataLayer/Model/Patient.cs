@@ -25,14 +25,19 @@ namespace DataLayer.Model
         public String Nom { get; set; }
         [Required]
         public String Prenom { get; set; }
+        [Required]
+        public int SexeId { get; set; }
         public String TelephoneFixe { get; set; }
         [Required]
         public String TelephoneMobile1 { get; set; }
-        public String TelephoneMobile2 { get; set; }  
+        public String TelephoneMobile2 { get; set; }
+        [Required]
+        public Guid AdressId { get; set; }
         [Required]
         public DateTime DateDeNaissance { get; set; }
-      
-
+        [ForeignKey("SexeId")]
+        public virtual Sexe Sexe { get; set; }
+        [ForeignKey("AdressId")]
         public virtual Adresse Adresse { get; set; }
         public virtual ICollection<Medecin> Medecins { get; set; }
         public virtual ICollection<RendezVous> RendezVouses { get; set; }
