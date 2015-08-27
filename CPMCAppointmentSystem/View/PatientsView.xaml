@@ -42,16 +42,27 @@
             <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
             <Syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
                                        AllowDraggingColumns="True"
-                                       AllowEditing="True"
+                                       AllowEditing="False"
                                        AllowFiltering="True"
-                                       AllowGrouping="True"
+                                       AllowGrouping="True"                                   
                                        ItemsSource="{Binding PatientList}"
+                                   AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedPatient,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >                
-                <!--<Syncfusion:SfDataGrid.Columns>
+                <Syncfusion:SfDataGrid.Columns>
+                    <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
+                    <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
+                    <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
+                    <Syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
+                                                                            StringFormat=d}"/>
+                    <Syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>
+                    <Syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
+                    <Syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneMobile2"/>
+                    <Syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
+                    <Syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
                     
                     
-                </Syncfusion:SfDataGrid.Columns>-->
+                </Syncfusion:SfDataGrid.Columns>
             </Syncfusion:SfDataGrid>
 
         </Grid>
