@@ -21,6 +21,9 @@ namespace DataLayer.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PatientId { get; set; }
+        //[Required]
+        public String NumeroDordre { get; set; }
+        
         [Required]
         public String Nom { get; set; }
         [Required]
@@ -41,6 +44,8 @@ namespace DataLayer.Model
         public virtual Adresse Adresse { get; set; }
         public virtual ICollection<Medecin> Medecins { get; set; }
         public virtual ICollection<RendezVous> RendezVouses { get; set; }
+        //[Required]
+        public DateTime DateDeDepot { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

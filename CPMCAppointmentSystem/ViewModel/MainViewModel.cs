@@ -17,6 +17,16 @@ namespace CPMCAppointmentSystem.ViewModel
 
         #endregion
         #region Commands
+        private RelayCommand _mainViewLoadedCommand;
+        public RelayCommand MainViewLoadedCommand
+        {
+            get
+            {
+                return _mainViewLoadedCommand
+                    ?? (_mainViewLoadedCommand = new RelayCommand(
+                    () => InnerFrameNavigationService.NavigateTo(App.PatientsViewKey)));
+            }
+        }
         private RelayCommand _calendarCommand;
         public RelayCommand CalendarCommand
         {

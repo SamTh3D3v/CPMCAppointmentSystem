@@ -15,7 +15,8 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Fields
         private ObservableCollection<Patient> _patientList;
         private Patient _selectedPatient;
-        private CpmcContext _dbContext=new CpmcContext();
+        private ObservableCollection<Sexe> _sexeList;
+        private readonly CpmcContext _dbContext=new CpmcContext();
         #endregion
         #region Properties        
         public ObservableCollection<Patient> PatientList
@@ -54,6 +55,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
+        public ObservableCollection<Sexe> SexeList
+        {
+            get
+            {
+                return _sexeList;
+            }
+
+            set
+            {
+                if (_sexeList == value)
+                {
+                    return;
+                }
+
+                _sexeList = value;
+                RaisePropertyChanged();
+            }
+        }
         
         #endregion
         #region Commands
@@ -64,7 +83,8 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _patientsViewLoadedCommand
                     ?? (_patientsViewLoadedCommand = new RelayCommand(async () =>
-                    {                        
+                    { 
+                        SexeList=new ObservableCollection<Sexe>(await Task.Run(()=>_dbContext.Sexes));
                         PatientList = new ObservableCollection<Patient>(await Task.Run(()=>_dbContext.Patients));
                     }));
             }
@@ -76,6 +96,50 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _addPatientCommand
                     ?? (_addPatientCommand = new RelayCommand(
+                    () =>
+                    {
+                        SelectedPatient=new Patient()
+                        {
+                            Adresse = new Adresse()
+                        };                        
+                    }));
+            }
+        }
+        private RelayCommand _saveCommand;
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return _saveCommand
+                    ?? (_saveCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedPatient.PatientId==Guid.Empty)                        
+                            _dbContext.Patients.Add(SelectedPatient);                        
+                        _dbContext.SaveChanges();
+                    }));
+            }
+        }
+        private RelayCommand _deleteCommand;
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return _deleteCommand
+                    ?? (_deleteCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _cancelCommand;
+        public RelayCommand CancelCommand
+        {
+            get
+            {
+                return _cancelCommand
+                    ?? (_cancelCommand = new RelayCommand(
                     () =>
                     {
                         

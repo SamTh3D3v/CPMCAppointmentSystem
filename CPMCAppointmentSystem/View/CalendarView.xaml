@@ -61,11 +61,8 @@
                              syncfusion:DockingManager.DesiredWidthInDockedMode="200"  
                              syncfusion:DocumentContainer.MDIBounds="30,30,300,300"  
                              syncfusion:DockingManager.DesiredHeightInFloatingMode="200"
-                             syncfusion:DockingManager.Header="Sample Window" >
-                        <ListBoxItem Margin="2,2,2,2">List Box Item 1</ListBoxItem>
-                        <ListBoxItem Margin="2,2,2,2">List Box Item 2</ListBoxItem>
-                        <ListBoxItem Margin="2,2,2,2">List Box Item 3</ListBoxItem>
-                        <ListBoxItem Margin="2,2,2,2">List Box Item 4</ListBoxItem>
+                             syncfusion:DockingManager.Header="Selected Patient Appointements" >
+                        
                     </ListBox>
                    
                     <!-- Dock Window -->
