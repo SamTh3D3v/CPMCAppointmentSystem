@@ -108,7 +108,7 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="NumDordreBox" Text="{Binding Nom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="NumDordreBox" Text="{Binding NumeroDordre,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="1"  Text="Num D'ordre" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -278,8 +278,8 @@
                 </Grid>
 
                 <TextBlock Grid.Column="0" Grid.Row="11" Text="Date depot" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:DateTimeEdit Margin="2"  Text="{Binding DateDeNaissance,Mode=TwoWay,StringFormat=d}"   x:Name="DepotDateBox" Grid.Column="1" Grid.Row="11" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="11"  Text="Date de naissance" >
+                <Syncfusion:DateTimeEdit Margin="2"  Text="{Binding DateDeDepot,Mode=TwoWay,StringFormat=d}"   x:Name="DepotDateBox" Grid.Column="1" Grid.Row="11" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="11"  Text="Date de dépot" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -297,7 +297,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding DataContext.SaveCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                    <Button Grid.Column="0"  Margin="2" Command="{Binding DataContext.SavePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">                                
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -305,7 +305,7 @@
                             </StackPanel>                            
                         </Button.Content>
                     </Button>
-                    <Button Grid.Column="1"  Margin="2" Command="{Binding DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                    <Button Grid.Column="1"  Margin="2" Command="{Binding DataContext.DeletePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
@@ -313,7 +313,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Grid.Column="2"  Margin="2" Command="{Binding DataContext.CancelCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                    <Button Grid.Column="2"  Margin="2" Command="{Binding DataContext.CancelPatientChangesCommand,RelativeSource={RelativeSource AncestorType=Page}}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
@@ -353,7 +353,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" >
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding DataContext.AddAppointementCommand,RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
                                     <Button.Content>
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
@@ -362,13 +362,20 @@
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
 
                                 <Syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                                       AutoGenerateColumns="False"
                                        AllowDraggingColumns="True"
                                        AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding PatientList}"
-                                   SelectedItem="{Binding SelectedPatient,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
+                                       ItemsSource="{Binding DataContext.SelectedPatient.RendezVouses,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                   SelectedItem="{Binding DataContext.SelectedAppointement,Mode=TwoWay,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                       ShowGroupDropArea="True" >
+                                    <Syncfusion:SfDataGrid.Columns>
+                                        <Syncfusion:GridTextColumn HeaderText="Date" MappingName="DateTimeRdv" />
+                                        <Syncfusion:GridTextColumn HeaderText="Lieu" MappingName="LieuRdv" />
+                                        <Syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.Nom"/>
+                                    </Syncfusion:SfDataGrid.Columns>
+                                </Syncfusion:SfDataGrid>
                                 
                             </Grid>
                         </Syncfusion:TabItemExt.Content>

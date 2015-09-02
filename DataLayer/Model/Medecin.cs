@@ -29,9 +29,10 @@ namespace DataLayer.Model
         public String TelephoneFixe { get; set; }
         public String TelephoneMobile { get; set; }        
         public Guid SpecialiteId { get; set; }
+        public Guid UserId { get; set; }
         [ForeignKey("SpecialiteId")]
-        public virtual  ICollection<Specialite> Specialites { get; set; }
-        [Required]
+        public virtual  Specialite Specialites { get; set; }
+        [ForeignKey("UserId")]
         public virtual User User { get; set; }              
         public virtual ICollection<Pathology> Pathologies { get; set; }    
         public virtual ICollection<Patient> Patients { get; set; }

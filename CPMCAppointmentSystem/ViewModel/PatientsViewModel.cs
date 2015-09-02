@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
+using CPMCAppointmentSystem.View;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 
@@ -17,6 +18,9 @@ namespace CPMCAppointmentSystem.ViewModel
         private Patient _selectedPatient;
         private ObservableCollection<Sexe> _sexeList;
         private readonly CpmcContext _dbContext=new CpmcContext();
+        private ObservableCollection<Medecin> _doctorsList;
+        private Medecin _selectedDoctor;
+        private RendezVous _selectedAppointement;
         #endregion
         #region Properties        
         public ObservableCollection<Patient> PatientList
@@ -73,7 +77,60 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        
+        public ObservableCollection<Medecin> DoctorsList
+        {
+            get
+            {
+                return _doctorsList;
+            }
+
+            set
+            {
+                if (_doctorsList == value)
+                {
+                    return;
+                }
+
+                _doctorsList = value;
+                RaisePropertyChanged();
+            }
+        }
+        public Medecin SelectedDoctor
+        {
+            get
+            {
+                return _selectedDoctor;
+            }
+
+            set
+            {
+                if (_selectedDoctor == value)
+                {
+                    return;
+                }
+
+                _selectedDoctor = value;
+                RaisePropertyChanged();
+            }
+        }             
+        public RendezVous SelectedAppointement
+        {
+            get
+            {
+                return _selectedAppointement;
+            }
+
+            set
+            {
+                if (_selectedAppointement == value)
+                {
+                    return;
+                }
+
+                _selectedAppointement = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
         #region Commands
         private RelayCommand _patientsViewLoadedCommand;
@@ -86,6 +143,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     { 
                         SexeList=new ObservableCollection<Sexe>(await Task.Run(()=>_dbContext.Sexes));
                         PatientList = new ObservableCollection<Patient>(await Task.Run(()=>_dbContext.Patients));
+                        DoctorsList=new ObservableCollection<Medecin>(await  Task.Run(()=>_dbContext.Medecins));
                     }));
             }
         }
@@ -105,13 +163,13 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-        private RelayCommand _saveCommand;
-        public RelayCommand SaveCommand
+        private RelayCommand _savePatientCommand;
+        public RelayCommand SavePatientCommand
         {
             get
             {
-                return _saveCommand
-                    ?? (_saveCommand = new RelayCommand(
+                return _savePatientCommand
+                    ?? (_savePatientCommand = new RelayCommand(
                     () =>
                     {
                         if (SelectedPatient.PatientId==Guid.Empty)                        
@@ -120,33 +178,103 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-        private RelayCommand _deleteCommand;
-        public RelayCommand DeleteCommand
+        private RelayCommand _deletePatientCommand;
+        public RelayCommand DeletePatientCommand
         {
             get
             {
-                return _deleteCommand
-                    ?? (_deleteCommand = new RelayCommand(
+                return _deletePatientCommand
+                    ?? (_deletePatientCommand = new RelayCommand(
+                    () =>
+                    {
+                        //
+                    }));
+            }
+        }
+        private RelayCommand _cancelPatientChangesCommand;
+        public RelayCommand CancelPatientChangesCommand
+        {
+            get
+            {
+                return _cancelPatientChangesCommand
+                    ?? (_cancelPatientChangesCommand = new RelayCommand(
                     () =>
                     {
                         
                     }));
             }
         }
-        private RelayCommand _cancelCommand;
-        public RelayCommand CancelCommand
+
+        private RelayCommand _addAppointementCommand;   
+        public RelayCommand AddAppointementCommand
         {
             get
             {
-                return _cancelCommand
-                    ?? (_cancelCommand = new RelayCommand(
+                return _addAppointementCommand
+                    ?? (_addAppointementCommand = new RelayCommand(
+                    () =>
+                    {
+                        //Open the Appointement Window
+                        var addAppointementWindow = new AddPatientAppointment();
+                        addAppointementWindow.ShowDialog();
+
+                    }));
+            }
+        }
+        private RelayCommand _addAppointementLoadedCommand;
+        public RelayCommand AddAppointementLoadedCommand
+        {
+            get
+            {
+                return _addAppointementLoadedCommand
+                    ?? (_addAppointementLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                                                
+                        
+                    }));
+            }
+        }
+
+        private RelayCommand _saveAppointementCommand;
+        public RelayCommand SaveAppointementCommand
+        {
+            get
+            {
+                return _saveAppointementCommand
+                    ?? (_saveAppointementCommand = new RelayCommand(
                     () =>
                     {
                         
                     }));
             }
         }
-        
+        private RelayCommand _deleteAppointementCommand;
+        public RelayCommand DeleteAppointementCommand
+        {
+            get
+            {
+                return _deleteAppointementCommand
+                    ?? (_deleteAppointementCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _cancelAppointementChangesCommand;
+        public RelayCommand CancelAppointementChangesCommand
+        {
+            get
+            {
+                return _cancelAppointementChangesCommand
+                    ?? (_cancelAppointementChangesCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
         #endregion
         #region Ctors and Methods
         public PatientsViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)

@@ -22,9 +22,8 @@ namespace DataLayer.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PatientId { get; set; }
         //[Required]
-        public String NumeroDordre { get; set; }
-        
-        [Required]
+        public String NumeroDordre { get; set; }        
+        [Required]  
         public String Nom { get; set; }
         [Required]
         public String Prenom { get; set; }

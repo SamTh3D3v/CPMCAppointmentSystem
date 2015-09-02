@@ -1,11 +1,141 @@
 ﻿<syncfusion:ChromelessWindow x:Class="CPMCAppointmentSystem.View.AddPatientAppointment"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
-                             WindowStartupLocation="CenterScreen"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        WindowStartupLocation="CenterScreen"
                              WindowStyle="None"
-        syncfusion:LayoutControl.SetMetroMode="True" Height="300" Width="300">
-    <Grid>
-        
+         Height="500" Width="700" 
+                             DataContext="{Binding Path=PatientsViewModel, Source={StaticResource Locator}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=AddAppointementLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid  Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>                        
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
+        <!--To be updated with the proper control-->
+        <TextBlock Grid.Column="1" Grid.Row="0"   VerticalAlignment="Center" Margin="5">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="{Binding SelectedPatient.PatientId}"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=PatientId}" Value="Guid.Empty">
+                            <Setter Property="Text" Value="GeneratedID"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <TextBox IsEnabled="False" Text="{Binding SelectedPatient.NumeroDordre,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>        
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <TextBox IsEnabled="False" Text="{Binding SelectedPatient.Nom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>        
+
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <TextBox IsEnabled="False"  Text="{Binding SelectedPatient.Prenom,Mode=TwoWay}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>        
+
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <syncfusion:DateTimeEdit Margin="2"  Text="{Binding SelectedAppointement,Mode=TwoWay,StringFormat=d}"   x:Name="RdvDateBox" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <TextBlock Grid.Column="1" Grid.Row="4"  Text="La date du rendez vous" >
+            <TextBlock.Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=RdvDateBox}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Docteur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <TextBox IsEnabled="False"  Text="{Binding SelectedDoctor.Nom}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <TextBlock Grid.Column="1" Grid.Row="5"  Text="Docteur" >
+            <TextBlock.Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=DoctorBox}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <Expander Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >            
+                <syncfusion:SfDataGrid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                       AllowDraggingColumns="True"
+                                       AllowEditing="False"
+                                       AllowFiltering="True"
+                                       AllowGrouping="True"                                   
+                                       ItemsSource="{Binding DoctorsList}"
+                                   AutoGenerateColumns="False"
+                                   SelectedItem="{Binding SelectedDoctor}"
+                                       ShowGroupDropArea="True" >
+                    
+                    <syncfusion:SfDataGrid.Columns>
+                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
+                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />                                                                               
+                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>                 
+                    </syncfusion:SfDataGrid.Columns>
+                </syncfusion:SfDataGrid>
+            
+            <!--The Grid Needs To Be More Adavnced And Show Double Filtering Using The Specialities and The Pathologie List--> 
+            
+        </Grid>
+        </Expander>
+
+
+        <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"  Margin="2" Command="{Binding SaveAppointementCommand}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                        <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteAppointementCommand}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
+                        <TextBlock Text="Delete" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="2"  Margin="2" Command="{Binding CancelAppointementChangesCommand}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                        <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </Grid>
     </Grid>
 </syncfusion:ChromelessWindow>

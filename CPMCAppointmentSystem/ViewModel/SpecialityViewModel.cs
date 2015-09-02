@@ -62,8 +62,6 @@ namespace CPMCAppointmentSystem.ViewModel
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
         }
-        #endregion
-
-        
+        #endregion        
     }
 }
