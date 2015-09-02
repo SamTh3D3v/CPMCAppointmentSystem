@@ -124,6 +124,9 @@
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\SpecialityViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\AddDoctorToSpecialityView.xaml.cs">
+      <DependentUpon>AddDoctorToSpecialityView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddPatientAppointment.xaml.cs">
       <DependentUpon>AddPatientAppointment.xaml</DependentUpon>
     </Compile>
@@ -166,6 +169,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AddDoctorToSpecialityView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddPatientAppointment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

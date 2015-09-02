@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
+using DataLayer.Model;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
     public class MyPatientsViewModel:NavigableViewModelBase
     {
         #region Fields
+        
         
         #endregion
         #region Properties
