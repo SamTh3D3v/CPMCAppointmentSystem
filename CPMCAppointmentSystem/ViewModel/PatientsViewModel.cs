@@ -14,6 +14,8 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel:NavigableViewModelBase
     {
         #region Fields
+
+        private AddPatientAppointment _addAppointementWindow;
         private ObservableCollection<Patient> _patientList;
         private Patient _selectedPatient;
         private ObservableCollection<Sexe> _sexeList;
@@ -215,14 +217,16 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         if (SelectedPatient.PatientId == Guid.Empty)
                         {
-                            _dbContext.Patients.Add(SelectedPatient);     
-                            IsFormEnabled = false;
-                        }                                                                     
+                            AddNewPatient();
+                        }
                         _dbContext.SaveChanges();
                         LoadPatienstList();
                     }));
             }
         }
+
+       
+
         private RelayCommand _deletePatientCommand;
         public RelayCommand DeletePatientCommand
         {
@@ -258,9 +262,16 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addAppointementCommand
                     ?? (_addAppointementCommand = new RelayCommand(
                     () =>
-                    {                        
-                        var addAppointementWindow = new AddPatientAppointment();
-                        addAppointementWindow.ShowDialog();
+                    {   
+                        //If a New Patient, First add him
+                        if (SelectedPatient.PatientId==Guid.Empty)
+                        {
+                            AddNewPatient();
+                        }
+                        //If a new Appointement                       
+                         SelectedAppointement=new RendezVous();                        
+                        _addAppointementWindow = new AddPatientAppointment();
+                        _addAppointementWindow.ShowDialog();
 
                     }));
             }
@@ -279,7 +290,6 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-
         private RelayCommand _saveAppointementCommand;
         public RelayCommand SaveAppointementCommand
         {
@@ -289,7 +299,14 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_saveAppointementCommand = new RelayCommand(
                     () =>
                     {
-                        
+                        if (SelectedAppointement.RendezVousId==Guid.Empty)
+                        {
+                            SelectedPatient.RendezVouses.Add(SelectedAppointement);
+                        }
+                        _dbContext.SaveChanges();
+                        _addAppointementWindow.Close();
+                        LoadPatientAppointementList();                        
+
                     }));
             }
         }
@@ -315,7 +332,28 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelAppointementChangesCommand = new RelayCommand(
                     () =>
                     {
-                        
+                        _addAppointementWindow.Close();
+                    }));
+            }
+        }
+        private RelayCommand _appointementDoubleClickCommand;
+        public RelayCommand AppointementDoubleClickCommand
+        {
+            get
+            {
+                return _appointementDoubleClickCommand
+                    ?? (_appointementDoubleClickCommand = new RelayCommand(
+                    () =>
+                    {
+                        //If a New Patient, First add him
+                        if (SelectedPatient.PatientId == Guid.Empty)
+                        {
+                            AddNewPatient();
+                        }
+                        //If a new Appointement 
+                        SelectedAppointement=new RendezVous();                      
+                        _addAppointementWindow = new AddPatientAppointment();
+                        _addAppointementWindow.ShowDialog();
                     }));
             }
         }
@@ -332,6 +370,17 @@ namespace CPMCAppointmentSystem.ViewModel
         private async void LoadPatienstList()
         {
             PatientList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
+        }
+        private void AddNewPatient()
+        {
+            _dbContext.Patients.Add(SelectedPatient);
+            IsFormEnabled = false;
+        }
+        private void LoadPatientAppointementList()
+        {
+            //Eather Reload the Entire List Or Just The Selected Patient 
+            SelectedPatient.RendezVouses =
+                _dbContext.RendezVouses.Where(x => x.PatientId == SelectedPatient.PatientId).ToList();
         }
         #endregion        
     }

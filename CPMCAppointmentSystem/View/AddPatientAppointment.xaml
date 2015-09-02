@@ -26,7 +26,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>                        
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Image Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
@@ -45,16 +46,16 @@
         </TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <TextBox IsEnabled="False" Text="{Binding SelectedPatient.NumeroDordre,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>        
+        <TextBox IsEnabled="False" Text="{Binding SelectedPatient.NumeroDordre,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <TextBox IsEnabled="False" Text="{Binding SelectedPatient.Nom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>        
+        <TextBox IsEnabled="False" Text="{Binding SelectedPatient.Nom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
         <TextBlock Grid.Column="0" Grid.Row="3" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <TextBox IsEnabled="False"  Text="{Binding SelectedPatient.Prenom,Mode=TwoWay}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>        
+        <TextBox IsEnabled="False"  Text="{Binding SelectedPatient.Prenom,Mode=TwoWay}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
         <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <syncfusion:DateTimeEdit Margin="2"  Text="{Binding SelectedAppointement,Mode=TwoWay,StringFormat=d}"   x:Name="RdvDateBox" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <syncfusion:DateTimeEdit Margin="2"  Text="{Binding SelectedAppointement.DateTimeRdv,Mode=TwoWay,StringFormat=d}"  x:Name="RdvDateBox" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <TextBlock Grid.Column="1" Grid.Row="4"  Text="La date du rendez vous" >
             <TextBlock.Style>
                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -66,10 +67,24 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
+        
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Lieu de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <TextBox Margin="2"  Text="{Binding SelectedAppointement.LieuRdv,Mode=TwoWay}"   x:Name="LieuBox" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <TextBlock Grid.Column="1" Grid.Row="5"  Text="Le Lieu du rendez vous" >
+            <TextBlock.Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=LieuBox}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
-        <TextBlock Grid.Column="0" Grid.Row="5" Text="Docteur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <TextBox IsEnabled="False"  Text="{Binding SelectedDoctor.Nom}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        <TextBlock Grid.Column="1" Grid.Row="5"  Text="Docteur" >
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Docteur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <TextBox IsEnabled="False"  Text="{Binding SelectedAppointement.Medecin.Nom}" Grid.Column="1" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <TextBlock Grid.Column="1" Grid.Row="6"  Text="Docteur" >
             <TextBlock.Style>
                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                     <Style.Triggers>
@@ -81,32 +96,32 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <Expander Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >            
-                <syncfusion:SfDataGrid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+        <Expander Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                <syncfusion:SfDataGrid SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
                                        ItemsSource="{Binding DoctorsList}"
                                    AutoGenerateColumns="False"
-                                   SelectedItem="{Binding SelectedDoctor}"
+                                   SelectedItem="{Binding SelectedAppointement.Medecin,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
-                    
+
                     <syncfusion:SfDataGrid.Columns>
                         <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
-                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />                                                                               
-                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>                 
+                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
+                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
                     </syncfusion:SfDataGrid.Columns>
                 </syncfusion:SfDataGrid>
-            
-            <!--The Grid Needs To Be More Adavnced And Show Double Filtering Using The Specialities and The Pathologie List--> 
-            
-        </Grid>
+
+                <!--The Grid Needs To Be More Adavnced And Show Double Filtering Using The Specialities and The Pathologie List-->
+
+            </Grid>
         </Expander>
 
 
-        <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+        <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
