@@ -22,6 +22,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private Medecin _selectedDoctor;
         private RendezVous _selectedAppointement;
         private ObservableCollection<Willaya> _willayasList;
+        private bool _isFormEnabled;
         #endregion
         #region Properties        
         public ObservableCollection<Patient> PatientList
@@ -52,10 +53,10 @@ namespace CPMCAppointmentSystem.ViewModel
             set
             {
                 if (_selectedPatient == value)
-                {
+                {                    
                     return;
                 }
-
+                IsFormEnabled = true;
                 _selectedPatient = value;
                 RaisePropertyChanged();
             }
@@ -151,6 +152,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
+        public bool IsFormEnabled
+        {
+            get
+            {
+                return _isFormEnabled;
+            }
+
+            set
+            {
+                if (_isFormEnabled == value)
+                {
+                    return;
+                }
+
+                _isFormEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
         #region Commands
         private RelayCommand _patientsViewLoadedCommand;
@@ -168,17 +187,6 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-
-        private async void LoadDoctorsList()
-        {
-            DoctorsList = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
-        }
-
-        private async void LoadPatienstList()
-        {            
-            PatientList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));  
-        }
-
         private RelayCommand _addPatientCommand;
         public RelayCommand AddPatientCommand
         {
@@ -191,7 +199,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         SelectedPatient=new Patient()
                         {
                             Adresse = new Adresse()
-                        };                        
+                        };
+                        IsFormEnabled = true;
                     }));
             }
         }
@@ -204,8 +213,11 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_savePatientCommand = new RelayCommand(
                     () =>
                     {
-                        if (SelectedPatient.PatientId==Guid.Empty)                        
-                            _dbContext.Patients.Add(SelectedPatient);                        
+                        if (SelectedPatient.PatientId == Guid.Empty)
+                        {
+                            _dbContext.Patients.Add(SelectedPatient);     
+                            IsFormEnabled = false;
+                        }                                                                     
                         _dbContext.SaveChanges();
                         LoadPatienstList();
                     }));
@@ -246,8 +258,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addAppointementCommand
                     ?? (_addAppointementCommand = new RelayCommand(
                     () =>
-                    {
-                        //Open the Appointement Window
+                    {                        
                         var addAppointementWindow = new AddPatientAppointment();
                         addAppointementWindow.ShowDialog();
 
@@ -313,6 +324,14 @@ namespace CPMCAppointmentSystem.ViewModel
         public PatientsViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
+        }
+        private async void LoadDoctorsList()
+        {
+            DoctorsList = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
+        }
+        private async void LoadPatienstList()
+        {
+            PatientList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
         }
         #endregion        
     }
