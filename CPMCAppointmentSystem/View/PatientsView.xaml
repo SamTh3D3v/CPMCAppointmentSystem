@@ -250,7 +250,7 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <TextBox x:Name="WillayaBox" Text="{Binding Path=Adresse.Willaya.Designation,Mode=TwoWay}" Grid.Column="1"/>
+                    <ComboBox x:Name="WillayaBox" ItemsSource="{Binding DataContext.WillayasList,RelativeSource={RelativeSource AncestorType={x:Type Page}}}" IsEditable="True" DisplayMemberPath="Designation" SelectedItem="{Binding Adresse.Willaya,Mode=TwoWay}" Grid.Column="1"/>
                     <TextBlock Grid.Column="1"   Text="Willaya">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">

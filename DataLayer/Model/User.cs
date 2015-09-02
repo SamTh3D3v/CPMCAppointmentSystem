@@ -22,10 +22,6 @@ namespace DataLayer.Model
         public String UserName   { get; set; }
         [Required]
         public String UserPass   { get; set; }
-
-        //public Guid MedecinId { get; set; }
-        //[ForeignKey("MedecinId")]
-        //public virtual Medecin Medecin { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
     }
 }
