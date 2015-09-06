@@ -23,7 +23,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>                       
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>                       
         </Grid.RowDefinitions>
         <Image Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
         <!--To be updated with the proper control-->
@@ -56,7 +57,7 @@
 
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <TextBox x:Name="CodeBox" Text="{Binding SelectedSpeciality.Code}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <TextBox x:Name="CodeBox" IsEnabled="False" Text="{Binding SelectedSpeciality.Code}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <TextBlock Grid.Column="1" Grid.Row="2"  Text="Code" >
             <TextBlock.Style>
                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -71,13 +72,13 @@
 
 
         <TextBlock Grid.Column="0"  Grid.Row="3" Text="Docteur" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
-        <Grid Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+        <Grid Margin="5" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <syncfusion:SfDataGrid SelectionMode="Multiple"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
-                                       ItemsSource="{Binding DoctorsList}"
+                                       ItemsSource="{Binding DoctorsWhithNoSpecialiteList}"
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding DoctorsList,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
@@ -85,21 +86,19 @@
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
-                    <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
+                    <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" />
+                    <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded"/>
                 </syncfusion:SfDataGrid.Columns>
-            </syncfusion:SfDataGrid>
-
-            <!--The Grid Needs To Be More Adavnced And Show Double Filtering Using The Specialities and The Pathologie List-->
-
+            </syncfusion:SfDataGrid>            
         </Grid>
 
-        <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"  Margin="2" Command="{Binding SaveAppointementCommand}">
+            <Button Grid.Column="0"  Margin="2" Command="{Binding SaveSpecialityWhithDoctorsCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -107,7 +106,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteAppointementCommand}">
+            <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteSpecialityWhithDoctorsCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
@@ -115,7 +114,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="2"  Margin="2" Command="{Binding CancelAppointementChangesCommand}">
+            <Button Grid.Column="2"  Margin="2" Command="{Binding CancelSpecialityWhithDoctorsCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />

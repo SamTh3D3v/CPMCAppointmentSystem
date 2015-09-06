@@ -113,6 +113,7 @@
     <Compile Include="SampleData\DataItem.cs" />
     <Compile Include="SampleData\DataService.cs" />
     <Compile Include="SampleData\IDataService.cs" />
+    <Compile Include="SubModel\MedecinToAdd.cs" />
     <Compile Include="ViewModel\CalendarViewModel.cs" />
     <Compile Include="ViewModel\DoctorsViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
