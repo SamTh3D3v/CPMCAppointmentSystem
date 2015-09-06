@@ -110,7 +110,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     return;
                 }
-
+                IsFormEnabled = true;
                 _selectedSpeciality = value;
                 RaisePropertyChanged();
             }
