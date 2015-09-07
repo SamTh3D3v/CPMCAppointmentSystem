@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
+using CPMCAppointmentSystem.SubModel;
+using CPMCAppointmentSystem.View;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 
@@ -14,13 +16,34 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PathologiesViewModel : NavigableViewModelBase
     {
         #region Fields
+
+        private AddDoctorsToPathologyView _addDoctorsToPathologyView;
         private bool _isFormEnabled;
         private readonly CpmcContext _dbContext = new CpmcContext();
         private ObservableCollection<Pathology> _pathologiesList;
         private Pathology _selectedPathology;
         private Medecin _selectedDoctorWithinPathology;
+        private ObservableCollection<MedecinToAdd> _doctorsToPathlogyList;
         #endregion
         #region Properties
+        public ObservableCollection<MedecinToAdd> DoctorsToPathlogyList
+        {
+            get
+            {
+                return _doctorsToPathlogyList;
+            }
+
+            set
+            {
+                if (_doctorsToPathlogyList == value)
+                {
+                    return;
+                }
+
+                _doctorsToPathlogyList = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<Pathology> PathologiesList
         {
             get
@@ -109,6 +132,49 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand _addDoctorToPathologyLoadedCommand;
+        public RelayCommand AddDoctorToPathologyLoadedCommand
+        {
+            get
+            {
+                return _addDoctorToPathologyLoadedCommand
+                    ?? (_addDoctorToPathologyLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        LoadDoctorsList();
+
+                    }));
+            }
+        }
+
+        private async void LoadDoctorsList()
+        {
+            await Task.Run(() =>
+            {
+                var doctorsList = _dbContext.Medecins;
+                DoctorsToPathlogyList = new ObservableCollection<MedecinToAdd>();
+                foreach (var medecin in doctorsList)
+                {
+                    DoctorsToPathlogyList.Add(new MedecinToAdd()
+                    {
+                        MedecinId = medecin.MedecinId,
+                        Nom = medecin.Nom,
+                        Prenom = medecin.Prenom,
+                        DateDeNaissance = medecin.DateDeNaissance,
+                        TelephoneFixe = medecin.TelephoneFixe,
+                        TelephoneMobile = medecin.TelephoneMobile,
+                        SpecialiteId = medecin.SpecialiteId,
+                        UserId = medecin.UserId,
+                        Speciality = medecin.Speciality,
+                        User = medecin.User,
+                        Pathologies = medecin.Pathologies,
+                        Patients = medecin.Patients,
+                        IsAdded = (SelectedPathology.Medecins.Contains(medecin)) ? true : false
+                    });
+                }
+            });           
+        }
+
         private RelayCommand _addPathologyCommand;
         public RelayCommand AddPathologyCommand
         {
@@ -132,7 +198,13 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addDoctorToPathologyCommand
                     ?? (_addDoctorToPathologyCommand = new RelayCommand(
                     () =>
-                    {
+                    {                        
+                        if (SelectedPathology.PathologyId == Guid.Empty)
+                        {
+                            AddNewPathology();
+                        }                                                                  
+                        _addDoctorsToPathologyView = new AddDoctorsToPathologyView();
+                        _addDoctorsToPathologyView.ShowDialog();
 
                     }));
             }
