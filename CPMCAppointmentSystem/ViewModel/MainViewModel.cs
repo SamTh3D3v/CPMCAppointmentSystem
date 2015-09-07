@@ -97,6 +97,19 @@ namespace CPMCAppointmentSystem.ViewModel
                     () => InnerFrameNavigationService.NavigateTo(App.PathologiesViewKey)));
             }
         }
+        private RelayCommand _statisticsCommand;            
+        public RelayCommand StatisticsCommand
+        {
+            get
+            {
+                return _statisticsCommand
+                    ?? (_statisticsCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
 
         #endregion
         #region Ctors and Methods

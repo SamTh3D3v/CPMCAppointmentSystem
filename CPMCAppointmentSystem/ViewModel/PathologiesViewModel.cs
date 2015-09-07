@@ -254,7 +254,6 @@ namespace CPMCAppointmentSystem.ViewModel
                     () => _addDoctorsToPathologyView.Close()));
             }
         }      
-
         private RelayCommand _deletePathologyCommand;
         public RelayCommand DeletePathologyCommand
         {

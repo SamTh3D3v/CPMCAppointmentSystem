@@ -35,6 +35,7 @@
                 <RadioButton GroupName="menu" Content="Specialities"  Width="100" Command="{Binding SpecialitiesCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
                 <RadioButton GroupName="menu" Content="Pathologies"  Width="100" Command="{Binding PathologiesCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
                 <RadioButton GroupName="menu" Content="Settings" Width="100" Command="{Binding SettingsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
+                <RadioButton GroupName="menu" Content="Statistics" Width="100" Command="{Binding StatisticsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
             </StackPanel>
             
 

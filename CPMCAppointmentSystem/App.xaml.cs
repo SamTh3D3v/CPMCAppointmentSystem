@@ -19,6 +19,7 @@ namespace CPMCAppointmentSystem
         public static String PathologiesViewKey = "PathologiesView";
         public static String PatientsViewKey = "PatientsView";
         public static String SpecialityViewKey = "SpecialityView";
+        public static String StatisticsViewKey = "StatisticsView";
         #endregion
         static App()
         {
