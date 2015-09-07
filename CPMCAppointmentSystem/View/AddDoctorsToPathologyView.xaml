@@ -80,7 +80,7 @@
                                        AllowGrouping="True"                                   
                                        ItemsSource="{Binding DoctorsToPathlogyList}"
                                    AutoGenerateColumns="False"
-                                   SelectedItem="{Binding DoctorsList,Mode=TwoWay}"
+                                   SelectedItem="{Binding SelectedDoctorsToPathologyList,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
 
                 <Syncfusion:SfDataGrid.Columns>
@@ -98,7 +98,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"  Margin="2" Command="{Binding SaveSpecialityWhithDoctorsCommand}">
+            <Button Grid.Column="0"  Margin="2" Command="{Binding SavePathologyWhithDoctorsCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -106,7 +106,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteSpecialityWhithDoctorsCommand}">
+            <Button Grid.Column="1"  Margin="2" Command="{Binding DeletePathologyWhithDoctorsCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
@@ -114,7 +114,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="2"  Margin="2" Command="{Binding CancelSpecialityWhithDoctorsCommand}">
+            <Button Grid.Column="2"  Margin="2" Command="{Binding CancelPathologyWhithDoctorsCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
