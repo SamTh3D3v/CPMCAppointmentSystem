@@ -56,7 +56,7 @@
     <Compile Include="Model\Pathology.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\RendezVous.cs" />
-    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\RolesCollection.cs" />
     <Compile Include="Model\Sexe.cs" />
     <Compile Include="Model\Specialite.cs" />
     <Compile Include="Model\User.cs" />

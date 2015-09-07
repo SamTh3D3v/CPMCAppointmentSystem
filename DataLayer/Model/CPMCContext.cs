@@ -32,7 +32,7 @@ namespace DataLayer.Model
         public DbSet<Patient> Patients { get; set; }
         public DbSet<RendezVous> RendezVouses { get; set; }
         public DbSet<Specialite> Specialites { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<RolesCollection> RolesCollections { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Willaya> Willayas { get; set; }
         public DbSet<Sexe> Sexes { get; set; }
