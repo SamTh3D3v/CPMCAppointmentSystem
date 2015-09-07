@@ -4,9 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:command="http://www.galasoft.ch/mvvmlight"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700" DataContext="{Binding Source={StaticResource Locator},Path=PathologiesViewModel}"
 	Title="PathologiesView">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PathologyViewLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -43,7 +51,7 @@
 
         </Grid>
         <GridSplitter Grid.Column="1" Width="1" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        <Grid Grid.Column="2" Background="{StaticResource BodyBackgroundBrush}">
+        <Grid Grid.Column="2" Background="{StaticResource BodyBackgroundBrush}" IsEnabled="{Binding IsFormEnabled}">
             <!--the patients details Grid-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -62,7 +70,6 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
-
                 </Grid.RowDefinitions>
                 <Image Source="{StaticResource PathologyDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
                 <!--To be updated with the proper control-->

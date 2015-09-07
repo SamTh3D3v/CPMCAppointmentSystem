@@ -11,11 +11,11 @@ using GalaSoft.MvvmLight.Command;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
-    public class PathologiesViewModel:NavigableViewModelBase
+    public class PathologiesViewModel : NavigableViewModelBase
     {
-        #region Fields      
-        private bool _isFormEnabled ;    
-        private readonly CpmcContext _dbContext=new CpmcContext();
+        #region Fields
+        private bool _isFormEnabled;
+        private readonly CpmcContext _dbContext = new CpmcContext();
         private ObservableCollection<Pathology> _pathologiesList;
         private Pathology _selectedPathology;
         private Medecin _selectedDoctorWithinPathology;
@@ -38,7 +38,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _pathologiesList = value;
                 RaisePropertyChanged();
             }
-        }       
+        }
         public Pathology SelectedPathology
         {
             get
@@ -52,7 +52,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     return;
                 }
-
+                IsFormEnabled = true;
                 _selectedPathology = value;
                 RaisePropertyChanged();
             }
@@ -118,7 +118,9 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addPathologyCommand = new RelayCommand(
                     () =>
                     {
-                        
+                        SelectedPathology = new Pathology();
+                        IsFormEnabled = true;
+
                     }));
             }
         }
@@ -131,7 +133,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addDoctorToPathologyCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
             }
         }
@@ -150,7 +152,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         _dbContext.SaveChanges();
                         LoadPathologies();
-                        
+
                     }));
             }
         }
@@ -170,7 +172,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deletePathologyCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
             }
         }
@@ -183,11 +185,11 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelChangesToPathologyCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
             }
         }
-        
+
         #endregion
         #region Ctors and Methods
         public PathologiesViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
@@ -198,6 +200,6 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             PathologiesList = new ObservableCollection<Pathology>(await Task.Run(() => _dbContext.Pathologies));
         }
-        #endregion        
+        #endregion
     }
 }
