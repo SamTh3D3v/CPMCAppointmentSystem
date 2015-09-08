@@ -17,6 +17,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private Medecin _seletedDoctor;
         private ObservableCollection<Specialite> _specialitiesList;
         private bool _isFormEnabled;
+        private Specialite _selectedDoctorSpeciality;
         #endregion
         #region Properties              
         public ObservableCollection<Medecin> DoctorsList
@@ -70,6 +71,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _specialitiesList = value;
+                RaisePropertyChanged();
+            }
+        }
+        public Specialite SelectedDoctoSpeciality
+        {
+            get
+            {
+                return _selectedDoctorSpeciality;
+            }
+
+            set
+            {
+                if (_selectedDoctorSpeciality == value)
+                {
+                    return;
+                }
+
+                _selectedDoctorSpeciality = value;
                 RaisePropertyChanged();
             }
         }

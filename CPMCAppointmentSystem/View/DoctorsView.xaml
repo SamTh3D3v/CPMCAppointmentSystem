@@ -58,7 +58,7 @@
                 <ColumnDefinition Width="3"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Margin="5,20">
+            <Grid Grid.Column="0" Margin="5,20" IsEnabled="{Binding IsFormEnabled}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -76,10 +76,21 @@
                 </Grid.RowDefinitions>
                 <Image Source="{StaticResource DoctorDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
                 <!--To be updated with the proper control-->
-                <TextBlock Grid.Column="1" Grid.Row="0" Text="GeneratedID" VerticalAlignment="Center" Margin="5"/>
+                <TextBlock Grid.Column="1" Grid.Row="0"   VerticalAlignment="Center" Margin="5">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="{Binding SelectedDoctor.MedecinId}"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=SelectedDoctor.MedecinId}" Value="Guid.Empty">
+                                    <Setter Property="Text" Value="GeneratedID"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="NomBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="NomBox" Grid.Column="1" Text="{Binding SelectedDoctor.Nom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="1"  Text="Nom" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -94,7 +105,7 @@
 
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="PrenomBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="PrenomBox" Grid.Column="1" Text="{Binding SelectedDoctor.Prenom,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="2"  Text="Prenom" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -108,7 +119,7 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="TelephoneFixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="TelFixBox" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="TelFixBox" Grid.Column="1" Text="{Binding SelectedDoctor.TelephoneFixe,Mode=TwoWay}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="3"  Text="TelephoneFixe">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -122,7 +133,7 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Mobile 1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="4"  Text="Mobile 1">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -136,7 +147,7 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Speciality" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <ComboBox x:Name="SpecialityBox" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <ComboBox x:Name="SpecialityBox" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctoSpeciality,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="5"  Text="Specility">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -155,7 +166,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding DataContext.SavePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -163,7 +174,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Grid.Column="1"  Margin="2" Command="{Binding DataContext.DeletePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                    <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteDoctorCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
@@ -171,7 +182,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Grid.Column="2"  Margin="2" Command="{Binding DataContext.CancelPatientChangesCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                    <Button Grid.Column="2"  Margin="2" Command="{Binding CancelChangesToDoctorCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
