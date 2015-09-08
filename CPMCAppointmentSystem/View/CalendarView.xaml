@@ -44,10 +44,7 @@
                 </Setter>
             </Style>
         </Grid.Resources>
-
         <Grid>
-
-            <!-- Docking Window Area -->
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderThickness="1">
                 <syncfusion:DockingManager x:Name="dockingManager" IsEnableHotTracking="True"  
                                    ContainerMode="TDI" PersistState="false" UseDocumentContainer="True">
@@ -62,9 +59,9 @@
                              syncfusion:DocumentContainer.MDIBounds="30,30,300,300"  
                              syncfusion:DockingManager.DesiredHeightInFloatingMode="200"
                              syncfusion:DockingManager.Header="Selected Patient Appointements" >
-                        
+
                     </ListBox>
-                   
+
                     <!-- Dock Window -->
                     <ListBox Name="ListBox2"  BorderThickness="0" 
                          syncfusion:DockingManager.SideTabItemBackground="#FF92AE3D"
@@ -104,13 +101,10 @@
                             <RadioButton Style="{StaticResource RadioButtonStyle}" x:Name="WorkWeek" Content="Work Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
                             <RadioButton Style="{StaticResource RadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Month" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
                             <RadioButton Style="{StaticResource RadioButtonStyle}" x:Name="TimeLine" Content="Timeline" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>
-                        </StackPanel>                        
+                        </StackPanel>
                     </Grid>
                 </syncfusion:DockingManager>
             </Border>
-
-
-        
         </Grid>
     </Grid>
 </Page>

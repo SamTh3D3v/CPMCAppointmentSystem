@@ -17,6 +17,8 @@
     <BitmapImage x:Key="SaveDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Save_dark.png"/>
     <BitmapImage x:Key="CancelDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Cancel_dark.png"/>
     <BitmapImage x:Key="DeleteDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Delete_dark.png"/>
+    <BitmapImage x:Key="LeftArrowDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/LeftArrow_Dark.png"/>
+    <BitmapImage x:Key="ChartDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/ChartDark.png"/>
     
     
     

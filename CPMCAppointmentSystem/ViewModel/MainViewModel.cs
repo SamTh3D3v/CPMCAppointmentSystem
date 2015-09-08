@@ -104,10 +104,7 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _statisticsCommand
                     ?? (_statisticsCommand = new RelayCommand(
-                    () =>
-                    {
-                        
-                    }));
+                    () => InnerFrameNavigationService.NavigateTo(App.StatisticsViewKey)));
             }
         }
 

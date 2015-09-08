@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Controls;
 using CPMCAppointmentSystem.Helpers;
+using CPMCAppointmentSystem.ViewModel.StatisticsViewModels;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
@@ -39,6 +40,7 @@ namespace CPMCAppointmentSystem.ViewModel
             SimpleIoc.Default.Register<SettingsViewModel>();
             SimpleIoc.Default.Register<SpecialityViewModel>();
             SimpleIoc.Default.Register<StatisticsViewModel>();
+            SimpleIoc.Default.Register<PatientsPerSexeChartViewModel>();
             SetupMainNavigationService();
             SetupInnerNavigationService();
         }
@@ -181,6 +183,17 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<StatisticsViewModel>();
+            }
+        }
+      
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public PatientsPerSexeChartViewModel PatientsPerSexeChartViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PatientsPerSexeChartViewModel>();
             }
         }
         public static void Cleanup()

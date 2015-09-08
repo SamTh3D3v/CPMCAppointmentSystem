@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="CPMCAppointmentSystem.View.StatisticsViews.PatientsPerSexeChartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding PatientsPerSexeChartViewModel,Source={StaticResource Locator}}">
+   
+    <Grid Background="#FFD68513">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>            
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="45 5" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Image Source="{StaticResource ChartDark}" Width="55"/>
+            <TextBlock Text="H/F" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="38" VerticalAlignment="Bottom" Margin="10 15 0 0"/>
+        </StackPanel>
+        <!--<syncfusion:Chart Grid.Row="1" Background="Transparent" BorderBrush="Transparent" Width="900" Height="400" HorizontalAlignment="Left" Margin="10 10">
+            <syncfusion:ChartArea >
+
+                <syncfusion:ChartArea.PrimaryAxis>
+                    --><!--X axis declaration with required property settings--><!--
+                    <syncfusion:ChartAxis  EdgeLabelsDrawingMode="Shift" LabelFontSize="11" Header="Year">
+                        <syncfusion:ChartAxis.LineStroke>
+                            <Pen Brush="White"/>
+                        </syncfusion:ChartAxis.LineStroke>
+                        <syncfusion:ChartAxis.TickLineStroke>
+                            <Pen Brush="White"/>
+                        </syncfusion:ChartAxis.TickLineStroke>
+                    </syncfusion:ChartAxis>
+                </syncfusion:ChartArea.PrimaryAxis>
+                --><!--Secondary Axis(Y)--><!--
+                <syncfusion:ChartArea.SecondaryAxis>
+                    --><!--Y axis declaration with required property settings--><!--
+                    <syncfusion:ChartAxis LabelFontSize="11" Header="Sales in Millions (USD)">
+                        <syncfusion:ChartAxis.LineStroke>
+                            <Pen Brush="White"/>
+                        </syncfusion:ChartAxis.LineStroke>
+                        <syncfusion:ChartAxis.TickLineStroke>
+                            <Pen Brush="White"/>
+                        </syncfusion:ChartAxis.TickLineStroke>
+                    </syncfusion:ChartAxis>
+                </syncfusion:ChartArea.SecondaryAxis>
+                <syncfusion:ChartSeries Type="Line" IsIndexed="False" Label="Coffee" BindingPathX="Year" BindingPathsY="Sales" EnableEffects="False" DataSource="{Binding Coffee}" 
+                                        syncfusion:ChartLineType.BreakLineForDoublePointsDistanceMoreThan="1" Interior="White"
+                                                syncfusion:ChartSplineType.BreakLineForDoublePointsDistanceMoreThan="1" StrokeThickness="2"/>
+                <syncfusion:ChartSeries IsIndexed="False" Type="Line" Label="Tea" BindingPathX="Year" BindingPathsY="Sales" EnableEffects="False" DataSource="{Binding Tea}"
+                                                syncfusion:ChartLineType.BreakLineForDoublePointsDistanceMoreThan="1" Interior="White"
+                                                syncfusion:ChartSplineType.BreakLineForDoublePointsDistanceMoreThan="1" StrokeThickness="2"/>
+            </syncfusion:ChartArea>
+        </syncfusion:Chart>-->
+
+        <Button  Grid.Column="2" Grid.Row="0" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="0.5, 0.5"
+                Width="48" Height="48" Style="{StaticResource GoBackArrowButtonStyle}">
+            <i:Interaction.Behaviors>
+                <behavior:RestoreBehavior />
+            </i:Interaction.Behaviors>
+            <Grid Background="Transparent">
+                <Image Source="{StaticResource LeftArrowDark}"/>
+            </Grid>
+        </Button>
+    </Grid>
+</UserControl>
