@@ -273,8 +273,7 @@
                                 </Style.Triggers>
                             </Style>
                         </TextBlock.Style>
-                    </TextBlock>
-                    
+                    </TextBlock>                    
                 </Grid>
 
                 <TextBlock Grid.Column="0" Grid.Row="11" Text="Date depot" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>

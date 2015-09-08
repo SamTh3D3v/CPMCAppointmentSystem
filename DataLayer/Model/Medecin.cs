@@ -15,8 +15,7 @@ namespace DataLayer.Model
     public class Medecin : INotifyPropertyChanged
     {
         public Medecin()
-        {
-                
+        {                
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
