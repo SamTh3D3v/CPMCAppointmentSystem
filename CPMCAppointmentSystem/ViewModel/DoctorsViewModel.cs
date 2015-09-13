@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
+using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.DoctorsViews;
 using DataLayer.Model;
@@ -26,6 +27,8 @@ namespace CPMCAppointmentSystem.ViewModel
         private Pathology _selectedPathologyInDoctorsViewPathology;    
         private bool _isFormEnabled;
         private Patient _selectedPatientInDoctorView;
+        private ObservableCollection<PatientToAdd> _patientsToAddList;
+        private PatientToAdd _selectedPatientToAdd;
         #endregion
         #region Properties              
         public ObservableCollection<Medecin> DoctorsList
@@ -133,6 +136,42 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _selectedPatientInDoctorView = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<PatientToAdd> PatientsToAddList
+        {
+            get
+            {
+                return _patientsToAddList;
+            }
+
+            set
+            {
+                if (_patientsToAddList == value)
+                {
+                    return;
+                }
+
+                _patientsToAddList = value;
+                RaisePropertyChanged();
+            }
+        }
+        public PatientToAdd SelectedPatientToAdd
+        {
+            get
+            {
+                return _selectedPatientToAdd;
+            }
+
+            set
+            {
+                if (_selectedPatientToAdd == value)
+                {
+                    return;
+                }
+
+                _selectedPatientToAdd = value;
                 RaisePropertyChanged();
             }
         }
@@ -269,6 +308,19 @@ namespace CPMCAppointmentSystem.ViewModel
                         }                                                                     
                         _addPathologiesToDoctorView = new AddPathologiesToDoctorView();
                         _addPathologiesToDoctorView.ShowDialog();
+                        
+                    }));
+            }
+        }
+        private RelayCommand _addPatientsToDoctorLoadedCommand;
+        public RelayCommand AddPatientsToDoctorLoadedCommand
+        {
+            get
+            {
+                return _addPatientsToDoctorLoadedCommand
+                    ?? (_addPatientsToDoctorLoadedCommand = new RelayCommand(
+                    () =>
+                    {
                         
                     }));
             }
