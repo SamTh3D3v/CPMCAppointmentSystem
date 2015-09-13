@@ -278,7 +278,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" >
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding AddPathologiesToSelectedDoctorCommand}">
                                     <Button.Content>
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
@@ -291,8 +291,8 @@
                                        AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding PatientList}"
-                                   SelectedItem="{Binding SelectedPatient,Mode=TwoWay}"
+                                       ItemsSource="{Binding SelectedDoctor.Pathologies}"
+                                   SelectedItem="{Binding SelectedPathologyInDoctorsView,Mode=TwoWay}"
                                        ShowGroupDropArea="True" />
 
                             </Grid>
@@ -322,7 +322,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" >
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding AddSpecialitiesToSelectedDoctorCommand}">
                                     <Button.Content>
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
@@ -335,8 +335,7 @@
                                        AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding PatientList}"
-                                   SelectedItem="{Binding SelectedPatient,Mode=TwoWay}"
+                                       ItemsSource="{Binding SelectedDoctor.Speciality}"                                   
                                        ShowGroupDropArea="True" />
 
                             </Grid>
@@ -366,7 +365,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" >
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding AddPatientsToSelectedDoctorCommand}">
                                     <Button.Content>
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
@@ -379,8 +378,8 @@
                                        AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding PatientList}"
-                                   SelectedItem="{Binding SelectedPatient,Mode=TwoWay}"
+                                       ItemsSource="{Binding SelectedDoctor.Patients}"
+                                   SelectedItem="{Binding SelectedPatientInDoctorView,Mode=TwoWay}"
                                        ShowGroupDropArea="True" />
 
                             </Grid>

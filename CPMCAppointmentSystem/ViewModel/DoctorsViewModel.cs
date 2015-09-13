@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
+using CPMCAppointmentSystem.View;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.Windows.Forms.Tools;
@@ -15,10 +16,15 @@ namespace CPMCAppointmentSystem.ViewModel
     {
         #region Fields
         private readonly CpmcContext _dbContext=new CpmcContext();
+        private AddSpecialitiesToDoctorView _addSpecialitiesToDoctorView;
+        private AddPathologiesToDoctorView _addPathologiesToDoctorView;
+        private AddPatientsToDoctorView _addPatientsToDoctorView;
         private ObservableCollection<Medecin> _doctorsList;
         private Medecin _seletedDoctor;
         private ObservableCollection<Specialite> _specialitiesList;
-        private bool _isFormEnabled;        
+        private Pathology _selectedPathologyInDoctorsViewPathology;    
+        private bool _isFormEnabled;
+        private Patient _selectedPatientInDoctorView;
         #endregion
         #region Properties              
         public ObservableCollection<Medecin> DoctorsList
@@ -56,6 +62,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 _seletedDoctor = value;
                 RaisePropertyChanged();
             }
+        }                
+        public Pathology SelectedPathologyInDoctorsView
+        {
+            get
+            {
+                return _selectedPathologyInDoctorsViewPathology;
+            }
+
+            set
+            {
+                if (_selectedPathologyInDoctorsViewPathology == value)
+                {
+                    return;
+                }
+
+                _selectedPathologyInDoctorsViewPathology = value;
+                RaisePropertyChanged();
+            }
         }
         public ObservableCollection<Specialite> SpecialitiesList
         {
@@ -74,8 +98,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _specialitiesList = value;
                 RaisePropertyChanged();
             }
-        }
-       
+        }      
         public bool IsFormEnabled
         {
             get
@@ -91,6 +114,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _isFormEnabled = value;
+                RaisePropertyChanged();
+            }
+        }              
+        public Patient SelectedPatientInDoctorView
+        {
+            get
+            {
+                return _selectedPatientInDoctorView;
+            }
+
+            set
+            {
+                if (_selectedPatientInDoctorView == value)
+                {
+                    return;
+                }
+
+                _selectedPatientInDoctorView = value;
                 RaisePropertyChanged();
             }
         }
@@ -109,9 +150,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         LoadSpacialities();
                     }));
             }
-        }
-       
-
+        }       
         private RelayCommand _addDoctorCommand;
         public RelayCommand AddDoctorCommand
         {
@@ -121,7 +160,6 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addDoctorCommand = new RelayCommand(
                     () =>
                     {
-
                         SelectedDoctor = new Medecin()
                         {
                             Speciality= new Specialite()
@@ -172,6 +210,64 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelChangesToDoctorCommand = new RelayCommand(
                     () =>
                     {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _addPatientsToSelectedDoctorCommand;        
+        public RelayCommand AddPatientsToSelectedDoctorCommand
+        {
+            get
+            {
+                return _addPatientsToSelectedDoctorCommand
+                    ?? (_addPatientsToSelectedDoctorCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedDoctor.MedecinId==Guid.Empty)
+                        {
+                            AddNewDoctor();
+                        }
+                        _addPatientsToDoctorView=new AddPatientsToDoctorView();
+                        _addPatientsToDoctorView.ShowDialog();
+
+                    }));
+            }
+        }
+        private RelayCommand _addSpecialitiesToSelectedDoctorCommand;
+        public RelayCommand AddSpecialitiesToSelectedDoctorCommand
+        {
+            get
+            {
+                return _addSpecialitiesToSelectedDoctorCommand
+                    ?? (_addSpecialitiesToSelectedDoctorCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedDoctor.MedecinId==Guid.Empty)
+                        {
+                            AddNewDoctor();
+                        }
+                        _addSpecialitiesToDoctorView=new AddSpecialitiesToDoctorView();
+                        _addSpecialitiesToDoctorView.ShowDialog();
+
+                    }));
+            }
+        }
+        private RelayCommand _addPathologiesToSelectedDoctorCommand;
+        public RelayCommand AddPathologiesToSelectedDoctorCommand
+        {
+            get
+            {
+                return _addPathologiesToSelectedDoctorCommand
+                    ?? (_addPathologiesToSelectedDoctorCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                        if (SelectedDoctor.MedecinId == Guid.Empty)
+                        {
+                            AddNewDoctor();
+                        }                                                                     
+                        _addPathologiesToDoctorView = new AddPathologiesToDoctorView();
+                        _addPathologiesToDoctorView.ShowDialog();
                         
                     }));
             }
