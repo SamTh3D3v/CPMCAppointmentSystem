@@ -1,4 +1,4 @@
-﻿<Syncfusion:ChromelessWindow x:Class="CPMCAppointmentSystem.View.AddDoctorsToPathologyView"
+﻿<Syncfusion:ChromelessWindow x:Class="CPMCAppointmentSystem.View.DoctorsViews.AddPathologiesToDoctorView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -7,7 +7,7 @@
          WindowStartupLocation="CenterScreen"
                              WindowStyle="None"
          Height="500" Width="700" 
-                             DataContext="{Binding Path=PathologiesViewModel, Source={StaticResource Locator}}">
+                             DataContext="{Binding Path=DoctorsViewModel, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=AddDoctorToPathologyLoadedCommand}"

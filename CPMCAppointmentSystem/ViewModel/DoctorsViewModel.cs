@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.View;
+using CPMCAppointmentSystem.View.DoctorsViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.Windows.Forms.Tools;

@@ -1,13 +1,13 @@
-﻿<Syncfusion:ChromelessWindow x:Class="CPMCAppointmentSystem.View.AddSpecialitiesToDoctorView"
+﻿<Syncfusion:ChromelessWindow x:Class="CPMCAppointmentSystem.View.PathologiesViews.AddDoctorsToPathologyView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
-             WindowStartupLocation="CenterScreen"
+         WindowStartupLocation="CenterScreen"
                              WindowStyle="None"
          Height="500" Width="700" 
-                             DataContext="{Binding Path=DoctorsViewModel, Source={StaticResource Locator}}">
+                             DataContext="{Binding Path=PathologiesViewModel, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=AddDoctorToPathologyLoadedCommand}"

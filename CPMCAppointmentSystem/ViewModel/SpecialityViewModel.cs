@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View;
+using CPMCAppointmentSystem.View.SpecialitiesViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 

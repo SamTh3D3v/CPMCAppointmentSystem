@@ -56,11 +56,11 @@ namespace CPMCAppointmentSystem.ViewModel
             InnerFrameNavigationService = new InnerFrameNavigationService("InnerFrame");
             InnerFrameNavigationService.Configure(App.CalendarViewKey, new Uri("../View/CalendarView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.SettingsViewKey, new Uri("../View/SettingsView.xaml", UriKind.Relative));
-            InnerFrameNavigationService.Configure(App.DoctorsViewKey, new Uri("../View/DoctorsView.xaml", UriKind.Relative));
-            InnerFrameNavigationService.Configure(App.MyPatientsViewKey, new Uri("../View/MyPatientsView.xaml", UriKind.Relative));
-            InnerFrameNavigationService.Configure(App.PathologiesViewKey, new Uri("../View/PathologiesView.xaml", UriKind.Relative));
-            InnerFrameNavigationService.Configure(App.PatientsViewKey, new Uri("../View/PatientsView.xaml", UriKind.Relative));
-            InnerFrameNavigationService.Configure(App.SpecialityViewKey, new Uri("../View/SpecialiteView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.DoctorsViewKey, new Uri("../View/DoctorsViews/DoctorsView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.MyPatientsViewKey, new Uri("../View/DoctorsViews/MyPatientsView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.PathologiesViewKey, new Uri("../View/PathologiesViews/PathologiesView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.PatientsViewKey, new Uri("../View/PatienstViews/PatientsView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.SpecialityViewKey, new Uri("../View/SpecialitiesViews/SpecialiteView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.StatisticsViewKey, new Uri("../View/StatisticsView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IInnerFrameNavigationService>(() => InnerFrameNavigationService);
         }
