@@ -34,7 +34,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Margin="20,0,0,0" Text="Doctors" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" />
-            <Button Grid.Row="0" Grid.Column="1"  Margin="10" >
+            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddDoctorCommand}">
                 <Button.Content>
                     <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
                 </Button.Content>
@@ -64,6 +64,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -147,7 +148,7 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Speciality" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <ComboBox x:Name="SpecialityBox" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctoSpeciality,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <ComboBox x:Name="SpecialityBox" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctor.Speciality,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="5"  Text="Specility">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -159,8 +160,62 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
+                <Border BorderBrush="Black" Margin="0,20,0,0" BorderThickness="1"  Grid.Row="7" Grid.Column="0"  Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="User Name" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                        <TextBox x:Name="UserNameBox" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0"  Text="Nom d'utilisateur">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=UserNameBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                        <TextBox x:Name="PassBox" Grid.Column="1" Grid.Row="1" Text="{Binding SelectedDoctor.User.UserPass,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1"  Text="Mot de pass">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=PassBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirm password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                        <TextBox x:Name="CpassBox" Grid.Column="1" Grid.Row="2" Text="{Binding SelectedDoctor.User.UserPass,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Column="1" Grid.Row="2"  Text="Confirm mot de pass">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=CpassBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+              
+                <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>

@@ -143,8 +143,17 @@
     <Compile Include="View\AddDoctorToSpecialityView.xaml.cs">
       <DependentUpon>AddDoctorToSpecialityView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AddPathologiesToDoctorView.xaml.cs">
+      <DependentUpon>AddPathologiesToDoctorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddPatientAppointment.xaml.cs">
       <DependentUpon>AddPatientAppointment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddPatientsToDoctorView.xaml.cs">
+      <DependentUpon>AddPatientsToDoctorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddSpecialitiesToDoctorView.xaml.cs">
+      <DependentUpon>AddSpecialitiesToDoctorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CalendarView.xaml.cs">
       <DependentUpon>CalendarView.xaml</DependentUpon>
@@ -203,7 +212,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AddPathologiesToDoctorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddPatientAppointment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddPatientsToDoctorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddSpecialitiesToDoctorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

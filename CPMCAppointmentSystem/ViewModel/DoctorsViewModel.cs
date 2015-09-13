@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
+using Syncfusion.Windows.Forms.Tools;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
     public class DoctorsViewModel:NavigableViewModelBase
     {
         #region Fields
-        private CpmcContext _dbContext=new CpmcContext();
+        private readonly CpmcContext _dbContext=new CpmcContext();
         private ObservableCollection<Medecin> _doctorsList;
         private Medecin _seletedDoctor;
         private ObservableCollection<Specialite> _specialitiesList;
-        private bool _isFormEnabled;
-        private Specialite _selectedDoctorSpeciality;
+        private bool _isFormEnabled;        
         #endregion
         #region Properties              
         public ObservableCollection<Medecin> DoctorsList
@@ -52,7 +52,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     return;
                 }
-
+                IsFormEnabled = true;
                 _seletedDoctor = value;
                 RaisePropertyChanged();
             }
@@ -75,24 +75,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public Specialite SelectedDoctoSpeciality
-        {
-            get
-            {
-                return _selectedDoctorSpeciality;
-            }
-
-            set
-            {
-                if (_selectedDoctorSpeciality == value)
-                {
-                    return;
-                }
-
-                _selectedDoctorSpeciality = value;
-                RaisePropertyChanged();
-            }
-        }
+       
         public bool IsFormEnabled
         {
             get
@@ -123,6 +106,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         LoadDoctorsList();
+                        LoadSpacialities();
                     }));
             }
         }
@@ -137,7 +121,12 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addDoctorCommand = new RelayCommand(
                     () =>
                     {
-                        
+
+                        SelectedDoctor = new Medecin()
+                        {
+                            Speciality= new Specialite()
+                        };
+                        IsFormEnabled = true;
                     }));
             }
         }
@@ -151,10 +140,16 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_saveDoctorCommand = new RelayCommand(
                     () =>
                     {
+                        if (SelectedDoctor.MedecinId == Guid.Empty)
+                        {
+                            AddNewDoctor();
+                        }
+                        _dbContext.SaveChanges();
+                        LoadDoctorsList();
                         
                     }));
             }
-        }
+        }       
         private RelayCommand _deleteDoctorCommand;
         public RelayCommand DeleteDoctorCommand
         {
@@ -190,6 +185,16 @@ namespace CPMCAppointmentSystem.ViewModel
         private async void LoadDoctorsList()
         {
             DoctorsList = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
+        }
+
+        private async void LoadSpacialities()
+        {
+            SpecialitiesList=new ObservableCollection<Specialite>(await Task.Run(()=>_dbContext.Specialites));
+        }
+        private void AddNewDoctor()
+        {
+            _dbContext.Medecins.Add(SelectedDoctor);
+            IsFormEnabled = false;
         }
         #endregion        
     }
