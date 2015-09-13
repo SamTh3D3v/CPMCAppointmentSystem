@@ -4,7 +4,8 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
-            WindowStyle="None"
+             WindowStartupLocation="CenterScreen"
+                             WindowStyle="None"
          Height="500" Width="700" 
                              DataContext="{Binding Path=DoctorsViewModel, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
