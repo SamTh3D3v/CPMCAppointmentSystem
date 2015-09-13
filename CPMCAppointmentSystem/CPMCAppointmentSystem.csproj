@@ -121,6 +121,9 @@
     <Compile Include="SampleData\DataService.cs" />
     <Compile Include="SampleData\IDataService.cs" />
     <Compile Include="SubModel\MedecinToAdd.cs" />
+    <Compile Include="SubModel\PathologyToAdd.cs" />
+    <Compile Include="SubModel\PatientToAdd.cs" />
+    <Compile Include="SubModel\SpecialityToAdd.cs" />
     <Compile Include="UserControls\TileItemView.xaml.cs">
       <DependentUpon>TileItemView.xaml</DependentUpon>
     </Compile>

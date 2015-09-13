@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +7,7 @@ using DataLayer.Model;
 
 namespace CPMCAppointmentSystem.SubModel
 {
-    public class MedecinToAdd : Medecin
+    public class SpecialityToAdd:Specialite
     {
         private bool _isAdded = false;
         public bool IsAdded
@@ -29,5 +28,6 @@ namespace CPMCAppointmentSystem.SubModel
                 OnPropertyChanged();
             }
         }
+
     }
 }
