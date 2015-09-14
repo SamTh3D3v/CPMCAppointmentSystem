@@ -13,44 +13,101 @@ namespace CPMCAppointmentSystem.ViewModel
     public class SettingsViewModel:NavigableViewModelBase
     {
         #region Fields
-        private CpmcContext _dbContext=new CpmcContext();
-        private ObservableCollection<User> _usersList;
-        private User _selectedUser;
+        private CpmcContext _dbContext=new CpmcContext();       
+        private ObservableCollection<Medecin> _medecinUserList ;
+        private ObservableCollection<User> _agentsUserList; 
+        private ObservableCollection<User> _adminsUsersList;
+        private User _selectedAgentUser;
+        private Medecin _selectedMedecinUser;
         #endregion
-        #region Properties                
-        public ObservableCollection<User> UsersList
+        #region Properties                        
+        public ObservableCollection<Medecin> MedecinUserList
         {
             get
             {
-                return _usersList;
+                return _medecinUserList;
             }
 
             set
             {
-                if (_usersList == value)
+                if (_medecinUserList == value)
                 {
                     return;
                 }
 
-                _usersList = value;
+                _medecinUserList = value;
                 RaisePropertyChanged();
             }
         }
-        public User SelectedUser
+        public ObservableCollection<User> AgentsUserList
         {
             get
             {
-                return _selectedUser;
+                return _agentsUserList;
             }
 
             set
             {
-                if (_selectedUser == value)
+                if (_agentsUserList == value)
                 {
                     return;
                 }
 
-                _selectedUser = value;
+                _agentsUserList = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<User> AdminsUserList
+        {
+            get
+            {
+                return _adminsUsersList;
+            }
+
+            set
+            {
+                if (_adminsUsersList == value)
+                {
+                    return;
+                }
+
+                _adminsUsersList = value;
+                RaisePropertyChanged();
+            }
+        }
+        public Medecin SelectedMedecinUser
+        {
+            get
+            {
+                return _selectedMedecinUser;
+            }
+
+            set
+            {
+                if (_selectedMedecinUser == value)
+                {
+                    return;
+                }
+
+                _selectedMedecinUser = value;
+                RaisePropertyChanged();
+            }
+        }
+        public User SelectedAgentUser
+        {
+            get
+            {
+                return _selectedAgentUser;
+            }
+
+            set
+            {
+                if (_selectedAgentUser == value)
+                {
+                    return;
+                }
+
+                _selectedAgentUser = value;
                 RaisePropertyChanged();
             }
         }
