@@ -60,6 +60,7 @@
     <Compile Include="Model\Sexe.cs" />
     <Compile Include="Model\Specialite.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\Willaya.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

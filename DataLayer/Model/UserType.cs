@@ -11,30 +11,21 @@ using DataLayer.Annotations;
 
 namespace DataLayer.Model
 {
-    [Table("User")]
-    public class User:INotifyPropertyChanged
+    [Table("UserType")]
+    public class UserType : INotifyPropertyChanged
     {
-        public User()
+        public UserType()
         {
 
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid UserId { get; set; }
-        [Required]
-        public Guid RolesCollectionId { get; set; }
-        [Required]
-        public String UserName { get; set; }
-        [Required]
-        public String UserPass { get; set; }
-        
         public Guid UserTypeId { get; set; }
-        [ForeignKey("RolesCollectionId")]
-        public virtual RolesCollection RolesCollection { get; set; }
-        [ForeignKey("UserTypeId")]
-        public virtual UserType UserType { get; set; }
-
         public event PropertyChangedEventHandler PropertyChanged;
+        [Required]
+        public String UserTypeName { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

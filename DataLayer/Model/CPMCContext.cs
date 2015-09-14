@@ -36,6 +36,7 @@ namespace DataLayer.Model
         public DbSet<User> Users { get; set; }
         public DbSet<Willaya> Willayas { get; set; }
         public DbSet<Sexe> Sexes { get; set; }
+        public DbSet<UserType> UserTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
