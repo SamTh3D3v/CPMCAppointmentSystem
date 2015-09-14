@@ -17,6 +17,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<Medecin> _medecinUserList ;
         private ObservableCollection<User> _agentsUserList; 
         private ObservableCollection<User> _adminsUsersList;
+        private User _selectedAdminUser;
         private User _selectedAgentUser;
         private Medecin _selectedMedecinUser;
         #endregion
@@ -111,6 +112,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
+        public User SelectedAdminUser
+        {
+            get
+            {
+                return _selectedAdminUser;
+            }
+
+            set
+            {
+                if (_selectedAdminUser == value)
+                {
+                    return;
+                }
+
+                _selectedAdminUser = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
         #region Commands
         private RelayCommand _settingsViewLoadedCommand;
@@ -137,7 +156,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadSettingsRelatedData()
         {
-           UsersList=new ObservableCollection<User>(await Task.Run(()=>_dbContext.Users));
+           AdminsUserList=new ObservableCollection<User>(await Task.Run(()=>_dbContext.Users));
             
         }
         #endregion        
