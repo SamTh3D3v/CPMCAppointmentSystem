@@ -4,9 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:command="http://www.galasoft.ch/mvvmlight"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700" DataContext="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
 	Title="SettingsView" >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=SettingsViewLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <TabControl TabStripPlacement="Left" Padding="0" Margin="0">
@@ -21,14 +29,31 @@
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Foreground="#FF7B7B7B" Text="ACCOUNTS" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </TabItem.Header>
-                <TabItem.Content>                    
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="5"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                <TabItem.Content>
+                    <syncfusion:TabControlExt  EnableLabelEdit="False" syncfusion:SkinStorage.VisualStyle="Metro" Margin="5"
+                                  CloseButtonType="Hide" ShowTabItemContextMenu="False"
+                                  ShowTabListContextMenu="False" TabStripPlacement="Top">
+                        <syncfusion:TabItemExt  MinHeight="35" x:Name="MedecinTab">
+                            <syncfusion:TabItemExt.HeaderTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="2"/>
+                                        </Grid.RowDefinitions>
+                                        <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
+                                        <TextBlock Grid.Row="0" Text="Medecins"></TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </syncfusion:TabItemExt.HeaderTemplate>
+                            <syncfusion:TabItemExt.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
@@ -37,22 +62,202 @@
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedUser}"
                                        ShowGroupDropArea="True" >
-                            <syncfusion:SfDataGrid.Columns>
-                                <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
-                                <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
-                                <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
-                                <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
+                                        <syncfusion:SfDataGrid.Columns>
+                                            <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
+                                            <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom"/>
+                                            <syncfusion:GridTextColumn HeaderText="Speciality" MappingName="Speciality.Name"/>
+                                            <syncfusion:GridTextColumn HeaderText="User" MappingName="User.UserName"/>                                        
+                                        </syncfusion:SfDataGrid.Columns>
+                                    </syncfusion:SfDataGrid>
+                                    <GridSplitter Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1" VerticalAlignment="Stretch"/>
+                                    <Grid Grid.Column="2" Margin="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>                                                                                        
+                                            <RowDefinition Height="*"/>
+
+                                        </Grid.RowDefinitions>   
+                                        
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="UserName" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                        <TextBox x:Name="UserNameBox" Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="0"  Text="User Name" >
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=UserNameBox}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock> 
+                                        
+                                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                        <PasswordBox x:Name="PassBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="1"  Text="User Name" >
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=UserNameBox}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        
+                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirm Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                        <TextBox x:Name="CPassBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="2"  Text="User Name" >
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=UserNameBox}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                               
+                                        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Button Grid.Column="0"  Margin="2" Command="{Binding SaveSpecialityCommand}">
+                                                <Button.Content>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                                                        <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteSpecialityCommand}">
+                                                <Button.Content>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
+                                                        <TextBlock Text="Delete" HorizontalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button Grid.Column="2"  Margin="2" Command="{Binding CancelSpecialityChangesCommand}">
+                                                <Button.Content>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                                                        <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+
+
+                                </Grid>
+                            </syncfusion:TabItemExt.Content>
+                        </syncfusion:TabItemExt>
+                        <syncfusion:TabItemExt  MinHeight="35" x:Name="AgensDeSaiTab">
+                            <syncfusion:TabItemExt.HeaderTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="2"/>
+                                        </Grid.RowDefinitions>
+                                        <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
+                                        <TextBlock Grid.Row="0" Text="Agent de saisie"></TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </syncfusion:TabItemExt.HeaderTemplate>
+                            <syncfusion:TabItemExt.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                       AllowDraggingColumns="True"
+                                       AllowEditing="False"
+                                       AllowFiltering="True"
+                                       AllowGrouping="True"                                   
+                                       ItemsSource="{Binding UsersList}"
+                                   AutoGenerateColumns="False"
+                                   SelectedItem="{Binding SelectedUser}"
+                                       ShowGroupDropArea="True" >
+                                        <syncfusion:SfDataGrid.Columns>
+                                            <syncfusion:GridTextColumn HeaderText="User Type" MappingName="Nom" />
+                                            <syncfusion:GridTextColumn HeaderText="User Name" MappingName="Prenom" />
+                                            <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
+                                            <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
                                                                             StringFormat=d}"/>
-                                <syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>
-                                <syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
-                                <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneMobile2"/>
-                                <syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
-                                <syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
+                                            <syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>
+                                            <syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
+                                            <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneMobile2"/>
+                                            <syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
+                                            <syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
 
-                            </syncfusion:SfDataGrid.Columns>
-                        </syncfusion:SfDataGrid>
+                                        </syncfusion:SfDataGrid.Columns>
+                                    </syncfusion:SfDataGrid>
 
-                    </Grid>
+                                </Grid>
+                            </syncfusion:TabItemExt.Content>
+                        </syncfusion:TabItemExt>
+                        <syncfusion:TabItemExt  MinHeight="35" x:Name="AdminsTab">
+                            <syncfusion:TabItemExt.HeaderTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="2"/>
+                                        </Grid.RowDefinitions>
+                                        <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
+                                        <TextBlock Grid.Row="0" Text="Admins"></TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </syncfusion:TabItemExt.HeaderTemplate>
+                            <syncfusion:TabItemExt.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                       AllowDraggingColumns="True"
+                                       AllowEditing="False"
+                                       AllowFiltering="True"
+                                       AllowGrouping="True"                                   
+                                       ItemsSource="{Binding UsersList}"
+                                   AutoGenerateColumns="False"
+                                   SelectedItem="{Binding SelectedUser}"
+                                       ShowGroupDropArea="True" >
+                                        <syncfusion:SfDataGrid.Columns>
+                                            <syncfusion:GridTextColumn HeaderText="User Type" MappingName="Nom" />
+                                            <syncfusion:GridTextColumn HeaderText="User Name" MappingName="Prenom" />
+                                            <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
+                                            <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
+                                                                            StringFormat=d}"/>
+                                            <syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>
+                                            <syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
+                                            <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneMobile2"/>
+                                            <syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
+                                            <syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
+
+                                        </syncfusion:SfDataGrid.Columns>
+                                    </syncfusion:SfDataGrid>
+
+                                </Grid>
+                            </syncfusion:TabItemExt.Content>
+                        </syncfusion:TabItemExt>                        
+
+                    </syncfusion:TabControlExt>                                        
                 </TabItem.Content>
            </TabItem> 
            <TabItem>
