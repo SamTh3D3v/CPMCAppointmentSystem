@@ -16,13 +16,11 @@ namespace DataLayer.Model
     {
         public RolesCollection()
         {
-
         }
         [Key, ForeignKey("User")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid RolesCollectionId { get; set; }
         //Roles
-
         #region CalendarView
         public bool AppointementViewAllow { get; set; }
         public bool AppointementEditAllow { get; set; }
@@ -33,7 +31,7 @@ namespace DataLayer.Model
         #endregion
         #region Patient View
         public bool PatientsViewAllow { get; set; }
-        public bool PatientsAditAllow { get; set; }
+        public bool PatientsEditAllow { get; set; }
         public bool PatientsEditAppointementAllow { get; set; }
 
         #endregion

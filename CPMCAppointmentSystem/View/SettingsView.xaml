@@ -19,7 +19,7 @@
         <Style TargetType="syncfusion:TreeViewItemAdv" x:Key="TreeViewItemConStyle">
             <Setter Property="IsExpanded" Value="True"/>
             <!--<Setter Property="LeftImageSource" Value="{StaticResource PathologyDark}"/>-->
-        </Style>       
+        </Style>
     </Page.Resources>
 
     <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -93,7 +93,6 @@
                                         <TextBlock Grid.Column="0" Grid.Row="0" Text="UserName" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                                         <TextBox x:Name="MedecinUserNameBox" Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-
                                         <TextBlock Grid.Column="0" Grid.Row="1" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                                         <PasswordBox x:Name="MedecinPassBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
@@ -101,26 +100,34 @@
                                         <PasswordBox x:Name="MedecinCPassBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
                                         <Expander Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Header="Rolls">
-                                            <syncfusion:TreeViewAdv Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
+                                            <syncfusion:TreeViewAdv  Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
                                             AnimationType="Fade"
                                             ItemContainerStyle="{StaticResource TreeViewItemConStyle}" 
                                             ShowRootLines="True" 
                                             AllowMultiSelect="False" 
-                                            AllowDragDrop="False">                                               
-                                                <syncfusion:TreeViewItemAdv >
-                                                    <syncfusion:TreeViewItemAdv.Header>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <CheckBox/>
-                                                            <TextBlock Text="Appointement"></TextBlock>
-                                                        </StackPanel>
-                                                    </syncfusion:TreeViewItemAdv.Header>
-                                                    
-                                                    
+                                            AllowDragDrop="False">
+                                                <syncfusion:TreeViewItemAdv Header="Users and their autoroties">
+                                                    <syncfusion:TreeViewItemAdv Header="Patient">
+                                                        <syncfusion:TreeViewItemAdv >
+                                                            <syncfusion:TreeViewItemAdv.Header>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <CheckBox/>
+                                                                    <TextBlock Text="PatientsViewAllow"/>
+                                                                </StackPanel>
+                                                            </syncfusion:TreeViewItemAdv.Header>                                                            
+                                                        </syncfusion:TreeViewItemAdv>
+                                                        <syncfusion:TreeViewItemAdv Header="PatientsEditAllow">
+                                                        </syncfusion:TreeViewItemAdv>
+                                                    </syncfusion:TreeViewItemAdv>
+                                                    <syncfusion:TreeViewItemAdv Header="Doctors"/>
+                                                    <syncfusion:TreeViewItemAdv Header="Specialities"/>
+                                                    <syncfusion:TreeViewItemAdv Header="Pathologies"/>
+                                                    <syncfusion:TreeViewItemAdv Header="Settings"/>
+
                                                 </syncfusion:TreeViewItemAdv>
+
                                             </syncfusion:TreeViewAdv>
-
                                         </Expander>
-
                                         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
@@ -153,8 +160,6 @@
                                             </Button>
                                         </Grid>
                                     </Grid>
-
-
                                 </Grid>
                             </syncfusion:TabItemExt.Content>
                         </syncfusion:TabItemExt>
@@ -188,9 +193,7 @@
                                    SelectedItem="{Binding SelectedAgentUser,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
                                         <syncfusion:SfDataGrid.Columns>
-
                                             <syncfusion:GridTextColumn HeaderText="User Name" MappingName="UserName" />
-
                                         </syncfusion:SfDataGrid.Columns>
                                     </syncfusion:SfDataGrid>
                                     <GridSplitter Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1" VerticalAlignment="Stretch"/>
@@ -220,7 +223,6 @@
                                                 </Style>
                                             </TextBlock.Style>
                                         </TextBlock>
-
                                         <TextBlock Grid.Column="0" Grid.Row="1" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                                         <PasswordBox x:Name="AgentPassBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                         <TextBlock Grid.Column="1" Grid.Row="1"  Text="User Name" >
