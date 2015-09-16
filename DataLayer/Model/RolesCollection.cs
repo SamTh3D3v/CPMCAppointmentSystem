@@ -16,20 +16,44 @@ namespace DataLayer.Model
     {
         public RolesCollection()
         {
-            
+
         }
-        [Key,ForeignKey("User")]
+        [Key, ForeignKey("User")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid RolesCollectionId { get; set; }
         //Roles
-        public bool CallendarViewVisible { get; set; }
-        public bool DoctorsViewVisible { get; set; }
-        public bool PatientsViewVisible { get; set; }
-        public bool SettingsViewVisible { get; set; }
-        public bool MyPatientsViewVisible { get; set; }
-        public bool PathologiesViewVisible { get; set; }
-        public bool SpecialitiesViewVisible { get; set; }
 
+        #region CalendarView
+        public bool AppointementViewAllow { get; set; }
+        public bool AppointementEditAllow { get; set; }
+        #endregion
+        #region Doctors View
+        public bool DoctorsViewAllow { get; set; }
+        public bool DoctorsAddAllow { get; set; }
+        #endregion
+        #region Patient View
+        public bool PatientsViewAllow { get; set; }
+        public bool PatientsAditAllow { get; set; }
+        public bool PatientsEditAppointementAllow { get; set; }
+
+        #endregion
+        #region Speciality View
+        public bool SpecialitiesViewAllow { get; set; }
+        public bool SpecialitiesEditAllow { get; set; }
+        #endregion
+        #region Pathology View
+        public bool PathologiesViewAllow { get; set; }
+        public bool PathologiesEditAllow { get; set; }
+        #endregion
+        #region MyPatients View
+        public bool MyPatientsViewAllow { get; set; }   
+        public bool MyPatientsEditAllow { get; set; }   
+        public bool MyPatientsEditAppointementAllow { get; set; }   
+     
+        #endregion
+        #region Settings View
+        public bool SettingsViewAllow { get; set; } 
+        #endregion
         public Guid UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User User { get; set; }

@@ -15,6 +15,12 @@
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <Page.Resources>
+        <Style TargetType="syncfusion:TreeViewItemAdv" x:Key="TreeViewItemConStyle">
+            <Setter Property="IsExpanded" Value="True"/>
+            <!--<Setter Property="LeftImageSource" Value="{StaticResource PathologyDark}"/>-->
+        </Style>       
+    </Page.Resources>
 
     <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <TabControl TabStripPlacement="Left" Padding="0" Margin="0">
@@ -66,7 +72,7 @@
                                             <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
                                             <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom"/>
                                             <syncfusion:GridTextColumn HeaderText="Speciality" MappingName="Speciality.Name"/>
-                                            <syncfusion:GridTextColumn HeaderText="User" MappingName="User.UserName"/>                                        
+                                            <syncfusion:GridTextColumn HeaderText="User" MappingName="User.UserName"/>
                                         </syncfusion:SfDataGrid.Columns>
                                     </syncfusion:SfDataGrid>
                                     <GridSplitter Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1" VerticalAlignment="Stretch"/>
@@ -78,53 +84,43 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>                                                                                        
+                                            <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
 
-                                        </Grid.RowDefinitions>   
-                                        
+                                        </Grid.RowDefinitions>
+
                                         <TextBlock Grid.Column="0" Grid.Row="0" Text="UserName" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                                         <TextBox x:Name="MedecinUserNameBox" Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                                        <TextBlock Grid.Column="1" Grid.Row="0"  Text="User Name" >
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Text, ElementName=MedecinUserNameBox}" Value="">
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock> 
-                                        
+
+
                                         <TextBlock Grid.Column="0" Grid.Row="1" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                                         <PasswordBox x:Name="MedecinPassBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                                        <TextBlock Grid.Column="1" Grid.Row="1"  Text="User Name" >
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Text, ElementName=MedecinPassBox}" Value="">
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                                        
+
                                         <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirm Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                                         <PasswordBox x:Name="MedecinCPassBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                                        <TextBlock Grid.Column="1" Grid.Row="2"  Text="User Name" >
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Text, ElementName=MedecinCPassBox}" Value="">
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                               
+
+                                        <Expander Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Header="Rolls">
+                                            <syncfusion:TreeViewAdv Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
+                                            AnimationType="Fade"
+                                            ItemContainerStyle="{StaticResource TreeViewItemConStyle}" 
+                                            ShowRootLines="True" 
+                                            AllowMultiSelect="False" 
+                                            AllowDragDrop="False">                                               
+                                                <syncfusion:TreeViewItemAdv >
+                                                    <syncfusion:TreeViewItemAdv.Header>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <CheckBox/>
+                                                            <TextBlock Text="Appointement"></TextBlock>
+                                                        </StackPanel>
+                                                    </syncfusion:TreeViewItemAdv.Header>
+                                                    
+                                                    
+                                                </syncfusion:TreeViewItemAdv>
+                                            </syncfusion:TreeViewAdv>
+
+                                        </Expander>
+
                                         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
@@ -192,9 +188,9 @@
                                    SelectedItem="{Binding SelectedAgentUser,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
                                         <syncfusion:SfDataGrid.Columns>
-                                            
+
                                             <syncfusion:GridTextColumn HeaderText="User Name" MappingName="UserName" />
-                                           
+
                                         </syncfusion:SfDataGrid.Columns>
                                     </syncfusion:SfDataGrid>
                                     <GridSplitter Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1" VerticalAlignment="Stretch"/>
@@ -307,7 +303,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="3"/>
                                         <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>                                    
+                                    </Grid.ColumnDefinitions>
                                     <syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
@@ -410,15 +406,15 @@
                                                 </Button.Content>
                                             </Button>
                                         </Grid>
-                                    </Grid>                                                                      
+                                    </Grid>
                                 </Grid>
                             </syncfusion:TabItemExt.Content>
-                        </syncfusion:TabItemExt>                        
+                        </syncfusion:TabItemExt>
 
-                    </syncfusion:TabControlExt>                                        
+                    </syncfusion:TabControlExt>
                 </TabItem.Content>
-           </TabItem> 
-           <TabItem>
+            </TabItem>
+            <TabItem>
                 <TabItem.Header>
                     <Grid Width="120" Height="100">
                         <Grid.RowDefinitions>
@@ -429,7 +425,8 @@
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Foreground="#FF7B7B7B" Text="SETTINGS" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </TabItem.Header>
-           </TabItem> <TabItem>
+            </TabItem>
+            <TabItem>
                 <TabItem.Header>
                     <Grid Width="120" Height="100">
                         <Grid.RowDefinitions>
@@ -440,7 +437,7 @@
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Foreground="#FF7B7B7B" Text="NOTIFICATIONS" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </TabItem.Header>
-           </TabItem>
-       </TabControl>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>
