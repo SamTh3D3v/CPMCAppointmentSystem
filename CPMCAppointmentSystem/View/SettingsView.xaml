@@ -27,8 +27,8 @@
     </Page.Resources>
 
     <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <TabControl TabStripPlacement="Left" Padding="0" Margin="0">
-            <TabItem>
+        <TabControl TabStripPlacement="Left"  Padding="0" Margin="0">
+            <TabItem Style="{StaticResource SettingsTabItemStyle}">
                 <TabItem.Header>
                     <Grid Width="120" Height="100">
                         <Grid.RowDefinitions>
@@ -48,7 +48,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="3"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <ListView ItemsSource="{Binding UserTypeCollection}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
                             <ListView.ItemsPanel>
@@ -56,33 +56,16 @@
                                     <StackPanel Orientation="Horizontal"/>
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <controls:ToggleSwitch  Header="Medecin" OnLabel="On" OffLabel="Off" />
-                            </Grid>
-
-                            <Grid Grid.Column="1">
-                                <controls:ToggleSwitch  OnLabel="On" OffLabel="Off" >
-                                    <controls:ToggleSwitch.HeaderTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="Admin"></TextBlock>
-                                        </DataTemplate>                                        
-                                    </controls:ToggleSwitch.HeaderTemplate>
-                                </controls:ToggleSwitch>
-                            </Grid>
-
-                            <Grid Grid.Column="2">
-                                <controls:ToggleSwitch  OnLabel="On" OffLabel="Off" />
-                            </Grid>
-
-                           
-                           
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="2" Background="WhiteSmoke">
+                                        <controls:ToggleSwitch  Header="{Binding UserTypeName}" OnLabel="On" OffLabel="Off" IsChecked="{Binding IsAdded}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                                                                                                                                      
                         </ListView>
-                        <Grid Grid.Column="0" Grid.Row="1">
+                        <Grid Grid.Column="0" Grid.Row="1" Margin="4">
                             <syncfusion:SfDataGrid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
@@ -93,15 +76,14 @@
                                    SelectedItem="{Binding SelectedUser}"
                                        ShowGroupDropArea="True" >
                                 <syncfusion:SfDataGrid.Columns>
-                                    <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
-                                    <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom"/>
-                                    <syncfusion:GridTextColumn HeaderText="Speciality" MappingName="Speciality.Name"/>
-                                    <syncfusion:GridTextColumn HeaderText="User" MappingName="User.UserName"/>
+                                    <syncfusion:GridTextColumn HeaderText="Nom" MappingName="UserNom" />
+                                    <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="UserPrenom"/>                                    
+                                    <syncfusion:GridTextColumn HeaderText="UserName" MappingName="UserName"/>
                                 </syncfusion:SfDataGrid.Columns>
                             </syncfusion:SfDataGrid>
                         </Grid>
-                        <GridSplitter Grid.Row="0" Grid.RowSpan="2" Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1" VerticalAlignment="Stretch"/>
-                        <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
+                        <GridSplitter Grid.Row="0" Grid.RowSpan="2" Background="Gray" Width="1" Margin="1" Grid.Column="1" VerticalAlignment="Stretch"/>
+                        <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -117,14 +99,27 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                            <TextBox  Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>                            
+                            <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5" 
+                                     Mask="[A-Za-z]*" MaskType="RegEx" 
+                                     Watermark="Nom de l'utilisateur"  ValidationMode="KeyPress"
+                                     />
                             
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                            <TextBox  Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                            
+
+                            <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5" 
+                                     Mask="[A-Za-z]*" MaskType="RegEx" 
+                                     Watermark="Prenom de l'utilisateur"  ValidationMode="KeyPress"
+                                     />
+
+
+
                             <TextBlock Grid.Column="0" Grid.Row="2" Text="UserName" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                            <TextBox  Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+                            <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5" 
+                                     Mask="[A-Za-z]*" MaskType="RegEx" 
+                                     Watermark="Prenom de l'utilisateur"  ValidationMode="KeyPress"
+                                     />
 
                             <TextBlock Grid.Column="0" Grid.Row="3" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                             <PasswordBox  Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
@@ -195,7 +190,7 @@
                     </Grid>
                 </TabItem.Content>
             </TabItem>
-            <TabItem>
+            <TabItem Style="{StaticResource SettingsTabItemStyle}">
                 <TabItem.Header>
                     <Grid Width="120" Height="100">
                         <Grid.RowDefinitions>
@@ -207,7 +202,7 @@
                     </Grid>
                 </TabItem.Header>
             </TabItem>
-            <TabItem>
+            <TabItem Style="{StaticResource SettingsTabItemStyle}">
                 <TabItem.Header>
                     <Grid Width="120" Height="100">
                         <Grid.RowDefinitions>

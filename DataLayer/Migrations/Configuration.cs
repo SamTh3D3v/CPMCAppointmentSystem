@@ -24,16 +24,16 @@ namespace DataLayer.Migrations
 
             ////Willaya Table
 
-            context.Willayas.AddOrUpdate(w => w.WillayaId,
-                new Willaya() { WillayaId = 2, Designation = "Chlef" },
-            new Willaya() { WillayaId = 31, Designation = "Oran" },
-            new Willaya() { WillayaId = 16, Designation = "Alger" },
-             new Willaya() { WillayaId = 28, Designation = "Msilla" },
-              new Willaya() { WillayaId = 29, Designation = "Mascara" });
-            context.UserTypes.AddOrUpdate(u=>u.UserTypeId,
-                new UserType(){UserTypeName = "Medecin"},
-                new UserType(){UserTypeName = "Admin"},
-                new UserType(){UserTypeName = "Agent de saissie"});
+            //context.Willayas.AddOrUpdate(w => w.WillayaId,
+            //    new Willaya() { WillayaId = 2, Designation = "Chlef" },
+            //new Willaya() { WillayaId = 31, Designation = "Oran" },
+            //new Willaya() { WillayaId = 16, Designation = "Alger" },
+            // new Willaya() { WillayaId = 28, Designation = "Msilla" },
+            //  new Willaya() { WillayaId = 29, Designation = "Mascara" });
+            //context.UserTypes.AddOrUpdate(u=>u.UserTypeId,
+            //    new UserType(){UserTypeName = "Medecin"},
+            //    new UserType(){UserTypeName = "Admin"},
+            //    new UserType(){UserTypeName = "Agent de saisie"});
 
 
             ////Adress Table

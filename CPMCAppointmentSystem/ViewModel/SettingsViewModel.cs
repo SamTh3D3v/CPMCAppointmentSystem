@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
+using CPMCAppointmentSystem.SubModel;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 
@@ -16,12 +17,12 @@ namespace CPMCAppointmentSystem.ViewModel
         private CpmcContext _dbContext=new CpmcContext();       
         private ObservableCollection<User> _usersList  ;        
         private User _selectedUser  ;       
-        private ObservableCollection<TreeViewModel> _treeViewRollCollection;       
-        private ObservableCollection<UserType> _userTypeCollection  ;   
+        private ObservableCollection<TreeViewModel> _treeViewRollCollection;
+        private ObservableCollection<UserTypeToAdd> _userTypeCollection;   
        
         #endregion
         #region Properties   
-        public ObservableCollection<UserType> UserTypeCollection
+        public ObservableCollection<UserTypeToAdd> UserTypeCollection
         {
             get
             {
@@ -102,11 +103,10 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _settingsViewLoadedCommand
-                    ?? (_settingsViewLoadedCommand = new RelayCommand(
-                    () =>
+                    ?? (_settingsViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        LoadUsersList();
-
+                        await LoadUserTaskCollection();
+                        await LoadUsersList();                       
                     }));
             }
         }
@@ -126,7 +126,13 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadUserTaskCollection()
         {
-            UserTypeCollection=new ObservableCollection<UserType>(await Task.Run(()=>_dbContext.UserTypes));
+            UserTypeCollection = new ObservableCollection<UserTypeToAdd>(await Task.Run(() => _dbContext.UserTypes.Select(x=>new UserTypeToAdd()
+            {
+                UserTypeId=x.UserTypeId,
+                UserTypeName=x.UserTypeName,
+                Users = x.Users,
+                IsAdded = true
+            })));
         }
         #endregion        
     }
