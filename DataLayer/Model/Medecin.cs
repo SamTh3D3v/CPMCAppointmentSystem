@@ -19,11 +19,7 @@ namespace DataLayer.Model
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid MedecinId { get; set; }
-        [Required]
-        public String Nom { get; set; }
-        [Required]
-        public String Prenom { get; set; }
+        public Guid MedecinId { get; set; }        
         public DateTime DateDeNaissance { get; set; }
         public String TelephoneFixe { get; set; }
         public String TelephoneMobile { get; set; }        

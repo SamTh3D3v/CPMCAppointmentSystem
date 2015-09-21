@@ -121,6 +121,8 @@
     <Compile Include="Helpers\IInnerFrameNavigationService.cs" />
     <Compile Include="Helpers\InnerFrameNavigationService.cs" />
     <Compile Include="Helpers\NavigableViewModelBase.cs" />
+    <Compile Include="Helpers\NotifyPropertyChanged.cs" />
+    <Compile Include="Helpers\TreeViewModel.cs" />
     <Compile Include="SampleData\DataItem.cs" />
     <Compile Include="SampleData\DataService.cs" />
     <Compile Include="SampleData\IDataService.cs" />

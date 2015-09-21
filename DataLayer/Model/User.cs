@@ -22,6 +22,10 @@ namespace DataLayer.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid UserId { get; set; }
         [Required]
+        public String UserNom { get; set; }
+        [Required]
+        public String UserPrenom { get; set; }
+        [Required]
         public Guid RolesCollectionId { get; set; }
         [Required]
         public String UserName { get; set; }

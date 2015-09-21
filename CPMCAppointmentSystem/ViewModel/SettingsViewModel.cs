@@ -17,11 +17,46 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<Medecin> _medecinUserList ;
         private ObservableCollection<User> _agentsUserList; 
         private ObservableCollection<User> _adminsUsersList;
-        private User _selectedAdminUser;
-        private User _selectedAgentUser;
-        private Medecin _selectedMedecinUser;
+        private User _selectedUser  ;       
+        private ObservableCollection<TreeViewModel> _treeViewRollCollection;
         #endregion
-        #region Properties                        
+        #region Properties   
+        public User SelectedUser
+        {
+            get
+            {
+                return _selectedUser;
+            }
+
+            set
+            {
+                if (_selectedUser == value)
+                {
+                    return;
+                }
+
+                _selectedUser = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<TreeViewModel> TreeViewRollCollection
+        {
+            get
+            {
+                return _treeViewRollCollection;
+            }
+
+            set
+            {
+                if (_treeViewRollCollection == value)
+                {
+                    return;
+                }
+
+                _treeViewRollCollection = value;
+                RaisePropertyChanged();
+            }
+        }             
         public ObservableCollection<Medecin> MedecinUserList
         {
             get
@@ -75,61 +110,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 _adminsUsersList = value;
                 RaisePropertyChanged();
             }
-        }
-        public Medecin SelectedMedecinUser
-        {
-            get
-            {
-                return _selectedMedecinUser;
-            }
-
-            set
-            {
-                if (_selectedMedecinUser == value)
-                {
-                    return;
-                }
-
-                _selectedMedecinUser = value;
-                RaisePropertyChanged();
-            }
-        }
-        public User SelectedAgentUser
-        {
-            get
-            {
-                return _selectedAgentUser;
-            }
-
-            set
-            {
-                if (_selectedAgentUser == value)
-                {
-                    return;
-                }
-
-                _selectedAgentUser = value;
-                RaisePropertyChanged();
-            }
-        }
-        public User SelectedAdminUser
-        {
-            get
-            {
-                return _selectedAdminUser;
-            }
-
-            set
-            {
-                if (_selectedAdminUser == value)
-                {
-                    return;
-                }
-
-                _selectedAdminUser = value;
-                RaisePropertyChanged();
-            }
-        }
+        }                
+        
         #endregion
         #region Commands
         private RelayCommand _settingsViewLoadedCommand;
