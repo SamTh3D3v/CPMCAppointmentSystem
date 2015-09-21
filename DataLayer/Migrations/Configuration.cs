@@ -13,7 +13,7 @@ namespace DataLayer.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;  
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(CpmcContext context)
@@ -24,11 +24,13 @@ namespace DataLayer.Migrations
 
             ////Willaya Table
 
-            //context.Willayas.Add(new Willaya() {WillayaId = 2, Designation = "Chlef"});
-            //context.Willayas.Add(new Willaya() {WillayaId = 31, Designation = "Oran"});
-            //context.Willayas.Add(new Willaya() {WillayaId = 16, Designation = "Alger"});
-            //context.Willayas.Add(new Willaya() {WillayaId = 28, Designation = "Msilla"});
-            //context.Willayas.Add(new Willaya() {WillayaId = 29, Designation = "Mascara"});
+            //context.Willayas.AddOrUpdate(w => w.WillayaId,
+            //    new Willaya() { WillayaId = 2, Designation = "Chlef" },
+            //new Willaya() { WillayaId = 31, Designation = "Oran" },
+            //new Willaya() { WillayaId = 16, Designation = "Alger" },
+            // new Willaya() { WillayaId = 28, Designation = "Msilla" },
+            //  new Willaya() { WillayaId = 29, Designation = "Mascara" });
+
 
             ////Adress Table
             //IList<Adresse> fakeAdressesList = new List<Adresse>();

@@ -1,11 +1,12 @@
 ﻿using System.Windows;
 using CPMCAppointmentSystem.ViewModel;
+using MahApps.Metro.Controls;
 using Syncfusion.Windows.Shared;
 
 namespace CPMCAppointmentSystem
 {
 
-    public partial class MainWindow : ChromelessWindow
+    public partial class MainWindow : MetroWindow
     {
    
         public MainWindow()

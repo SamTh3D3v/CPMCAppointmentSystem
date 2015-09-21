@@ -44,7 +44,5 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));             
         }
-    }
-
-   
+    }  
 }

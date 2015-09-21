@@ -10,13 +10,13 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/ControlLibrary;component/ResourcesDictionaries/ResourceLibrary.xaml"/>
+                <ResourceDictionary Source="/ControlLibrary;component/ResourcesDictionaries/ResourceLibrary.xaml"/>                
             </ResourceDictionary.MergedDictionaries>
             <!--This is a WorkArround-->
             <Style TargetType="{x:Type Rectangle}"></Style>
             <!--Global View Model Locator-->    
             <vm:ViewModelLocator x:Key="Locator"
-                             d:IsDataSource="True" />
+                             d:IsDataSource="True" />           
         </ResourceDictionary>
         
     </Application.Resources>

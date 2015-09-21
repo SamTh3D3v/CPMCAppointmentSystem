@@ -4,7 +4,7 @@
         <!--Load Brush Resources-->
         <ResourceDictionary Source="Brushes/DefaultColorTheme.xaml"/>
         <ResourceDictionary Source="Brushes/Icons.xaml"/>
-        
+
         <!--Base Controls Style-->
         <ResourceDictionary Source="BaseControlStyles/ButtonStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/CheckBoxStyle.xaml"/>
@@ -18,23 +18,33 @@
         <ResourceDictionary Source="BaseControlStyles/TextBoxStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/ToggleButtonStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/TextBlockStyle.xaml"/>
-        
+
         <!--Custom Controls Styles-->
         <ResourceDictionary Source="CustomControlsStyles/PopupButtonStyle.xaml"/>
         <ResourceDictionary Source="CustomControlsStyles/SelectorToggleButtonStyle.xaml"/>
         <ResourceDictionary Source="CustomControlsStyles/TimelineStyle.xaml"/>
-        
+
         <!--Named Styles-->
-        
+
         <ResourceDictionary Source="NamedStyles/CloseButtonStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/HelpButtonStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/SearchTextBoxStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/HeaderToggleButtonStyle.xaml"/>
-        <ResourceDictionary Source="NamedStyles/HintTextBlockStyle.xaml"/>        
-        <ResourceDictionary Source="NamedStyles/LoginButtonStyle.xaml"/>        
-        <ResourceDictionary Source="NamedStyles/InnerSettingsTabItemStyle.xaml"/>        
-        <ResourceDictionary Source="NamedStyles/SettingsTabItemStyle.xaml"/>        
-        <ResourceDictionary Source="NamedStyles/GoBackArrowButtonStyle.xaml"/>        
+        <ResourceDictionary Source="NamedStyles/HintTextBlockStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/LoginButtonStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/InnerSettingsTabItemStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/SettingsTabItemStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/GoBackArrowButtonStyle.xaml"/>
+
+        <!--Other Resource Dictionaries-->
+
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+
+
     </ResourceDictionary.MergedDictionaries>
-    
+
 </ResourceDictionary>
