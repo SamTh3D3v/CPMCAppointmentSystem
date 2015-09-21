@@ -91,7 +91,7 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="NomBox" Grid.Column="1" Text="{Binding SelectedDoctor.Nom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="NomBox" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="1"  Text="Nom" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -106,7 +106,7 @@
 
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="PrenomBox" Grid.Column="1" Text="{Binding SelectedDoctor.Prenom,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="PrenomBox" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserPrenom,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="2"  Text="Prenom" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">

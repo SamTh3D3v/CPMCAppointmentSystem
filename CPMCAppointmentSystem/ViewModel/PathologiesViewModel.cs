@@ -302,9 +302,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     DoctorsToPathlogyList.Add(new MedecinToAdd()
                     {
-                        MedecinId = medecin.MedecinId,
-                        Nom = medecin.Nom,
-                        Prenom = medecin.Prenom,
+                        MedecinId = medecin.MedecinId,                       
                         DateDeNaissance = medecin.DateDeNaissance,
                         TelephoneFixe = medecin.TelephoneFixe,
                         TelephoneMobile = medecin.TelephoneMobile,

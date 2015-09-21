@@ -6,6 +6,7 @@
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700" DataContext="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
 	Title="SettingsView" >
@@ -49,13 +50,45 @@
                             <ColumnDefinition Width="3"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
+                        <ListView ItemsSource="{Binding UserTypeCollection}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <controls:ToggleSwitch  Header="Medecin" OnLabel="On" OffLabel="Off" />
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <controls:ToggleSwitch  OnLabel="On" OffLabel="Off" >
+                                    <controls:ToggleSwitch.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="Admin"></TextBlock>
+                                        </DataTemplate>                                        
+                                    </controls:ToggleSwitch.HeaderTemplate>
+                                </controls:ToggleSwitch>
+                            </Grid>
+
+                            <Grid Grid.Column="2">
+                                <controls:ToggleSwitch  OnLabel="On" OffLabel="Off" />
+                            </Grid>
+
+                           
+                           
+                        </ListView>
                         <Grid Grid.Column="0" Grid.Row="1">
                             <syncfusion:SfDataGrid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
-                                       ItemsSource="{Binding MedecinUserList}"
+                                       ItemsSource="{Binding UsersList}"
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedUser}"
                                        ShowGroupDropArea="True" >
@@ -85,10 +118,10 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                            <TextBox  Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                            <TextBox  Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                             
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                            <TextBox  Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                            <TextBox  Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                             
                             <TextBlock Grid.Column="0" Grid.Row="2" Text="UserName" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                             <TextBox  Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>

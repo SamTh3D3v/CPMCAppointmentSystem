@@ -309,9 +309,7 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             DoctorsWhithNoSpecialiteList = new ObservableCollection<MedecinToAdd>(await Task.Run(() => _dbContext.Medecins.Where(x => x.Speciality == null).Select(x => new MedecinToAdd()
             {
-                MedecinId = x.MedecinId,
-                Nom = x.Nom,
-                Prenom = x.Prenom,
+                MedecinId = x.MedecinId,               
                 DateDeNaissance = x.DateDeNaissance,
                 TelephoneFixe = x.TelephoneFixe,
                 TelephoneMobile = x.TelephoneMobile,

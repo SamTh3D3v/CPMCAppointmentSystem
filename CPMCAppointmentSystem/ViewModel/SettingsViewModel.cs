@@ -14,13 +14,31 @@ namespace CPMCAppointmentSystem.ViewModel
     {
         #region Fields
         private CpmcContext _dbContext=new CpmcContext();       
-        private ObservableCollection<Medecin> _medecinUserList ;
-        private ObservableCollection<User> _agentsUserList; 
-        private ObservableCollection<User> _adminsUsersList;
+        private ObservableCollection<User> _usersList  ;        
         private User _selectedUser  ;       
-        private ObservableCollection<TreeViewModel> _treeViewRollCollection;
+        private ObservableCollection<TreeViewModel> _treeViewRollCollection;       
+        private ObservableCollection<UserType> _userTypeCollection  ;   
+       
         #endregion
         #region Properties   
+        public ObservableCollection<UserType> UserTypeCollection
+        {
+            get
+            {
+                return _userTypeCollection;
+            }
+
+            set
+            {
+                if (_userTypeCollection == value)
+                {
+                    return;
+                }
+
+                _userTypeCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public User SelectedUser
         {
             get
@@ -36,6 +54,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _selectedUser = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<User> UsersList
+        {
+            get
+            {
+                return _usersList;
+            }
+
+            set
+            {
+                if (_usersList == value)
+                {
+                    return;
+                }
+
+                _usersList = value;
                 RaisePropertyChanged();
             }
         }
@@ -57,61 +93,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }             
-        public ObservableCollection<Medecin> MedecinUserList
-        {
-            get
-            {
-                return _medecinUserList;
-            }
-
-            set
-            {
-                if (_medecinUserList == value)
-                {
-                    return;
-                }
-
-                _medecinUserList = value;
-                RaisePropertyChanged();
-            }
-        }
-        public ObservableCollection<User> AgentsUserList
-        {
-            get
-            {
-                return _agentsUserList;
-            }
-
-            set
-            {
-                if (_agentsUserList == value)
-                {
-                    return;
-                }
-
-                _agentsUserList = value;
-                RaisePropertyChanged();
-            }
-        }
-        public ObservableCollection<User> AdminsUserList
-        {
-            get
-            {
-                return _adminsUsersList;
-            }
-
-            set
-            {
-                if (_adminsUsersList == value)
-                {
-                    return;
-                }
-
-                _adminsUsersList = value;
-                RaisePropertyChanged();
-            }
-        }                
-        
+                
         #endregion
         #region Commands
         private RelayCommand _settingsViewLoadedCommand;
@@ -123,7 +105,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_settingsViewLoadedCommand = new RelayCommand(
                     () =>
                     {
-                        LoadSettingsRelatedData();
+                        LoadUsersList();
 
                     }));
             }
@@ -136,10 +118,15 @@ namespace CPMCAppointmentSystem.ViewModel
         {
         }
 
-        private async Task LoadSettingsRelatedData()
+        private async Task LoadUsersList()
         {
-           AdminsUserList=new ObservableCollection<User>(await Task.Run(()=>_dbContext.Users));
+           UsersList=new ObservableCollection<User>(await Task.Run(()=>_dbContext.Users));
             
+        }
+
+        private async Task LoadUserTaskCollection()
+        {
+            UserTypeCollection=new ObservableCollection<UserType>(await Task.Run(()=>_dbContext.UserTypes));
         }
         #endregion        
     }
