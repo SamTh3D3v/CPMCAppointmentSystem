@@ -154,26 +154,7 @@
                                             ItemContainerStyle="{StaticResource TreeViewItemConStyle}" 
                                             ShowRootLines="True" 
                                             AllowMultiSelect="False" 
-                                            AllowDragDrop="False">
-                                    <syncfusion:TreeViewItemAdv Header="Users and their autoroties">
-                                        <syncfusion:TreeViewItemAdv Header="Patient">
-                                            <syncfusion:TreeViewItemAdv >
-                                                <syncfusion:TreeViewItemAdv.Header>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <CheckBox Content=""/>
-                                                    </StackPanel>
-                                                </syncfusion:TreeViewItemAdv.Header>
-                                            </syncfusion:TreeViewItemAdv>
-                                            <syncfusion:TreeViewItemAdv Header="PatientsEditAllow">
-                                            </syncfusion:TreeViewItemAdv>
-                                        </syncfusion:TreeViewItemAdv>
-                                        <syncfusion:TreeViewItemAdv Header="Doctors"/>
-                                        <syncfusion:TreeViewItemAdv Header="Specialities"/>
-                                        <syncfusion:TreeViewItemAdv Header="Pathologies"/>
-                                        <syncfusion:TreeViewItemAdv Header="Settings"/>
-
-                                    </syncfusion:TreeViewItemAdv>
-
+                                            AllowDragDrop="False">                                    
                                 </syncfusion:TreeViewAdv>
                             </Expander>
                             <Grid Grid.Row="4" Grid.Column="0"  VerticalAlignment="Bottom">

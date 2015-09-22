@@ -17,7 +17,7 @@ namespace DataLayer.Model
         public RolesCollection()
         {
         }
-        [Key, ForeignKey("User")]
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid RolesCollectionId { get; set; }
         //Roles
@@ -50,11 +50,13 @@ namespace DataLayer.Model
      
         #endregion
         #region Settings View
-        public bool SettingsViewAllow { get; set; } 
+        public bool SettingsViewUsersAllow { get; set; } 
+        public bool SettingsEditUsersAllow { get; set; } 
+        public bool SettingsMangeThemeAllow { get; set; } 
         #endregion
-        public Guid UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        //public Guid UserId { get; set; }
+        //[ForeignKey("UserId")]
+        //public virtual User User { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

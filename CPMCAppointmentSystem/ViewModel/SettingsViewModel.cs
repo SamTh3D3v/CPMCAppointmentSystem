@@ -18,7 +18,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private CpmcContext _dbContext=new CpmcContext();       
         private ObservableCollection<User> _usersList  ;        
         private User _selectedUser  ;       
-        private ObservableCollection<TreeViewModel> _treeViewRollCollection;
+        private ObservableCollection<TreeViewModel> _treeViewRollCollection=new ObservableCollection<TreeViewModel>();
         private ObservableCollection<UserTypeToAdd> _userTypeCollection;   
        
         #endregion
@@ -57,6 +57,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
                 _selectedUser = value;
                 RaisePropertyChanged();
+                LoadRollCollectionForSelectedUser();
             }
         }
         public ObservableCollection<User> UsersList
@@ -106,7 +107,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _settingsViewLoadedCommand
                     ?? (_settingsViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        await LoadUserTaskCollection();
+                        await LoadUserTypeCollection();
                         await LoadUsersList();                       
                     }));
             }
@@ -124,7 +125,7 @@ namespace CPMCAppointmentSystem.ViewModel
            UsersList=new ObservableCollection<User>(await Task.Run(()=>_dbContext.Users));            
         }
 
-        private async Task LoadUserTaskCollection()
+        private async Task LoadUserTypeCollection()
         {
             UserTypeCollection = new ObservableCollection<UserTypeToAdd>(await Task.Run(() => _dbContext.UserTypes.Select(x=>new UserTypeToAdd()
             {
@@ -133,6 +134,74 @@ namespace CPMCAppointmentSystem.ViewModel
                 Users = x.Users,
                 IsAdded = true
             })));
+        }
+
+        private void LoadRollCollectionForSelectedUser()
+        {
+            
+            TreeViewRollCollection=new ObservableCollection<TreeViewModel>()
+            {
+                new TreeViewModel()
+                {
+                    Content = "CalendarView", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                    {
+                        new TreeViewModel(){ Content = "AppointementViewAllow", IsChecked = SelectedUser.RolesCollection.AppointementViewAllow},
+                        new TreeViewModel(){ Content = "AppointementEditAllow", IsChecked = SelectedUser.RolesCollection.AppointementEditAllow}
+                    }
+                }, 
+                new TreeViewModel()
+                {
+                    Content = "Doctors View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                    {
+                        new TreeViewModel(){ Content = "DoctorsViewAllow", IsChecked = SelectedUser.RolesCollection.DoctorsViewAllow},
+                        new TreeViewModel(){ Content = "DoctorsAddAllow", IsChecked = SelectedUser.RolesCollection.DoctorsAddAllow}
+                    }
+                },
+                new TreeViewModel()
+                {
+                    Content = "Patient View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                    {
+                        new TreeViewModel(){ Content = "PatientsViewAllow", IsChecked = SelectedUser.RolesCollection.PatientsViewAllow},
+                        new TreeViewModel(){ Content = "PatientsEditAllow", IsChecked = SelectedUser.RolesCollection.PatientsEditAllow},
+                        new TreeViewModel(){ Content = "PatientsEditAppointementAllow", IsChecked = SelectedUser.RolesCollection.PatientsEditAppointementAllow}
+                    }
+                },
+                new TreeViewModel()
+                {
+                    Content = "Speciality View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                    {
+                        new TreeViewModel(){ Content = "SpecialitiesViewAllow", IsChecked = SelectedUser.RolesCollection.SpecialitiesViewAllow},
+                        new TreeViewModel(){ Content = "SpecialitiesEditAllow", IsChecked = SelectedUser.RolesCollection.SpecialitiesEditAllow}
+                    }
+                },
+                new TreeViewModel()
+                {
+                    Content = "Pathology View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                    {
+                        new TreeViewModel(){ Content = "PathologiesViewAllow", IsChecked = SelectedUser.RolesCollection.PathologiesViewAllow},
+                        new TreeViewModel(){ Content = "PathologiesEditAllow", IsChecked = SelectedUser.RolesCollection.PathologiesEditAllow}
+                    }
+                },
+                new TreeViewModel()
+                {
+                    Content = "MyPatients View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                    {
+                        new TreeViewModel(){ Content = "MyPatientsViewAllow", IsChecked = SelectedUser.RolesCollection.MyPatientsViewAllow},
+                        new TreeViewModel(){ Content = "MyPatientsEditAllow", IsChecked = SelectedUser.RolesCollection.MyPatientsEditAllow},
+                        new TreeViewModel(){ Content = "MyPatientsEditAppointementAllow", IsChecked = SelectedUser.RolesCollection.MyPatientsEditAppointementAllow}
+                    }
+                },
+                new TreeViewModel()
+                {
+                    Content = "Settings View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                    {
+                        new TreeViewModel(){ Content = "SettingsViewUsersAllow", IsChecked = SelectedUser.RolesCollection.SettingsViewUsersAllow},
+                        new TreeViewModel(){ Content = "SettingsEditUsersAllow", IsChecked = SelectedUser.RolesCollection.SettingsEditUsersAllow},
+                        new TreeViewModel(){ Content = "SettingsMangeThemeAllow", IsChecked = SelectedUser.RolesCollection.SettingsMangeThemeAllow}
+                    }
+                }
+                
+            };
         }
         #endregion        
     }

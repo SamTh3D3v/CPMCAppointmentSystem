@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Syncfusion.Windows.Forms.Tools.Navigation;
 using Syncfusion.Windows.Shared;
 
 namespace CPMCAppointmentSystem.Helpers
 {
-    public class TreeViewModel:NotifyPropertyChanged
+    public class TreeViewModel : NotifyPropertyChanged
     {
         #region Fields
-     
-        private String _content ;
+
         private ObservableCollection<TreeViewModel> _treeViewModelCollection;
-        private bool? _isChecked;  
+        private bool? _isChecked;
+        private string _content;
+
         #endregion
         #region properties
         public String Content
@@ -54,7 +55,7 @@ namespace CPMCAppointmentSystem.Helpers
                 OnPropertyChanged();
                 OnCheckedChanged();
             }
-        }       
+        }
         public ObservableCollection<TreeViewModel> TreeViewModelCollection
         {
             get
@@ -73,13 +74,15 @@ namespace CPMCAppointmentSystem.Helpers
             }
         }
         #endregion
-        #region Ctors and Methods 
+        #region Ctors and Methods
         private void OnCheckedChanged()
         {
-            if(this.IsChecked.HasValue)
-            foreach (var model in this.TreeViewModelCollection)
+            if (this.IsChecked.HasValue && TreeViewModelCollection != null)
             {
-                model.IsChecked = IsChecked;
+                foreach (var model in this.TreeViewModelCollection)
+                {
+                    model.IsChecked = IsChecked;
+                }
             }
         }
         #endregion
