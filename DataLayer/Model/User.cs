@@ -12,26 +12,102 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("User")]
-    public class User:INotifyPropertyChanged
+    public class User : INotifyPropertyChanged
     {
+        #region Fields
+        private Guid _userId;
+        private String _userNom;
+        private String _userPrenom;
+        private String _userName;
+        #endregion
+        #region Properties
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid UserId
+        {
+            get
+            {
+                return _userId;
+            }
+
+            set
+            {
+                if (_userId == value)
+                {
+                    return;
+                }
+
+                _userId = value;
+                OnPropertyChanged();
+            }
+        }
+        [Required]
+        public String UserNom
+        {
+            get
+            {
+                return _userNom;
+            }
+
+            set
+            {
+                if (_userNom == value)
+                {
+                    return;
+                }
+
+                _userNom = value;
+                OnPropertyChanged();
+            }
+        }
+        [Required]
+        public String UserPrenom
+        {
+            get
+            {
+                return _userPrenom;
+            }
+
+            set
+            {
+                if (_userPrenom == value)
+                {
+                    return;
+                }
+
+                _userPrenom = value;
+                OnPropertyChanged();
+            }
+        }
+        [Required]
+        public String UserName
+        {
+            get
+            {
+                return _userName;
+            }
+
+            set
+            {
+                if (_userName == value)
+                {
+                    return;
+                }
+
+                _userName = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
         public User()
         {
 
-        }
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid UserId { get; set; }
-        [Required]
-        public String UserNom { get; set; }
-        [Required]
-        public String UserPrenom { get; set; }
+        }     
         [Required]
         public Guid RolesCollectionId { get; set; }
-        [Required]
-        public String UserName { get; set; }
+                
         [Required]
         public String UserPass { get; set; }
-        
         public Guid UserTypeId { get; set; }
         [ForeignKey("RolesCollectionId")]
         public virtual RolesCollection RolesCollection { get; set; }

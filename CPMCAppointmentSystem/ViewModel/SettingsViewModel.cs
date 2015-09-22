@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -120,8 +121,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadUsersList()
         {
-           UsersList=new ObservableCollection<User>(await Task.Run(()=>_dbContext.Users));
-            
+           UsersList=new ObservableCollection<User>(await Task.Run(()=>_dbContext.Users));            
         }
 
         private async Task LoadUserTaskCollection()

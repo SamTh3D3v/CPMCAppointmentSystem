@@ -22,8 +22,8 @@
             <Setter Property="IsExpanded" Value="True"/>
             <!--<Setter Property="LeftImageSource" Value="{StaticResource PathologyDark}"/>-->
         </Style>
-        <HierarchicalDataTemplate x:Key="TvItemTemplate" ItemsSource="{Binding Models}">
-            <CheckBox Content="{Binding Caption}" IsChecked="{Binding Path=IsChecked,Mode=TwoWay}"/>
+        <HierarchicalDataTemplate x:Key="TvItemTemplate" ItemsSource="{Binding TreeViewModelCollection}">
+            <CheckBox Content="{Binding Content}" IsChecked="{Binding Path=IsChecked,Mode=TwoWay}"/>
         </HierarchicalDataTemplate>
     </Page.Resources>
 
@@ -64,7 +64,7 @@
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
-                                                                                                                                      
+
                         </ListView>
                         <Grid Grid.Column="0" Grid.Row="1" Margin="4">
                             <syncfusion:SfDataGrid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -72,86 +72,84 @@
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
-                                       ItemsSource="{Binding UsersList}"
+                                       ItemsSource="{Binding UsersList,Mode=TwoWay}"
                                    AutoGenerateColumns="False"
-                                   SelectedItem="{Binding SelectedUser}"
+                                   SelectedItem="{Binding SelectedUser,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
                                 <syncfusion:SfDataGrid.Columns>
                                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="UserNom" />
-                                    <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="UserPrenom"/>                                    
+                                    <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="UserPrenom"/>
                                     <syncfusion:GridTextColumn HeaderText="UserName" MappingName="UserName"/>
                                 </syncfusion:SfDataGrid.Columns>
                             </syncfusion:SfDataGrid>
                         </Grid>
                         <GridSplitter Grid.Row="0" Grid.RowSpan="2" Background="Gray" Width="1" Margin="1" Grid.Column="1" VerticalAlignment="Stretch"/>
-                        <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">                            
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>                                                               
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-
-                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>                            
-                            <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5" 
-                                     Mask="[A-Za-z ]*" MaskType="RegEx" 
-                                     Watermark="Nom de l'utilisateur"  ValidationMode="KeyPress"
-                                     />
                             
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-
-                            <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5" 
-                                     Mask="[A-Za-z ]*" MaskType="RegEx" 
-                                     Watermark="Prenom de l'utilisateur"  ValidationMode="KeyPress"
+                            <GroupBox Grid.Row="0" Grid.Column="0" Header="Basic inoformation">                              
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                    <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Nom de l'utilisateur"  
                                      />
 
-
-
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="UserName" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-
-                            <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5" 
-                                     Mask="[A-Za-z0-9 ]*" MaskType="RegEx" 
-                                     Watermark="Prenom de l'utilisateur"  ValidationMode="KeyPress"
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                    <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Prenom de l'utilisateur" 
                                      />
 
-                            <TextBlock Grid.Column="0" Grid.Row="3" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="UserName" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                    <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Prenom de l'utilisateur" 
+                                     />
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Grid.Row="1" Grid.Column="0">
+                                <GroupBox.Header>
+                                    <CheckBox Content="Change password" x:Name="PassCheckBox" IsChecked="False"></CheckBox>
+                                </GroupBox.Header>
+                                <Grid IsEnabled="{Binding ElementName=PassCheckBox,Path=IsChecked}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                    <PasswordBox Margin="10 5"  x:Name="UserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <PasswordBox.Resources>
+                                            <system:String x:Key="WaterMarkText">Enter password</system:String>
+                                        </PasswordBox.Resources>
+                                    </PasswordBox>
 
-
-                            <PasswordBox x:Name="UserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                <PasswordBox.Resources>
-                                    <system:String x:Key="WaterMarkText">Enter password</system:String>
-                                </PasswordBox.Resources>
-                            </PasswordBox>
-
-                            <TextBlock Grid.Column="1" Grid.Row="1"  Text="Nom" >
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=NomBox}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-
-                            <TextBlock Grid.Column="0" Grid.Row="4" Text="Confirm Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                            <PasswordBox Style="{StaticResource WaterMarkPasswordBoxStyle}" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                <PasswordBox.Resources>
-                                    <system:String x:Key="WaterMarkText">Confirme password</system:String>
-                                </PasswordBox.Resources>                                
-                            </PasswordBox>
-
-                            <Expander IsExpanded="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Header="Rolls">
-                                <syncfusion:TreeViewAdv ItemsSource="{Binding TreeViewRollCollection}"  Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Confirm Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                    <PasswordBox Margin="10 5" x:Name="UserConfirmPass" Style="{StaticResource WaterMarkPasswordBoxStyle}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <PasswordBox.Resources>
+                                            <system:String x:Key="WaterMarkText">Confirme password</system:String>
+                                        </PasswordBox.Resources>
+                                    </PasswordBox>
+                                </Grid>
+                            </GroupBox>
+                                            
+                            <Expander IsExpanded="True" Grid.Row="2" Grid.Column="0"  Header="Rolls">
+                                <syncfusion:TreeViewAdv ItemsSource="{Binding TreeViewRollCollection}" ItemTemplate="{StaticResource TvItemTemplate}" Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
                                             AnimationType="Fade"
                                             ItemContainerStyle="{StaticResource TreeViewItemConStyle}" 
                                             ShowRootLines="True" 
@@ -178,7 +176,7 @@
 
                                 </syncfusion:TreeViewAdv>
                             </Expander>
-                            <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                            <Grid Grid.Row="4" Grid.Column="0"  VerticalAlignment="Bottom">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>

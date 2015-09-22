@@ -14,7 +14,8 @@ namespace CPMCAppointmentSystem.Helpers
         #region Fields
      
         private String _content ;
-        private ObservableCollection<TreeViewModel> _treeViewModelCollection;            
+        private ObservableCollection<TreeViewModel> _treeViewModelCollection;
+        private bool? _isChecked;  
         #endregion
         #region properties
         public String Content
@@ -35,6 +36,25 @@ namespace CPMCAppointmentSystem.Helpers
                 OnPropertyChanged();
             }
         }
+        public bool? IsChecked
+        {
+            get
+            {
+                return _isChecked;
+            }
+
+            set
+            {
+                if (_isChecked == value)
+                {
+                    return;
+                }
+
+                _isChecked = value;
+                OnPropertyChanged();
+                OnCheckedChanged();
+            }
+        }       
         public ObservableCollection<TreeViewModel> TreeViewModelCollection
         {
             get
@@ -53,7 +73,15 @@ namespace CPMCAppointmentSystem.Helpers
             }
         }
         #endregion
-        #region Ctors and Methods        
+        #region Ctors and Methods 
+        private void OnCheckedChanged()
+        {
+            if(this.IsChecked.HasValue)
+            foreach (var model in this.TreeViewModelCollection)
+            {
+                model.IsChecked = IsChecked;
+            }
+        }
         #endregion
     }
 }
