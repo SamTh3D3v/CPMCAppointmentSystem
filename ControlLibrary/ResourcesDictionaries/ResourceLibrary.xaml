@@ -35,6 +35,7 @@
         <ResourceDictionary Source="NamedStyles/InnerSettingsTabItemStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/SettingsTabItemStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/GoBackArrowButtonStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/WaterMarkedPasswordBoxStyle.xaml"/>
 
         <!--Other Resource Dictionaries-->
 
