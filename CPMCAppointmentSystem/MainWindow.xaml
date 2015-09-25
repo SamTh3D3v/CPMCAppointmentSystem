@@ -26,6 +26,19 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid x:Name="LayoutRoot">
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>            
+        </Grid.RowDefinitions>
+        <Frame Grid.Row="0" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        <Grid Grid.Row="1" Margin="0,2,0,0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{StaticResource HeaderBackgroundBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ProgressBar Grid.Column="2" Width="150" Margin="0,0,10,0"></ProgressBar>
+
+        </Grid>
     </Grid>
 </controls:MetroWindow>

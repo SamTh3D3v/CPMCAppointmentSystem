@@ -18,7 +18,7 @@
     <Grid Background="{StaticResource BodyBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>            
         </Grid.RowDefinitions>
         <Grid Background="{StaticResource HeaderBackgroundBrush}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
@@ -38,8 +38,7 @@
                 <RadioButton GroupName="menu" Content="Settings" Width="100" Command="{Binding SettingsCommand}" Style="{StaticResource HeaderToggleButtonStyle}"/>
             </StackPanel>
             
-
-        </Grid>
-        <Frame Grid.Row="1" x:Name="InnerFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        </Grid>        
+        <Frame Grid.Row="1" x:Name="InnerFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>        
     </Grid>
 </Page>
