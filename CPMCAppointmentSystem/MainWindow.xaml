@@ -28,7 +28,7 @@
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="35"/>            
+            <RowDefinition Height="30"/>            
         </Grid.RowDefinitions>
         <Frame Grid.Row="0" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         <Grid Grid.Row="1" Margin="0,2,0,0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{StaticResource HeaderBackgroundBrush}">
