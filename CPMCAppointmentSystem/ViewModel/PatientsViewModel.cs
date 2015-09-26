@@ -25,10 +25,47 @@ namespace CPMCAppointmentSystem.ViewModel
         private Medecin _selectedDoctor;
         private RendezVous _selectedAppointement;
         private ObservableCollection<Willaya> _willayasList;
-        private bool _isFormEnabled;
-        private ObservableCollection<PieceJointe> _pieceJointList;
+        private bool _isFormEnabled;     
+        private ObservableCollection<PieceJointeType> _pieceJointeTypeListe ;       
+        private PieceJointe _selectedPieceJointe ;       
         #endregion
-        #region Properties        
+        #region Properties    
+        public PieceJointe SelectedPieceJointe
+        {
+            get
+            {
+                return _selectedPieceJointe;
+            }
+
+            set
+            {
+                if (_selectedPieceJointe == value)
+                {
+                    return;
+                }
+
+                _selectedPieceJointe = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<PieceJointeType> TypePieceJointeList
+        {
+            get
+            {
+                return _pieceJointeTypeListe;
+            }
+
+            set
+            {
+                if (_pieceJointeTypeListe == value)
+                {
+                    return;
+                }
+
+                _pieceJointeTypeListe = value;
+                RaisePropertyChanged();
+            }
+        }  
         public ObservableCollection<Patient> PatientList
         {
             get
@@ -174,24 +211,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }  
-        public ObservableCollection<PieceJointe> PieceJointeList
-        {
-            get
-            {
-                return _pieceJointList;
-            }
-
-            set
-            {
-                if (_pieceJointList == value)
-                {
-                    return;
-                }
-
-                _pieceJointList = value;
-                RaisePropertyChanged();
-            }
-        }
+   
         #endregion
         #region Commands
         private RelayCommand _patientsViewLoadedCommand;
@@ -204,8 +224,10 @@ namespace CPMCAppointmentSystem.ViewModel
                     { 
                         SexeList=new ObservableCollection<Sexe>(await Task.Run(()=>_dbContext.Sexes));
                         WillayasList=new ObservableCollection<Willaya>(await  Task.Run(()=>_dbContext.Willayas));
+                        LoadPieceJointeTypeList();
                         LoadPatienstList();
                         LoadDoctorsList();
+                        
                     }));
             }
         }
@@ -390,6 +412,11 @@ namespace CPMCAppointmentSystem.ViewModel
         private async void LoadPatienstList()
         {
             PatientList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
+        }
+
+        private async void LoadPieceJointeTypeList()
+        {
+            TypePieceJointeList=new ObservableCollection<PieceJointeType>(await Task.Run(()=>_dbContext.PieceJointeTypes));
         }
         private void AddNewPatient()
         {

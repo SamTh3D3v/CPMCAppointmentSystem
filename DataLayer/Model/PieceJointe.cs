@@ -19,7 +19,8 @@ namespace DataLayer.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PieceJointeId { get; set; }
-        public String PieceJointeInformation { get; set; }
+        public String Description { get; set; }
+        public String IdPieceJointe { get; set; }
         public Guid PieceJointeTypeId { get; set; }
         [ForeignKey("PieceJointeTypeId")]
         public PieceJointeType TypePieceJointe { get; set; }
