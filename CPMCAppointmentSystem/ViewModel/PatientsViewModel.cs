@@ -26,6 +26,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private RendezVous _selectedAppointement;
         private ObservableCollection<Willaya> _willayasList;
         private bool _isFormEnabled;
+        private ObservableCollection<PieceJointe> _pieceJointList;
         #endregion
         #region Properties        
         public ObservableCollection<Patient> PatientList
@@ -170,6 +171,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _isFormEnabled = value;
+                RaisePropertyChanged();
+            }
+        }  
+        public ObservableCollection<PieceJointe> PieceJointeList
+        {
+            get
+            {
+                return _pieceJointList;
+            }
+
+            set
+            {
+                if (_pieceJointList == value)
+                {
+                    return;
+                }
+
+                _pieceJointList = value;
                 RaisePropertyChanged();
             }
         }

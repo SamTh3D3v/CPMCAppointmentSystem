@@ -66,7 +66,7 @@
 
         </Grid>
         <GridSplitter Grid.Column="1" Width="1" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        <Grid Grid.Column="2" Background="{StaticResource BodyBackgroundBrush}" DataContext="{Binding SelectedPatient,Mode=TwoWay}" IsEnabled="{Binding DataContext.IsFormEnabled,RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Margin="25,10,-25,-10">
+        <Grid Grid.Column="2" Background="{StaticResource BodyBackgroundBrush}" DataContext="{Binding SelectedPatient,Mode=TwoWay}" IsEnabled="{Binding DataContext.IsFormEnabled,RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
             <!--the patients details Grid-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -304,6 +304,41 @@
                                 </Syncfusion:SfDataGrid>
 
                             </Grid>
+                        </Syncfusion:TabItemExt.Content>
+                    </Syncfusion:TabItemExt>
+                    <Syncfusion:TabItemExt  MinHeight="35" x:Name="DossierTab">
+                        <Syncfusion:TabItemExt.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="2"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
+                                    <TextBlock Grid.Row="0" Text="Dossier"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </Syncfusion:TabItemExt.HeaderTemplate>
+                        <Syncfusion:TabItemExt.Content>
+                            <ListView ItemsSource="{Binding PieceDossierList}">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>                                                
+                                            </Grid.ColumnDefinitions>
+                                            <CheckBox />
+                                            <TextBlock Grid.Column="1" Text=""/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>                            
                         </Syncfusion:TabItemExt.Content>
                     </Syncfusion:TabItemExt>
                     <Syncfusion:TabItemExt  MinHeight="35" x:Name="NotesTab">

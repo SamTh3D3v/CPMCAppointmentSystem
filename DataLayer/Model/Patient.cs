@@ -43,6 +43,7 @@ namespace DataLayer.Model
         public virtual Adresse Adresse { get; set; }
         public virtual ICollection<Medecin> Medecins { get; set; }
         public virtual ICollection<RendezVous> RendezVouses { get; set; }
+        public virtual ICollection<PieceJointe> PieceJointes { get; set; }
         //[Required]
         public DateTime DateDeDepot { get; set; }
 
