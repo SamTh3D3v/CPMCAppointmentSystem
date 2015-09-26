@@ -1,11 +1,10 @@
-﻿using Syncfusion.Windows.Shared;
+﻿using MahApps.Metro.Controls;
+using Syncfusion.Windows.Shared;
 
 namespace CPMCAppointmentSystem.View.PatienstViews
 {
-    /// <summary>
-    /// Interaction logic for AddPatientAppointment.xaml
-    /// </summary>
-    public partial class AddPatientAppointment : ChromelessWindow
+
+    public partial class AddPatientAppointment : MetroWindow
     {
         public AddPatientAppointment()
         {

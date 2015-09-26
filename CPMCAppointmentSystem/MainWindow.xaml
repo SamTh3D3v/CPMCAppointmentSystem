@@ -9,10 +9,11 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d ignore"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="SingleBorderWindow"
+       
         WindowState="Maximized"                            
         Title="CPMC AppointementSystem" 
+                       WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
                       EnableDWMDropShadow="True"
                       ResizeMode="CanResizeWithGrip"
                       WindowTransitionsEnabled="False"                      
