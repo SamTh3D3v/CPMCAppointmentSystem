@@ -46,17 +46,44 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Syncfusion:SfMaskedEdit  Grid.Column="0" Text="{Binding FilterText,Mode=TwoWay}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Filtrer les patients"  
                                      />
-                <ComboBox Grid.Column="1" Margin="2 5" x:Name="FiltrerParBox" ItemsSource="{Binding FilterByCollection}"/>
+                <ComboBox Grid.Column="1" Margin="2 5" x:Name="FiltrerParBox" ItemsSource="{Binding FilterByCollection}" SelectedItem="{Binding FilterBySelectedItem,Mode=TwoWay}"/>
                 <TextBlock Grid.Column="1"  Text="Par" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding SelectedItem, ElementName=FiltrerParBox}" Value="{x:Null}">
                                     <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <ComboBox Grid.Column="2"  Margin="2 5" x:Name="PieceJTypeBox" ItemsSource="{Binding TypePieceJointeList}" DisplayMemberPath="PieceJointeTitle" SelectedItem="{Binding SelectedTypePieceJointeInFilter,Mode=TwoWay}">
+                    <ComboBox.Style>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=FiltrerParBox,Path=SelectedValue}" Value="Piece Jointe">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Style>
+                </ComboBox>
+                <TextBlock Grid.Column="2"  Text="Type" >
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItem, ElementName=PieceJTypeBox}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Visibility, ElementName=PieceJTypeBox}" Value="Collapsed">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

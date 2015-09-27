@@ -31,10 +31,30 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _filterText;
         private ObservableCollection<String> _filterByCollection=new ObservableCollection<string>()
         {
-            "Nom","Prenom","DateDeNaissance","Telephone","willaya"
+            "Nom","Prenom","DateDeNaissance","Telephone","willaya","Piece Jointe" //To be Rereviewed
         };
+        private String _filterBySelectedItem;
+        private PieceJointeType _selectedTypePieceJointeInFilter;
         #endregion
-        #region Properties     
+        #region Properties                  
+        public PieceJointeType SelectedTypePieceJointeInFilter
+        {
+            get
+            {
+                return _selectedTypePieceJointeInFilter;
+            }
+
+            set
+            {
+                if (_selectedTypePieceJointeInFilter == value)
+                {
+                    return;
+                }
+
+                _selectedTypePieceJointeInFilter = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<String> FilterByCollection
         {
             get
@@ -68,6 +88,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _filterText = value;
+                RaisePropertyChanged();
+            }
+        }                      
+        public String FilterBySelectedItem
+        {
+            get
+            {
+                return _filterBySelectedItem;
+            }
+
+            set
+            {
+                if (_filterBySelectedItem == value)
+                {
+                    return;
+                }
+
+                _filterBySelectedItem = value;
                 RaisePropertyChanged();
             }
         }
