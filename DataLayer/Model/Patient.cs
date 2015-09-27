@@ -44,6 +44,7 @@ namespace DataLayer.Model
         public virtual ICollection<Medecin> Medecins { get; set; }
         public virtual ICollection<RendezVous> RendezVouses { get; set; }
         public virtual ICollection<PieceJointe> PieceJointes { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
         //[Required]
         public DateTime DateDeDepot { get; set; }
 

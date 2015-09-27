@@ -73,6 +73,7 @@
     <Compile Include="Model\CpmcContext.cs" />
     <Compile Include="Model\CpmcDBInitializer.cs" />
     <Compile Include="Model\Medecin.cs" />
+    <Compile Include="Model\Note.cs" />
     <Compile Include="Model\Pathology.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\PieceJointe.cs" />

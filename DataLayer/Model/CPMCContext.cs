@@ -39,6 +39,7 @@ namespace DataLayer.Model
         public DbSet<UserType> UserTypes { get; set; }
         public DbSet<PieceJointeType> PieceJointeTypes { get; set; }
         public DbSet<PieceJointe> PieceJointes { get; set; }
+        public DbSet<Note> Notes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
