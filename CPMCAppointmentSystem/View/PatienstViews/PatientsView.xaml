@@ -52,7 +52,7 @@
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=FilterTb,Path=IsChecked}" Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger> 
+                            </DataTrigger>
                             <DataTrigger Binding="{Binding ElementName=FilterTb,Path=IsChecked}" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
@@ -109,7 +109,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <Grid  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0">                   
+                <Grid  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -132,7 +132,7 @@
                     </Syncfusion:DateTimeEdit>
                     <CheckBox Grid.Column="2" x:Name="DateDepotCb"></CheckBox>
                 </Grid>
-              
+
             </Grid>
             <Syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
                                        AllowDraggingColumns="True"
@@ -190,7 +190,7 @@
                 <Image x:Name="WebCamPic" Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
                 <Border x:Name="WebCamBorder"  Background="WhiteSmoke" Grid.Column="0" Grid.Row="0" Width="60" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Border.Style>
-                        <Style TargetType="Border">  
+                        <Style TargetType="Border">
                             <Setter Property="Opacity" Value=".01"></Setter>
                             <Style.Triggers>
                                 <Trigger  Property="IsMouseOver"  Value="True">
@@ -447,7 +447,7 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
-                                        <RowDefinition Height="2"/>                                        
+                                        <RowDefinition Height="2"/>
                                     </Grid.RowDefinitions>
                                     <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
                                     <TextBlock Grid.Row="0" Text="Dossier"></TextBlock>
@@ -460,7 +460,7 @@
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="10"/>
-                                    <RowDefinition Height="*"/>                                    
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -478,7 +478,7 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>                                        
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <ComboBox x:Name="TypeCbx" Grid.Row="0" ItemsSource="{Binding DataContext.TypePieceJointeList,ElementName=RootGrid,Mode=TwoWay}" SelectedItem="{Binding Path=DataContext.SelectedPieceJointe.TypePieceJointe,ElementName=RootGrid}" DisplayMemberPath="PieceJointeTitle" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
                                     <TextBlock Grid.Row="0"  Text="Type Piece Jointe" >
@@ -507,7 +507,7 @@
                                         <Button Content="Preview" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
                                         <Button Content="Save" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
                                     </Grid>
-                                                                       
+
                                 </Grid>
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
                                 <ListView ItemsSource="{Binding PieceJointes}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe}">
@@ -545,6 +545,22 @@
                                 </Grid>
                             </DataTemplate>
                         </Syncfusion:TabItemExt.HeaderTemplate>
+                        <Syncfusion:TabItemExt.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="100"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Syncfusion:SfMaskedEdit Text="{Binding NumeroDordre,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Titre du remarque" />
+                                <Syncfusion:SfMaskedEdit Text="{Binding NumeroDordre,Mode=TwoWay}"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Contenu du remarque" />
+                                <ListView Grid.Row="2" Margin="10 5">
+                                    
+                                </ListView>
+                            </Grid>
+                        </Syncfusion:TabItemExt.Content>
                     </Syncfusion:TabItemExt>
 
 
