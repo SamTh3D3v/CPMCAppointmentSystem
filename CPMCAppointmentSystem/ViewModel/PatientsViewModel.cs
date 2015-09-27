@@ -27,9 +27,50 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<Willaya> _willayasList;
         private bool _isFormEnabled;     
         private ObservableCollection<PieceJointeType> _pieceJointeTypeListe ;       
-        private PieceJointe _selectedPieceJointe ;       
+        private PieceJointe _selectedPieceJointe ;
+        private String _filterText;
+        private ObservableCollection<String> _filterByCollection=new ObservableCollection<string>()
+        {
+            "Nom","Prenom","DateDeNaissance","Telephone","willaya"
+        };
         #endregion
-        #region Properties    
+        #region Properties     
+        public ObservableCollection<String> FilterByCollection
+        {
+            get
+            {
+                return _filterByCollection;
+            }
+
+            set
+            {
+                if (_filterByCollection == value)
+                {
+                    return;
+                }
+
+                _filterByCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public String FilterText
+        {
+            get
+            {
+                return _filterText;
+            }
+
+            set
+            {
+                if (_filterText == value)
+                {
+                    return;
+                }
+
+                _filterText = value;
+                RaisePropertyChanged();
+            }
+        }
         public PieceJointe SelectedPieceJointe
         {
             get
