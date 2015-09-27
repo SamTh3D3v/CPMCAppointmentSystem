@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.PatienstViews;
@@ -89,8 +90,15 @@ namespace CPMCAppointmentSystem.ViewModel
 
                 _filterText = value;
                 RaisePropertyChanged();
+                SearchPatients();
             }
-        }                      
+        }
+
+        private  void SearchPatients()
+        {
+            
+        }
+
         public String FilterBySelectedItem
         {
             get
