@@ -109,13 +109,28 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <Grid  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0">
+                <Grid  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0">                   
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Date de dépot" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Syncfusion:DateTimeEdit  Grid.Column="1" x:Name="DateDepotBoxTimeEdit"  Margin="10 5"  HorizontalAlignment="Stretch"/>
+                    <Syncfusion:DateTimeEdit  Grid.Column="1" x:Name="DateDepotBoxTimeEdit"  Margin="10 5"  HorizontalAlignment="Stretch">
+                        <Syncfusion:DateTimeEdit.Style>
+                            <Style TargetType="Syncfusion:DateTimeEdit">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=DateDepotCb,Path=IsChecked}" Value="True">
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=DateDepotCb,Path=IsChecked}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Syncfusion:DateTimeEdit.Style>
+                    </Syncfusion:DateTimeEdit>
+                    <CheckBox Grid.Column="2" x:Name="DateDepotCb"></CheckBox>
                 </Grid>
               
             </Grid>
