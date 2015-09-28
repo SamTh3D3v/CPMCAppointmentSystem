@@ -144,6 +144,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MyPatientsViewModel.cs" />
+    <Compile Include="ViewModel\NotificationViewModel.cs" />
     <Compile Include="ViewModel\PathologiesViewModel.cs" />
     <Compile Include="ViewModel\PatientsViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
@@ -151,6 +152,9 @@
     <Compile Include="ViewModel\StatisticsViewModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModels\PatientsPerSexeChartViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\NotificationView.xaml.cs">
+      <DependentUpon>NotificationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PathologiesViews\AddDoctorsToPathologyView.xaml.cs">
       <DependentUpon>AddDoctorsToPathologyView.xaml</DependentUpon>
     </Compile>
@@ -215,6 +219,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\TileItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NotificationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

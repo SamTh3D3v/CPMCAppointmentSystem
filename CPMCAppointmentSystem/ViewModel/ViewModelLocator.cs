@@ -41,6 +41,7 @@ namespace CPMCAppointmentSystem.ViewModel
             SimpleIoc.Default.Register<SpecialityViewModel>();
             SimpleIoc.Default.Register<StatisticsViewModel>();
             SimpleIoc.Default.Register<PatientsPerSexeChartViewModel>();
+            SimpleIoc.Default.Register<NotificationViewModel>();
             SetupMainNavigationService();
             SetupInnerNavigationService();
         }
@@ -62,6 +63,7 @@ namespace CPMCAppointmentSystem.ViewModel
             InnerFrameNavigationService.Configure(App.PatientsViewKey, new Uri("../View/PatienstViews/PatientsView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.SpecialityViewKey, new Uri("../View/SpecialitiesViews/SpecialiteView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.StatisticsViewKey, new Uri("../View/StatisticsView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.NotificationViewKey, new Uri("../View/NotificationView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IInnerFrameNavigationService>(() => InnerFrameNavigationService);
         }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
@@ -183,6 +185,16 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<StatisticsViewModel>();
+            }
+        }         
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public NotificationViewModel NotificationViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<NotificationViewModel>();
             }
         }
       
