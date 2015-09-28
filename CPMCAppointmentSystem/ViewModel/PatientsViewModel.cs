@@ -17,6 +17,7 @@ namespace CPMCAppointmentSystem.ViewModel
     {
         #region Fields
 
+        private Note _selectedNote  ;
         private AddPatientAppointment _addAppointementWindow;
         private ObservableCollection<Patient> _patientList;
         private Patient _selectedPatient;
@@ -37,7 +38,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _filterBySelectedItem;
         private PieceJointeType _selectedTypePieceJointeInFilter;
         #endregion
-        #region Properties                  
+        #region Properties    
+        public Note SelectedNote
+        {
+            get
+            {
+                return _selectedNote;
+            }
+
+            set
+            {
+                if (_selectedNote == value)
+                {
+                    return;
+                }
+
+                _selectedNote = value;
+                RaisePropertyChanged();
+            }
+        }      
         public PieceJointeType SelectedTypePieceJointeInFilter
         {
             get
