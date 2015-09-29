@@ -2,15 +2,76 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700" 
       DataContext="{Binding Source={StaticResource Locator}, Path=NotificationViewModel}"
-      
+      syncfusion:LayoutControl.SetMetroMode="True"
 	Title="NotificationView">
 
-    <Grid>
-        <TextBlock Text="Notification" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-        
-    </Grid>
+    <syncfusion:LayoutControl HeaderDescriptionText="Liste des sms envoyés et en cour de l'envoie"
+                        HeaderText="Notification Sms "
+                        LayoutMode="Metro"
+                        UserOptionsVisibility="Visible">                       
+        <syncfusion:LayoutControl.UserOptionsView>
+            <syncfusion:UserOptions HeaderText="Options">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Option 1" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox Grid.Column="1" Grid.Row="0"/>
+                    <TextBox Grid.Column="1" Grid.Row="1"/>
+                    <TextBlock Text="Option 2" Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </syncfusion:UserOptions>
+        </syncfusion:LayoutControl.UserOptionsView>
+
+        <grid:LayoutControl.GridView>
+            <Grid>                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>               
+                <syncfusion:SfDataGrid x:Name="SmsDataGrid"
+                                       AllowFiltering="False"
+                                       AutoGenerateColumns="False"
+                                       ColumnSizer="Star"
+                                       IsGroupDropAreaExpanded="True"
+                                       ItemsSource="{Binding Path=PagedSource,
+                                                             ElementName=sfDataPager}"
+                                       NavigationMode="Row"
+                                       ShowGroupDropArea="True">
+                    <syncfusion:SfDataGrid.Columns>
+                        <syncfusion:GridTextColumn MappingName="OrderID" TextAlignment="Left" />
+                        <syncfusion:GridTextColumn MappingName="CustomerID" />
+                        <syncfusion:GridTextColumn MappingName="EmployeeID" TextAlignment="Right" />
+                        <syncfusion:GridTextColumn HeaderText="Ship Name" MappingName="ShipName" />
+                        <syncfusion:GridTextColumn HeaderText="Ship Address" MappingName="ShipAddress" />
+                        <syncfusion:GridTextColumn HeaderText="Ship City" MappingName="ShipCity" />
+                        <syncfusion:GridTextColumn HeaderText="Ship Country" MappingName="ShipCountry" />
+                        <syncfusion:GridTextColumn DisplayBinding="{Binding Path=Freight, StringFormat='{}{0:c}'}" TextAlignment="Right" />
+                    </syncfusion:SfDataGrid.Columns>
+                </syncfusion:SfDataGrid>
+                <syncfusion:SfDataPager x:Name="SmsDataPager"
+                                       Grid.Row="1"                                       
+                                       Height="60"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"
+                                       AccentBackground="#FF53C3D5"
+                                       AccentForeground="White"
+                                       NumericButtonCount="10"
+                                       Orientation="Horizontal"
+                                       PageSize="16"
+                                       Source="{Binding GridItemSource}" />
+            </Grid>
+        </grid:LayoutControl.GridView>
+
+    </syncfusion:LayoutControl>
 </Page>
