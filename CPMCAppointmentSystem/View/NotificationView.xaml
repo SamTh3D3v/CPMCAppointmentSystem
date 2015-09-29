@@ -4,10 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="500" d:DesignWidth="700" 
+      DataContext="{Binding Source={StaticResource Locator}, Path=NotificationViewModel}"
+      
 	Title="NotificationView">
 
     <Grid>
+        <TextBlock Text="Notification" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         
     </Grid>
 </Page>
