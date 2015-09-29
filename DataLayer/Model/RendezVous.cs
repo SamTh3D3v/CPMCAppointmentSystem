@@ -34,6 +34,9 @@ namespace DataLayer.Model
 
         public bool NotificationSent { get; set; }
         public bool PatientConfirmRdv { get; set; }
+        
+        //This field is used when you report a client rdv, you need to set his other rdv to false and the last one to true
+        public bool IsTheLastOne { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

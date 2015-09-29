@@ -33,7 +33,7 @@
             </syncfusion:UserOptions>
         </syncfusion:LayoutControl.UserOptionsView>
 
-        <grid:LayoutControl.GridView>
+        <syncfusion:LayoutControl.GridView>
             <Grid>                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -45,18 +45,21 @@
                                        ColumnSizer="Star"
                                        IsGroupDropAreaExpanded="True"
                                        ItemsSource="{Binding Path=PagedSource,
-                                                             ElementName=sfDataPager}"
+                                                             ElementName=SmsDataPager}"
                                        NavigationMode="Row"
                                        ShowGroupDropArea="True">
                     <syncfusion:SfDataGrid.Columns>
-                        <syncfusion:GridTextColumn MappingName="OrderID" TextAlignment="Left" />
-                        <syncfusion:GridTextColumn MappingName="CustomerID" />
-                        <syncfusion:GridTextColumn MappingName="EmployeeID" TextAlignment="Right" />
-                        <syncfusion:GridTextColumn HeaderText="Ship Name" MappingName="ShipName" />
-                        <syncfusion:GridTextColumn HeaderText="Ship Address" MappingName="ShipAddress" />
-                        <syncfusion:GridTextColumn HeaderText="Ship City" MappingName="ShipCity" />
-                        <syncfusion:GridTextColumn HeaderText="Ship Country" MappingName="ShipCountry" />
-                        <syncfusion:GridTextColumn DisplayBinding="{Binding Path=Freight, StringFormat='{}{0:c}'}" TextAlignment="Right" />
+                        <syncfusion:GridTextColumn HeaderText="Num D'ordre" MappingName="Patient.NumeroDordre" TextAlignment="Left" />
+                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Patient.Nom" />
+                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Patient.Prenom" TextAlignment="Right" />
+                        <syncfusion:GridTextColumn HeaderText="Telephone Fixe" MappingName="Patient.TelephoneFixe" />
+                        <syncfusion:GridTextColumn HeaderText="Mobile1" MappingName="Patient.TelephoneMobile1" />
+                        <syncfusion:GridTextColumn HeaderText="Mobile2" MappingName="Patient.TelephoneMobile2" />
+                        <syncfusion:GridTextColumn HeaderText="Nom Medecin" MappingName="Medecin.User.UserNom" />
+                        <syncfusion:GridTextColumn HeaderText="Prenom Medecin" MappingName="Medecin.User.UserPrenom" />
+                        <syncfusion:GridTextColumn HeaderText="Notification envoyé" MappingName="NotificationSent" />
+                        <syncfusion:GridTextColumn HeaderText="Confirmation" MappingName="PatientConfirmRdv" />
+                        
                     </syncfusion:SfDataGrid.Columns>
                 </syncfusion:SfDataGrid>
                 <syncfusion:SfDataPager x:Name="SmsDataPager"
@@ -69,9 +72,9 @@
                                        NumericButtonCount="10"
                                        Orientation="Horizontal"
                                        PageSize="16"
-                                       Source="{Binding GridItemSource}" />
+                                       Source="{Binding RdvCollectionList}" />
             </Grid>
-        </grid:LayoutControl.GridView>
+        </syncfusion:LayoutControl.GridView>
 
     </syncfusion:LayoutControl>
 </Page>
