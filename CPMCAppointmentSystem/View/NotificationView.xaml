@@ -4,11 +4,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:command="http://www.galasoft.ch/mvvmlight"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700" 
       DataContext="{Binding Source={StaticResource Locator}, Path=NotificationViewModel}"
       syncfusion:LayoutControl.SetMetroMode="True"
 	Title="NotificationView">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=NotificationViewLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <syncfusion:LayoutControl HeaderDescriptionText="Liste des sms envoyés et en cour de l'envoie"
                         HeaderText="Notification Sms "
