@@ -51,12 +51,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\SelecteImageConverter.cs" />
     <Compile Include="Helpers\PasswordBoxMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
-    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="ResourcesDictionaries\BaseControlStyles\TextBlockStyle.xaml">
@@ -255,6 +255,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icons\Dark\Filter_Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Dark\SendNo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Icons\Dark\SendYes.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

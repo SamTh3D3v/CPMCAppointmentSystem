@@ -82,7 +82,18 @@
                         <syncfusion:GridTextColumn HeaderText="Mobile2" MappingName="Patient.TelephoneMobile2" />
                         <syncfusion:GridTextColumn HeaderText="Nom Medecin" MappingName="Medecin.User.UserNom" />
                         <syncfusion:GridTextColumn HeaderText="Prenom Medecin" MappingName="Medecin.User.UserPrenom" />
-                        <syncfusion:GridTextColumn HeaderText="Notification envoyé" MappingName="NotificationSent" />
+                        <syncfusion:GridTemplateColumn HeaderText="Notification envoyé" MappingName="NotificationSent" >
+                            <syncfusion:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Width="15"
+                                           Height="15"
+                                           Source="{Binding NotificationSent,Converter={StaticResource SelecteImageConverter}}"
+                                           Stretch="UniformToFill">                                        
+                                  </Image>
+                                          
+                                </DataTemplate>
+                            </syncfusion:GridTemplateColumn.CellTemplate> 
+                        </syncfusion:GridTemplateColumn>
                         <syncfusion:GridTextColumn HeaderText="Confirmation" MappingName="PatientConfirmRdv" />
                         
                     </syncfusion:SfDataGrid.Columns>

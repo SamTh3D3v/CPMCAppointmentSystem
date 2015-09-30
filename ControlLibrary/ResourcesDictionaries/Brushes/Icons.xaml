@@ -21,6 +21,8 @@
     <BitmapImage x:Key="ChartDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/ChartDark.png"/>
     <BitmapImage x:Key="CameraDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/camera_dark.png"/>
     <BitmapImage x:Key="FilterDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Filter_Dark.png"/>
+    <BitmapImage x:Key="SendYes" UriSource="/ControlLibrary;component/Images/Icons/Dark/SendYes.png"/>
+    <BitmapImage x:Key="SendNo" UriSource="/ControlLibrary;component/Images/Icons/Dark/SendNo.png"/>
     
     
     
