@@ -24,20 +24,37 @@
                         UserOptionsVisibility="Visible">                       
         <syncfusion:LayoutControl.UserOptionsView>
             <syncfusion:UserOptions HeaderText="Options">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Option 1" Grid.Row="0" Grid.Column="0"/>
-                    <TextBox Grid.Column="1" Grid.Row="0"/>
-                    <TextBox Grid.Column="1" Grid.Row="1"/>
-                    <TextBlock Text="Option 2" Grid.Row="1" Grid.Column="0"/>
-                </Grid>
+                <GroupBox >
+                   
+                    <GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Selectionner par date"/>
+                            <CheckBox x:Name="DataFilterCheckBox" Grid.Column="1"/>                                                        
+                        </Grid>
+                    </GroupBox.Header>
+                    <GroupBox.Content>
+                        <Grid>
+                            <syncfusion:CalendarEdit VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                                <syncfusion:CalendarEdit.Style>
+                                    <Style TargetType="syncfusion:CalendarEdit">                                        
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=DataFilterCheckBox,Path=IsChecked}" Value="True">
+                                                <Setter Property="IsEnabled" Value="True"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=DataFilterCheckBox,Path=IsChecked}" Value="False">
+                                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </syncfusion:CalendarEdit.Style>
+                            </syncfusion:CalendarEdit>
+                        </Grid>
+                    </GroupBox.Content>
+               </GroupBox>                
             </syncfusion:UserOptions>
         </syncfusion:LayoutControl.UserOptionsView>
 
