@@ -7,16 +7,116 @@ using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.UI.Xaml.Schedule;
+using Syncfusion.Windows.Forms.Tools.Navigation;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
     public class CalendarViewModel:NavigableViewModelBase
     {
-        #region Fields
+        #region Fields        
         private CpmcContext _dbContext=new CpmcContext();
-        private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection; 
+        private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection;
+        private RendezVous _selectedRdv;      
+        private ObservableCollection<Patient> _allPatientsCollection  ;
+      
+        private ObservableCollection<Medecin> _allDoctorsCollection  ;
+      
+        private Patient _selectedPatientInAddAptView  ;
+       
+        private Medecin _selectedMedecinInAddAptView  ;
         #endregion
-        #region Properties                    
+        #region Properties  
+        public Medecin SelectedMedecinInAddAptView
+        {
+            get
+            {
+                return _selectedMedecinInAddAptView;
+            }
+
+            set
+            {
+                if (_selectedMedecinInAddAptView == value)
+                {
+                    return;
+                }
+
+                _selectedMedecinInAddAptView = value;
+                RaisePropertyChanged();
+            }
+        }
+        public Patient SelectedPatientInAddAptView
+        {
+            get
+            {
+                return _selectedPatientInAddAptView;
+            }
+
+            set
+            {
+                if (_selectedPatientInAddAptView == value)
+                {
+                    return;
+                }
+
+                _selectedPatientInAddAptView = value;
+                RaisePropertyChanged();
+            }
+        }
+        
+        public ObservableCollection<Medecin> AllDoctorsCollection
+        {
+            get
+            {
+                return _allDoctorsCollection;
+            }
+
+            set
+            {
+                if (_allDoctorsCollection == value)
+                {
+                    return;
+                }
+
+                _allDoctorsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<Patient> AllPatientsCollection
+        {
+            get
+            {
+                return _allPatientsCollection;
+            }
+
+            set
+            {
+                if (_allPatientsCollection == value)
+                {
+                    return;
+                }
+
+                _allPatientsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public RendezVous SelectedRdv
+        {
+            get
+            {
+                return _selectedRdv;
+            }
+
+            set
+            {
+                if (_selectedRdv == value)
+                {
+                    return;
+                }
+
+                _selectedRdv = value;
+                RaisePropertyChanged();
+            }
+        }        
         public ScheduleAppointmentCollection   PatientsScheduleAppointmentCollection
         {
             get
@@ -50,6 +150,25 @@ namespace CPMCAppointmentSystem.ViewModel
 
                     }));
             }
+        }
+        private RelayCommand _addAppointementViewLoadedCommand;
+        public RelayCommand AddAppointementViewLoadedCommand
+        {
+            get
+            {
+                return _addAppointementViewLoadedCommand
+                    ?? (_addAppointementViewLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        LoadAddAppointmentViewItemSources();
+
+                    }));
+            }
+        }
+
+        private void LoadAddAppointmentViewItemSources()
+        {
+            throw new NotImplementedException();
         }
 
         private void LoadAppointementsForCurrentRange()
