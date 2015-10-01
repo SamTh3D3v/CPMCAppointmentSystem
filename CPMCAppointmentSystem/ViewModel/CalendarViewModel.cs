@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,6 @@ using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.UI.Xaml.Schedule;
-using Syncfusion.Windows.Forms.Tools.Navigation;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -157,18 +157,29 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _addAppointementViewLoadedCommand
-                    ?? (_addAppointementViewLoadedCommand = new RelayCommand(
-                    () =>
+                    ?? (_addAppointementViewLoadedCommand = new RelayCommand(async () =>
                     {
                         LoadAddAppointmentViewItemSources();
+                        //await LoadAllPatientsList();
+                        //await LoadAllDoctorsList();
 
                     }));
             }
         }
 
+        private async Task LoadAllDoctorsList()
+        {
+            AllDoctorsCollection = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
+        }
+
+        private async Task LoadAllPatientsList()
+        {
+            AllPatientsCollection=new ObservableCollection<Patient>(await Task.Run(()=>_dbContext.Patients));
+        }
+
         private void LoadAddAppointmentViewItemSources()
         {
-            throw new NotImplementedException();
+            //Load Other stuff
         }
 
         private void LoadAppointementsForCurrentRange()

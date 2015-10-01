@@ -45,5 +45,37 @@ namespace CPMCAppointmentSystem.View.AppointementViews
                     }
             }
         }
+
+        private void addButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void copyButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void pasteButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void Schedule_OnAppointmentEditorOpening(object sender, AppointmentEditorOpeningEventArgs e)
+        {
+            e.Cancel = true;
+            AddAppointementView _add=new AddAppointementView();
+            _add.ShowDialog();
+        }
     }
 }
