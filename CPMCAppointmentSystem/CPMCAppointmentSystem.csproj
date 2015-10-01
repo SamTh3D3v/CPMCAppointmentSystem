@@ -173,7 +173,7 @@
     <Compile Include="View\DoctorsViews\AddSpecialitiesToDoctorView.xaml.cs">
       <DependentUpon>AddSpecialitiesToDoctorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CalendarView.xaml.cs">
+    <Compile Include="View\AppointementViews\CalendarView.xaml.cs">
       <DependentUpon>CalendarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DoctorsViews\DoctorsView.xaml.cs">
@@ -250,7 +250,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CalendarView.xaml">
+    <Page Include="View\AppointementViews\CalendarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,11 +8,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Annotations;
+using Syncfusion.UI.Xaml.Schedule;
 
 namespace DataLayer.Model
 {
     [Table("RendezVous")]
-    public class RendezVous:INotifyPropertyChanged
+    public class RendezVous : INotifyPropertyChanged 
     {
         public RendezVous()
         {
