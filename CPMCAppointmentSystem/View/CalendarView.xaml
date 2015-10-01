@@ -8,102 +8,22 @@
       d:DesignHeight="500" d:DesignWidth="1000"
 	Title="CalendarView" DataContext="{Binding Source={StaticResource Locator},Path=CalendarViewModel}">
 
-    <Grid x:Name="grid1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <Grid.Resources>
-            <Style TargetType="RadioButton" x:Key="RadioButtonStyle">
-                <Setter Property="FontFamily" Value="Segoe UI"/>
-                <Setter Property="FontSize" Value="12"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="RadioButton">
-                            <Grid>
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="CheckStates">
-                                        <VisualState x:Name="Checked">
-                                            <Storyboard>
-                                                <ColorAnimation Duration="0" To="#303131" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border"/>
-                                                <ColorAnimation Duration="0" To="White" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="text"/>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Unchecked">
-                                            <Storyboard>
-                                                <ColorAnimation Duration="0" To="{TemplateBinding Background}" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border"/>
-                                                <ColorAnimation Duration="0" To="{TemplateBinding Foreground}" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="text"/>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Indeterminate" />
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                                <Border x:Name="border" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
-                                        Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                                    <TextBlock x:Name="text" Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
-                                </Border>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </Grid.Resources>
+    <Grid x:Name="grid1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">        
         <Grid>
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderThickness="1">
-                <syncfusion:DockingManager x:Name="dockingManager" IsEnableHotTracking="True"  
-                                   ContainerMode="TDI" PersistState="false" UseDocumentContainer="True">
-                    <!--<syncfusion:DockingManager.Icon>
-                        <ImageBrush ImageSource="Images\icon.PNG"/>
-                    </syncfusion:DockingManager.Icon>-->
-                    <!-- Sample Window -->
-                    <ListBox Name="ListBox1"  BorderThickness="0" 
-                             syncfusion:DockingManager.SideInDockedMode="Left" 
-                             syncfusion:DockingManager.State="Dock" 
-                             syncfusion:DockingManager.DesiredWidthInDockedMode="200"  
-                             syncfusion:DocumentContainer.MDIBounds="30,30,300,300"  
-                             syncfusion:DockingManager.DesiredHeightInFloatingMode="200"
-                             syncfusion:DockingManager.Header="Selected Patient Appointements" >
-
-                    </ListBox>
-
-                    <!-- Dock Window -->
-                    <ListBox Name="ListBox2"  BorderThickness="0" 
-                         syncfusion:DockingManager.SideTabItemBackground="#FF92AE3D"
-                         syncfusion:DockingManager.SideTabItemForeground="White"
-               syncfusion:DockingManager.SideInDockedMode="Right" 
-               syncfusion:DockingManager.State="AutoHidden"
-               syncfusion:DockingManager.DesiredWidthInDockedMode="200"   
-               syncfusion:DocumentContainer.MDIBounds="30,30,300,300"  
-               syncfusion:DockingManager.DesiredHeightInDockedMode="200" 
-               syncfusion:DockingManager.Header="AutoHidden Window" >
-                        <ListBoxItem  Content="Dock Window"/>
-                        <ListBoxItem  Content="{Binding Path=(syncfusion:DockingManager.SideInDockedMode), 
-					ElementName=ListBox2}" />
-                        <ListBoxItem  Content="{Binding Path=(syncfusion:DockingManager.TargetNameInDockedMode), 
-					ElementName=ListBox2}" />
-                    </ListBox>
-
-                    <ContentControl Name="ContentControl1"
-                                syncfusion:DockingManager.SideTabItemBackground="#FFF39833"
-                                syncfusion:DockingManager.SideTabItemForeground="#FF32417D"
-                                syncfusion:DockingManager.Header="Empty AutoHidden Window"
-                                syncfusion:DockingManager.SideInDockedMode="Bottom"
-                                syncfusion:DockingManager.State="AutoHidden"
-                                syncfusion:DockingManager.DesiredHeightInDockedMode="200"
-                                >
-                    </ContentControl>
-
-                    <!--Document Area-->
-                    <Grid  syncfusion:DockingManager.State="Document"  
+                <Grid  syncfusion:DockingManager.State="Document"  
                    syncfusion:DockingManager.Header="Docking Manager" >
-                        <syncfusion:SfSchedule x:Name="Schedule"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="False" Margin="5"  WorkEndHour="18" WorkStartHour="9" IsHighLightWorkingHours="True" 
+                    <syncfusion:SfSchedule x:Name="Schedule"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="False" Margin="5"  WorkEndHour="18" WorkStartHour="9" IsHighLightWorkingHours="True" 
                                    ScheduleType="Month"  TimeInterval="ThirtyMin" IntervalHeight="40"/>
 
-                        <StackPanel Grid.Row="0"  Margin="20 15 20 0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
-                            <RadioButton Style="{StaticResource RadioButtonStyle}" x:Name="Day" Content="Day" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
-                            <RadioButton Style="{StaticResource RadioButtonStyle}" x:Name="Week" Content="Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
-                            <RadioButton Style="{StaticResource RadioButtonStyle}" x:Name="WorkWeek" Content="Work Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
-                            <RadioButton Style="{StaticResource RadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Month" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
-                            <RadioButton Style="{StaticResource RadioButtonStyle}" x:Name="TimeLine" Content="Timeline" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>
-                        </StackPanel>
-                    </Grid>
-                </syncfusion:DockingManager>
+                    <StackPanel Grid.Row="0"  Margin="20 15 20 0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
+                        <RadioButton Style="{StaticResource TbRadioButtonStyle}" x:Name="Day" Content="Day" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
+                        <RadioButton Style="{StaticResource TbRadioButtonStyle}" x:Name="Week" Content="Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
+                        <RadioButton Style="{StaticResource TbRadioButtonStyle}" x:Name="WorkWeek" Content="Work Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
+                        <RadioButton Style="{StaticResource TbRadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Month" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
+                        <RadioButton Style="{StaticResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Timeline" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>
+                    </StackPanel>
+                </Grid>
             </Border>
         </Grid>
     </Grid>

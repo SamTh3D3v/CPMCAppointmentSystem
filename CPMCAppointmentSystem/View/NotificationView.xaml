@@ -94,7 +94,17 @@
                                 </DataTemplate>
                             </syncfusion:GridTemplateColumn.CellTemplate> 
                         </syncfusion:GridTemplateColumn>
-                        <syncfusion:GridTextColumn HeaderText="Confirmation" MappingName="PatientConfirmRdv" />
+                        <syncfusion:GridTemplateColumn HeaderText="Confirmation" MappingName="PatientConfirmRdv" >
+                            <syncfusion:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Width="15"
+                                           Height="15"
+                                           Source="{Binding PatientConfirmRdv,Converter={StaticResource SelecteImageConverter}}"
+                                           Stretch="UniformToFill">
+                                    </Image>
+                                </DataTemplate>
+                            </syncfusion:GridTemplateColumn.CellTemplate>
+                        </syncfusion:GridTemplateColumn>                        
                         
                     </syncfusion:SfDataGrid.Columns>
                 </syncfusion:SfDataGrid>
