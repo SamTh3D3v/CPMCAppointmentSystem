@@ -4,24 +4,33 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:command="http://www.galasoft.ch/mvvmlight"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="1000"
 	Title="CalendarView" DataContext="{Binding Source={StaticResource Locator},Path=CalendarViewModel}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=CalendarViewLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid x:Name="grid1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">        
         <Grid>
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderThickness="1">
                 <Grid  syncfusion:DockingManager.State="Document"  
                    syncfusion:DockingManager.Header="Docking Manager" >
-                    <syncfusion:SfSchedule x:Name="Schedule"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="False" Margin="5"  WorkEndHour="18" WorkStartHour="9" IsHighLightWorkingHours="True" 
-                                   ScheduleType="Month"  TimeInterval="ThirtyMin" IntervalHeight="40"/>
+                    <syncfusion:SfSchedule x:Name="Schedule"  ItemsSource="{Binding PatientsScheduleAppointmentCollection}"
+                                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="False" Margin="5"  WorkEndHour="18" WorkStartHour="9" IsHighLightWorkingHours="True" 
+                                   ScheduleType="Month" EnableTouch="True"  TimeInterval="ThirtyMin" IntervalHeight="40"/>
 
                     <StackPanel Grid.Row="0"  Margin="20 15 20 0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
-                        <RadioButton Style="{StaticResource TbRadioButtonStyle}" x:Name="Day" Content="Day" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
-                        <RadioButton Style="{StaticResource TbRadioButtonStyle}" x:Name="Week" Content="Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
-                        <RadioButton Style="{StaticResource TbRadioButtonStyle}" x:Name="WorkWeek" Content="Work Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
-                        <RadioButton Style="{StaticResource TbRadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Month" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
-                        <RadioButton Style="{StaticResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Timeline" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Day" Content="Day" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Week" Content="Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="WorkWeek" Content="Work Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Month" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Timeline" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>
                     </StackPanel>
                 </Grid>
             </Border>

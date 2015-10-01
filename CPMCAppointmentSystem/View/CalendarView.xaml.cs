@@ -32,7 +32,7 @@ namespace CPMCAppointmentSystem.View
             {
                 case "Day":
                     {
-                        Schedule.ScheduleType = ScheduleType.Day;
+                        Schedule.ScheduleType = ScheduleType.Day;                        
                         break;
                     }
                 case "Week":
