@@ -117,7 +117,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }        
-        public ScheduleAppointmentCollection   PatientsScheduleAppointmentCollection
+        public ScheduleAppointmentCollection  PatientsScheduleAppointmentCollection
         {
             get
             {

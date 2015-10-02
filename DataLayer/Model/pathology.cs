@@ -27,6 +27,7 @@ namespace DataLayer.Model
         public String NomPathology { get; set; }
         public String Description { get; set; }
         public virtual ICollection<Medecin> Medecins { get; set; }
+        public virtual ICollection<Patient> Patients { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

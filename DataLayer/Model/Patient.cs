@@ -35,12 +35,16 @@ namespace DataLayer.Model
         public String TelephoneMobile2 { get; set; }
         [Required]
         public Guid AdressId { get; set; }
+
+        public Guid PathologyId { get; set; }
         [Required]
         public DateTime DateDeNaissance { get; set; }
         [ForeignKey("SexeId")]
         public virtual Sexe Sexe { get; set; }
         [ForeignKey("AdressId")]
         public virtual Adresse Adresse { get; set; }
+        [ForeignKey("PathologyId")]
+        public virtual Pathology Pathology { get; set; }
         public virtual ICollection<Medecin> Medecins { get; set; }
         public virtual ICollection<RendezVous> RendezVouses { get; set; }
         public virtual ICollection<PieceJointe> PieceJointes { get; set; }

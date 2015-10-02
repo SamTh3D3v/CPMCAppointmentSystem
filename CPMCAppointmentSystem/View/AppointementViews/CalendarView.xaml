@@ -33,7 +33,7 @@
                     </syncfusion:SfSchedule>
                     
 
-                    <StackPanel Grid.Row="0"  Margin="20 15 20 0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
+                    <StackPanel Grid.Row="0"  Margin="20 12 80 0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
                         <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Day" Content="Day" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
                         <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Week" Content="Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
                         <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="WorkWeek" Content="Work Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
