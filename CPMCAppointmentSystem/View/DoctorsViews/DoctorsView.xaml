@@ -51,14 +51,14 @@
 
         </Grid>
         <GridSplitter Grid.Column="1" Width="1" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        <Grid Grid.Column="2" Background="{StaticResource BodyBackgroundBrush}">
+        <Grid Grid.Column="2" Background="{StaticResource BodyBackgroundBrush}" IsEnabled="{Binding IsFormEnabled}">
             <!--the patients details Grid-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="3"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Margin="5,20" IsEnabled="{Binding IsFormEnabled}">
+            <Grid Grid.Column="0" Margin="5,20" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
