@@ -76,80 +76,60 @@
                    
                 </Grid.RowDefinitions>
                 <Image Source="{StaticResource DoctorDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
-                <!--To be updated with the proper control-->
-                <TextBlock Grid.Column="1" Grid.Row="0"   VerticalAlignment="Center" Margin="5">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Text" Value="{Binding SelectedDoctor.MedecinId}"></Setter>
+                <Border x:Name="WebCamBorder"  Background="WhiteSmoke" Grid.Column="0" Grid.Row="0" Width="60" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Opacity" Value=".01"></Setter>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=SelectedDoctor.MedecinId}" Value="Guid.Empty">
-                                    <Setter Property="Text" Value="GeneratedID"/>
-                                </DataTrigger>
+                                <Trigger  Property="IsMouseOver"  Value="True">
+                                    <Setter Property="Opacity" Value="1"/>
+                                </Trigger>
                             </Style.Triggers>
                         </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                    </Border.Style>
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="{StaticResource CameraDark}" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" />
+                        <Button Grid.Column="0" Grid.Row="1"  Margin="2" ToolTip="WebCam">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{StaticResource WebcamDark}" Width="15" Height="15" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Grid.Column="1" Grid.Row="1"  Margin="2" ToolTip="Upload">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{StaticResource UploadDark}" Width="15" Height="15" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </Border>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="NomBox" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="1"  Text="Nom" >
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=NomBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <syncfusion:SfMaskedEdit Watermark="Nom" x:Name="NomBox" Margin="10 5" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="PrenomBox" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserPrenom,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="2"  Text="Prenom" >
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=PrenomBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <syncfusion:SfMaskedEdit x:Name="PrenomBox" Margin="10 5" Watermark="Prenom" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserPrenom,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="TelephoneFixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="TelFixBox" Grid.Column="1" Text="{Binding SelectedDoctor.TelephoneFixe,Mode=TwoWay}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="3"  Text="TelephoneFixe">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=TelFixBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="TelephoneFixe" x:Name="TelFixBox" Grid.Column="1" Text="{Binding SelectedDoctor.TelephoneFixe,Mode=TwoWay}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
-                <TextBlock Grid.Column="0" Grid.Row="4" Text="Mobile 1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="4"  Text="Mobile 1">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=Mob1Box}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Mobile" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Telephone mobile" x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Speciality" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <ComboBox x:Name="SpecialityBox" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctor.Speciality,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="5"  Text="Specility">
+                <ComboBox x:Name="SpecialityBox" Margin="10 5" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctor.Speciality,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="5"  Text="Specility">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -160,7 +140,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <Border BorderBrush="Black" Margin="0,20,0,0" BorderThickness="1"  Grid.Row="7" Grid.Column="0"  Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+                <GroupBox Header="Données de connection" Margin="0,20,0,0" Grid.Row="7" Grid.Column="0"  Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -172,22 +152,11 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" Text="User Name" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <TextBox x:Name="UserNameBox" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0"  Text="Nom d'utilisateur">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=UserNameBox}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                        <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Nom d'utilisateur" x:Name="UserNameBox" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                        
 
-                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <TextBox x:Name="PassBox" Grid.Column="1" Grid.Row="1" Text="{Binding SelectedDoctor.User.UserPass,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Column="1" Grid.Row="1"  Text="Mot de pass">
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                        <TextBox x:Name="PassBox" Margin="10 5" Grid.Column="1" Grid.Row="1" Text="{Binding SelectedDoctor.User.UserPass,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="1"  Text="Mot de pass">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                     <Style.Triggers>
@@ -200,8 +169,8 @@
                         </TextBlock>
 
                         <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirm password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <TextBox x:Name="CpassBox" Grid.Column="1" Grid.Row="2" Text="{Binding SelectedDoctor.User.UserPass,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Column="1" Grid.Row="2"  Text="Confirm mot de pass">
+                        <TextBox x:Name="CpassBox" Margin="10 5" Grid.Column="1" Grid.Row="2" Text="{Binding SelectedDoctor.User.UserPass,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="2"  Text="Confirm mot de pass">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                     <Style.Triggers>
@@ -213,7 +182,8 @@
                             </TextBlock.Style>
                         </TextBlock>
                     </Grid>
-                </Border>
+                </GroupBox>
+                
               
                 <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
