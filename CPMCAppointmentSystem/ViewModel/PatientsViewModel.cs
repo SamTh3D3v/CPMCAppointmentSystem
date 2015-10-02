@@ -31,6 +31,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<PieceJointeType> _pieceJointeTypeListe ;       
         private PieceJointe _selectedPieceJointe ;
         private String _filterText;
+        private ObservableCollection<Pathology> _pathologiesList;
         private ObservableCollection<String> _filterByCollection=new ObservableCollection<string>()
         {
             "Nom","Prenom","DateDeNaissance","Telephone","willaya","Piece Jointe" //To be Rereviewed
@@ -38,7 +39,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _filterBySelectedItem;
         private PieceJointeType _selectedTypePieceJointeInFilter;
         #endregion
-        #region Properties    
+        #region Properties        
+        public ObservableCollection<Pathology> PathologiesList
+        {
+            get
+            {
+                return _pathologiesList;
+            }
+
+            set
+            {
+                if (_pathologiesList == value)
+                {
+                    return;
+                }
+
+                _pathologiesList = value;
+                RaisePropertyChanged();
+            }
+        }
         public Note SelectedNote
         {
             get
@@ -330,13 +349,18 @@ namespace CPMCAppointmentSystem.ViewModel
                     { 
                         SexeList=new ObservableCollection<Sexe>(await Task.Run(()=>_dbContext.Sexes));
                         WillayasList=new ObservableCollection<Willaya>(await  Task.Run(()=>_dbContext.Willayas));
-                        LoadPieceJointeTypeList();
-                        LoadPatienstList();
-                        LoadDoctorsList();
+                        await LoadPieceJointeTypeList();
+                        await LoadPatienstList();
+                        await LoadPathologiseList();
+                        await LoadDoctorsList();
+                        
                         
                     }));
             }
         }
+
+        
+
         private RelayCommand _addPatientCommand;
         public RelayCommand AddPatientCommand
         {
@@ -511,16 +535,19 @@ namespace CPMCAppointmentSystem.ViewModel
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
         }
-        private async void LoadDoctorsList()
+        private async Task LoadPathologiseList()
+        {
+            PathologiesList = new ObservableCollection<Pathology>(await Task.Run(() => _dbContext.Pathologies));
+        }
+        private async Task LoadDoctorsList()
         {
             DoctorsList = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
         }
-        private async void LoadPatienstList()
+        private async Task LoadPatienstList()
         {
             PatientList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
         }
-
-        private async void LoadPieceJointeTypeList()
+        private async Task LoadPieceJointeTypeList()
         {
             TypePieceJointeList=new ObservableCollection<PieceJointeType>(await Task.Run(()=>_dbContext.PieceJointeTypes));
         }

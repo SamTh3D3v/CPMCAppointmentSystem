@@ -185,6 +185,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Image x:Name="WebCamPic" Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
@@ -345,8 +346,31 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
+                <GroupBox Header="select pathology" Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock  Text="Pathology" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                        <Syncfusion:ComboBoxAdv Margin="10 5" ItemsSource="{Binding DataContext.PathologiesList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Pathology}" DisplayMemberPath="NomPathology"
+                                                x:Name="PathologyBox" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Column="1"   Text="Pathology" >
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=PathologyBox}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>                    
+                </GroupBox>
+                
 
-                <Grid Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                <Grid Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
