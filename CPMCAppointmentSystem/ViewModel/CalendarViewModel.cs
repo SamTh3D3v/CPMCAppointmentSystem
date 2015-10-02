@@ -160,8 +160,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addAppointementViewLoadedCommand = new RelayCommand(async () =>
                     {
                         LoadAddAppointmentViewItemSources();
-                        //await LoadAllPatientsList();
-                        //await LoadAllDoctorsList();
+                        await LoadAllPatientsList();
+                        await LoadAllDoctorsList();
 
                     }));
             }

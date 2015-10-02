@@ -22,31 +22,32 @@
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid  Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="Patient" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding AllPatientsCollection}" SelectedItem="{Binding SelectedPatientInAddAptView}" DisplayMemberPath="NumeroDordre">
-            <Border>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <syncfusion:SfDataGrid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
+    <ScrollViewer Margin="10" x:Name="RootGrid" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Select Patient" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <Expander IsExpanded="False" x:Name="PExpander" Grid.Column="1" Grid.Row="0"  HorizontalAlignment="Stretch">
+                <ScrollViewer Width="{Binding ElementName=PExpander,Path=ActualWidth}"> 
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <syncfusion:SfDataGrid Height="250" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
@@ -56,21 +57,21 @@
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedPatientInAddAptView,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
-                        <syncfusion:SfDataGrid.Columns>
-                            <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
-                            <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
-                            <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
-                            <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
+                            <syncfusion:SfDataGrid.Columns>
+                                <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
+                                <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
+                                <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
+                                <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
                                                                             StringFormat=d}"/>
-                            <syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>
-                            <syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
-                            <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneMobile2"/>
-                            <syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
-                            <syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
+                                <syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>
+                                <syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
+                                <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneMobile2"/>
+                                <syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
+                                <syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
 
-                        </syncfusion:SfDataGrid.Columns>
-                    </syncfusion:SfDataGrid>
-                    <syncfusion:SfDataPager x:Name="PatientsDataPager"
+                            </syncfusion:SfDataGrid.Columns>
+                        </syncfusion:SfDataGrid>
+                        <syncfusion:SfDataPager x:Name="PatientsDataPager"
                                        Grid.Row="1"                                       
                                        Height="60"
                                        HorizontalAlignment="Right"
@@ -80,106 +81,118 @@
                                        NumericButtonCount="10"
                                        Orientation="Horizontal"
                                        PageSize="16"
-                                       Source="{Binding}" />
-                </Grid>
-            </Border>
-        </ComboBox>
+                                       Source="{Binding AllPatientsCollection}" />
+                    </Grid>
+                </ScrollViewer>
+            </Expander>
 
-
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedPatientInAddAptView.NumeroDordre,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedPatientInAddAptView.NumeroDordre,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="numéro d'ordre"  
                                      />
 
-        <TextBlock Grid.Column="0" Grid.Row="2" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedPatientInAddAptView.Nom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedPatientInAddAptView.Nom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="nom"  
                                      />
 
-        <TextBlock Grid.Column="0" Grid.Row="3" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedPatientInAddAptView.Prenom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedPatientInAddAptView.Prenom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="prenom"  
                                      />
 
-        <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <syncfusion:DateTimeEdit Margin="2 5"  Text="{Binding SelectedRdv.DateTimeRdv,Mode=TwoWay,StringFormat=d}"  x:Name="RdvDateBox" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        <TextBlock Grid.Column="1" Grid.Row="4"  Text="La date du rendez vous" >
-            <TextBlock.Style>
-                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Text, ElementName=RdvDateBox}" Value="">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <syncfusion:DateTimeEdit Margin="2 5"  Text="{Binding SelectedRdv.DateTimeRdv,Mode=TwoWay,StringFormat=d}"  x:Name="RdvDateBox" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <TextBlock Grid.Column="1" Grid.Row="4"  Text="La date du rendez vous" >
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=RdvDateBox}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
 
-        <TextBlock Grid.Column="0" Grid.Row="5" Text="Lieu de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedRdv.LieuRdv,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+            <TextBlock Grid.Column="0" Grid.Row="5" Text="Lieu de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedRdv.LieuRdv,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="Lieu du rendez vous"  
                                      />
 
-        <TextBlock Grid.Column="0" Grid.Row="6" Text="Docteur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedMedecinInAddAptView.User.UserNom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+            <TextBlock Grid.Column="0" Grid.Row="6" Text="Docteur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedMedecinInAddAptView.User.UserNom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="Nom du medecin"  
                                      />
 
-        <Expander Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-                <syncfusion:SfDataGrid SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+            <Expander Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <syncfusion:SfDataGrid Grid.Row="0" Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
-                                       ItemsSource="{Binding AllDoctorsCollection}"
+                                       ItemsSource="{Binding ElementName=DoctorDataPager,Path=PagedSource}"
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedMedecinInAddAptView}"
                                        ShowGroupDropArea="True" >
 
-                    <syncfusion:SfDataGrid.Columns>
-                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
-                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
-                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
-                    </syncfusion:SfDataGrid.Columns>
-                </syncfusion:SfDataGrid>
+                        <syncfusion:SfDataGrid.Columns>
+                            <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
+                            <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
+                            <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
+                        </syncfusion:SfDataGrid.Columns>
+                    </syncfusion:SfDataGrid>
+                    <syncfusion:SfDataPager x:Name="DoctorDataPager"
+                                       Grid.Row="1"                                       
+                                       Height="60"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"
+                                       AccentBackground="#FF53C3D5"
+                                       AccentForeground="White"
+                                       NumericButtonCount="10"
+                                       Orientation="Horizontal"
+                                       PageSize="16"
+                                       Source="{Binding AllDoctorsCollection}" />
+                </Grid>
+            </Expander>
 
-                <!--The Grid Needs To Be More Adavnced And Show Double Filtering Using The Specialities and The Pathologie List-->
 
+            <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"  Margin="2" Command="{Binding SaveAppointementCommand}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                            <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteAppointementCommand}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
+                            <TextBlock Text="Delete" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="2"  Margin="2" Command="{Binding CancelAppointementChangesCommand}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                            <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </Grid>
-        </Expander>
-
-
-        <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"  Margin="2" Command="{Binding SaveAppointementCommand}">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
-                        <TextBlock Text="Save" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteAppointementCommand}">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
-                        <TextBlock Text="Delete" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Grid.Column="2"  Margin="2" Command="{Binding CancelAppointementChangesCommand}">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
-                        <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </controls:MetroWindow>
