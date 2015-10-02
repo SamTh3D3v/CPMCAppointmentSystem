@@ -87,46 +87,14 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay}" x:Name="NomBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="1"  Text="Nom" >
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=NomBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <syncfusion:SfMaskedEdit Watermark="Nom du pathology" Margin="10 5" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay}" x:Name="NomBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox Text="{Binding SelectedPathology.CodePathology,Mode=TwoWay}" x:Name="CodeBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="2"  Text="Code" >
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=CodeBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Code du pathology"  Text="{Binding SelectedPathology.CodePathology,Mode=TwoWay}" x:Name="CodeBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Description" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="DescriptionBox" Text="{Binding SelectedPathology.Description,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Margin="2,4,2,0"/>
-                <TextBlock Grid.Column="1" Grid.Row="3"  Text="Description">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=DescriptionBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <syncfusion:SfMaskedEdit Watermark="Description" x:Name="DescriptionBox" Text="{Binding SelectedPathology.Description,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Margin="10 5"/>
+                
 
                 <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
@@ -176,7 +144,7 @@
                                         <RowDefinition Height="2"/>
                                     </Grid.RowDefinitions>
                                     <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
-                                    <TextBlock Grid.Row="0" Text="Doctors"></TextBlock>
+                                    <TextBlock Grid.Row="0" Text="Medecins"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </syncfusion:TabItemExt.HeaderTemplate>
@@ -196,7 +164,7 @@
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
                                 </Button>
-                                <TextBlock Margin="20,0,0,0" Text="Doctors" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                                <TextBlock Margin="20,0,0,0" Text="Medecins" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
 
                                 <syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
