@@ -23,6 +23,8 @@
     <BitmapImage x:Key="FilterDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Filter_Dark.png"/>
     <BitmapImage x:Key="SendYes" UriSource="/ControlLibrary;component/Images/Icons/Dark/SendYes.png"/>
     <BitmapImage x:Key="SendNo" UriSource="/ControlLibrary;component/Images/Icons/Dark/SendNo.png"/>
+    <BitmapImage x:Key="UploadDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Upload_Dark.png"/>
+    <BitmapImage x:Key="WebcamDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Webcam_Dark.png"/>
     
     
     

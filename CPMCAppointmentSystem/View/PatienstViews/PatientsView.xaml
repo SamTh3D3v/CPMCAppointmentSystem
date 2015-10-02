@@ -210,19 +210,17 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Image Source="{StaticResource CameraDark}" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" />
-                        <Button Grid.Column="0" Grid.Row="1"  Margin="2" Command="{Binding DataContext.SavePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                        <Button Grid.Column="0" Grid.Row="1"  Margin="2" ToolTip="WebCam">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{StaticResource SaveDark}" Width="10" Height="10" />
-                                    <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                    <Image Source="{StaticResource WebcamDark}" Width="15" Height="15" />                                    
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Grid.Column="1" Grid.Row="1"  Margin="2" Command="{Binding DataContext.SavePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                        <Button Grid.Column="1" Grid.Row="1"  Margin="2" ToolTip="Upload">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{StaticResource SaveDark}" Width="10" Height="10" />
-                                    <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                    <Image Source="{StaticResource UploadDark}" Width="15" Height="15" />                                    
                                 </StackPanel>
                             </Button.Content>
                         </Button>
