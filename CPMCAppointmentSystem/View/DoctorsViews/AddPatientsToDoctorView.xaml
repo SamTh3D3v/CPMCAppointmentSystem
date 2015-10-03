@@ -1,12 +1,18 @@
-﻿<Syncfusion:ChromelessWindow x:Class="CPMCAppointmentSystem.View.DoctorsViews.AddPatientsToDoctorView"
+﻿<controls:MetroWindow x:Class="CPMCAppointmentSystem.View.DoctorsViews.AddPatientsToDoctorView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
-         WindowStartupLocation="CenterScreen"
-                             WindowStyle="None"
-         Height="500" Width="700" 
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        Height="500" Width="700" 
+                      WindowStyle="SingleBorderWindow"
+                      EnableDWMDropShadow="True"
+                      ResizeMode="CanResizeWithGrip"
+                      WindowTransitionsEnabled="False"                      
+ BorderBrush="{DynamicResource AccentColorBr}"
+                      BorderThickness="1"
+        WindowStartupLocation="CenterScreen"
                              DataContext="{Binding Path=DoctorsViewModel, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -27,19 +33,19 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Image Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
-      
+        <Image Source="{StaticResource DoctorDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
+
 
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <TextBox x:Name="NomBox" IsEnabled="False" Text="{Binding SelectedDoctor.Nom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>        
+        <Syncfusion:SfMaskedEdit Margin="10 5"  x:Name="NomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <TextBox x:Name="PrenomBox" IsEnabled="False" Text="{Binding SelectedDoctor.Prenom}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-       
+        <Syncfusion:SfMaskedEdit Margin="10 5" x:Name="PrenomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserPrenom}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
         <TextBlock Grid.Column="0" Grid.Row="3" Text="Speciality" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <TextBox x:Name="SPrecialityBox" IsEnabled="False" Text="{Binding SelectedDoctor.Speciality.Name}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        
+        <Syncfusion:SfMaskedEdit Margin="10 5" x:Name="SPrecialityBox" IsEnabled="False" Text="{Binding SelectedDoctor.Speciality.Name}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
 
 
         <TextBlock Grid.Column="0"  Grid.Row="4" Text="Patients" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
@@ -97,4 +103,4 @@
             </Button>
         </Grid>
     </Grid>
-</Syncfusion:ChromelessWindow>
+</controls:MetroWindow>
