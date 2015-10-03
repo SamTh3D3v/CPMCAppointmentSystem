@@ -49,27 +49,46 @@
 
 
         <TextBlock Grid.Column="0"  Grid.Row="4" Text="Patients" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
-        <Grid Margin="5" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-            <Syncfusion:SfDataGrid SelectionMode="Multiple"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+        <Expander IsExpanded="True" x:Name="PExpander" Margin="5" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Stretch">
+            <ScrollViewer >
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Syncfusion:SfDataGrid SelectionMode="Multiple" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
-                                       ItemsSource="{Binding PatientsToAddList}"
+                                       ItemsSource="{Binding ElementName=PatientsToAddDataPager,Path=PagedSource}"
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedPatientToAdd,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
 
-                <Syncfusion:SfDataGrid.Columns>
-                    <Syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Nom" />
-                    <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Prenom" />
-                    <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="TelephoneMobile" />
-                    <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation" />
-                    <Syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" />
-                    <Syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded"/>
-                </Syncfusion:SfDataGrid.Columns>
-            </Syncfusion:SfDataGrid>
-        </Grid>
+                        <Syncfusion:SfDataGrid.Columns>
+                            <Syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Nom" />
+                            <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Prenom" />
+                            <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="TelephoneMobile" />
+                            <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation" />
+                            <Syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" />
+                            <Syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded"/>
+                        </Syncfusion:SfDataGrid.Columns>
+                    </Syncfusion:SfDataGrid>
+                    <Syncfusion:SfDataPager x:Name="PatientsToAddDataPager"
+                                       Grid.Row="1"                                       
+                                       Height="60"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"
+                                       AccentBackground="#FF53C3D5"
+                                       AccentForeground="White"
+                                       NumericButtonCount="10"
+                                       Orientation="Horizontal"
+                                       PageSize="16"
+                                       Source="{Binding PatientsToAddList}" />
+                </Grid>
+            </ScrollViewer>
+        </Expander>
 
         <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
