@@ -72,62 +72,16 @@
                     <RowDefinition Height="*"/>
 
                 </Grid.RowDefinitions>
-                <Image Source="{StaticResource SpecialityDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
-                <TextBlock Grid.Column="1" Grid.Row="0"   VerticalAlignment="Center" Margin="5">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Text" Value="{Binding SelectedSpeciality.SpecialiteId}"></Setter>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=SelectedSpeciality.SpecialiteId}" Value="Guid.Empty">
-                                    <Setter Property="Text" Value="GeneratedID"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <Image Source="{StaticResource SpecialityDark}" Grid.Column="0" Grid.Row="0" Width="75"/>              
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="NomBox" Grid.Column="1" Text="{Binding SelectedSpeciality.Name,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="1"  Text="Nom" >
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=NomBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-
+                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Nom du specilaité" x:Name="NomBox" Grid.Column="1" Text="{Binding SelectedSpeciality.Name,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="CodeBox" Text="{Binding SelectedSpeciality.Code}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="2"  Text="Code" >
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=CodeBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <syncfusion:SfMaskedEdit Watermark="Code du specialité" Margin="10 5" x:Name="CodeBox" Text="{Binding SelectedSpeciality.Code}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Description" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <TextBox x:Name="DescriptionBox" Text="{Binding SelectedSpeciality.Description,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Margin="2,4,2,0"/>
-                <TextBlock Grid.Column="1" Grid.Row="3"  Text="Description">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=DescriptionBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <syncfusion:SfMaskedEdit Watermark="Description du spécialité" x:Name="DescriptionBox" Text="{Binding SelectedSpeciality.Description,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Margin="10 5"/>                
 
                 <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
