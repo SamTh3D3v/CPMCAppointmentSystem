@@ -13,19 +13,45 @@ using Syncfusion.UI.Xaml.Schedule;
 namespace DataLayer.Model
 {
     [Table("RendezVous")]
-    public class RendezVous : ScheduleAppointment,INotifyPropertyChanged  
+    public class RendezVous : ScheduleAppointment, INotifyPropertyChanged
     {
+        #region Fileds
+        private DateTime _dateTimeRdv;
+        #endregion
+        #region Properties
+        [Required]
+        public DateTime DateTimeRdv
+        {
+            get
+            {
+                return _dateTimeRdv;
+            }
+
+            set
+            {
+                if (_dateTimeRdv == value)
+                {
+                    return;
+                }
+
+                _dateTimeRdv = value;
+                OnPropertyChanged();
+                this.StartTime = value;
+                this.EndTime = value+new TimeSpan(0,30,0);
+            }
+        }
+
+        #endregion
         public RendezVous()
         {
-            
+
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid RendezVousId { get; set; }
+      
         [Required]
-        public DateTime DateTimeRdv { get; set; }
-        [Required]
-        public String LieuRdv { get; set; }        
+        public String LieuRdv { get; set; }
         public Guid MedecinId { get; set; }
         public Guid PatientId { get; set; }
         [ForeignKey("PatientId")]
@@ -35,7 +61,7 @@ namespace DataLayer.Model
 
         public bool NotificationSent { get; set; }
         public bool PatientConfirmRdv { get; set; }
-        
+
         //This field is used when you report a client rdv, you need to set his other rdv to false and the last one to true
         public bool IsTheLastOne { get; set; }
 

@@ -26,7 +26,7 @@
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderThickness="1">
                 <Grid  syncfusion:DockingManager.State="Document"  
                    syncfusion:DockingManager.Header="Docking Manager" >
-                    <syncfusion:SfSchedule x:Name="Schedule"  ItemsSource="{Binding PatientsScheduleAppointmentCollection}"
+                    <syncfusion:SfSchedule  x:Name="Schedule"  Appointments="{Binding PatientsScheduleAppointmentCollection}"
                                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="False" Margin="5"  WorkEndHour="18" WorkStartHour="9" IsHighLightWorkingHours="True" 
                                    ScheduleType="Month" EnableTouch="True"  TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening">
                        

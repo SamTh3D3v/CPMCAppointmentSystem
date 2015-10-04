@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
@@ -11,21 +12,21 @@ using Syncfusion.UI.Xaml.Schedule;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
-    public class CalendarViewModel:NavigableViewModelBase
+    public class CalendarViewModel : NavigableViewModelBase
     {
-        #region Fields        
-        private CpmcContext _dbContext=new CpmcContext();
-        private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection;
-        private RendezVous _selectedRdv;      
-        private ObservableCollection<Patient> _allPatientsCollection  ;
-      
-        private ObservableCollection<Medecin> _allDoctorsCollection  ;
-      
-        private Patient _selectedPatientInAddAptView  ;
+        #region Fields
+        private CpmcContext _dbContext = new CpmcContext();
+        private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
+        private RendezVous _selectedRdv;
+        private ObservableCollection<Patient> _allPatientsCollection;
+
+        private ObservableCollection<Medecin> _allDoctorsCollection;
+
+        private Patient _selectedPatientInAddAptView;
         private ObservableCollection<RendezVous> _rdvousCollaction;
-        private Medecin _selectedMedecinInAddAptView  ;
+        private Medecin _selectedMedecinInAddAptView;
         #endregion
-        #region Properties                      
+        #region Properties
         public ObservableCollection<RendezVous> RdvousCollection
         {
             get
@@ -80,7 +81,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        
+
         public ObservableCollection<Medecin> AllDoctorsCollection
         {
             get
@@ -134,8 +135,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 _selectedRdv = value;
                 RaisePropertyChanged();
             }
-        }        
-        public ScheduleAppointmentCollection  PatientsScheduleAppointmentCollection
+        }
+        public ScheduleAppointmentCollection PatientsScheduleAppointmentCollection
         {
             get
             {
@@ -191,7 +192,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadAllPatientsList()
         {
-            AllPatientsCollection=new ObservableCollection<Patient>(await Task.Run(()=>_dbContext.Patients));
+            AllPatientsCollection = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
         }
 
         private void LoadAddAppointmentViewItemSources()
@@ -200,14 +201,14 @@ namespace CPMCAppointmentSystem.ViewModel
         }
 
         private async Task LoadRendezVous()
-        {             
-            RdvousCollection=new ObservableCollection<RendezVous>(await Task.Run(()=>_dbContext.RendezVouses));
+        {
+            RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
             foreach (var rdv in RdvousCollection)
             {
-
-               
+                PatientsScheduleAppointmentCollection.Add(rdv);
             }
-            
+            //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });
+
         }
 
         #endregion
@@ -215,8 +216,7 @@ namespace CPMCAppointmentSystem.ViewModel
         public CalendarViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
-            PatientsScheduleAppointmentCollection.Add(new ScheduleAppointment());
         }
-        #endregion        
+        #endregion
     }
 }

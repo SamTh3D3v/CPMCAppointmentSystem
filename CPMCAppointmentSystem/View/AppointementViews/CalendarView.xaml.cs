@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Syncfusion.UI.Xaml.Schedule;
+using Syncfusion.Windows.Forms.Tools.Navigation;
 
 namespace CPMCAppointmentSystem.View.AppointementViews
 {
@@ -12,6 +15,21 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         public CalendarView()
         {
             InitializeComponent();
+
+            //Schedule.Appointments = new ScheduleAppointmentCollection
+            //{
+            //    new ScheduleAppointment()
+            //    {
+            //        Status =
+            //            new ScheduleAppointmentStatus() {Brush = new SolidColorBrush(Colors.Green), Status = "Free"},
+            //        StartTime = new DateTime(2015, 10, 10, 5, 0, 0),
+            //        EndTime = new DateTime(2015, 10, 10, 5, 30, 0),
+            //        Subject = "Meet the doc",
+            //        Location = "Hutchison road",
+            //        AllDay = false
+            //    }
+            //};
+
         }
 
         private void Btn_ScheduleType_Click(object sender, RoutedEventArgs e)
