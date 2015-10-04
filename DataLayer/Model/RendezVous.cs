@@ -13,7 +13,7 @@ using Syncfusion.UI.Xaml.Schedule;
 namespace DataLayer.Model
 {
     [Table("RendezVous")]
-    public class RendezVous : INotifyPropertyChanged 
+    public class RendezVous : ScheduleAppointment,INotifyPropertyChanged  
     {
         public RendezVous()
         {

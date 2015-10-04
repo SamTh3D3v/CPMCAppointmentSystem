@@ -22,10 +22,28 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<Medecin> _allDoctorsCollection  ;
       
         private Patient _selectedPatientInAddAptView  ;
-       
+        private ObservableCollection<RendezVous> _rdvousCollaction;
         private Medecin _selectedMedecinInAddAptView  ;
         #endregion
-        #region Properties  
+        #region Properties                      
+        public ObservableCollection<RendezVous> RdvousCollection
+        {
+            get
+            {
+                return _rdvousCollaction;
+            }
+
+            set
+            {
+                if (_rdvousCollaction == value)
+                {
+                    return;
+                }
+
+                _rdvousCollaction = value;
+                RaisePropertyChanged();
+            }
+        }
         public Medecin SelectedMedecinInAddAptView
         {
             get
@@ -143,10 +161,9 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _calendarViewLoadedCommand
-                    ?? (_calendarViewLoadedCommand = new RelayCommand(
-                    () =>
+                    ?? (_calendarViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        LoadAppointementsForCurrentRange();
+                        await LoadRendezVous();
 
                     }));
             }
@@ -182,8 +199,14 @@ namespace CPMCAppointmentSystem.ViewModel
             //Load Other stuff
         }
 
-        private void LoadAppointementsForCurrentRange()
-        {
+        private async Task LoadRendezVous()
+        {             
+            RdvousCollection=new ObservableCollection<RendezVous>(await Task.Run(()=>_dbContext.RendezVouses));
+            foreach (var rdv in RdvousCollection)
+            {
+
+               
+            }
             
         }
 
@@ -192,6 +215,7 @@ namespace CPMCAppointmentSystem.ViewModel
         public CalendarViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
+            PatientsScheduleAppointmentCollection.Add(new ScheduleAppointment());
         }
         #endregion        
     }

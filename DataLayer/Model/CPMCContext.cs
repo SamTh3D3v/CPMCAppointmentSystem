@@ -43,6 +43,26 @@ namespace DataLayer.Model
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.AppointmentBackground);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.AllDay);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.EndTime);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.EndTimeZone);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.IsRecursive);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.IsSelected);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.Location);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.Notes);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.ObjectID);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.ReadOnly);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.ReadOnlyVisibility);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceID);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceProperites );
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceRule);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.ReminderTime);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.ResourceCollection);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.StartTime);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.StartTimeZone);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.Status);
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.Subject);
 
             base.OnModelCreating(modelBuilder);
         }
