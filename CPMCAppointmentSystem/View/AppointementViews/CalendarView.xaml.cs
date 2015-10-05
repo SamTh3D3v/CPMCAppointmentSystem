@@ -16,19 +16,19 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         {
             InitializeComponent();
 
-            Schedule.Appointments = new ScheduleAppointmentCollection
-            {
-                new ScheduleAppointment()
-                {
-                    Status =
-                        new ScheduleAppointmentStatus() {Brush = new SolidColorBrush(Colors.Green), Status = "Free"},
-                    StartTime = new DateTime(2015, 10, 12, 5, 0, 0),
-                    EndTime = new DateTime(2015, 10, 12, 5, 30, 0),
-                    Subject = "Meet the doc",
-                    Location = "Hutchison road",
-                    AllDay = false
-                }
-            };
+            //Schedule.Appointments = new ScheduleAppointmentCollection
+            //{
+            //    new ScheduleAppointment()
+            //    {
+            //        Status =
+            //            new ScheduleAppointmentStatus() {Brush = new SolidColorBrush(Colors.Green), Status = "Free"},
+            //        StartTime = new DateTime(2015, 10, 12, 5, 0, 0),
+            //        EndTime = new DateTime(2015, 10, 12, 5, 30, 0),
+            //        Subject = "Meet the doc",
+            //        Location = "Hutchison road",
+            //        AllDay = false
+            //    }
+            //};
 
         }
 

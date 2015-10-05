@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace CPMCAppointmentSystem.View
 {
-    /// <summary>
-    /// Interaction logic for MainView.xaml
-    /// </summary>
+
     public partial class MainView : Page
     {
         public MainView()

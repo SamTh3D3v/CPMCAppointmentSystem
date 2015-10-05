@@ -15,6 +15,8 @@ namespace CPMCAppointmentSystem.ViewModel
         
         #endregion
         #region Properties
+
+        public String LoginUserName { get; set; }
         
        private String _userName  ;
         public String UserName

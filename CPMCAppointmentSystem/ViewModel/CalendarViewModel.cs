@@ -205,6 +205,8 @@ namespace CPMCAppointmentSystem.ViewModel
             RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
             foreach (var rdv in RdvousCollection)
             {
+                //Update the rdv status based on rdv date
+                               
                 PatientsScheduleAppointmentCollection.Add(rdv);
             }
             //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });

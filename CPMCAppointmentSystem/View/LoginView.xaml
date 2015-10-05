@@ -37,7 +37,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Login" Style="{StaticResource SubheaderTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <syncfusion:SfMaskedEdit Height="35"   Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Nom d'utilisateur"  
+                                     Watermark="Nom d'utilisateur"  Text="{Binding LoginUserName}" 
                                      >              
                 </syncfusion:SfMaskedEdit>
                 <PasswordBox Margin="10 5"  Height="35"  x:Name="PassBox" Style="{DynamicResource  WaterMarkPasswordBoxStyle}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">

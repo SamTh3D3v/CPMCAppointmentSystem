@@ -8,6 +8,7 @@
       xmlns:command="http://www.galasoft.ch/mvvmlight"
       xmlns:helpers="clr-namespace:CPMCAppointmentSystem.Helpers"
       xmlns:appointementViews="clr-namespace:CPMCAppointmentSystem.View.AppointementViews"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="1000"
 	Title="CalendarView" DataContext="{Binding Source={StaticResource Locator},Path=CalendarViewModel}">
@@ -23,6 +24,10 @@
 
     <Grid x:Name="grid1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">        
         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderThickness="1">
                 <Grid  syncfusion:DockingManager.State="Document"  
                    syncfusion:DockingManager.Header="Docking Manager" >
@@ -109,6 +114,106 @@
                         </syncfusion:SfRadialMenu>
                     </Popup>                   
                 </Grid>
+            </Border>
+            <Border Grid.Column="1" Background="WhiteSmoke" Width="300">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Expander IsExpanded="True" Grid.Row="0">
+                        <Expander.Header>
+                            <Grid>
+                                <TextBlock Text="Date"></TextBlock>
+                            </Grid>
+                        </Expander.Header>
+                        <syncfusion:CalendarEdit VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                            <syncfusion:CalendarEdit.Style>
+                                <Style TargetType="syncfusion:CalendarEdit">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=DataFilterCheckBox,Path=IsChecked}" Value="True">
+                                            <Setter Property="IsEnabled" Value="True"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=DataFilterCheckBox,Path=IsChecked}" Value="False">
+                                            <Setter Property="IsEnabled" Value="False"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </syncfusion:CalendarEdit.Style>
+                        </syncfusion:CalendarEdit>
+                    </Expander>
+                    <Expander  IsExpanded="True" Grid.Row="1">
+                        <Expander.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Filtrer par medecin" Grid.Column="0"/>
+                                <CheckBox Grid.Column="1" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </Expander.Header>
+                        <Button Content="ListDes medecin"/>                        
+                    </Expander> 
+                    <Expander  IsExpanded="True" Grid.Row="2">
+                        <Expander.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Filtrer par Patient" Grid.Column="0"/>
+                                <CheckBox Grid.Column="1" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </Expander.Header>   
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <GroupBox Header="Age">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <CheckBox Grid.Column="0" Grid.Row="0"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="1"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="2"/>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Age range " VerticalAlignment="Center"/>
+                                    <controls:RangeSlider x:Name="AgeRangeSlider" Grid.Row="0" Margin="10"  LowerValue="0"  Grid.Column="2"/>
+                                    <TextBlock Text="Minimum" Grid.Column="1" Grid.Row="1"/>
+                                    <TextBlock Text="Maximum" Grid.Column="1" Grid.Row="2"/>
+                                    <controls:NumericUpDown Value="{Binding ElementName=AgeRangeSlider,Path=Minimum,Mode=TwoWay}" Grid.Row="1" Grid.Column="2" />
+                                    <controls:NumericUpDown Value="{Binding ElementName=AgeRangeSlider,Path=Maximum,Mode=TwoWay}" Grid.Row="2" Grid.Column="2"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="PROFESSIONEL" Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox Grid.Column="0"/>
+                                    <TextBlock Text="Carte Pro"  Grid.Column="1"/>
+                                </Grid>
+                            </GroupBox>
+                            
+                        </Grid>
+                                          
+                    </Expander>
+                </Grid>
+                
             </Border>
         </Grid>
     </Grid>
