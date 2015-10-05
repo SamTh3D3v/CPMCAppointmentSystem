@@ -10,6 +10,8 @@
     <SolidColorBrush Color="#f1f5f7ff" x:Key="NavigationPanelBackgroundBrush"/>
     <SolidColorBrush Color="#242c33" x:Key="ButtonClickedBrush"/>
     <SolidColorBrush Color="#26c3bb" x:Key="AccentColorBr"/>
+    <SolidColorBrush Color="#818f94" x:Key="HeaderForgound"/>
+    
     
     
 </ResourceDictionary>
