@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -115,6 +116,26 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _notificationsCommand
                     ?? (_notificationsCommand = new RelayCommand(
                     () => InnerFrameNavigationService.NavigateTo(App.NotificationViewKey)));
+            }
+        }
+        private RelayCommand _showNotificationFlayoutCommand;
+        public RelayCommand ShowNotificationFlayoutCommand
+        {
+            get
+            {
+                return _showNotificationFlayoutCommand
+                    ?? (_showNotificationFlayoutCommand = new RelayCommand(
+                    () => Messenger.Default.Send<NotificationMessage>(new NotificationMessage("OpenNotificationFlayout"))));
+            }
+        }
+        private RelayCommand _showCurrentUserFlayoutCommand;
+        public RelayCommand ShowCurrentUserFlayoutCommand
+        {
+            get
+            {
+                return _showCurrentUserFlayoutCommand
+                    ?? (_showCurrentUserFlayoutCommand = new RelayCommand(
+                    () => Messenger.Default.Send<NotificationMessage>(new NotificationMessage("ShowCurrentUserFlayout"))));
             }
         }
 

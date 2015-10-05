@@ -18,7 +18,7 @@
                       ResizeMode="CanResizeWithGrip"
                       WindowTransitionsEnabled="False"                      
  BorderBrush="{DynamicResource AccentColorBr}"
-                      BorderThickness="1"        
+                      BorderThickness="1" WindowTitleBrush="Black"        
         DataContext="{Binding MainWindow, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -26,6 +26,22 @@
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl >
+            <controls:Flyout x:Name="CurrentUserFlyout" Header="CurrentUser" Position="Right" HorizontalAlignment="Stretch"  Theme="Dark" Width="300">
+                <ScrollViewer Margin="5,40,5,5" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                    <Grid   HorizontalAlignment="Stretch">                        
+                    </Grid>
+                </ScrollViewer>
+            </controls:Flyout>
+            <controls:Flyout x:Name="NotificationFlyout" Header="Notification"    Position="Right"  Theme="Accent" Width="300">
+                <ScrollViewer Margin="5,40,5,5" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                    <Grid   HorizontalAlignment="Stretch">
+                    </Grid>
+                </ScrollViewer>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

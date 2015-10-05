@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using CPMCAppointmentSystem.ViewModel;
+using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro.Controls;
 using Syncfusion.Windows.Shared;
 
@@ -13,6 +14,20 @@ namespace CPMCAppointmentSystem
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
+            #region View Related Logic
+            Messenger.Default.Register<NotificationMessage>(this, (message) =>
+            {
+                switch (message.Notification)
+                {
+                    case "OpenNotificationFlayout":
+                        NotificationFlyout.IsOpen = true;
+                        break;
+                    case "ShowCurrentUserFlayout":
+                        CurrentUserFlyout.IsOpen = true;
+                        break;
+                }
+            });
+            #endregion
         }
     }
 }

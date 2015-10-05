@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
-      xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="CPMCAppointmentSystem.View.MainView"
+      xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
+      x:Class="CPMCAppointmentSystem.View.MainView"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1200"
 	Title="MainView" x:Name="RootWindow">
@@ -18,7 +19,7 @@
             <command:EventToCommand Command="{Binding MainViewLoadedCommand, Mode=OneWay}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
-    </i:Interaction.Triggers>
+    </i:Interaction.Triggers>  
 
     <Grid Background="{StaticResource BodyBackgroundBrush}" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
@@ -69,8 +70,7 @@
                     </StackPanel>
                 </RadioButton>                               
             </Grid>
-
         </Grid>
-        <Frame Grid.Row="1" x:Name="InnerFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="22,0,-22,0"/>
+        <Frame Grid.Row="1" x:Name="InnerFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0"/>
     </Grid>
 </Page>
