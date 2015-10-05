@@ -8,6 +8,7 @@
       xmlns:command="http://www.galasoft.ch/mvvmlight"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700" DataContext="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
 	Title="SettingsView" >
@@ -28,7 +29,7 @@
     </Page.Resources>
 
     <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <TabControl TabStripPlacement="Left"  Padding="0" Margin="0">
+        <TabControl  TabStripPlacement="Left"  Padding="0" Margin="0">
             <TabItem Style="{StaticResource SettingsTabItemStyle}">
                 <TabItem.Header>
                     <Grid Width="120" Height="100">
@@ -84,15 +85,15 @@
                             </syncfusion:SfDataGrid>
                         </Grid>
                         <GridSplitter Grid.Row="0" Grid.RowSpan="2" Background="Gray" Width="1" Margin="1" Grid.Column="1" VerticalAlignment="Stretch"/>
-                        <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">                            
+                        <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>                                                               
+                                <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            
-                            <GroupBox Grid.Row="0" Grid.Column="0" Header="Basic inoformation">                              
+
+                            <GroupBox Grid.Row="0" Grid.Column="0" Header="Basic inoformation">
                                 <Grid >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -147,14 +148,14 @@
                                     </PasswordBox>
                                 </Grid>
                             </GroupBox>
-                                            
+
                             <Expander IsExpanded="True" Grid.Row="2" Grid.Column="0"  Header="Rolls">
                                 <syncfusion:TreeViewAdv ItemsSource="{Binding TreeViewRollCollection}" ItemTemplate="{StaticResource TvItemTemplate}" Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
                                             AnimationType="Fade"
                                             ItemContainerStyle="{StaticResource TreeViewItemConStyle}" 
                                             ShowRootLines="True" 
                                             AllowMultiSelect="False" 
-                                            AllowDragDrop="False">                                    
+                                            AllowDragDrop="False">
                                 </syncfusion:TreeViewAdv>
                             </Expander>
                             <Grid Grid.Row="4" Grid.Column="0"  VerticalAlignment="Bottom">
@@ -203,6 +204,75 @@
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Foreground="#FF7B7B7B" Text="SETTINGS" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </TabItem.Header>
+                <TabItem.Content>
+                    <TabControl >
+                        <TabItem Header="Status">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <GroupBox Header="Carte proffesionel" Grid.Row="0" Grid.Column="0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="Tiles brush" VerticalAlignment="Center"/>
+                                        <xctk:ColorPicker Grid.Row="0" Grid.Column="1" Margin="30,5,5,5"  
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"                                                                                                                                                                                  
+                                            />
+                                        <controls:ToggleSwitch Grid.Row="0" Grid.Column="2" Width="150"  OnLabel="Blink" OffLabel="don't blink" />
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Enfant" Grid.Row="0" Grid.Column="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="Tiles brush" VerticalAlignment="Center"/>
+                                        <xctk:ColorPicker Grid.Row="0" Grid.Column="1" Margin="30,5,5,5"  
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"                                                                                                                                                                                  
+                                            />
+                                        <controls:ToggleSwitch Grid.Row="0" Grid.Column="2" Width="150"  OnLabel="Blink" OffLabel="don't blink" Grid.ColumnSpan="2" Margin="0,2,38,31" Grid.RowSpan="2" />
+                                        <TextBlock Text="Age minimum" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
+                                        <syncfusion:SfMaskedEdit Margin="30,5,5,5"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"></syncfusion:SfMaskedEdit>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Type des pieces joints">
+                            <TextBlock Text="TQEST"></TextBlock>
+
+                        </TabItem>
+                        <TabItem Header="Status">
+                            <TextBlock Text="TQEST"></TextBlock>
+
+                        </TabItem>
+                        <TabItem Header="Status">
+                            <TextBlock Text="TQEST"></TextBlock>
+
+                        </TabItem>
+                    </TabControl>
+                </TabItem.Content>
             </TabItem>
             <TabItem Style="{StaticResource SettingsTabItemStyle}">
                 <TabItem.Header>
