@@ -212,6 +212,9 @@
     <Compile Include="View\AppointementViews\AddAppointementView.xaml.cs">
       <DependentUpon>AddAppointementView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AppointementViews\ListMedecinToAddView.xaml.cs">
+      <DependentUpon>ListMedecinToAddView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NotificationView.xaml.cs">
       <DependentUpon>NotificationView.xaml</DependentUpon>
     </Compile>
@@ -283,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AppointementViews\AddAppointementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AppointementViews\ListMedecinToAddView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

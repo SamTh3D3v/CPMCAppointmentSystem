@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using CPMCAppointmentSystem.Helpers;
+using CPMCAppointmentSystem.SubModel;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.UI.Xaml.Schedule;
@@ -19,14 +20,50 @@ namespace CPMCAppointmentSystem.ViewModel
         private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
         private RendezVous _selectedRdv;
         private ObservableCollection<Patient> _allPatientsCollection;
-
         private ObservableCollection<Medecin> _allDoctorsCollection;
-
+        private MedecinToAdd _selectedAddDoctorToFilter;
         private Patient _selectedPatientInAddAptView;
         private ObservableCollection<RendezVous> _rdvousCollaction;
-        private Medecin _selectedMedecinInAddAptView;
+        private Medecin _selectedMedecinInAddAptView;        
+        private ObservableCollection<MedecinToAdd> _addDoctorsToFilterListAdd  ;      
         #endregion
         #region Properties
+        public ObservableCollection<MedecinToAdd> AddDoctorsToFilterList
+        {
+            get
+            {
+                return _addDoctorsToFilterListAdd;
+            }
+
+            set
+            {
+                if (_addDoctorsToFilterListAdd == value)
+                {
+                    return;
+                }
+
+                _addDoctorsToFilterListAdd = value;
+                RaisePropertyChanged();
+            }
+        }
+        public MedecinToAdd SelectedAddDoctorToFilter
+        {
+            get
+            {
+                return _selectedAddDoctorToFilter;
+            }
+
+            set
+            {
+                if (_selectedAddDoctorToFilter == value)
+                {
+                    return;
+                }
+
+                _selectedAddDoctorToFilter = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<RendezVous> RdvousCollection
         {
             get
