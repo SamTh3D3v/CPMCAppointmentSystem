@@ -35,7 +35,7 @@
                 </Grid.RowDefinitions>
                 <syncfusion:SfDataGrid Grid.Row="0" Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
-                                       AllowEditing="False"
+                                       AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
                                        ItemsSource="{Binding ElementName=DoctorDataPager,Path=PagedSource}"
@@ -44,18 +44,17 @@
                                        ShowGroupDropArea="True" >
 
                     <syncfusion:SfDataGrid.Columns>
-                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom"  />
-                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />                        
-                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" />
-                        <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded"/>
-                        <syncfusion:GridTextColumn HeaderText="Speciality" MappingName="Speciality.Name" />
+                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" AllowEditing="False" />
+                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" AllowEditing="False" />                        
+                        <syncfusion:GridTextColumn HeaderText="Mobile" AllowEditing="False" MappingName="TelephoneMobile"  />
+                        <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded" AllowEditing="True"/>
+                        <syncfusion:GridTextColumn HeaderText="Speciality" MappingName="Speciality.Name" AllowEditing="False"/>
                     </syncfusion:SfDataGrid.Columns>
                 </syncfusion:SfDataGrid>
                 <syncfusion:SfDataPager x:Name="DoctorDataPager"
-                                       Grid.Row="1"                                       
-                                       Height="60"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Top"
+                                       Grid.Row="1"                                                                              
+                                       HorizontalAlignment="Stretch"    
+                                        HorizontalContentAlignment="Right"
                                        AccentBackground="#FF53C3D5"
                                        AccentForeground="White"
                                        NumericButtonCount="10"
@@ -69,7 +68,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>                
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"  Margin="2" Command="{Binding SaveAppointementCommand}">
+            <Button Grid.Column="0"  Margin="2" Command="{Binding ApplyMedecinFilterCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource FilterDark}" Width="20" Height="20" />
@@ -77,7 +76,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="1"  Margin="2" Command="{Binding SaveAppointementCommand}">
+            <Button Grid.Column="1"  Margin="2" Command="{Binding CancelMedecinFilterCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />

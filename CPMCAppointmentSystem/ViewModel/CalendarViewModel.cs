@@ -10,13 +10,14 @@ using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View.AppointementViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
+using Syncfusion.Data.Extensions;
 using Syncfusion.UI.Xaml.Schedule;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
     public class CalendarViewModel : NavigableViewModelBase
     {
-        #region Fields
+        #region Fields        
         private CpmcContext _dbContext = new CpmcContext();
         private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
         private RendezVous _selectedRdv;
@@ -30,6 +31,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<Medecin> _doctorsInFilter = new ObservableCollection<Medecin>();
         private bool _filterByPatientIsChecked;
         private bool _filterByMedecinIsChecked;
+        private ListMedecinToAddView _listMedecinToAddView;
         #endregion
         #region Properties
         public bool FilterByPatientIsChecked
@@ -251,6 +253,30 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _cancelMedecinFilterCommand;
+        public RelayCommand CancelMedecinFilterCommand
+        {
+            get
+            {
+                return _cancelMedecinFilterCommand
+                    ?? (_cancelMedecinFilterCommand = new RelayCommand(
+                    () => _listMedecinToAddView.Close()));
+            }
+        }
+        private RelayCommand _applyMedecinFilterCommand;   
+        public RelayCommand ApplyMedecinFilterCommand
+        {
+            get
+            {
+                return _applyMedecinFilterCommand
+                    ?? (_applyMedecinFilterCommand = new RelayCommand(
+                    () =>
+                    {
+                        DoctorsInFilter=new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x=>x.IsAdded));                        
+                        _listMedecinToAddView.Close();
+                    }));
+            }
+        }
         private RelayCommand _showListDesMedecinFilterCommand;    
         public RelayCommand ShowListDesMedecinFilterCommand
         {
@@ -261,8 +287,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         //to be updated
-                        var listMedecinToAddView = new ListMedecinToAddView();
-                        listMedecinToAddView.ShowDialog();
+                        _listMedecinToAddView = new ListMedecinToAddView();
+                        _listMedecinToAddView.ShowDialog();
 
                     }));
             }
@@ -329,7 +355,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         User = medecin.User,
                         Pathologies = medecin.Pathologies,
                         Patients = medecin.Patients,
-                        IsAdded = DoctorsInFilter.Contains(medecin)
+                        IsAdded = DoctorsInFilter.FirstOrDefault(x=>x.MedecinId==medecin.MedecinId)!=null
                     });
                 }
             });
