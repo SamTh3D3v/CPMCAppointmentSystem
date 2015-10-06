@@ -33,17 +33,20 @@
                    syncfusion:DockingManager.Header="Docking Manager" >
                     <syncfusion:SfSchedule  x:Name="Schedule"  Appointments="{Binding PatientsScheduleAppointmentCollection}"
                                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="False" Margin="5"  WorkEndHour="18" WorkStartHour="9" IsHighLightWorkingHours="True" 
-                                   ScheduleType="Month" EnableTouch="True"  TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening">
+                                   ScheduleType="Month" EnableTouch="True"  TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening">                        
                        
                     </syncfusion:SfSchedule>
                     
 
                     <StackPanel Grid.Row="0"  Margin="20 12 80 0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Day" Content="Day" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
+                        <ToggleButton x:Name="FilterTb"  HorizontalAlignment="Left"  Width="25" Height="25" Padding="0" Margin="5,0,0,0">
+                            <Image Source="{StaticResource FilterDark}"></Image>
+                        </ToggleButton>
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Day" Content="Day" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>                        
                         <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Week" Content="Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
                         <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="WorkWeek" Content="Work Week" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
                         <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Month" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Timeline" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Timeline" Click="Btn_ScheduleType_Click" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>                        
                     </StackPanel>
 
                     <Popup x:Name="RadialPopup" syncfusion:SkinStorage.VisualStyle="Metro" Placement="MousePoint" AllowsTransparency="True" IsOpen="False">
@@ -115,7 +118,17 @@
                     </Popup>                   
                 </Grid>
             </Border>
-            <Border Grid.Column="1" Background="WhiteSmoke" Width="300">
+            <Border  Grid.Column="1" Background="WhiteSmoke" Width="300">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=FilterTb,Path=IsChecked}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
