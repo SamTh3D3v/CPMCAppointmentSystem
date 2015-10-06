@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
+using CPMCAppointmentSystem.View.AppointementViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.UI.Xaml.Schedule;
@@ -25,9 +26,66 @@ namespace CPMCAppointmentSystem.ViewModel
         private Patient _selectedPatientInAddAptView;
         private ObservableCollection<RendezVous> _rdvousCollaction;
         private Medecin _selectedMedecinInAddAptView;        
-        private ObservableCollection<MedecinToAdd> _addDoctorsToFilterListAdd  ;      
+        private ObservableCollection<MedecinToAdd> _addDoctorsToFilterListAdd ;
+        private ObservableCollection<Medecin> _doctorsInFilter = new ObservableCollection<Medecin>();
+        private bool _filterByPatientIsChecked;
+        private bool _filterByMedecinIsChecked;
         #endregion
         #region Properties
+        public bool FilterByPatientIsChecked
+        {
+            get
+            {
+                return _filterByPatientIsChecked;
+            }
+
+            set
+            {
+                if (_filterByPatientIsChecked == value)
+                {
+                    return;
+                }
+
+                _filterByPatientIsChecked = value;
+                RaisePropertyChanged();
+            }
+        }
+        public bool FilterByMedecinIsChecked
+        {
+            get
+            {
+                return _filterByMedecinIsChecked;
+            }
+
+            set
+            {
+                if (_filterByMedecinIsChecked == value)
+                {
+                    return;
+                }
+
+                _filterByMedecinIsChecked = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<Medecin> DoctorsInFilter
+        {
+            get
+            {
+                return _doctorsInFilter;
+            }
+
+            set
+            {
+                if (_doctorsInFilter == value)
+                {
+                    return;
+                }
+
+                _doctorsInFilter = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<MedecinToAdd> AddDoctorsToFilterList
         {
             get
@@ -193,6 +251,22 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _showListDesMedecinFilterCommand;    
+        public RelayCommand ShowListDesMedecinFilterCommand
+        {
+            get
+            {
+                return _showListDesMedecinFilterCommand
+                    ?? (_showListDesMedecinFilterCommand = new RelayCommand(
+                    () =>
+                    {
+                        //to be updated
+                        var listMedecinToAddView = new ListMedecinToAddView();
+                        listMedecinToAddView.ShowDialog();
+
+                    }));
+            }
+        }
         private RelayCommand _calendarViewLoadedCommand;
         public RelayCommand CalendarViewLoadedCommand
         {
@@ -220,6 +294,45 @@ namespace CPMCAppointmentSystem.ViewModel
 
                     }));
             }
+        }
+        private RelayCommand _listMedecinToAddViewLoadedCommand;
+        public RelayCommand ListMedecinToAddViewLoadedCommand
+        {
+            get
+            {
+                return _listMedecinToAddViewLoadedCommand
+                    ?? (_listMedecinToAddViewLoadedCommand = new RelayCommand(async () =>
+                    {
+                        await LoadDoctorsToAddList();
+
+                    }));
+            }
+        }
+
+        private async Task LoadDoctorsToAddList()
+        {
+            await Task.Run(() =>
+            {
+                var doctorsList = _dbContext.Medecins;
+                AddDoctorsToFilterList = new ObservableCollection<MedecinToAdd>();
+                foreach (var medecin in doctorsList)
+                {
+                    AddDoctorsToFilterList.Add(new MedecinToAdd()
+                    {
+                        MedecinId = medecin.MedecinId,
+                        DateDeNaissance = medecin.DateDeNaissance,
+                        TelephoneFixe = medecin.TelephoneFixe,
+                        TelephoneMobile = medecin.TelephoneMobile,
+                        SpecialiteId = medecin.SpecialiteId,
+                        UserId = medecin.UserId,
+                        Speciality = medecin.Speciality,
+                        User = medecin.User,
+                        Pathologies = medecin.Pathologies,
+                        Patients = medecin.Patients,
+                        IsAdded = DoctorsInFilter.Contains(medecin)
+                    });
+                }
+            });
         }
 
         private async Task LoadAllDoctorsList()

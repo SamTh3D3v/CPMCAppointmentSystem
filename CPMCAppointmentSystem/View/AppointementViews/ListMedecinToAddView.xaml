@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
         Title="ListMedecinToAddView"  WindowStyle="SingleBorderWindow"
         EnableDWMDropShadow="True"
         ResizeMode="CanResizeWithGrip"
@@ -14,13 +16,18 @@
                       DataContext="{Binding Source={StaticResource Locator},Path=CalendarViewModel}"
                              
          Height="500" Width="700" >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding ListMedecinToAddViewLoadedCommand, Mode=OneWay}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>            
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="1" Header="Selectionner la liste des medecins a filtrer selon">
+        <GroupBox Grid.Row="0" Header="Selectionner la liste des medecins a filtrer selon" VerticalAlignment="Stretch">
             <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -37,10 +44,11 @@
                                        ShowGroupDropArea="True" >
 
                     <syncfusion:SfDataGrid.Columns>
-                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
-                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
+                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom"  />
+                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />                        
                         <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" />
                         <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded"/>
+                        <syncfusion:GridTextColumn HeaderText="Speciality" MappingName="Speciality.Name" />
                     </syncfusion:SfDataGrid.Columns>
                 </syncfusion:SfDataGrid>
                 <syncfusion:SfDataPager x:Name="DoctorDataPager"
@@ -56,7 +64,7 @@
                                        Source="{Binding AddDoctorsToFilterList}" />
             </Grid>
         </GroupBox>
-        <Grid Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom" >
+        <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>                

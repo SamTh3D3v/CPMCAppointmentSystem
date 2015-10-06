@@ -152,10 +152,13 @@
                                     
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Filtrer par medecin" Grid.Column="0"/>
-                                <CheckBox Grid.Column="1" HorizontalAlignment="Right"/>
+                                <CheckBox Grid.Column="1" x:Name="FilterByDoctorCeckBox" IsChecked="{Binding FilterByMedecinIsChecked,Mode=TwoWay}" HorizontalAlignment="Right"/>
                             </Grid>
                         </Expander.Header>
-                        <Button Content="ListDes medecin"/>                        
+                        <Grid IsEnabled="{Binding ElementName=FilterByDoctorCeckBox,Path=IsChecked}">                           
+                            <Button Content="ListDes medecin" Command="{Binding ShowListDesMedecinFilterCommand}"/>
+                        </Grid>
+                                              
                     </Expander> 
                     <Expander  IsExpanded="True" Grid.Row="2">
                         <Expander.Header>
@@ -166,10 +169,10 @@
                                     
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Filtrer par Patient" Grid.Column="0"/>
-                                <CheckBox Grid.Column="1" HorizontalAlignment="Right"/>
+                                <CheckBox Grid.Column="1" x:Name="FilterByPatientCheckBox" IsChecked="{Binding FilterByPatientIsChecked}" HorizontalAlignment="Right"/>
                             </Grid>
                         </Expander.Header>   
-                        <Grid>
+                        <Grid IsEnabled="{Binding ElementName=FilterByPatientCheckBox,Path=IsChecked}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
