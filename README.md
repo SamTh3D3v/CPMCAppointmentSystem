@@ -37,14 +37,14 @@ This solution offre a Wpf desktop application and/or an Asp.net web application
      -settings [theme , sms , auth services ].
      -manage passwords.
 - After version beta :
-     -appel vocal.
-     -globalisation.
-     -webcam.
-     -service layer [deployement dans plus endr].
+     - appel vocal.
+     - globalisation.
+     - webcam.
+     - service layer [deployement dans plus endr].
 - //a recup
-     -recupiration de listes de pathologies.
-     -listes des specialités.
-     -liste des medecins.
+     - recupiration de listes de pathologies.
+     - listes des specialités.
+     - liste des medecins.
 
 
 
