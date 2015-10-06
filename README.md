@@ -30,12 +30,12 @@ This solution offre a Wpf desktop application and/or an Asp.net web application
      - link between the app and the sms exe
      - link status bar  
 - After Demo :
-     -exceptions + log.
-     -audit.
-     -notification + service brocker to get notified from the DB.
-     -sms loop + interface [core sms, appel auto].
-     -settings [theme , sms , auth services ].
-     -manage passwords.
+     - exceptions + log.
+     - audit.
+     - notification + service brocker to get notified from the DB.
+     - sms loop + interface [core sms, appel auto].
+     - settings [theme , sms , auth services ].
+     - manage passwords.
 - After version beta :
      - appel vocal.
      - globalisation.
