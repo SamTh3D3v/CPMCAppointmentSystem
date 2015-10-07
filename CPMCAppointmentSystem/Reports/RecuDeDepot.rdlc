@@ -72,7 +72,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>NumeroDordre</Value>
+                <Value>=Fields!NumeroDordre.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                 </Style>
@@ -103,7 +103,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>DateDeDepot</Value>
+                <Value>=Fields!DateDeDepot.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                 </Style>
@@ -143,7 +143,7 @@
     <Height>1.375in</Height>
     <Style>
       <Border>
-        <Style>Solid</Style>
+        <Style>None</Style>
       </Border>
     </Style>
   </Body>
@@ -214,6 +214,90 @@
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataLayerModel">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>2236adab-b987-4602-8f73-3f439c4ccec7</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>DataLayerModel</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Adresse">
+          <DataField>Adresse</DataField>
+          <rd:TypeName>DataLayer.Model.Adresse</rd:TypeName>
+        </Field>
+        <Field Name="AdressId">
+          <DataField>AdressId</DataField>
+          <rd:TypeName>System.Guid</rd:TypeName>
+        </Field>
+        <Field Name="DateDeDepot">
+          <DataField>DateDeDepot</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="DateDeNaissance">
+          <DataField>DateDeNaissance</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Nom">
+          <DataField>Nom</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NumeroDordre">
+          <DataField>NumeroDordre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Pathology">
+          <DataField>Pathology</DataField>
+          <rd:TypeName>DataLayer.Model.Pathology</rd:TypeName>
+        </Field>
+        <Field Name="PathologyId">
+          <DataField>PathologyId</DataField>
+          <rd:TypeName>System.Guid</rd:TypeName>
+        </Field>
+        <Field Name="PatientId">
+          <DataField>PatientId</DataField>
+          <rd:TypeName>System.Guid</rd:TypeName>
+        </Field>
+        <Field Name="Prenom">
+          <DataField>Prenom</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Sexe">
+          <DataField>Sexe</DataField>
+          <rd:TypeName>DataLayer.Model.Sexe</rd:TypeName>
+        </Field>
+        <Field Name="SexeId">
+          <DataField>SexeId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TelephoneFixe">
+          <DataField>TelephoneFixe</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelephoneMobile1">
+          <DataField>TelephoneMobile1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelephoneMobile2">
+          <DataField>TelephoneMobile2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DataLayer.Model</rd:DataSetName>
+        <rd:TableName>Patient</rd:TableName>
+        <rd:ObjectDataSourceType>DataLayer.Model.Patient, DataLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>50434922-20a3-45b8-83ec-0b22e33c8fad</rd:ReportID>
 </Report>

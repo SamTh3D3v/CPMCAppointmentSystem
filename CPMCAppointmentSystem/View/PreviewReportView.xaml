@@ -12,6 +12,6 @@
         WindowStartupLocation="CenterScreen"                             
         Height="500" Width="700" DataContext="{Binding Source={StaticResource Locator},Path=PatientsViewModel}">
     <Grid>
-        <syncfusion:ReportViewer Name="ReportPreviewer" ReportPath="{Binding ReportPath,Mode=TwoWay}" />
+        <syncfusion:ReportViewer Name="ReportPreviewer"  ReportPath="{Binding ReportPath,Mode=TwoWay}"  />
     </Grid>
 </controls:MetroWindow>

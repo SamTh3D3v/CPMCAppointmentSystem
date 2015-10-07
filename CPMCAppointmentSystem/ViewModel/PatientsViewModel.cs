@@ -12,6 +12,7 @@ using CPMCAppointmentSystem.View.PatienstViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Syncfusion.Windows.Reports;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -368,11 +369,11 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         ReportPath = "Reports/RecuDeDepot.rdlc";
+                        
+
                         _previewReportView = new PreviewReportView();
-                        //Messenger.Default.Send<NotificationMessage>(new NotificationMessage("RefreshRevier"));
+                        Messenger.Default.Send<Patient>(SelectedPatient);
                         _previewReportView.ShowDialog();
-
-
 
                     }));
             }
