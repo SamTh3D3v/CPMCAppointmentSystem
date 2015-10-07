@@ -339,6 +339,58 @@ namespace CPMCAppointmentSystem.ViewModel
    
         #endregion
         #region Commands
+        private RelayCommand _previewRecuDeDepoCommand;
+        public RelayCommand PreviewRecuDeDepoCommand
+        {
+            get
+            {
+                return _previewRecuDeDepoCommand
+                    ?? (_previewRecuDeDepoCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _printRecuDeDepotCommand;
+        public RelayCommand PrinRecuDeDepotCommand
+        {
+            get
+            {
+                return _printRecuDeDepotCommand
+                    ?? (_printRecuDeDepotCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _previewRdvCommand;
+        public RelayCommand PreviewRdvCommand
+        {
+            get
+            {
+                return _previewRdvCommand
+                    ?? (_previewRdvCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _printRdvCommand;
+        public RelayCommand PrintRdvCommand
+        {
+            get
+            {
+                return _printRdvCommand
+                    ?? (_printRdvCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
         private RelayCommand _patientsViewLoadedCommand;
         public RelayCommand PatientsViewLoadedCommand
         {
