@@ -25,6 +25,9 @@
     <BitmapImage x:Key="SendNo" UriSource="/ControlLibrary;component/Images/Icons/Dark/SendNo.png"/>
     <BitmapImage x:Key="UploadDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Upload_Dark.png"/>
     <BitmapImage x:Key="WebcamDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Webcam_Dark.png"/>
+    <BitmapImage x:Key="PrinterDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Printer_Dark.png"/>
+    <BitmapImage x:Key="Printer2Dark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Printer2_Dark.png"/>
+    <BitmapImage x:Key="PreviewDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/PreviewDark.png"/>
     
     
     

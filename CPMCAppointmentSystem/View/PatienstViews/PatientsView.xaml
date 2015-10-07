@@ -213,14 +213,14 @@
                         <Button Grid.Column="0" Grid.Row="1"  Margin="2" ToolTip="WebCam">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{StaticResource WebcamDark}" Width="15" Height="15" />                                    
+                                    <Image Source="{StaticResource WebcamDark}" Width="15" Height="15" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
                         <Button Grid.Column="1" Grid.Row="1"  Margin="2" ToolTip="Upload">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{StaticResource UploadDark}" Width="15" Height="15" />                                    
+                                    <Image Source="{StaticResource UploadDark}" Width="15" Height="15" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -364,9 +364,9 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                    </Grid>                    
+                    </Grid>
                 </GroupBox>
-                
+
 
                 <Grid Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
@@ -553,6 +553,91 @@
                             </Grid>
                         </Syncfusion:TabItemExt.Content>
                     </Syncfusion:TabItemExt>
+
+                    <Syncfusion:TabItemExt  MinHeight="35" x:Name="PrintTab">
+                        <Syncfusion:TabItemExt.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="2"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
+                                    <TextBlock Grid.Row="0" Text="Imprimer"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </Syncfusion:TabItemExt.HeaderTemplate>
+                        <Syncfusion:TabItemExt.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>                                    
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{StaticResource PrinterDark}" Width="35" Height="35" ></Image>
+                                <TextBlock Margin="20,0,0,0" Text="Piece Jointe" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                                <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
+                                <GroupBox Header="Recu de depot" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions >
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0"  Margin="2" Command="{Binding DataContext.DeletePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="{StaticResource PreviewDark}" Width="20" Height="20" />
+                                                    <TextBlock Text="Preview" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button Grid.Column="1"  Margin="2" Command="{Binding DataContext.DeletePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="{StaticResource Printer2Dark}" Width="20" Height="20" />
+                                                    <TextBlock Text="Imprimer" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Rendez vous" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions >
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0"  Margin="2" Command="{Binding DataContext.DeletePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="{StaticResource PreviewDark}" Width="20" Height="20" />
+                                                    <TextBlock Text="Preview" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button Grid.Column="1"  Margin="2" Command="{Binding DataContext.DeletePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="{StaticResource Printer2Dark}" Width="20" Height="20" />
+                                                    <TextBlock Text="Imprimer" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+
+                                    </Grid>
+                                </GroupBox>
+
+                            </Grid>
+                        </Syncfusion:TabItemExt.Content>
+                    </Syncfusion:TabItemExt>
+
                     <Syncfusion:TabItemExt  MinHeight="35" x:Name="NotesTab">
                         <Syncfusion:TabItemExt.HeaderTemplate>
                             <DataTemplate>
