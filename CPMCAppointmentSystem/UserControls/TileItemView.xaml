@@ -2,13 +2,17 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:actions="clr-namespace:CPMCAppointmentSystem.Actions"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="310">
-    <Grid Width="310" Height="150">
-        <!--<Grid.Clip>
-            <RectangleGeometry Rect="0, 0, 310, 150"/>
-        </Grid.Clip>-->
+             d:DesignHeight="150" d:DesignWidth="310" x:Name="tileView">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <actions:TileLoadedAction TargetObject="{Binding ElementName=tileView}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid Width="310" Height="150">     
         <Grid Background="{Binding Color}">
             <Grid.RenderTransform>
                 <TransformGroup>

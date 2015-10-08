@@ -4,6 +4,9 @@
              xmlns:vm="clr-namespace:CPMCAppointmentSystem.ViewModel"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              StartupUri="MainWindow.xaml"
              mc:Ignorable="d">
     
@@ -16,8 +19,88 @@
             <Style TargetType="{x:Type Rectangle}"></Style>
             <!--Global View Model Locator-->    
             <vm:ViewModelLocator x:Key="Locator"
-                             d:IsDataSource="True" />           
+                             d:IsDataSource="True" />            
+            <Style TargetType="{x:Type syncfusion:TileViewItem}" x:Key="tileitemstyle">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="syncfusion:TileViewItem">
+                            <Grid x:Name="itemGrid" Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Border  Grid.Row="{TemplateBinding BorderRow}" Grid.Column="{TemplateBinding BorderColumn}">
+                                    <Grid>
+                                        <DockPanel LastChildFill="True">
+                                            <Grid x:Name="PART_Content">
+                                                <ContentPresenter x:Name="content"  Content="{TemplateBinding Content}" Margin="{TemplateBinding Margin}" ContentTemplate="{TemplateBinding ContentTemplate}">
+                                                </ContentPresenter>
+                                            </Grid>
+                                        </DockPanel>
+                                        <Button Opacity="0" x:Name="stateButton" >
+                                            <i:Interaction.Behaviors>
+                                                <behavior:StateChangeBehavior Target="{Binding RelativeSource={RelativeSource AncestorType={x:Type syncfusion:TileViewControl},Mode=FindAncestor}}" />
+                                            </i:Interaction.Behaviors>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                                <Grid Grid.Column="1">
+                                    <ToggleButton x:Name="MinMaxButton"  IsThreeState="True"
+                                                      Visibility="Collapsed"
+                                                     Opacity="0">
+                                    </ToggleButton>
+                                </Grid>
+
+                                <Border x:Name="SplitBorder" Grid.Row="{TemplateBinding SplitRow}" Grid.Column="{TemplateBinding SplitColumn}"
+                     Background="{Binding SplitterColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:TileViewControl}}}"
+                    BorderBrush="{Binding SplitterColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type syncfusion:TileViewControl}}}"
+                    CornerRadius="{TemplateBinding CornerRadius}"></Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger >
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                        <Condition Property="TileViewItemState" Value="Normal"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Opacity" Value="0.9"/>
+                                </MultiTrigger>
+                                <Trigger Property="TileViewItemState" Value="Maximized">
+                                    <Setter Property="Visibility" Value="Collapsed" TargetName="stateButton"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="TileViewItemState" Value="Normal">
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Trigger>
+
+                </Style.Triggers>
+            </Style>
+
+            <Storyboard x:Key="Storyboard1">
+                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" From="150" To="0" Duration="0:0:0.9" Storyboard.TargetName="grid">
+
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" From="0" To="-150" Duration="0:0:0.9" Storyboard.TargetName="_grid">
+
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Key="Storyboard2">
+                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" From="0" To="150" Duration="0:0:0.9" Storyboard.TargetName="grid">
+
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" From="-150" To="0" Duration="0:0:0.9" Storyboard.TargetName="_grid">
+
+                </DoubleAnimation>
+            </Storyboard>
         </ResourceDictionary>
+        
         
     </Application.Resources>
     

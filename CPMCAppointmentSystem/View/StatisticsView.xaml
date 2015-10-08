@@ -32,7 +32,7 @@
                 </ListBox>
                 <Grid  syncfusion:DockingManager.State="Document" >
                     <syncfusion:TileViewControl x:Name="Tiles" ItemsSource="{Binding ChartTileCollection}" 
-                                    MinimizedItemsPercentage="0" ClipToBounds="False">
+                                    MinimizedItemsPercentage="0" ClipToBounds="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ItemContainerStyle="{StaticResource tileitemstyle}">
                         <syncfusion:TileViewControl.ItemTemplate>
                             <DataTemplate>
                                 <userControls:TileItemView/>

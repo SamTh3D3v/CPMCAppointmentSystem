@@ -183,7 +183,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behavior\RestoreBehavior.cs" />
+    <Compile Include="Actions\TileLoadedAction.cs" />
     <Compile Include="Behavior\StateChangeBehavior.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Helpers\ChartTile.cs" />
@@ -218,6 +218,7 @@
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\SpecialityViewModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\PatientPerDateChartViewModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModels\PatientsPerSexeChartViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\AppointementViews\AddAppointementView.xaml.cs">
@@ -279,6 +280,9 @@
     </Compile>
     <Compile Include="View\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsViews\PatientPerDateChartView.xaml.cs">
+      <DependentUpon>PatientPerDateChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StatisticsViews\PatientsPerSexeChartView.xaml.cs">
       <DependentUpon>PatientsPerSexeChartView.xaml</DependentUpon>
@@ -379,6 +383,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\StatisticsViews\PatientPerDateChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\StatisticsViews\PatientsPerSexeChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -421,9 +429,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Actions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
       <Project>{42139f12-5786-4b10-a0b0-0e7ba93eba57}</Project>

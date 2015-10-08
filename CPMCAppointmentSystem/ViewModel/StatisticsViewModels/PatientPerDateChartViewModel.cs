@@ -8,33 +8,32 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
 {
-    public class PatientsPerSexeChartViewModel : NavigableViewModelBase
+    public class PatientPerDateChartViewModel : NavigableViewModelBase
     {
-        #region Fields
+         #region Fields
 
         #endregion
         #region Properties
 
         #endregion
         #region Commands
-        private RelayCommand<object> _returnToOriginalTileCommand;    
-        public RelayCommand<object> ReturnToOriginalTileCommand
+        private RelayCommand _returnToOriginalTileCommand;
+        public RelayCommand ReturnToOriginalTileCommand
         {
             get
             {
                 return _returnToOriginalTileCommand
-                    ?? (_returnToOriginalTileCommand = new RelayCommand<object>(
-                    (root) =>
+                    ?? (_returnToOriginalTileCommand = new RelayCommand(
+                    () =>
                     {
-                        
-                        
+
                     }));
             }
         }
 
         #endregion
         #region Ctors Methods
-        public PatientsPerSexeChartViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
+        public PatientPerDateChartViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
         }

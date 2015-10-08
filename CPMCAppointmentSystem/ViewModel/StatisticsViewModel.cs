@@ -66,7 +66,8 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             ChartTileCollection=new ObservableCollection<ChartTile>()
             {
-                new ChartTile() { Name = "patient/sexe", Color = "#FF4DAEB5", View = new PatientsPerSexeChartView(), Header = "patient homme femme", Icon = "../../Tiles/save.png" }
+                new ChartTile() { Name = "patient/sexe", Color = "#FF4DAEB5", View = new PatientsPerSexeChartView(), Header = "patient homme femme", Icon = "../../Tiles/save.png" },
+                new ChartTile() { Name = "patient/date rdv", Color = "#FF4DAEB5", View = new PatientPerDateChartView(), Header = "patient categorized by date", Icon = "../../Tiles/save.png" }
             };
             
         }
