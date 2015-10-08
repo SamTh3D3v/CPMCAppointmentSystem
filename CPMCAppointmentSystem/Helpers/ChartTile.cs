@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using JetBrains.Annotations;
 
 namespace CPMCAppointmentSystem.Helpers
@@ -16,7 +17,7 @@ namespace CPMCAppointmentSystem.Helpers
         public string Name { get; set; }
         public string Icon { get; set; }
         public string Description { get; set; }
-        public string Color { get; set; }
+        public SolidColorBrush Color { get; set; }
         public string Header { get; set; }
         public string SlideImage { get; set; }
         public bool CanSlide { get; set; }
