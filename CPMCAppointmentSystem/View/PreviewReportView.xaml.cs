@@ -20,18 +20,23 @@ namespace CPMCAppointmentSystem.View
 
             Messenger.Default.Register<Patient>(this, (p) =>
             {
-
-                //ReportPreviewer.DataSources.Add(new Syncfusion.Windows.Reports.ReportDataSource()
-
-                //{
-
-                //    Name = "DataSet1",
-
-                //    Value = new List<Patient>() { p},
-
-                //});
-                ReportPreviewer.DataContext = p;
-                ReportPreviewer.RefreshReport();
+               
+             
+                ReportParameter[] parms = new ReportParameter[2];
+                parms[0] = new ReportParameter()
+                {
+                    Name = "NumeroDordrePara",
+                    Values =new List<string>(){p.NumeroDordre}
+                    
+                }; 
+                parms[1] = new ReportParameter()
+                {
+                    Name = "DateDepot",
+                    Values =new List<string>(){p.DateDeDepot.ToString()}
+                    
+                };
+                ReportPreviewer.SetParameters(parms);
+                ReportPreviewer.RefreshReport();                                                                                                         
 
             });
 
