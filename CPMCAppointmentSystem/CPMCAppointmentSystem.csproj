@@ -405,6 +405,7 @@
     <EmbeddedResource Include="Reports\RecuDeDepot.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Rendez_Vous.rdlc" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
