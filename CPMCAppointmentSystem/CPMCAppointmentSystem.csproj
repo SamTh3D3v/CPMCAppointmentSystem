@@ -218,6 +218,15 @@
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\SpecialityViewModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\MedecinPerPathologyChartViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\MedecinPerSpecialityChartViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\MoyenneDateDepotDateRdvChartViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\NombreDesPatientPerDateChartViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\PathologyPerPatientSexeChartViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\PatientPerAgeChartViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\PatientPerMedecinChartViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\PatientPerPathologyChartViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\PatientPerWillayaDeResidanceChartViewModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModels\PatientPerDateChartViewModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModels\PatientsPerSexeChartViewModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModels\StatisticsChartsViewModelBase.cs" />
