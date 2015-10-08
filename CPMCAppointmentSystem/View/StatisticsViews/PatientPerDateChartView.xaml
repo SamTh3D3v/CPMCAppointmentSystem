@@ -27,7 +27,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="45 5" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Image Source="{StaticResource ChartDark}" Width="55"/>
-            <TextBlock Text="Date" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="38" VerticalAlignment="Bottom" Margin="10 15 0 0"/>
+            <TextBlock Text="Patient par date" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Bottom" Margin="10 15 0 0"/>
         </StackPanel>
 
 
