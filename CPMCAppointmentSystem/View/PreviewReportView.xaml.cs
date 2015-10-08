@@ -40,6 +40,27 @@ namespace CPMCAppointmentSystem.View
                 ReportPreviewer.RefreshReport();                                                                                                         
 
             });
+            Messenger.Default.Register<RendezVous>(this, (r) =>
+            {
+               
+             
+                //ReportParameter[] parms = new ReportParameter[2];
+                //parms[0] = new ReportParameter()
+                //{
+                //    Name = "NumeroDordrePara",
+                //    Values =new List<string>(){p.NumeroDordre}
+                    
+                //}; 
+                //parms[1] = new ReportParameter()
+                //{
+                //    Name = "DateDepot",
+                //    Values =new List<string>(){p.DateDeDepot.Date.ToString("dd/MM/yyyy")}
+                    
+                //};
+                //ReportPreviewer.SetParameters(parms);
+                ReportPreviewer.RefreshReport();                                                                                                         
+
+            });
 
         }
 
