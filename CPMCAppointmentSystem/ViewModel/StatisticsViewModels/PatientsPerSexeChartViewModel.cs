@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
 {
@@ -24,11 +25,7 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
             {
                 return _returnToOriginalTileCommand
                     ?? (_returnToOriginalTileCommand = new RelayCommand<object>(
-                    (root) =>
-                    {
-                        
-                        
-                    }));
+                    (root) => Messenger.Default.Send(new NotificationMessage("RestoreTile"))));
             }
         }
 

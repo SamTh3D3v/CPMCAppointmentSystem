@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Messaging;
+using Syncfusion.Windows.Shared;
 
 namespace CPMCAppointmentSystem.View
 {
@@ -23,6 +25,18 @@ namespace CPMCAppointmentSystem.View
         public StatisticsView()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage>(this, (m) =>
+            {
+                switch (m.Notification)
+                {
+                    case "RestoreTile":
+                        var tileitem = TileViewCtl.ItemContainerGenerator.ContainerFromIndex(TileViewCtl.SelectedIndex) as TileViewItem;
+                        if (tileitem != null) tileitem.TileViewItemState = TileViewItemState.Normal;
+                        break;
+
+                }
+            });
         }
+
     }
 }
