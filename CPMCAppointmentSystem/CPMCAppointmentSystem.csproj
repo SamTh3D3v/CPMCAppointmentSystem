@@ -281,8 +281,35 @@
     <Compile Include="View\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\StatisticsViews\MedecinPerPathologyChartView.xaml.cs">
+      <DependentUpon>MedecinPerPathologyChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsViews\MedecinPerSpecialityChartView.xaml.cs">
+      <DependentUpon>MedecinPerSpecialityChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsViews\MoyenneDateDepotDateRdvChartView.xaml.cs">
+      <DependentUpon>MoyenneDateDepotDateRdvChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsViews\NombreDesPatientPerDateChartView.xaml.cs">
+      <DependentUpon>NombreDesPatientPerDateChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsViews\PathologyPerPatientSexeChartView.xaml.cs">
+      <DependentUpon>PathologyPerPatientSexeChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsViews\PatientPerAgeChartView.xaml.cs">
+      <DependentUpon>PatientPerAgeChartView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StatisticsViews\PatientPerDateChartView.xaml.cs">
       <DependentUpon>PatientPerDateChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsViews\PatientPerMedecinChartView.xaml.cs">
+      <DependentUpon>PatientPerMedecinChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsViews\PatientPerPathologyChartView.xaml.cs">
+      <DependentUpon>PatientPerPathologyChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticsViews\PatientPerWillayaDeResidanceChartView.xaml.cs">
+      <DependentUpon>PatientPerWillayaDeResidanceChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StatisticsViews\PatientsPerSexeChartView.xaml.cs">
       <DependentUpon>PatientsPerSexeChartView.xaml</DependentUpon>
@@ -383,7 +410,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\StatisticsViews\MedecinPerPathologyChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsViews\MedecinPerSpecialityChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsViews\MoyenneDateDepotDateRdvChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsViews\NombreDesPatientPerDateChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsViews\PathologyPerPatientSexeChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsViews\PatientPerAgeChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\StatisticsViews\PatientPerDateChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsViews\PatientPerMedecinChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsViews\PatientPerPathologyChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticsViews\PatientPerWillayaDeResidanceChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -9,17 +9,17 @@
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              StartupUri="MainWindow.xaml"
              mc:Ignorable="d">
-    
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/ControlLibrary;component/ResourcesDictionaries/ResourceLibrary.xaml"/>                
+                <ResourceDictionary Source="/ControlLibrary;component/ResourcesDictionaries/ResourceLibrary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!--This is a WorkArround-->
             <Style TargetType="{x:Type Rectangle}"></Style>
-            <!--Global View Model Locator-->    
+            <!--Global View Model Locator-->
             <vm:ViewModelLocator x:Key="Locator"
-                             d:IsDataSource="True" />            
+                             d:IsDataSource="True" />
             <Style TargetType="{x:Type syncfusion:TileViewItem}" x:Key="tileitemstyle">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -79,7 +79,6 @@
                     <Trigger Property="TileViewItemState" Value="Normal">
                         <Setter Property="Cursor" Value="Hand"/>
                     </Trigger>
-
                 </Style.Triggers>
             </Style>
 
@@ -100,8 +99,8 @@
                 </DoubleAnimation>
             </Storyboard>
         </ResourceDictionary>
-        
-        
+
+
     </Application.Resources>
-    
+
 </Application>
