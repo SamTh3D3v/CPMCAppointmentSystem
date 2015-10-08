@@ -9,7 +9,7 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
 {
-    public class PatientsPerSexeChartViewModel : NavigableViewModelBase
+    public class PatientsPerSexeChartViewModel : StatisticsChartsViewModelBase
     {
         #region Fields
 
@@ -18,16 +18,7 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
 
         #endregion
         #region Commands
-        private RelayCommand<object> _returnToOriginalTileCommand;    
-        public RelayCommand<object> ReturnToOriginalTileCommand
-        {
-            get
-            {
-                return _returnToOriginalTileCommand
-                    ?? (_returnToOriginalTileCommand = new RelayCommand<object>(
-                    (root) => Messenger.Default.Send(new NotificationMessage("RestoreTile"))));
-            }
-        }
+       
 
         #endregion
         #region Ctors Methods

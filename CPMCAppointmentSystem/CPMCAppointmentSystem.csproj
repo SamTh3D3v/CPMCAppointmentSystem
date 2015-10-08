@@ -220,6 +220,7 @@
     <Compile Include="ViewModel\StatisticsViewModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModels\PatientPerDateChartViewModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModels\PatientsPerSexeChartViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModels\StatisticsChartsViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\AppointementViews\AddAppointementView.xaml.cs">
       <DependentUpon>AddAppointementView.xaml</DependentUpon>
