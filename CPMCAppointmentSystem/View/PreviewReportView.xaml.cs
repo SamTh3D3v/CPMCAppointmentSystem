@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Windows.Documents;
 using DataLayer.Model;
@@ -32,7 +33,7 @@ namespace CPMCAppointmentSystem.View
                 parms[1] = new ReportParameter()
                 {
                     Name = "DateDepot",
-                    Values =new List<string>(){p.DateDeDepot.ToString()}
+                    Values =new List<string>(){p.DateDeDepot.Date.ToString("dd/MM/yyyy")}
                     
                 };
                 ReportPreviewer.SetParameters(parms);
