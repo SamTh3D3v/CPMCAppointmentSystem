@@ -25,26 +25,9 @@ This solution offre a Wpf desktop application and/or an Asp.net web application
 
 ## TODO
 
-- Before Demo :
-     - Statistics 
-     - link between the app and the sms exe
-     - link status bar  
-- After Demo :
-     - exceptions + log.
-     - audit.
-     - notification + service brocker to get notified from the DB.
-     - sms loop + interface [core sms, appel auto].
-     - settings [theme , sms , auth services ].
-     - manage passwords.
-- After version beta :
-     - appel vocal.
-     - globalisation.
-     - webcam.
-     - service layer [deployement dans plus endr].
-- //a recup
-     - recupiration de listes de pathologies.
-     - listes des specialités.
-     - liste des medecins.
+The todo list has been moved to Trello 
+https://trello.com/b/DcisUY1g/cpmc
+[visible only to team members]
 
 
 
