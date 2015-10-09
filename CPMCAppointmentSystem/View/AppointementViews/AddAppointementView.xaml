@@ -55,7 +55,7 @@
                                        ItemsSource="{Binding Path=PagedSource,
                                                              ElementName=PatientsDataPager}"
                                    AutoGenerateColumns="False"
-                                   SelectedItem="{Binding SelectedPatientInAddAptView,Mode=TwoWay}"
+                                   SelectedItem="{Binding SelectedRdv.Patient,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
                             <syncfusion:SfDataGrid.Columns>
                                 <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
@@ -87,17 +87,17 @@
             </Expander>
 
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-            <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedPatientInAddAptView.NumeroDordre,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+            <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedRdv.Patient.NumeroDordre,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="numéro d'ordre"  
                                      />
 
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-            <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedPatientInAddAptView.Nom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+            <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedRdv.Patient.Nom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="nom"  
                                      />
 
             <TextBlock Grid.Column="0" Grid.Row="3" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-            <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedPatientInAddAptView.Prenom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+            <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedRdv.Patient.Prenom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="prenom"  
                                      />
 
@@ -121,7 +121,7 @@
                                      />
 
             <TextBlock Grid.Column="0" Grid.Row="6" Text="Docteur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-            <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedMedecinInAddAptView.User.UserNom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+            <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedRdv.Medecin.User.UserNom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="Nom du medecin"  
                                      />
 
@@ -138,7 +138,7 @@
                                        AllowGrouping="True"                                   
                                        ItemsSource="{Binding ElementName=DoctorDataPager,Path=PagedSource}"
                                    AutoGenerateColumns="False"
-                                   SelectedItem="{Binding SelectedMedecinInAddAptView}"
+                                   SelectedItem="{Binding SelectedRdv.Medecin}"
                                        ShowGroupDropArea="True" >
 
                         <syncfusion:SfDataGrid.Columns>

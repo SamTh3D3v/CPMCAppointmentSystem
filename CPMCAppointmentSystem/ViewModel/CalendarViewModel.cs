@@ -40,6 +40,9 @@ namespace CPMCAppointmentSystem.ViewModel
         private ListMedecinToAddView _listMedecinToAddView;
         #endregion
         #region Properties
+                
+
+       
         public bool FilterByPatientIsChecked
         {
             get
@@ -184,7 +187,6 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-
         public ObservableCollection<Medecin> AllDoctorsCollection
         {
             get

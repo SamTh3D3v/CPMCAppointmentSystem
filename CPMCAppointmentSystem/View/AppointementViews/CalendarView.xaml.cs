@@ -95,5 +95,12 @@ namespace CPMCAppointmentSystem.View.AppointementViews
             AddAppointementView _add=new AddAppointementView();
             _add.ShowDialog();
         }
+
+        private void Schedule_OnScheduleClick(object sender, ScheduleClickEventArgs e)
+        {
+            var r = sender;
+            var f = e;
+            var y = Schedule.SelectedAppointment;
+        }
     }
 }
