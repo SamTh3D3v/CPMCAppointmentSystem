@@ -36,7 +36,7 @@
                                    ScheduleType="Month" EnableTouch="True"  TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="AppointmentEditorOpening">
-                                <command:EventToCommand Command="{Binding Mode=OneWay, Path=ScheduleOnAppointmentEditorOpeningCommand}"
+                                <command:EventToCommand Command="{Binding Mode=OneWay, Path=ScheduleOnAppointmentEditorOpeningCommand}" CommandParameter="{Binding ElementName=Schedule}"
                             PassEventArgsToCommand="True"  />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>

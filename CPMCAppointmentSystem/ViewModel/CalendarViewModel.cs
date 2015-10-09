@@ -38,6 +38,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _filterByPatientIsChecked;
         private bool _filterByMedecinIsChecked;
         private ListMedecinToAddView _listMedecinToAddView;
+        private AddAppointementView _addAppointementView;
         #endregion
         #region Properties
                 
@@ -476,9 +477,21 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_scheduleOnAppointmentEditorOpeningCommand = new RelayCommand<object>(
                     (obj) =>
                     {
-                        var _add = new AddAppointementView();
-                        _add.ShowDialog();
+                        _addAppointementView = new AddAppointementView();
+
+                        var sfSchedule = obj as SfSchedule;
+                        if (sfSchedule != null)
+                        {
+                            var selectedAppointement = sfSchedule.SelectedAppointment;
+                            if (selectedAppointement != null)
+                            {
+                                SelectedRdv = (RendezVous)selectedAppointement;
+                            }
+                        }
+                        _addAppointementView.ShowDialog();
                         
+                        
+
                     }));
             }
         }
