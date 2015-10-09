@@ -28,6 +28,10 @@
     <BitmapImage x:Key="PrinterDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Printer_Dark.png"/>
     <BitmapImage x:Key="Printer2Dark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Printer2_Dark.png"/>
     <BitmapImage x:Key="PreviewDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/PreviewDark.png"/>
+    <BitmapImage x:Key="BoyDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Boy_Dark.png"/>
+    <BitmapImage x:Key="GirlDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Girl_Dark.png"/>
+    <BitmapImage x:Key="ManDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Man_Dark.png"/>
+    <BitmapImage x:Key="WomanDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Woman_Dark.png"/>
     
     
     

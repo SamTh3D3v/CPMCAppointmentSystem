@@ -33,8 +33,45 @@
                    syncfusion:DockingManager.Header="Docking Manager" >
                     <syncfusion:SfSchedule  x:Name="Schedule"  Appointments="{Binding PatientsScheduleAppointmentCollection}"
                                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="False" Margin="5"  WorkEndHour="18" WorkStartHour="9" IsHighLightWorkingHours="True" 
-                                   ScheduleType="Month" EnableTouch="True"  TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening">                        
-                       
+                                   ScheduleType="Month" EnableTouch="True"  TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening">
+                        <syncfusion:SfSchedule.AppointmentTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Rectangle Fill="{Binding Status.Brush}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    <Grid>                                     
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="35"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>                                      
+                                        <Image Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="35" Width="35">
+                                            <Image.Style>
+                                                <Style TargetType="Image">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Boy"> 
+                                                            <Setter Property="Source" Value="{DynamicResource BoyDark}"/>
+                                                        </DataTrigger> 
+                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Girl"> 
+                                                            <Setter Property="Source" Value="{DynamicResource GirlDark}"/>
+                                                        </DataTrigger> 
+                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Man"> 
+                                                            <Setter Property="Source" Value="{DynamicResource ManDark}"/>
+                                                        </DataTrigger> 
+                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Woman"> 
+                                                            <Setter Property="Source" Value="{DynamicResource WomanDark}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                        <TextBlock Text="{Binding Patient.NumeroDordre}"   Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
+                                        <TextBlock Text="{Binding Patient.Nom}"  Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Normal" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
+                                        
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </syncfusion:SfSchedule.AppointmentTemplate>
+
                     </syncfusion:SfSchedule>
                     
 

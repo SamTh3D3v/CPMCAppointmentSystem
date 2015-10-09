@@ -12,9 +12,15 @@ using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.Data.Extensions;
 using Syncfusion.UI.Xaml.Schedule;
+using Syncfusion.Windows.Shared;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
+    public struct BrushStatus
+    {
+        public Brush Brush { get; set; }
+        public String Status { get; set; }
+    }
     public class CalendarViewModel : NavigableViewModelBase
     {
         #region Fields        
@@ -382,11 +388,81 @@ namespace CPMCAppointmentSystem.ViewModel
             foreach (var rdv in RdvousCollection)
             {
                 //Update the rdv status based on rdv date
+                rdv.Status=new ScheduleAppointmentStatus()
+                {
+                    Brush = (getBrushFromSettings(rdv.DateTimeRdv,rdv.Patient.DateDeNaissance,rdv.Patient.Sexe.Designation,rdv.Patient.CarteProfessionel)).Brush,
+                    Status = (getBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance, rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Status
+                };
                                
                 PatientsScheduleAppointmentCollection.Add(rdv);
             }
             //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });
 
+        }
+
+        //Super Ugly code --> will be updated InchaAllah
+        private BrushStatus getBrushFromSettings(DateTime dateTimeRdv, DateTime dateDeNaissance, string sexe, bool carteProfessionel)
+        {
+            var brushStatus = new BrushStatus();
+            if (dateTimeRdv.Date<DateTime.Now.Date)
+            {
+                brushStatus.Brush= new SolidColorBrush(Colors.LightGray); //Get From Settings
+                if ((DateTime.Now.Year - dateDeNaissance.Year) < 18)
+                {
+                    if (sexe == "Male")
+                    {                        
+                        brushStatus.Status = "Boy";
+                    }
+                    else
+                    {                        
+                        brushStatus.Status = "Girl";
+                    }
+
+                }
+                else
+                {
+                    if (sexe == "Male")
+                    {                         
+                        brushStatus.Status = "Man";
+                    }
+                    else
+                    {
+                        brushStatus.Brush = new SolidColorBrush(Colors.Salmon); //Get From Settings   
+                        brushStatus.Status = "Woman";
+                    }
+                }  
+            }
+            else
+            {
+                if ((DateTime.Now.Year - dateDeNaissance.Year) < 18)
+                {
+                    if (sexe=="Male")
+                    {
+                        brushStatus.Brush = new SolidColorBrush(Colors.LightSkyBlue); //Get From Settings   
+                        brushStatus.Status = "Boy";
+                    }
+                    else
+                    {
+                        brushStatus.Brush = new SolidColorBrush(Colors.LightSalmon); //Get From Settings   
+                        brushStatus.Status = "Girl";
+                    }
+                            
+                }
+                else
+                {
+                    if (sexe == "Male")
+                    {
+                        brushStatus.Brush = new SolidColorBrush(Colors.DeepSkyBlue); //Get From Settings   
+                        brushStatus.Status = "Man";
+                    }
+                    else
+                    {
+                        brushStatus.Brush = new SolidColorBrush(Colors.Salmon); //Get From Settings   
+                        brushStatus.Status = "Woman";
+                    }                   
+                }  
+            }
+            return brushStatus;
         }
 
         #endregion
