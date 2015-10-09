@@ -466,6 +466,22 @@ namespace CPMCAppointmentSystem.ViewModel
             }
             return brushStatus;
         }
+        private RelayCommand<object> _scheduleOnAppointmentEditorOpeningCommand;
+
+        public RelayCommand<object> ScheduleOnAppointmentEditorOpeningCommand
+        {
+            get
+            {
+                return _scheduleOnAppointmentEditorOpeningCommand
+                    ?? (_scheduleOnAppointmentEditorOpeningCommand = new RelayCommand<object>(
+                    (obj) =>
+                    {
+                        var _add = new AddAppointementView();
+                        _add.ShowDialog();
+                        
+                    }));
+            }
+        }
 
         #endregion
         #region Ctors and Methods

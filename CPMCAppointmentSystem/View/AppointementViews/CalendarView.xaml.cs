@@ -91,9 +91,7 @@ namespace CPMCAppointmentSystem.View.AppointementViews
 
         private void Schedule_OnAppointmentEditorOpening(object sender, AppointmentEditorOpeningEventArgs e)
         {
-            e.Cancel = true;
-            AddAppointementView _add=new AddAppointementView();
-            _add.ShowDialog();
+            e.Cancel = true;           
         }
 
         private void Schedule_OnScheduleClick(object sender, ScheduleClickEventArgs e)
