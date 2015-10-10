@@ -45,7 +45,7 @@
                         <system:String x:Key="WaterMarkText">Mot de pass</system:String>
                     </PasswordBox.Resources>
                 </PasswordBox>
-                <Button Grid.Row="3" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=PassBox}" Style="{StaticResource LoginButtonStyle}">
+                <Button Grid.Row="3" IsDefault="True" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=PassBox}" Style="{StaticResource LoginButtonStyle}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource ConnectionLight}" Height="50"/>

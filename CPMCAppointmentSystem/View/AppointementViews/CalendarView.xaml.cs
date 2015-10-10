@@ -17,54 +17,10 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         {
             InitializeComponent();
 
-            //Schedule.Appointments = new ScheduleAppointmentCollection
-            //{
-            //    new ScheduleAppointment()
-            //    {
-            //        Status =
-            //            new ScheduleAppointmentStatus() {Brush = new SolidColorBrush(Colors.Green), Status = "Free"},
-            //        StartTime = new DateTime(2015, 10, 12, 5, 0, 0),
-            //        EndTime = new DateTime(2015, 10, 12, 5, 30, 0),
-            //        Subject = "Meet the doc",
-            //        Location = "Hutchison road",
-            //        AllDay = false
-            //    }
-            //};
 
         }
 
-        private void Btn_ScheduleType_Click(object sender, RoutedEventArgs e)
-        {
-            switch ((sender as RadioButton).Name)
-            {
-                case "Day":
-                    {
-                        Schedule.ScheduleType = ScheduleType.Day;                        
-                        break;
-                    }
-                case "Week":
-                    {
-                        Schedule.ScheduleType = ScheduleType.Week;
-                        break;
-                    }
-                case "WorkWeek":
-                    {
-                        Schedule.ScheduleType = ScheduleType.WorkWeek;
-                        break;
-                    }
-                case "Month":
-                    {
-                        Schedule.ScheduleType = ScheduleType.Month;
-                        break;
-                    }
-                case "TimeLine":
-                    {
-                        Schedule.ScheduleType = ScheduleType.TimeLine;
-                        break;
-                    }
-            }
-        }
-
+  
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             throw new System.NotImplementedException();
@@ -92,9 +48,7 @@ namespace CPMCAppointmentSystem.View.AppointementViews
 
         private void Schedule_OnAppointmentEditorOpening(object sender, AppointmentEditorOpeningEventArgs e)
         {
-            e.Cancel = true;   
-            
-            
+            e.Cancel = true;                           
         }
         private void Schedule_OnScheduleClick(object sender, ScheduleClickEventArgs e)
         {

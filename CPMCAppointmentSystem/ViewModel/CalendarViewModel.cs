@@ -26,6 +26,7 @@ namespace CPMCAppointmentSystem.ViewModel
     {
         #region Fields
         private CpmcContext _dbContext = new CpmcContext();
+        private ScheduleType _scheduleType = ScheduleType.Month;
         private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
         private RendezVous _selectedRdv;
         private ObservableCollection<Patient> _allPatientsCollection;
@@ -42,6 +43,24 @@ namespace CPMCAppointmentSystem.ViewModel
         private AddAppointementView _addAppointementView;
         #endregion
         #region Properties
+        public ScheduleType SelectedScheduleType
+        {
+            get
+            {
+                return _scheduleType;
+            }
+
+            set
+            {
+                if (_scheduleType == value)
+                {
+                    return;
+                }
+
+                _scheduleType = value;
+                RaisePropertyChanged();
+            }
+        }
         public DateTime SelectedDateInScedule { get; set; }
         public bool FilterByPatientIsChecked
         {
@@ -384,22 +403,27 @@ namespace CPMCAppointmentSystem.ViewModel
             //Load Other stuff
         }
 
+        private object loking=new object();
         private async Task LoadRendezVous()
         {
-            RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
-            foreach (var rdv in RdvousCollection)
-            {
-                //Update the rdv status based on rdv date
-                rdv.Status = new ScheduleAppointmentStatus()
+          
+                RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
+                foreach (var rdv in RdvousCollection)
                 {
-                    Brush = (getBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance, rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Brush,
-                    Status = (getBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance, rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Status
-                };
+                    //Update the rdv status based on rdv date
+                    rdv.Status = new ScheduleAppointmentStatus()
+                    {
+                        Brush =
+                            (getBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
+                                rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Brush,
+                        Status =
+                            (getBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
+                                rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Status
+                    };
 
-                PatientsScheduleAppointmentCollection.Add(rdv);
-            }
-            //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });
-
+                    PatientsScheduleAppointmentCollection.Add(rdv);
+                }
+                //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });            
         }
 
         //Super Ugly code --> will be updated InchaAllah
@@ -558,8 +582,71 @@ namespace CPMCAppointmentSystem.ViewModel
                     (args) =>
                     {
                         SelectedDateInScedule = (DateTime) args.SelectedDate;
-
-
+                    }));
+            }
+        }
+        private RelayCommand _dayScheduleTypeSelectedCommand;
+        public RelayCommand DayScheduleTypeSelectedCommand
+        {
+            get
+            {
+                return _dayScheduleTypeSelectedCommand
+                    ?? (_dayScheduleTypeSelectedCommand = new RelayCommand(async () =>
+                    {
+                        SelectedScheduleType = ScheduleType.Day;
+                        await LoadRendezVous();
+                    }));
+            }
+        }
+        private RelayCommand _monthScheduleTypeSelectedCommand;
+        public RelayCommand MonthScheduleTypeSelectedCommand
+        {
+            get
+            {
+                return _monthScheduleTypeSelectedCommand
+                    ?? (_monthScheduleTypeSelectedCommand = new RelayCommand(async () =>
+                    {
+                        SelectedScheduleType = ScheduleType.Month;
+                        await LoadRendezVous();
+                    }));
+            }
+        }
+        private RelayCommand _weekScheduleTypeSelectedCommand;
+        public RelayCommand WeekScheduleTypeSelectedCommand
+        {
+            get
+            {
+                return _weekScheduleTypeSelectedCommand
+                    ?? (_weekScheduleTypeSelectedCommand = new RelayCommand(async () =>
+                    {
+                        SelectedScheduleType = ScheduleType.Week;
+                        await LoadRendezVous();
+                    }));
+            }
+        }
+        private RelayCommand _workWeekScheduleTypeSelectedCommand;
+        public RelayCommand WorkWeekScheduleTypeSelectedCommand
+        {
+            get
+            {
+                return _workWeekScheduleTypeSelectedCommand
+                    ?? (_workWeekScheduleTypeSelectedCommand = new RelayCommand(async () =>
+                    {
+                        SelectedScheduleType = ScheduleType.WorkWeek;
+                        await LoadRendezVous();
+                    }));
+            }
+        }
+        private RelayCommand _timeLineScheduleTypeSelectedCommand;
+        public RelayCommand TimeLineScheduleTypeSelectedCommand
+        {
+            get
+            {
+                return _timeLineScheduleTypeSelectedCommand
+                    ?? (_timeLineScheduleTypeSelectedCommand = new RelayCommand(async () =>
+                    {
+                        SelectedScheduleType = ScheduleType.TimeLine;
+                        await LoadRendezVous();
                     }));
             }
         }
