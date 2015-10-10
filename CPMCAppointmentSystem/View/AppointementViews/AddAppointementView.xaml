@@ -102,7 +102,7 @@
                                      />
 
             <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-            <syncfusion:DateTimeEdit Margin="2 5"  Text="{Binding SelectedRdv.DateTimeRdv,Mode=TwoWay,StringFormat=d}"  x:Name="RdvDateBox" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <syncfusion:DateTimeEdit Margin="2 5"  DateTime="{Binding SelectedRdv.DateTimeRdv,Mode=TwoWay}"  x:Name="RdvDateBox" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
             <TextBlock Grid.Column="1" Grid.Row="4"  Text="La date du rendez vous" >
                 <TextBlock.Style>
                     <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
