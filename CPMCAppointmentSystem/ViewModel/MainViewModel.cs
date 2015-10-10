@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
+using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -12,9 +13,28 @@ namespace CPMCAppointmentSystem.ViewModel
     public class MainViewModel : NavigableViewModelBase
     {
         #region Fields
-       
+        private readonly CpmcContext _dbContext=new CpmcContext();
+        private User _connectedUser;
         #endregion
-        #region Properties      
+        #region Properties   
+        public User ConnectedUser
+        {
+            get
+            {
+                return _connectedUser;
+            }
+
+            set
+            {
+                if (_connectedUser == value)
+                {
+                    return;
+                }
+
+                _connectedUser = value;
+                RaisePropertyChanged();
+            }
+        }
 
         #endregion
         #region Commands
@@ -25,7 +45,11 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _mainViewLoadedCommand
                     ?? (_mainViewLoadedCommand = new RelayCommand(
-                    () => InnerFrameNavigationService.NavigateTo(App.PatientsViewKey)));
+                        () =>
+                        {
+                            ConnectedUser = MainFrameNavigationService.Parameter as User;
+                            InnerFrameNavigationService.NavigateTo(App.PatientsViewKey);
+                        }));
             }
         }
         private RelayCommand _calendarCommand;
@@ -143,7 +167,7 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Ctors and Methods
         public MainViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
-        {
+        {           
         }
         #endregion
     }
