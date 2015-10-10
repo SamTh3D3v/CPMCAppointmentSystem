@@ -94,6 +94,7 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         {
             e.Cancel = true;   
             
+            
         }
         private void Schedule_OnScheduleClick(object sender, ScheduleClickEventArgs e)
         {

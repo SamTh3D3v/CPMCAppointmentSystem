@@ -193,6 +193,15 @@ namespace CPMCAppointmentSystem.ViewModel
                 },
                 new TreeViewModel()
                 {
+                    Content = "Sms Notifications View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                    {
+                        new TreeViewModel(){ Content = "SmsNotificationViewAllow", IsChecked = SelectedUser.RolesCollection.SmsNotificationViewAllow},
+                        new TreeViewModel(){ Content = "SmsNotificationEditAllow", IsChecked = SelectedUser.RolesCollection.SmsNotificationEditAllow}
+                      
+                    }
+                },
+                new TreeViewModel()
+                {
                     Content = "Settings View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
                     {
                         new TreeViewModel(){ Content = "SettingsViewUsersAllow", IsChecked = SelectedUser.RolesCollection.SettingsViewUsersAllow},

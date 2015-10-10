@@ -54,6 +54,11 @@ namespace DataLayer.Model
         public bool SettingsEditUsersAllow { get; set; } 
         public bool SettingsMangeThemeAllow { get; set; } 
         #endregion
+        #region Sms Notification
+
+        public bool SmsNotificationViewAllow { get; set; }
+        public bool SmsNotificationEditAllow { get; set; }
+        #endregion
         //public Guid UserId { get; set; }
         //[ForeignKey("UserId")]
         //public virtual User User { get; set; }
