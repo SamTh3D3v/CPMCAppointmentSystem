@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using CPMCAppointmentSystem.Helpers;
+using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 
 namespace CPMCAppointmentSystem.ViewModel
@@ -12,11 +13,9 @@ namespace CPMCAppointmentSystem.ViewModel
     public class LoginViewModel:NavigableViewModelBase
     {
         #region Fields
-        
+        private readonly CpmcContext _dbContext=new CpmcContext();        
         #endregion
-        #region Properties
-
-        public String LoginUserName { get; set; }
+        #region Properties        
         
        private String _userName  ;
         public String UserName
@@ -50,10 +49,9 @@ namespace CPMCAppointmentSystem.ViewModel
                     (pass) =>
                     {
                         if (pass != null)
-                        {
-                            Login(UserName, pass);
+                        {                            
+                            if (pass != null) Login(UserName, pass);
                         }
-                        
                     }));
             }
         }
@@ -67,13 +65,26 @@ namespace CPMCAppointmentSystem.ViewModel
             
         }
 
-        void Login(string userName,object passwordBox)
+        void Login(string userName,object pass)
         {
-            var pass=(passwordBox as PasswordBox).Password;
-            MainFrameNavigationService.NavigateTo(App.MainViewKey);
-
+            var passwordBox = pass as PasswordBox;
+            if (passwordBox != null)
+            {
+                var passwrd = passwordBox.Password;
+                //Use the autentification service 
+                if (_dbContext.Users.Any(u => u.UserName == userName && u.UserPass == passwrd))
+                {
+                    MainFrameNavigationService.NavigateTo(App.MainViewKey, _dbContext.Users.First(u => u.UserName == userName));                
+                }
+                else
+                {
+                    UserName = "";
+                    passwordBox.Clear();
+                
+                }
+            }
         }
-        
+
         #endregion        
     }
 }
