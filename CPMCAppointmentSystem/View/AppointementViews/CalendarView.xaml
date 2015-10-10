@@ -94,7 +94,7 @@
                         <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Timeline"  Command="{Binding TimeLineScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>                        
                     </StackPanel>
 
-                    <Popup x:Name="RadialPopup" syncfusion:SkinStorage.VisualStyle="Metro" Placement="MousePoint" AllowsTransparency="True" IsOpen="False">
+                    <!--<Popup x:Name="RadialPopup" syncfusion:SkinStorage.VisualStyle="Metro" Placement="MousePoint" AllowsTransparency="True" IsOpen="False">
                         <syncfusion:SfRadialMenu x:Name="radialMenu" RimBackground="#FF28A5DB" RimRadiusFactor="0.9" 
                                      IsOpen="False" Background="White" BorderBrush="Green" Padding="5"
                                      RadiusX="100" RadiusY="100"
@@ -160,7 +160,7 @@
                                 </syncfusion:SfRadialMenuItem.Header>
                             </syncfusion:SfRadialMenuItem>
                         </syncfusion:SfRadialMenu>
-                    </Popup>                   
+                    </Popup>-->                   
                 </Grid>
             </Border>
             <Border  Grid.Column="1" Background="WhiteSmoke" Width="300">

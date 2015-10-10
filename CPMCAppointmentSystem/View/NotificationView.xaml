@@ -21,11 +21,11 @@
     <syncfusion:LayoutControl HeaderDescriptionText="Liste des sms envoyés et en cour de l'envoie"
                         HeaderText="Notification Sms "
                         LayoutMode="Metro"
-                        UserOptionsVisibility="Visible">                       
+                        UserOptionsVisibility="Visible">
         <syncfusion:LayoutControl.UserOptionsView>
             <syncfusion:UserOptions HeaderText="Options">
                 <GroupBox >
-                   
+
                     <GroupBox.Header>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -33,14 +33,14 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="Selectionner par date"/>
-                            <CheckBox x:Name="DataFilterCheckBox" Grid.Column="1"/>                                                        
+                            <CheckBox x:Name="DataFilterCheckBox" Grid.Column="1"/>
                         </Grid>
                     </GroupBox.Header>
                     <GroupBox.Content>
                         <Grid>
                             <syncfusion:CalendarEdit VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                                 <syncfusion:CalendarEdit.Style>
-                                    <Style TargetType="syncfusion:CalendarEdit">                                        
+                                    <Style TargetType="syncfusion:CalendarEdit">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding ElementName=DataFilterCheckBox,Path=IsChecked}" Value="True">
                                                 <Setter Property="IsEnabled" Value="True"></Setter>
@@ -54,17 +54,17 @@
                             </syncfusion:CalendarEdit>
                         </Grid>
                     </GroupBox.Content>
-               </GroupBox>                
+                </GroupBox>
             </syncfusion:UserOptions>
         </syncfusion:LayoutControl.UserOptionsView>
 
         <syncfusion:LayoutControl.GridView>
-            <Grid>                
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>               
-                <syncfusion:SfDataGrid x:Name="SmsDataGrid"
+                </Grid.RowDefinitions>
+                <syncfusion:SfDataGrid  x:Name="SmsDataGrid"
                                        AllowFiltering="False"
                                        AutoGenerateColumns="False"
                                        ColumnSizer="Star"
@@ -88,11 +88,11 @@
                                     <Image Width="15"
                                            Height="15"
                                            Source="{Binding NotificationSent,Converter={StaticResource SelecteImageConverter}}"
-                                           Stretch="UniformToFill">                                        
-                                  </Image>
-                                          
+                                           Stretch="UniformToFill">
+                                    </Image>
+
                                 </DataTemplate>
-                            </syncfusion:GridTemplateColumn.CellTemplate> 
+                            </syncfusion:GridTemplateColumn.CellTemplate>
                         </syncfusion:GridTemplateColumn>
                         <syncfusion:GridTemplateColumn HeaderText="Confirmation" MappingName="PatientConfirmRdv" >
                             <syncfusion:GridTemplateColumn.CellTemplate>
@@ -104,9 +104,60 @@
                                     </Image>
                                 </DataTemplate>
                             </syncfusion:GridTemplateColumn.CellTemplate>
-                        </syncfusion:GridTemplateColumn>                        
-                        
+                        </syncfusion:GridTemplateColumn>
+
                     </syncfusion:SfDataGrid.Columns>
+                    <syncfusion:SfDataGrid.RecordContextMenu>
+                        <ContextMenu>
+                            <ContextMenu.Template>
+                                <ControlTemplate>
+                                    <syncfusion:SfRadialMenu x:Name="radialMenu" RimBackground="#FF28A5DB" RimRadiusFactor="0.9" 
+                                     IsOpen="False" Background="White" BorderBrush="Green" Padding="5"
+                                     RadiusX="100" RadiusY="100"
+                                     EnableFreeRotation="True" Visibility="Visible">
+                                        <syncfusion:SfRadialMenu.Icon>
+                                            <Ellipse x:Name="centerRim" Fill="White" Stroke="Black" StrokeThickness="2" Height="30" Width="30"/>
+                                        </syncfusion:SfRadialMenu.Icon>
+                                        <syncfusion:SfRadialMenu.RenderTransform>
+                                            <TranslateTransform x:Name="transform2"/>
+                                        </syncfusion:SfRadialMenu.RenderTransform>
+                                        <syncfusion:SfRadialMenuItem   CheckMode="None"   >
+                                            <syncfusion:SfRadialMenuItem.Header>
+                                                <Border Background="Transparent" >
+                                                    <StackPanel Margin="10,10,0,0">
+                                                        <Path x:Name="path1" Width="25" UseLayoutRounding="False" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="1" Height="25" Fill="Black" Data="M19.833,0L32.5,0 32.5,19.833999 52.334,19.833999 52.334,32.500999 32.5,32.500999 32.5,52.333 19.833,52.333 19.833,32.500999 0,32.500999 0,19.833999 19.833,19.833999z"/>
+                                                        <TextBlock   Text="Add"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </syncfusion:SfRadialMenuItem.Header>
+                                        </syncfusion:SfRadialMenuItem>
+                                        <syncfusion:SfRadialMenuItem    CheckMode="None"   >
+                                            <syncfusion:SfRadialMenuItem.Header>
+                                                <Border Background="Transparent" Padding="5">
+                                                    <StackPanel>
+                                                        <Path Width="20"  UseLayoutRounding="False" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="1" Height="25" Fill="Black" Data="M0,44.439791L18.98951,54.569246 0.47998798,62.66881z M17.428029,12.359973L36.955557,23.568769 21.957478,49.686174 20.847757,46.346189 15.11851,45.756407 14.138656,42.166935 8.5292659,41.966761 6.9493899,38.037481 2.4399572,38.477377z M26.812517,0.0009765625C27.350616,-0.012230873,27.875986,0.10826397,28.348372,0.3782568L42.175028,8.3180408C43.85462,9.2780154,44.234529,11.777948,43.02482,13.89789L41.375219,16.767812 21.460039,5.3381228 23.10964,2.4582005C23.979116,0.941679,25.437378,0.034730911,26.812517,0.0009765625zz"  />
+                                                        <TextBlock  Text="Edit"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </syncfusion:SfRadialMenuItem.Header>
+                                        </syncfusion:SfRadialMenuItem>
+                                        <syncfusion:SfRadialMenuItem   CheckMode="None"  >
+                                            <syncfusion:SfRadialMenuItem.Header>
+                                                <Border Background="Transparent" Padding="5">
+                                                    <StackPanel>
+                                                        <Path Width="20" UseLayoutRounding="False" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="1" Height="25" Fill="Black" Data="M31.687001,23.116L31.687001,31.394341C31.687001,31.394341,31.526705,36.832023,25.52624,36.359949L18.506,36.388395 18.506,49.587002 18.506001,54.153999 18.506,59.292614C18.506,59.812107,18.929218,60.233997,19.448625,60.233997L45.808704,60.233997C46.326101,60.233997,46.749998,59.812107,46.749998,59.292614L46.749998,24.057384C46.749998,23.539322,46.326101,23.116,45.808704,23.116z M20.552001,4.5669994L20.552001,14.60861C20.552001,14.60861,20.358706,21.203206,13.080177,20.631915L4.565999,20.665694 4.565999,48.4459C4.566,49.076302,5.0797424,49.587002,5.7100554,49.587002L14.742001,49.587002 14.742001,35.400336 18.161097,31.792807 18.166127,31.774705 26.474542,22.972 26.521163,22.972 29.953973,19.349999 38.822001,19.349999 38.822001,5.7076302C38.822001,5.0806808,38.309198,4.5669994,37.680792,4.5669994z M18.449971,0L37.680651,0C40.833681,0,43.391001,2.5571156,43.391001,5.707489L43.391001,19.349999 45.80884,19.349999C48.409018,19.35,50.517,21.458894,50.517,24.05704L50.517,59.292992C50.517,61.893593,48.409018,64,45.80884,64L19.448812,64C16.849223,64,14.742,61.893593,14.742001,59.292992L14.742001,54.153999 5.709774,54.153999C2.555994,54.153999,0,51.599316,0,48.445534L0,19.465691 4.1473293,15.090039 4.1532602,15.068708 14.229262,4.3929996 14.286199,4.3929996z"/>
+
+                                                        <TextBlock  Text="Copy"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </syncfusion:SfRadialMenuItem.Header>
+                                        </syncfusion:SfRadialMenuItem>
+                                    </syncfusion:SfRadialMenu>
+                                </ControlTemplate>
+                            </ContextMenu.Template>
+                        </ContextMenu>
+
+                    </syncfusion:SfDataGrid.RecordContextMenu>
                 </syncfusion:SfDataGrid>
                 <syncfusion:SfDataPager x:Name="SmsDataPager"
                                        Grid.Row="1"                                       
