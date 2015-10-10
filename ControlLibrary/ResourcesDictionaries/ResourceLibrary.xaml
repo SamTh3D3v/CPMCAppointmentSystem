@@ -52,6 +52,7 @@
         <!--Converters-->
         <ResourceDictionary>
             <converters:SelecteImageConverter x:Key="SelecteImageConverter"/>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         </ResourceDictionary>
 
 
