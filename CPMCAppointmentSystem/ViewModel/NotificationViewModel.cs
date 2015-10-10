@@ -1,22 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
     public class NotificationViewModel:NavigableViewModelBase
     {
         #region Fields
-        private readonly CpmcContext _dbContext=new CpmcContext();
+      
+        private GsmHelper _gsmHelper  ;       
+        private CpmcContext _dbContext=new CpmcContext();
         private ObservableCollection<RendezVous> _rdvCollectionList;
+        private RendezVous _selectedRdv;
         #endregion 
         #region Properties
+        public GsmHelper GsmHelper
+        {
+            get
+            {
+                return _gsmHelper;
+            }
+
+            set
+            {
+                if (_gsmHelper == value)
+                {
+                    return;
+                }
+
+                _gsmHelper = value;
+                RaisePropertyChanged();
+            }
+        }      
+        public RendezVous SelectedRdv
+        {
+            get
+            {
+                return _selectedRdv;
+            }
+
+            set
+            {
+                if (_selectedRdv == value)
+                {
+                    return;
+                }
+
+                _selectedRdv = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<RendezVous> RdvCollectionList
         {
             get
@@ -46,7 +87,53 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _notificationViewLoadedCommand
                     ?? (_notificationViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        _dbContext = new CpmcContext();
                         await LoadRdvs();
+                    }));
+            }
+        }
+        private RelayCommand _callPhoneCommand;   
+        public RelayCommand CallPhoneCommand
+        {
+            get
+            {
+                return _callPhoneCommand
+                    ?? (_callPhoneCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedRdv!=null)
+                        {
+                            GsmHelper.Callphone("+"+SelectedRdv.Patient.TelephoneMobile1);
+                        }
+                        
+                    }));
+            }
+        }
+        private RelayCommand _sendsmsCommand;
+        public RelayCommand SendSmsCommand
+        {
+            get
+            {
+                return _sendsmsCommand
+                    ?? (_sendsmsCommand   = new RelayCommand(
+                    () =>
+                    {
+                        GsmHelper.SendSms("+"+SelectedRdv.Patient.TelephoneMobile1,"Confirmation du rendez vous");
+
+                    }));
+            }
+        }
+
+        private RelayCommand _callFixCommand;     
+        public RelayCommand CallFixCommand
+        {
+            get
+            {
+                return _callFixCommand
+                    ?? (_callFixCommand = new RelayCommand(
+                    () =>
+                    {
+                        GsmHelper.Callphone("+" + SelectedRdv.Patient.TelephoneFixe);
                     }));
             }
         }
@@ -61,6 +148,23 @@ namespace CPMCAppointmentSystem.ViewModel
         public NotificationViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
+            GsmHelper=new GsmHelper(9600,"COM10","+21350001701");
+            Messenger.Default.Register<NotificationMessage>(this, (m) =>
+            {
+                switch(m.Notification)
+                {
+                    case "SendSms":
+                        GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, "Confirmation du rendez vous");
+                        break;
+                    case "CallPortable":
+                        GsmHelper.Callphone(SelectedRdv.Patient.TelephoneMobile1);
+                        break;
+                    case "CallFix":
+                        GsmHelper.Callphone(SelectedRdv.Patient.TelephoneFixe);
+                        break;
+                    
+                }
+            });
         }
         #endregion       
     }

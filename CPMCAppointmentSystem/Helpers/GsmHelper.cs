@@ -105,8 +105,9 @@ namespace CPMCAppointmentSystem.Helpers
         }
         public void Callphone(string number)
         {
-            _serialPort.Write("ATD + +"+number);
-            Thread.Sleep(SleepTimeStamp);
+            _serialPort.Open();
+            _serialPort.Write("ATD + +"+number+";");
+            Thread.Sleep(100);
             _serialPort.Close();
         }
 

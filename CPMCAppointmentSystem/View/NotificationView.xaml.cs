@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CPMCAppointmentSystem.View
 {
@@ -23,6 +24,22 @@ namespace CPMCAppointmentSystem.View
         public NotificationView()
         {
             InitializeComponent();
+        }
+
+
+        private void SendSmsClick(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Send(new NotificationMessage("SendSms"));
+        }
+
+        private void CallPortableClick(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Send(new NotificationMessage("CallPortable"));
+        }
+
+        private void CallFixClick(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Send(new NotificationMessage("CallFix"));
         }
     }
 }
