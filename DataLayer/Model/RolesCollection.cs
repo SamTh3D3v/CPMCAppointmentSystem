@@ -35,6 +35,7 @@ namespace DataLayer.Model
         private bool _settingsMangeThemeAllow;
         private bool _smsNotificationViewAllow;
         private bool _smsNotificationEditAllow;
+        private bool _statisticsViewAllow;
 
         #endregion
         #region Properties
@@ -261,7 +262,7 @@ namespace DataLayer.Model
         }
 
         #endregion
-        #region Sms Notification
+        #region Sms Notification View
 
         public bool SmsNotificationViewAllow
         {
@@ -281,6 +282,20 @@ namespace DataLayer.Model
             {
                 if (value.Equals(_smsNotificationEditAllow)) return;
                 _smsNotificationEditAllow = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+        #region Statistics View
+
+        public bool StatisticsViewAllow
+        {
+            get { return _statisticsViewAllow; }
+            set
+            {
+                if (value.Equals(_statisticsViewAllow)) return;
+                _statisticsViewAllow = value;
                 OnPropertyChanged();
             }
         }
