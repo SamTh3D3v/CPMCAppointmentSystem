@@ -93,7 +93,23 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <GroupBox Grid.Row="0" Grid.Column="0" Header="Basic inoformation">
+                            <GroupBox Grid.Row="0" Grid.Column="0" >
+                                <GroupBox.Header>
+                                    
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <TextBlock Text="Basic inoformation" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                                        <Button  Grid.Column="1" Margin="10" Command="{Binding AddPatientCommand}" ToolTip="Nouveau utilisateur">
+                                            <Button.Content>
+                                                <Image Source="{StaticResource AddNewDark}" Width="15" Height="15" ></Image>
+                                            </Button.Content>
+                                        </Button>
+                                    </Grid>
+                                </GroupBox.Header>
                                 <Grid >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -285,6 +301,179 @@
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Foreground="#FF7B7B7B" Text="NOTIFICATIONS" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </TabItem.Header>
+                <TabItem.Content>
+                    <TabControl >
+                        <TabItem Header="Sms Settings">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <GroupBox Header="Global Settings" Grid.Row="0" Grid.Column="0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="Centre du messegerie" VerticalAlignment="Center" Grid.Row="0"/>
+                                        <syncfusion:SfMaskedEdit Margin="30,5,5,5" Text="+213550001701" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></syncfusion:SfMaskedEdit>
+                                        <TextBlock Text="Between AT cmd delay" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                                        <syncfusion:SfMaskedEdit Margin="30,5,5,5" Text="1000" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch"></syncfusion:SfMaskedEdit>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Core sms" Grid.Row="1" Grid.Column="0">
+                                    <StackPanel>
+                                        <Grid Margin="5" Background="WhiteSmoke">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="100"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="Message de notification [Françcais]" TextWrapping="Wrap" Width="150" VerticalAlignment="Center" Grid.Row="0"/>
+                                            <syncfusion:SfMaskedEdit Margin="5" Text="Confirmation du rendez vous" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></syncfusion:SfMaskedEdit>
+                                        </Grid>
+                                        <Grid Margin="5" Background="WhiteSmoke">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="100"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="Message de notification [Arab]" TextWrapping="Wrap" Width="150" VerticalAlignment="Center" Grid.Row="0"/>
+                                            <syncfusion:SfMaskedEdit Margin="5" Text="تأكيد الموعد" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></syncfusion:SfMaskedEdit>
+                                        </Grid>
+                                    </StackPanel>
+                                </GroupBox>
+                                <Grid Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveAppointementCommand}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                                                <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Grid.Column="1"  Margin="2" Command="{Binding CancelAppointementChangesCommand}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                                                <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Appelle Settings">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <GroupBox Header="Appelle Vocale Automatique" Grid.Row="0" Grid.Column="0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="Appelle vocale" Width="100" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Row="0"/>
+                                       <ProgressBar Grid.Row="0" Foreground="LightSkyBlue" Value="80" Grid.Column="1" HorizontalAlignment="Stretch" Height="5"/>
+                                        <Button Style="{DynamicResource MetroCircleButtonStyle}" Grid.Row="0" Grid.Column="2" Width="100" Height="100">
+                                            <Path Data="F1M-224.553,1265L-246.174,1283.52 -267.792,1302.04 -267.792,1265 -267.792,1227.97 -246.174,1246.49 -224.553,1265z" Stretch="Uniform" Fill="#FF000000" Width="50" Height="50" Margin="12,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                                <Path.RenderTransform>
+                                                    <TransformGroup>
+                                                        <TransformGroup.Children>
+                                                            <RotateTransform Angle="0" />
+                                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                        </TransformGroup.Children>
+                                                    </TransformGroup>
+                                                </Path.RenderTransform>
+                                            </Path>
+                                        </Button>
+                                        <Button ToolTip="Supprimer l'appelle Vocale" Style="{DynamicResource MetroCircleButtonStyle}" Grid.Row="0" Grid.Column="3" Width="40" Height="40">
+                                            <Path Data="M33.977998,27.684L33.977998,58.102997 41.373998,58.102997 41.373998,27.684z M14.841999,27.684L14.841999,58.102997 22.237998,58.102997 22.237998,27.684z M4.0319996,22.433001L52.183,22.433001 52.183,63.999001 4.0319996,63.999001z M15.974,0L40.195001,0 40.195001,7.7260003 56.167001,7.7260003 56.167001,16.000999 0,16.000999 0,7.7260003 15.974,7.7260003z" Stretch="Uniform" Fill="#FF000000" Width="15" Height="15" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                                <Path.RenderTransform>
+                                                    <TransformGroup>
+                                                        <TransformGroup.Children>
+                                                            <RotateTransform Angle="0" />
+                                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                        </TransformGroup.Children>
+                                                    </TransformGroup>
+                                                </Path.RenderTransform>
+                                            </Path>
+                                        </Button>
+                                        <TextBlock Text="Enregistrer une nouvelle appelle vocale " Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center"></TextBlock>
+                                        <Button ToolTip="Supprimer l'appelle Vocale" Style="{DynamicResource MetroCircleButtonStyle}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Width="150" Height="150" Margin="50">
+
+                                            <Path Data="M1725.25,2303.97C1729.64,2303.97,1733.2,2300.41,1733.2,2296.02L1733.2,2278.49C1733.2,2274.1 1729.64,2270.54 1725.25,2270.54 1720.86,2270.54 1717.3,2274.1 1717.3,2278.49L1717.3,2296.02C1717.3,2300.41,1720.86,2303.97,1725.25,2303.97z M1742.45,2297.75L1738.72,2297.75C1738.22,2304.75 1732.38,2310.28 1725.25,2310.28 1718.12,2310.28 1712.28,2304.75 1711.78,2297.75L1708.05,2297.75C1708.05,2306.51,1714.61,2313.72,1723.07,2314.79L1723.07,2319.58 1717.2,2319.58 1717.2,2323.87 1733.26,2323.87 1733.26,2319.58 1727.43,2319.58 1727.43,2314.79C1735.9,2313.72,1742.45,2306.51,1742.45,2297.75z" Stretch="Uniform" Fill="#FF000000" Width="90" Height="90" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                                <Path.RenderTransform>
+                                                    <TransformGroup>
+                                                        <TransformGroup.Children>
+                                                            <RotateTransform Angle="0" />
+                                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                        </TransformGroup.Children>
+                                                    </TransformGroup>
+                                                </Path.RenderTransform>
+                                            </Path>
+                                        </Button>
+                                    </Grid>
+                                </GroupBox>                                
+                                <Grid Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveAppointementCommand}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                                                <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Grid.Column="1" HorizontalAlignment="Left" Width="200"  Margin="2" Command="{Binding CancelAppointementChangesCommand}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                                                <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </TabItem.Content>
             </TabItem>
         </TabControl>
     </Grid>
