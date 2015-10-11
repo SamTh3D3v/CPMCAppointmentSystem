@@ -22,9 +22,8 @@ namespace DataLayer.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PieceJointeTypeId { get; set; }
-
-        public String IdDuPieceJointe { get; set; }  //if Passport --> Num de pass , If carte national -->Num de la carte National Etc 
-        public String  Description { get; set; }
+        
+        public virtual String  Description { get; set; }
 
         public String PieceJointeTitle { get; set; }    
 

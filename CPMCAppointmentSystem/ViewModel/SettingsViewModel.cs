@@ -9,6 +9,7 @@ using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
+using Xceed.Wpf.Toolkit;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -20,7 +21,8 @@ namespace CPMCAppointmentSystem.ViewModel
         private User _selectedUser;
         private ObservableCollection<TreeViewModel> _treeViewRollCollection = new ObservableCollection<TreeViewModel>();
         private ObservableCollection<UserTypeToAdd> _userTypeCollection;
-
+        private ObservableCollection<PieceJointeType> _typePieceJointeCollection;
+        private PieceJointeType _selectedTypePieceJointe;
         #endregion
         #region Properties
         public ObservableCollection<UserTypeToAdd> UserTypeCollection
@@ -93,6 +95,42 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _treeViewRollCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<PieceJointeType> TypePieceJointeCollection
+        {
+            get
+            {
+                return _typePieceJointeCollection;
+            }
+
+            set
+            {
+                if (_typePieceJointeCollection == value)
+                {
+                    return;
+                }
+
+                _typePieceJointeCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public PieceJointeType SelectedTypePieceJointe
+        {
+            get
+            {
+                return _selectedTypePieceJointe;
+            }
+
+            set
+            {
+                if (_selectedTypePieceJointe == value)
+                {
+                    return;
+                }
+
+                _selectedTypePieceJointe = value;
                 RaisePropertyChanged();
             }
         }

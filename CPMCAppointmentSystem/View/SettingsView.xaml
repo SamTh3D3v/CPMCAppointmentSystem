@@ -276,26 +276,24 @@
                         </TabItem>
                         <TabItem Header="Pieces joints Type">
                             <GroupBox Header="Ajouter Une Type De Piece Jointe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                <syncfusion:SfDataGrid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                <syncfusion:SfDataGrid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
                                                        AutoGenerateColumns="False"
                                        AllowDraggingColumns="True"
                                        AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding DataContext.SelectedPatient.RendezVouses,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                   SelectedItem="{Binding DataContext.SelectedAppointement,Mode=TwoWay,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                       ItemsSource="{Binding TypePieceJointeCollection}"
+                                   SelectedItem="{Binding SelectedTypePieceJointe,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseDoubleClick">
-                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=DataContext.AppointementDoubleClickCommand,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                            <command:EventToCommand 
                             PassEventArgsToCommand="True" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                     <syncfusion:SfDataGrid.Columns>
-                                        <syncfusion:GridTextColumn HeaderText="Date" MappingName="DateTimeRdv" />
-                                        <syncfusion:GridTextColumn HeaderText="Lieu" MappingName="LieuRdv" />
-                                        <syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserNom"/>
-                                        <syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserPrenom"/>
+                                        <syncfusion:GridTextColumn HeaderText="Titre" Width="300" MappingName="PieceJointeTitle" />                                        
+                                        <syncfusion:GridTextColumn HeaderText="Description" Width="300" MappingName="Description"/>                                        
                                     </syncfusion:SfDataGrid.Columns>
                                 </syncfusion:SfDataGrid>
                             </GroupBox>
