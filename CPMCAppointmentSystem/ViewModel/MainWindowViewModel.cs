@@ -12,10 +12,48 @@ namespace CPMCAppointmentSystem.ViewModel
     public class MainWindowViewModel : NavigableViewModelBase
     {
         #region Fields
-
+        private User _currentUser;
+        private bool _isCurrentUserFlayoutOpen;
         #endregion
         #region Properties
+        public User CurrentUser
+        {
+            get
+            {
+                return _currentUser;
+            }
 
+            set
+            {
+                if (_currentUser == value)
+                {
+                    return;
+                }
+
+                _currentUser = value;
+                RaisePropertyChanged();
+            }
+        }
+       
+        
+        public bool IsCurrentUserFlayoutOpen
+        {
+            get
+            {
+                return _isCurrentUserFlayoutOpen;
+            }
+
+            set
+            {
+                if (_isCurrentUserFlayoutOpen == value)
+                {
+                    return;
+                }
+
+                _isCurrentUserFlayoutOpen = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
         #region Commands
         private RelayCommand _mainViewLoadedCommand;
@@ -32,6 +70,20 @@ namespace CPMCAppointmentSystem.ViewModel
                         {                            
                             var res=context.Willayas.FirstOrDefault();
                         }
+                    }));
+            }
+        }
+        private RelayCommand _logOutCommand;
+        public RelayCommand LogOutCommand
+        {
+            get
+            {
+                return _logOutCommand
+                    ?? (_logOutCommand = new RelayCommand(
+                    () =>
+                    {
+                        IsCurrentUserFlayoutOpen = false;
+                        MainFrameNavigationService.NavigateTo(App.LoginViewKey);
                     }));
             }
         }
