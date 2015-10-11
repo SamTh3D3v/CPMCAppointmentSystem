@@ -12,17 +12,17 @@ using GalaSoft.MvvmLight.Command;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
-    public class SettingsViewModel:NavigableViewModelBase
+    public class SettingsViewModel : NavigableViewModelBase
     {
         #region Fields
-        private CpmcContext _dbContext=new CpmcContext();       
-        private ObservableCollection<User> _usersList  ;        
-        private User _selectedUser  ;       
-        private ObservableCollection<TreeViewModel> _treeViewRollCollection=new ObservableCollection<TreeViewModel>();
-        private ObservableCollection<UserTypeToAdd> _userTypeCollection;   
-       
+        private CpmcContext _dbContext = new CpmcContext();
+        private ObservableCollection<User> _usersList;
+        private User _selectedUser;
+        private ObservableCollection<TreeViewModel> _treeViewRollCollection = new ObservableCollection<TreeViewModel>();
+        private ObservableCollection<UserTypeToAdd> _userTypeCollection;
+
         #endregion
-        #region Properties   
+        #region Properties
         public ObservableCollection<UserTypeToAdd> UserTypeCollection
         {
             get
@@ -95,8 +95,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 _treeViewRollCollection = value;
                 RaisePropertyChanged();
             }
-        }             
-                
+        }
+
         #endregion
         #region Commands
         private RelayCommand _settingsViewLoadedCommand;
@@ -108,11 +108,11 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_settingsViewLoadedCommand = new RelayCommand(async () =>
                     {
                         await LoadUserTypeCollection();
-                        await LoadUsersList();                       
+                        await LoadUsersList();
                     }));
             }
         }
-        
+
         #endregion
         #region Ctors and Methods
         public SettingsViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
@@ -122,15 +122,15 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadUsersList()
         {
-           UsersList=new ObservableCollection<User>(await Task.Run(()=>_dbContext.Users));            
+            UsersList = new ObservableCollection<User>(await Task.Run(() => _dbContext.Users));
         }
 
         private async Task LoadUserTypeCollection()
         {
-            UserTypeCollection = new ObservableCollection<UserTypeToAdd>(await Task.Run(() => _dbContext.UserTypes.Select(x=>new UserTypeToAdd()
+            UserTypeCollection = new ObservableCollection<UserTypeToAdd>(await Task.Run(() => _dbContext.UserTypes.Select(x => new UserTypeToAdd()
             {
-                UserTypeId=x.UserTypeId,
-                UserTypeName=x.UserTypeName,
+                UserTypeId = x.UserTypeId,
+                UserTypeName = x.UserTypeName,
                 Users = x.Users,
                 IsAdded = true
             })));
@@ -138,9 +138,11 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private void LoadRollCollectionForSelectedUser()
         {
-            
-            TreeViewRollCollection=new ObservableCollection<TreeViewModel>()
+
+            if (SelectedUser != null)
             {
+                TreeViewRollCollection = new ObservableCollection<TreeViewModel>()
+             {
                 new TreeViewModel()
                 {
                     Content = "CalendarView", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
@@ -211,7 +213,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
                 
             };
+            }
         }
-        #endregion        
+        #endregion
     }
 }

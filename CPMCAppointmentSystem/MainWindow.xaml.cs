@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Data;
 using CPMCAppointmentSystem.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro.Controls;
@@ -28,6 +30,13 @@ namespace CPMCAppointmentSystem
                 }
             });
             #endregion
+        }
+
+      
+
+        private void MainFrame_OnContentRendered(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -87,6 +87,19 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand _userConnectedCommand;
+        public RelayCommand UserConnectedCommand
+        {
+            get
+            {
+                return _userConnectedCommand
+                    ?? (_userConnectedCommand = new RelayCommand(
+                    () =>
+                    {
+                        CurrentUser = MainFrameNavigationService.Parameter as User;  
+                    }));
+            }
+        }
         #endregion
         #region Ctors and Methods
 
