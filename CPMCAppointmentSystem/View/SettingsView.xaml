@@ -100,8 +100,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        
+                                        </Grid.ColumnDefinitions>                                        
                                         <TextBlock Text="Basic inoformation" Style="{StaticResource SubtitleTextBlockStyle}"/>
                                         <Button  Grid.Column="1" Margin="10" Command="{Binding AddPatientCommand}" ToolTip="Nouveau utilisateur">
                                             <Button.Content>
