@@ -503,7 +503,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Tiles\Chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
       <Project>{42139f12-5786-4b10-a0b0-0e7ba93eba57}</Project>
@@ -513,9 +517,6 @@
       <Project>{7500895c-7dcd-40eb-8fc7-6023a6145764}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Tiles\save.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

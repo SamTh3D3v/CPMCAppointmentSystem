@@ -5,10 +5,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -148,21 +151,33 @@ namespace CPMCAppointmentSystem.ViewModel
         public NotificationViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
-            GsmHelper=new GsmHelper(9600,"COM10","+21350001701");
+            GsmHelper=new GsmHelper(9600,"COM10","+21350001701");  //le centre de messagerie de ooredoo
             Messenger.Default.Register<NotificationMessage>(this, (m) =>
             {
-                switch(m.Notification)
+                try
                 {
-                    case "SendSms":
-                        GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, "Confirmation du rendez vous");
-                        break;
-                    case "CallPortable":
-                        GsmHelper.Callphone(SelectedRdv.Patient.TelephoneMobile1);
-                        break;
-                    case "CallFix":
-                        GsmHelper.Callphone(SelectedRdv.Patient.TelephoneFixe);
-                        break;
-                    
+                    switch (m.Notification)
+                    {
+                        case "SendSms":
+                            GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, "Confirmation du rendez vous");
+                            break;
+                        case "CallPortable":
+                            GsmHelper.Callphone(SelectedRdv.Patient.TelephoneMobile1);
+                            break;
+                        case "CallFix":
+                            GsmHelper.Callphone(SelectedRdv.Patient.TelephoneFixe);
+                            break;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
+                    {
+                        var ctontroller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(
+                            "Echec de com", "check the gprs device ... "));
+                    }));
                 }
             });
         }

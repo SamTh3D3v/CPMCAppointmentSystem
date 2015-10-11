@@ -23,21 +23,21 @@
                 </TransformGroup>
             </Grid.RenderTransform>
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Image Source="{Binding Icon}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"
-                               Stretch="None" />
+            <Image Source="{Binding Icon}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Width="40" Height="40"
+                                />
             <StackPanel Grid.Column="1" Margin="5 10" Grid.RowSpan="2">
                 <TextBlock Text="{Binding Header}" FontFamily="Segoe UI" FontWeight="Light" FontSize="30" Foreground="White"/>
-                <TextBlock Text="{Binding Description}" FontFamily="Segoe UI" FontWeight="Light" FontSize="20" Foreground="White" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Header}" FontFamily="Segoe UI" FontWeight="Light" FontSize="20" Foreground="White" TextWrapping="Wrap"/>
             </StackPanel>
-            <TextBlock Text="{Binding Name}" FontSize="20" FontFamily="Segoe UI" FontWeight="Light"
-                                   Margin="10 10 10 20" Foreground="White" VerticalAlignment="Bottom" Grid.Row="1"/>
+            <!--<TextBlock Text="{Binding Name}" FontSize="20" FontFamily="Segoe UI" FontWeight="Light"
+                                   Margin="10 10 10 20" Foreground="White" VerticalAlignment="Bottom" Grid.Row="1"/>-->
         </Grid>
         <Grid   RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
