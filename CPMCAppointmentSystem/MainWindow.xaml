@@ -8,16 +8,15 @@
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d ignore"
-       
+        mc:Ignorable="d ignore"       
         WindowState="Maximized"                            
         Title="CPMC AppointementSystem" 
-                       WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
-                      EnableDWMDropShadow="True"
-                      ResizeMode="CanResizeWithGrip"
-                      WindowTransitionsEnabled="False"                      
- BorderBrush="{DynamicResource AccentColorBr}"
+        EnableDWMDropShadow="True"
+        ResizeMode="CanResizeWithGrip"
+        WindowTransitionsEnabled="False"                      
+        BorderBrush="{DynamicResource AccentColorBr}"
                       BorderThickness="1" WindowTitleBrush="Black"        
         DataContext="{Binding MainWindow, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
@@ -30,7 +29,34 @@
         <controls:FlyoutsControl >
             <controls:Flyout x:Name="CurrentUserFlyout" Header="CurrentUser" Position="Right" HorizontalAlignment="Stretch"  Theme="Dark" Width="300">
                 <ScrollViewer Margin="5,40,5,5" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                    <Grid   HorizontalAlignment="Stretch">                        
+                    <Grid   HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Margin="5" Grid.Row="0" Padding="5" BorderBrush="White" BorderThickness="1" CornerRadius="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Name " Style="{DynamicResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" Foreground="WhiteSmoke"/>
+                                <TextBlock Text="{Binding CurreentUser.UserName}" Style="{DynamicResource TextBoxBase}" Foreground="White" Grid.Row="0" Grid.Column="1"/>
+                            </Grid>
+                        </Border>
+                        <Border Margin="5" Grid.Row="1" Padding="5" BorderBrush="White" BorderThickness="1" CornerRadius="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Type User " Style="{DynamicResource TitleTextBlockStyle}" Grid.Row="1" Grid.Column="1" Foreground="WhiteSmoke"/>
+                                <TextBlock Text="{Binding CurreentUser.UserType.Designation}" Style="{DynamicResource TextBoxBase}" Foreground="White" Grid.Row="1" Grid.Column="1"/>
+                            </Grid>
+                        </Border>
+                        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="LogOut" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5"/>
                     </Grid>
                 </ScrollViewer>
             </controls:Flyout>
@@ -45,7 +71,7 @@
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>            
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Frame Grid.Row="0" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         <Grid Grid.Row="1" Margin="0,2,0,0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{StaticResource HeaderBackgroundBrush}">
