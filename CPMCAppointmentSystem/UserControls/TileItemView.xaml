@@ -34,7 +34,7 @@
                                 />
             <StackPanel Grid.Column="1" Margin="5 10" Grid.RowSpan="2">
                 <TextBlock Text="{Binding Header}" FontFamily="Segoe UI" FontWeight="Light" FontSize="30" Foreground="White"/>
-                <TextBlock Text="{Binding Header}" FontFamily="Segoe UI" FontWeight="Light" FontSize="20" Foreground="White" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Description}" FontFamily="Segoe UI" FontWeight="Light" FontSize="20" Foreground="White" TextWrapping="Wrap"/>
             </StackPanel>
             <!--<TextBlock Text="{Binding Name}" FontSize="20" FontFamily="Segoe UI" FontWeight="Light"
                                    Margin="10 10 10 20" Foreground="White" VerticalAlignment="Bottom" Grid.Row="1"/>-->
