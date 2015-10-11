@@ -9,6 +9,7 @@ using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
+using Syncfusion.Data.Extensions;
 using Xceed.Wpf.Toolkit;
 
 namespace CPMCAppointmentSystem.ViewModel
@@ -16,7 +17,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class SettingsViewModel : NavigableViewModelBase
     {
         #region Fields
-        private CpmcContext _dbContext = new CpmcContext();
+        private readonly CpmcContext _dbContext = new CpmcContext();
         private ObservableCollection<User> _usersList;
         private User _selectedUser;
         private ObservableCollection<TreeViewModel> _treeViewRollCollection = new ObservableCollection<TreeViewModel>();
@@ -147,6 +148,58 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         await LoadUserTypeCollection();
                         await LoadUsersList();
+                    }));
+            }
+        }
+        private RelayCommand _typePieceJointeDataGridLoadedCommand ;    
+        public RelayCommand TypePieceJointeDataGridLoadedCommand
+        {
+            get
+            {
+                return _typePieceJointeDataGridLoadedCommand 
+                    ?? (_typePieceJointeDataGridLoadedCommand  = new RelayCommand(async () =>
+                    {
+                        await LoadTypePieceJointsCollection();
+
+                    }));
+            }
+        }
+
+        private async Task LoadTypePieceJointsCollection()
+        {
+            TypePieceJointeCollection = new ObservableCollection<PieceJointeType>(await Task.Run(() => _dbContext.PieceJointeTypes));
+        }
+        private RelayCommand _saveAddTypePieceJointCommand;
+        public RelayCommand SaveAddTypePieceJointsCommand
+        {
+            get
+            {
+                return _saveAddTypePieceJointCommand
+                    ?? (_saveAddTypePieceJointCommand = new RelayCommand(
+                    () =>
+                    {
+                        foreach (var pieceJointeType in TypePieceJointeCollection)
+                        {
+                            if (pieceJointeType.PieceJointeTypeId == null || pieceJointeType.PieceJointeTypeId == Guid.Empty)
+                            {
+                                _dbContext.PieceJointeTypes.Add(pieceJointeType);
+                            }
+                        }
+                        _dbContext.SaveChanges();
+
+                    }));
+            }
+        }
+        private RelayCommand _cancelAddTypePieceJointeCommand;
+        public RelayCommand CancelAddTypePieceJointsCommand
+        {
+            get
+            {
+                return _cancelAddTypePieceJointeCommand
+                    ?? (_cancelAddTypePieceJointeCommand = new RelayCommand(
+                    () =>
+                    {
+                        //Todo 
                     }));
             }
         }

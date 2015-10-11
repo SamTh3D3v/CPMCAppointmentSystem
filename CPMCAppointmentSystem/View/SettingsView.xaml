@@ -95,12 +95,12 @@
 
                             <GroupBox Grid.Row="0" Grid.Column="0" >
                                 <GroupBox.Header>
-                                    
+
                                     <Grid >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>                                        
+                                        </Grid.ColumnDefinitions>
                                         <TextBlock Text="Basic inoformation" Style="{StaticResource SubtitleTextBlockStyle}"/>
                                         <Button  Grid.Column="1" Margin="10" Command="{Binding AddPatientCommand}" ToolTip="Nouveau utilisateur">
                                             <Button.Content>
@@ -274,9 +274,21 @@
                                 </GroupBox>
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Pieces joints Type">
-                            <GroupBox Header="Ajouter Une Type De Piece Jointe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                <syncfusion:SfDataGrid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
+                        <TabItem Header="Pieces joints Type" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Loaded">
+                                    <command:EventToCommand 
+                            PassEventArgsToCommand="True" Command="{Binding TypePieceJointeDataGridLoadedCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <GroupBox Header="Ajouter Une Type De Piece Jointe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <syncfusion:SfDataGrid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
                                                        AutoGenerateColumns="False"
                                        AllowDraggingColumns="True"
                                        AllowEditing="True"
@@ -285,22 +297,45 @@
                                        ItemsSource="{Binding TypePieceJointeCollection}"
                                    SelectedItem="{Binding SelectedTypePieceJointe,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseDoubleClick">
-                                            <command:EventToCommand 
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseDoubleClick">
+                                                <command:EventToCommand 
                             PassEventArgsToCommand="True" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                    <syncfusion:SfDataGrid.Columns>
-                                        <syncfusion:GridTextColumn HeaderText="Titre" Width="300" MappingName="PieceJointeTitle" />                                        
-                                        <syncfusion:GridTextColumn HeaderText="Description" Width="300" MappingName="Description"/>                                        
-                                    </syncfusion:SfDataGrid.Columns>
-                                </syncfusion:SfDataGrid>
-                            </GroupBox>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <syncfusion:SfDataGrid.Columns>
+                                            <syncfusion:GridTextColumn HeaderText="Titre" Width="300" MappingName="PieceJointeTitle" />
+                                            <syncfusion:GridTextColumn HeaderText="Description" Width="300" MappingName="Description"/>
+                                        </syncfusion:SfDataGrid.Columns>
+                                    </syncfusion:SfDataGrid>
+                                </GroupBox>
+                                <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveAddTypePieceJointsCommand}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                                                <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Grid.Column="1" HorizontalAlignment="Left" Width="200"  Margin="2" Command="{Binding CancelAddTypePieceJointsCommand}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                                                <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </TabItem>
                         <TabItem Header="Other">
                             <TextBlock Text="In Progress" Style="{DynamicResource HeaderTextBlockStyle}" Foreground="Black"/>
-                        </TabItem>                        
+                        </TabItem>
                     </TabControl>
                 </TabItem.Content>
             </TabItem>
@@ -420,7 +455,7 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         <TextBlock Text="Appelle vocale" Width="100" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Row="0"/>
-                                       <ProgressBar Grid.Row="0" Foreground="LightSkyBlue" Value="80" Grid.Column="1" HorizontalAlignment="Stretch" Height="5"/>
+                                        <ProgressBar Grid.Row="0" Foreground="LightSkyBlue" Value="80" Grid.Column="1" HorizontalAlignment="Stretch" Height="5"/>
                                         <Button Style="{DynamicResource MetroCircleButtonStyle}" Grid.Row="0" Grid.Column="2" Width="100" Height="100">
                                             <Path Data="F1M-224.553,1265L-246.174,1283.52 -267.792,1302.04 -267.792,1265 -267.792,1227.97 -246.174,1246.49 -224.553,1265z" Stretch="Uniform" Fill="#FF000000" Width="50" Height="50" Margin="12,0,0,0" RenderTransformOrigin="0.5,0.5">
                                                 <Path.RenderTransform>
@@ -460,7 +495,7 @@
                                             </Path>
                                         </Button>
                                     </Grid>
-                                </GroupBox>                                
+                                </GroupBox>
                                 <Grid Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
