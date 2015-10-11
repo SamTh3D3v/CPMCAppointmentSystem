@@ -160,6 +160,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         case "SendSms":
                             GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, "Confirmation du rendez vous");
+                            SelectedRdv.NotificationSent = true;
                             break;
                         case "CallPortable":
                             GsmHelper.Callphone(SelectedRdv.Patient.TelephoneMobile1);

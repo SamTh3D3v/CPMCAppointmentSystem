@@ -6,6 +6,7 @@
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700" 
       DataContext="{Binding Source={StaticResource Locator}, Path=NotificationViewModel}"
@@ -64,15 +65,16 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <syncfusion:SfDataGrid  x:Name="SmsDataGrid"
-                                       AllowFiltering="False"
+                <syncfusion:SfDataGrid AllowEditing="True" x:Name="SmsDataGrid"
+                                       AllowFiltering="True"
                                        AutoGenerateColumns="False"
                                        ColumnSizer="Star"
                                         SelectedItem="{Binding SelectedRdv,Mode=TwoWay}"
                                        IsGroupDropAreaExpanded="True"
                                        ItemsSource="{Binding Path=PagedSource,
                                                              ElementName=SmsDataPager}"
-                                       NavigationMode="Row"
+                                       RowHeight="40"
+                                       NavigationMode="Cell"
                                        ShowGroupDropArea="True">
                     <syncfusion:SfDataGrid.Columns>
                         <syncfusion:GridTextColumn HeaderText="Num D'ordre" MappingName="Patient.NumeroDordre" TextAlignment="Left" />
@@ -86,8 +88,8 @@
                         <syncfusion:GridTemplateColumn HeaderText="Notification envoyé" MappingName="NotificationSent" >
                             <syncfusion:GridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Width="15"
-                                           Height="15"
+                                    <Image Width="20"
+                                           Height="20"
                                            Source="{Binding NotificationSent,Converter={StaticResource SelecteImageConverter}}"
                                            Stretch="UniformToFill">
                                     </Image>
@@ -95,16 +97,21 @@
                                 </DataTemplate>
                             </syncfusion:GridTemplateColumn.CellTemplate>
                         </syncfusion:GridTemplateColumn>
-                        <syncfusion:GridTemplateColumn HeaderText="Confirmation" MappingName="PatientConfirmRdv" >
+                        <syncfusion:GridTemplateColumn HeaderText="Confirmation" MappingName="PatientConfirmRdv" AllowEditing="True">
                             <syncfusion:GridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Width="15"
-                                           Height="15"
+                                    <Image Width="20"
+                                           Height="20"
                                            Source="{Binding PatientConfirmRdv,Converter={StaticResource SelecteImageConverter}}"
                                            Stretch="UniformToFill">
                                     </Image>
                                 </DataTemplate>
                             </syncfusion:GridTemplateColumn.CellTemplate>
+                            <syncfusion:GridTemplateColumn.EditTemplate>
+                                <DataTemplate>
+                                    <controls:ToggleSwitch  Padding="0" Margin="0"  OnLabel="Oui" OffLabel="Non" IsChecked="{Binding PatientConfirmRdv,Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                </DataTemplate>
+                            </syncfusion:GridTemplateColumn.EditTemplate>
                         </syncfusion:GridTemplateColumn>
 
                     </syncfusion:SfDataGrid.Columns>
