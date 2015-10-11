@@ -38,5 +38,6 @@
     <!--Light-->
     <BitmapImage x:Key="AddNewLight" UriSource="/ControlLibrary;component/Images/Icons/Light/AddNew_light.png"></BitmapImage>
     <BitmapImage x:Key="ConnectionLight" UriSource="/ControlLibrary;component/Images/Icons/Light/Connexion_light.png"/>
+    <BitmapImage x:Key="ChartLight" UriSource="/ControlLibrary;component/Images/Icons/Light/ChartLight.png"/>
     
 </ResourceDictionary>

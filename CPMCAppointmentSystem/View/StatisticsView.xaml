@@ -20,8 +20,8 @@
     <Grid>
         <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderThickness="1">
             <syncfusion:DockingManager  IsEnableHotTracking="True"  syncfusion:SkinStorage.VisualStyle="Metro"
-                                   ContainerMode="TDI" PersistState="false" UseDocumentContainer="True">               
-                <ListBox  BorderThickness="0"
+                                   ContainerMode="TDI" PersistState="false" UseDocumentContainer="True">
+                <ListBox  BorderThickness="0" ItemsSource="{Binding ChartTileCollection}" Width="auto"
                           
                              syncfusion:DockingManager.SideInDockedMode="Left" 
                              syncfusion:DockingManager.State="Dock" 
@@ -29,6 +29,14 @@
                              syncfusion:DocumentContainer.MDIBounds="30,30,300,300"  
                              syncfusion:DockingManager.DesiredHeightInFloatingMode="200"
                              syncfusion:DockingManager.Header="Charts" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{DynamicResource ChartDark}" Width="20" Height="20"/>
+                                <TextBlock Text="{Binding Name}" FontSize="16" Style="{DynamicResource SubheaderTextBlockStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
                 <Grid  syncfusion:DockingManager.State="Document" >
                     <syncfusion:TileViewControl x:Name="TileViewCtl" ItemsSource="{Binding ChartTileCollection}" 

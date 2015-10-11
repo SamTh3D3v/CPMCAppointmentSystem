@@ -25,8 +25,8 @@
         </Button>
 
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="45 5" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <Image Source="{StaticResource ChartDark}" Width="55"/>
-            <TextBlock Text="Patient par pathology" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Bottom" Margin="10 15 0 0"/>
+            <Image Source="{StaticResource ChartLight}" Width="55"/>
+            <TextBlock Text="Patient par pathology"  FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10 0"/>
         </StackPanel>
     </Grid>
 </UserControl>
