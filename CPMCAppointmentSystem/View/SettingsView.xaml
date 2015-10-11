@@ -221,7 +221,7 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <TabControl >
-                        <TabItem Header="Status">
+                        <TabItem Header="Patients Status">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -274,18 +274,35 @@
                                 </GroupBox>
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Type des pieces joints">
-                            <TextBlock Text="TQEST"></TextBlock>
-
+                        <TabItem Header="Pieces joints Type">
+                            <GroupBox Header="Ajouter Une Type De Piece Jointe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <syncfusion:SfDataGrid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                                       AutoGenerateColumns="False"
+                                       AllowDraggingColumns="True"
+                                       AllowEditing="True"
+                                       AllowFiltering="True"
+                                       AllowGrouping="True"
+                                       ItemsSource="{Binding DataContext.SelectedPatient.RendezVouses,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                   SelectedItem="{Binding DataContext.SelectedAppointement,Mode=TwoWay,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                       ShowGroupDropArea="True" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=DataContext.AppointementDoubleClickCommand,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                            PassEventArgsToCommand="True" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <syncfusion:SfDataGrid.Columns>
+                                        <syncfusion:GridTextColumn HeaderText="Date" MappingName="DateTimeRdv" />
+                                        <syncfusion:GridTextColumn HeaderText="Lieu" MappingName="LieuRdv" />
+                                        <syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserNom"/>
+                                        <syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserPrenom"/>
+                                    </syncfusion:SfDataGrid.Columns>
+                                </syncfusion:SfDataGrid>
+                            </GroupBox>
                         </TabItem>
-                        <TabItem Header="Status">
-                            <TextBlock Text="TQEST"></TextBlock>
-
-                        </TabItem>
-                        <TabItem Header="Status">
-                            <TextBlock Text="TQEST"></TextBlock>
-
-                        </TabItem>
+                        <TabItem Header="Other">
+                            <TextBlock Text="In Progress" Style="{DynamicResource HeaderTextBlockStyle}" Foreground="Black"/>
+                        </TabItem>                        
                     </TabControl>
                 </TabItem.Content>
             </TabItem>
