@@ -35,30 +35,34 @@
         <Image Source="{StaticResource PathologyDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
 
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <Syncfusion:SfMaskedEdit Watermark="Nom du Pathology" Margin="10 5" x:Name="NomBox" IsEnabled="False" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <Syncfusion:SfMaskedEdit Watermark="Nom du Medecin" Margin="10 5" x:Name="NomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
 
-        <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <Syncfusion:SfMaskedEdit Watermark="Pathology Code" Margin="10 5" x:Name="CodeBox" IsEnabled="False" Text="{Binding SelectedPathology.CodePathology}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <Syncfusion:SfMaskedEdit Watermark="Prenom Du medecin" Margin="10 5" x:Name="CodeBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserPrenom}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
         <TextBlock Grid.Column="0"  Grid.Row="3" Text="Pathology" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
         <Grid Margin="5" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="67*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
             <Syncfusion:SfDataGrid SelectionMode="Multiple"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
-                                       ItemsSource="{Binding DoctorsToPathlogyList}"
+                                       ItemsSource="{Binding PathologiesToDoctorList}"
                                    AutoGenerateColumns="False"
-                                   SelectedItem="{Binding SelectedDoctorsToPathologyList,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" >
+                                   
+                                       ShowGroupDropArea="True" Grid.ColumnSpan="2" >
 
                 <Syncfusion:SfDataGrid.Columns>
-                    <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
-                    <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
-                    <Syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" />
+                    <Syncfusion:GridTextColumn HeaderText="CodePathology" MappingName="CodePathology" />
+                    <Syncfusion:GridTextColumn HeaderText="NomPathology" MappingName="NomPathology" />
+                    <Syncfusion:GridTextColumn HeaderText="Description" MappingName="Description" />
                     <Syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded"/>
                 </Syncfusion:SfDataGrid.Columns>
             </Syncfusion:SfDataGrid>

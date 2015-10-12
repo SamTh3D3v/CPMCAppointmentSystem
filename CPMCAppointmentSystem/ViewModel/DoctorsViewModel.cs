@@ -30,7 +30,29 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<PatientToAdd> _patientsToAddList;
         private PatientToAdd _selectedPatientToAdd;
         #endregion
-        #region Properties              
+        #region Properties   
+      
+        private ObservableCollection<PathologyToAdd> _pathologiesToDoctorListAdds  ;
+
+     
+        public ObservableCollection<PathologyToAdd> PathologiesToDoctorList
+        {
+            get
+            {
+                return _pathologiesToDoctorListAdds;
+            }
+
+            set
+            {
+                if (_pathologiesToDoctorListAdds == value)
+                {
+                    return;
+                }
+
+                _pathologiesToDoctorListAdds = value;
+                RaisePropertyChanged();
+            }
+        }   
         public ObservableCollection<Medecin> DoctorsList
         {
             get
@@ -177,6 +199,37 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _savePathologyWhithDoctorsCommand;
+
+        /// <summary>
+        /// Gets the SavePathologyWhithDoctorsCommand.
+        /// </summary>
+        public RelayCommand SavePathologyWhithDoctorsCommand
+        {
+            get
+            {
+                return _savePathologyWhithDoctorsCommand
+                    ?? (_savePathologyWhithDoctorsCommand = new RelayCommand(
+                    () =>
+                    {
+                        _addPathologiesToDoctorView.Close();
+                        
+                    }));
+            }
+        }
+        private RelayCommand _AddDoctorToPathologyLoadedCommand;    
+        public RelayCommand AddDoctorToPathologyLoadedCommand
+        {
+            get
+            {
+                return _AddDoctorToPathologyLoadedCommand
+                    ?? (_AddDoctorToPathologyLoadedCommand = new RelayCommand(async () =>
+                    {
+                        PathologiesToDoctorList=new ObservableCollection<PathologyToAdd>(await Task.Run(()=>_dbContext.Pathologies.Select(p=>new PathologyToAdd())));
+                        
+                    }));
+            }
+        }
         private RelayCommand _doctorsViewLoadedCommand;
         public RelayCommand DoctorsViewLoadedCommand
         {
@@ -331,29 +384,37 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             await Task.Run(() =>
             {
-                var patientsList = _dbContext.Patients;
-                PatientsToAddList = new ObservableCollection<PatientToAdd>();
-                foreach (var patient in patientsList)
+                try
                 {
-                    PatientsToAddList.Add(new PatientToAdd()
+                    var patientsList = _dbContext.Patients;
+                    PatientsToAddList = new ObservableCollection<PatientToAdd>();
+                    foreach (var patient in patientsList)
                     {
-                        PatientId = patient.PatientId,
-                        Nom = patient.Nom,
-                        Prenom = patient.Prenom,
-                        DateDeNaissance = patient.DateDeNaissance,
-                        TelephoneFixe = patient.TelephoneFixe,
-                        TelephoneMobile1 = patient.TelephoneMobile1,
-                        TelephoneMobile2 = patient.TelephoneMobile2,
-                        AdressId = patient.AdressId,
-                        Adresse = patient.Adresse,
-                        DateDeDepot = patient.DateDeDepot,
-                        Medecins = patient.Medecins,
-                        NumeroDordre = patient.NumeroDordre,
-                        RendezVouses = patient.RendezVouses,
-                        Sexe = patient.Sexe,
-                        SexeId = patient.SexeId,            
-                        IsAdded = (SelectedDoctor.Patients.Contains(patient)) ? true : false
-                    });
+                        PatientsToAddList.Add(new PatientToAdd()
+                        {
+                            PatientId = patient.PatientId,
+                            Nom = patient.Nom,
+                            Prenom = patient.Prenom,
+                            DateDeNaissance = patient.DateDeNaissance,
+                            TelephoneFixe = patient.TelephoneFixe,
+                            TelephoneMobile1 = patient.TelephoneMobile1,
+                            TelephoneMobile2 = patient.TelephoneMobile2,
+                            AdressId = patient.AdressId,
+                            Adresse = patient.Adresse,
+                            DateDeDepot = patient.DateDeDepot,
+                            Medecins = patient.Medecins,
+                            NumeroDordre = patient.NumeroDordre,
+                            RendezVouses = patient.RendezVouses,
+                            Sexe = patient.Sexe,
+                            SexeId = patient.SexeId,
+                            IsAdded = (SelectedDoctor.Patients.Contains(patient)) ? true : false
+                        });
+                    }
+                }
+                catch (Exception)
+                {
+
+                    var exception = true;
                 }
             });
         }

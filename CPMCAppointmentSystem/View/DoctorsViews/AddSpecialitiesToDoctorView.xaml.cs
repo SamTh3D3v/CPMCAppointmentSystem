@@ -1,8 +1,9 @@
-﻿using Syncfusion.Windows.Shared;
+﻿using MahApps.Metro.Controls;
+using Syncfusion.Windows.Shared;
 
 namespace CPMCAppointmentSystem.View.DoctorsViews
 {   
-    public partial class AddSpecialitiesToDoctorView : ChromelessWindow
+    public partial class AddSpecialitiesToDoctorView : MetroWindow
     {
         public AddSpecialitiesToDoctorView()
         {

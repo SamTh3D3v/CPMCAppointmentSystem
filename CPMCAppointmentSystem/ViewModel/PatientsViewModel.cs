@@ -20,7 +20,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel : NavigableViewModelBase
     {
         #region Fields
-
+        private ObservableCollection<Note> _notesFakeCollection = new ObservableCollection<Note>();
         private Note _selectedNote;
         private AddPatientAppointment _addAppointementWindow;
         private ObservableCollection<Patient> _patientList;
@@ -47,6 +47,26 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<PieceJointe> _listPieceJointes = new ObservableCollection<PieceJointe>();
         #endregion
         #region Properties
+        public ObservableCollection<Note> NotesFakeCollection
+        {
+            get
+            {
+                return _notesFakeCollection;
+            }
+
+            set
+            {
+                if (_notesFakeCollection == value)
+                {
+                    return;
+                }
+
+                _notesFakeCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+      
+     
         public ObservableCollection<PieceJointe> ListPieceJointes
         {
             get
@@ -379,6 +399,41 @@ namespace CPMCAppointmentSystem.ViewModel
 
         #endregion
         #region Commands
+        private RelayCommand _saveNewNoteCommand;
+        public RelayCommand SaveNewNoteCommand
+        {
+            get
+            {
+                return _saveNewNoteCommand
+                    ?? (_saveNewNoteCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedNote!=null)
+                        {
+                            NotesFakeCollection.Add(SelectedNote);
+                        }
+                        
+                    }));
+            }
+        }
+        private RelayCommand _addNewNoteCommand;     
+        public RelayCommand AddNewNoteCommand
+        {
+            get
+            {
+                return _addNewNoteCommand
+                    ?? (_addNewNoteCommand = new RelayCommand(
+                    () =>
+                    {
+                        SelectedNote=new Note()
+                        {
+                            Content = " ",
+                            Title = " "
+                        };
+                        
+                    }));
+            }
+        }
         private RelayCommand _previewRecuDeDepoCommand;
         public RelayCommand PreviewRecuDeDepoCommand
         {
@@ -567,7 +622,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_saveAppointementCommand = new RelayCommand(
                     () =>
                     {
-                        if (SelectedAppointement.RendezVousId == Guid.Empty)
+                        if (SelectedAppointement.RendezVousId == Guid.Empty && SelectedPatient.RendezVouses!=null)
                         {
                             SelectedPatient.RendezVouses.Add(SelectedAppointement);
                         }

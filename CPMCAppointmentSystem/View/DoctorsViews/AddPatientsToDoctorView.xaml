@@ -33,7 +33,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Image Source="{StaticResource DoctorDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
+        <Image Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
 
 
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
@@ -58,7 +58,7 @@
                     </Grid.RowDefinitions>
                     <Syncfusion:SfDataGrid SelectionMode="Multiple" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
-                                       AllowEditing="False"
+                                       AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
                                        ItemsSource="{Binding ElementName=PatientsToAddDataPager,Path=PagedSource}"
@@ -72,7 +72,7 @@
                             <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="TelephoneMobile" />
                             <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation" />
                             <Syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" />
-                            <Syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded"/>
+                            <Syncfusion:GridCheckBoxColumn HeaderText="Ajouter" AllowEditing="True" MappingName="IsAdded"/>
                         </Syncfusion:SfDataGrid.Columns>
                     </Syncfusion:SfDataGrid>
                     <Syncfusion:SfDataPager x:Name="PatientsToAddDataPager"
