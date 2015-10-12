@@ -30,6 +30,7 @@ namespace DataLayer.Model
         private Adresse _adresse;
         private Pathology _pathology;
         private DateTime _dateDeDepot;
+        private ICollection<PieceJointe> _pieceJointes;
 
         public Patient()
         {
@@ -227,7 +228,18 @@ namespace DataLayer.Model
 
         public virtual ICollection<Medecin> Medecins { get; set; }
         public virtual ICollection<RendezVous> RendezVouses { get; set; }
-        public virtual ICollection<PieceJointe> PieceJointes { get; set; }
+
+        public virtual ICollection<PieceJointe> PieceJointes
+        {
+            get { return _pieceJointes; }
+            set
+            {
+                if (Equals(value, _pieceJointes)) return;
+                _pieceJointes = value;
+                OnPropertyChanged();
+            }
+        }
+
         public virtual ICollection<Note> Notes { get; set; }
         
 

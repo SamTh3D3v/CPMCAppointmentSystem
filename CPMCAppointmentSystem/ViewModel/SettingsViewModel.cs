@@ -151,13 +151,13 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-        private RelayCommand _typePieceJointeDataGridLoadedCommand ;    
+        private RelayCommand _typePieceJointeDataGridLoadedCommand;
         public RelayCommand TypePieceJointeDataGridLoadedCommand
         {
             get
             {
-                return _typePieceJointeDataGridLoadedCommand 
-                    ?? (_typePieceJointeDataGridLoadedCommand  = new RelayCommand(async () =>
+                return _typePieceJointeDataGridLoadedCommand
+                    ?? (_typePieceJointeDataGridLoadedCommand = new RelayCommand(async () =>
                     {
                         await LoadTypePieceJointsCollection();
 
@@ -232,79 +232,170 @@ namespace CPMCAppointmentSystem.ViewModel
 
             if (SelectedUser != null)
             {
-                TreeViewRollCollection = new ObservableCollection<TreeViewModel>()
-             {
-                new TreeViewModel()
+
+
+                if (SelectedUser.RolesCollection == null)
                 {
-                    Content = "CalendarView", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                    {
-                        new TreeViewModel(){ Content = "AppointementViewAllow", IsChecked = SelectedUser.RolesCollection.AppointementViewAllow},
-                        new TreeViewModel(){ Content = "AppointementEditAllow", IsChecked = SelectedUser.RolesCollection.AppointementEditAllow}
-                    }
-                }, 
-                new TreeViewModel()
-                {
-                    Content = "Doctors View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                    {
-                        new TreeViewModel(){ Content = "DoctorsViewAllow", IsChecked = SelectedUser.RolesCollection.DoctorsViewAllow},
-                        new TreeViewModel(){ Content = "DoctorsAddAllow", IsChecked = SelectedUser.RolesCollection.DoctorsAddAllow}
-                    }
-                },
-                new TreeViewModel()
-                {
-                    Content = "Patient View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                    {
-                        new TreeViewModel(){ Content = "PatientsViewAllow", IsChecked = SelectedUser.RolesCollection.PatientsViewAllow},
-                        new TreeViewModel(){ Content = "PatientsEditAllow", IsChecked = SelectedUser.RolesCollection.PatientsEditAllow},
-                        new TreeViewModel(){ Content = "PatientsEditAppointementAllow", IsChecked = SelectedUser.RolesCollection.PatientsEditAppointementAllow}
-                    }
-                },
-                new TreeViewModel()
-                {
-                    Content = "Speciality View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                    {
-                        new TreeViewModel(){ Content = "SpecialitiesViewAllow", IsChecked = SelectedUser.RolesCollection.SpecialitiesViewAllow},
-                        new TreeViewModel(){ Content = "SpecialitiesEditAllow", IsChecked = SelectedUser.RolesCollection.SpecialitiesEditAllow}
-                    }
-                },
-                new TreeViewModel()
-                {
-                    Content = "Pathology View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                    {
-                        new TreeViewModel(){ Content = "PathologiesViewAllow", IsChecked = SelectedUser.RolesCollection.PathologiesViewAllow},
-                        new TreeViewModel(){ Content = "PathologiesEditAllow", IsChecked = SelectedUser.RolesCollection.PathologiesEditAllow}
-                    }
-                },
-                new TreeViewModel()
-                {
-                    Content = "MyPatients View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                    {
-                        new TreeViewModel(){ Content = "MyPatientsViewAllow", IsChecked = SelectedUser.RolesCollection.MyPatientsViewAllow},
-                        new TreeViewModel(){ Content = "MyPatientsEditAllow", IsChecked = SelectedUser.RolesCollection.MyPatientsEditAllow},
-                        new TreeViewModel(){ Content = "MyPatientsEditAppointementAllow", IsChecked = SelectedUser.RolesCollection.MyPatientsEditAppointementAllow}
-                    }
-                },
-                new TreeViewModel()
-                {
-                    Content = "Sms Notifications View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                    {
-                        new TreeViewModel(){ Content = "SmsNotificationViewAllow", IsChecked = SelectedUser.RolesCollection.SmsNotificationViewAllow},
-                        new TreeViewModel(){ Content = "SmsNotificationEditAllow", IsChecked = SelectedUser.RolesCollection.SmsNotificationEditAllow}
-                      
-                    }
-                },
-                new TreeViewModel()
-                {
-                    Content = "Settings View", TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                    {
-                        new TreeViewModel(){ Content = "SettingsViewUsersAllow", IsChecked = SelectedUser.RolesCollection.SettingsViewUsersAllow},
-                        new TreeViewModel(){ Content = "SettingsEditUsersAllow", IsChecked = SelectedUser.RolesCollection.SettingsEditUsersAllow},
-                        new TreeViewModel(){ Content = "SettingsMangeThemeAllow", IsChecked = SelectedUser.RolesCollection.SettingsMangeThemeAllow}
-                    }
+                    SelectedUser.RolesCollection=new RolesCollection();
                 }
-                
-            };
-            }
+                TreeViewRollCollection = new ObservableCollection<TreeViewModel>()
+                {
+                    new TreeViewModel()
+                    {
+                        Content = "CalendarView",
+                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                        {
+                            new TreeViewModel()
+                            {
+                                Content = "AppointementViewAllow",
+                                IsChecked = SelectedUser.RolesCollection.AppointementViewAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "AppointementEditAllow",
+                                IsChecked = SelectedUser.RolesCollection.AppointementEditAllow
+                            }
+                        }
+                    },
+                    new TreeViewModel()
+                    {
+                        Content = "Doctors View",
+                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                        {
+                            new TreeViewModel()
+                            {
+                                Content = "DoctorsViewAllow",
+                                IsChecked = SelectedUser.RolesCollection.DoctorsViewAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "DoctorsAddAllow",
+                                IsChecked = SelectedUser.RolesCollection.DoctorsAddAllow
+                            }
+                        }
+                    },
+                    new TreeViewModel()
+                    {
+                        Content = "Patient View",
+                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                        {
+                            new TreeViewModel()
+                            {
+                                Content = "PatientsViewAllow",
+                                IsChecked = SelectedUser.RolesCollection.PatientsViewAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "PatientsEditAllow",
+                                IsChecked = SelectedUser.RolesCollection.PatientsEditAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "PatientsEditAppointementAllow",
+                                IsChecked = SelectedUser.RolesCollection.PatientsEditAppointementAllow
+                            }
+                        }
+                    },
+                    new TreeViewModel()
+                    {
+                        Content = "Speciality View",
+                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                        {
+                            new TreeViewModel()
+                            {
+                                Content = "SpecialitiesViewAllow",
+                                IsChecked = SelectedUser.RolesCollection.SpecialitiesViewAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "SpecialitiesEditAllow",
+                                IsChecked = SelectedUser.RolesCollection.SpecialitiesEditAllow
+                            }
+                        }
+                    },
+                    new TreeViewModel()
+                    {
+                        Content = "Pathology View",
+                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                        {
+                            new TreeViewModel()
+                            {
+                                Content = "PathologiesViewAllow",
+                                IsChecked = SelectedUser.RolesCollection.PathologiesViewAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "PathologiesEditAllow",
+                                IsChecked = SelectedUser.RolesCollection.PathologiesEditAllow
+                            }
+                        }
+                    },
+                    new TreeViewModel()
+                    {
+                        Content = "MyPatients View",
+                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                        {
+                            new TreeViewModel()
+                            {
+                                Content = "MyPatientsViewAllow",
+                                IsChecked = SelectedUser.RolesCollection.MyPatientsViewAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "MyPatientsEditAllow",
+                                IsChecked = SelectedUser.RolesCollection.MyPatientsEditAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "MyPatientsEditAppointementAllow",
+                                IsChecked = SelectedUser.RolesCollection.MyPatientsEditAppointementAllow
+                            }
+                        }
+                    },
+                    new TreeViewModel()
+                    {
+                        Content = "Sms Notifications View",
+                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                        {
+                            new TreeViewModel()
+                            {
+                                Content = "SmsNotificationViewAllow",
+                                IsChecked = SelectedUser.RolesCollection.SmsNotificationViewAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "SmsNotificationEditAllow",
+                                IsChecked = SelectedUser.RolesCollection.SmsNotificationEditAllow
+                            }
+
+                        }
+                    },
+                    new TreeViewModel()
+                    {
+                        Content = "Settings View",
+                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+                        {
+                            new TreeViewModel()
+                            {
+                                Content = "SettingsViewUsersAllow",
+                                IsChecked = SelectedUser.RolesCollection.SettingsViewUsersAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "SettingsEditUsersAllow",
+                                IsChecked = SelectedUser.RolesCollection.SettingsEditUsersAllow
+                            },
+                            new TreeViewModel()
+                            {
+                                Content = "SettingsMangeThemeAllow",
+                                IsChecked = SelectedUser.RolesCollection.SettingsMangeThemeAllow
+                            }
+                        }
+                    }
+
+                };
+                }
+            
         }
         #endregion
     }

@@ -68,11 +68,12 @@
 
                         </ListView>
                         <Grid Grid.Column="0" Grid.Row="1" Margin="4">
-                            <syncfusion:SfDataGrid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            <syncfusion:SfDataGrid ColumnSizer="Star" AddNewRowPosition="Bottom"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                        AllowDraggingColumns="True"
-                                       AllowEditing="False"
+                                       AllowEditing="True"
                                        AllowFiltering="True"
-                                       AllowGrouping="True"                                   
+                                       AllowGrouping="True" 
+                                                   AllowDeleting="True"
                                        ItemsSource="{Binding UsersList,Mode=TwoWay}"
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedUser,Mode=TwoWay}"
@@ -93,22 +94,8 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <GroupBox Grid.Row="0" Grid.Column="0" >
-                                <GroupBox.Header>
-
-                                    <Grid >
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Text="Basic inoformation" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                                        <Button  Grid.Column="1" Margin="10" Command="{Binding AddPatientCommand}" ToolTip="Nouveau utilisateur">
-                                            <Button.Content>
-                                                <Image Source="{StaticResource AddNewDark}" Width="15" Height="15" ></Image>
-                                            </Button.Content>
-                                        </Button>
-                                    </Grid>
-                                </GroupBox.Header>
+                            <GroupBox Grid.Row="0" Grid.Column="0"  Header="Basic inoformation">
+                                
                                 <Grid >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -431,7 +418,7 @@
 
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Appelle Settings">
+                        <TabItem Header="Appel Settings">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.PatienstViews;
@@ -43,8 +44,27 @@ namespace CPMCAppointmentSystem.ViewModel
         private PieceJointeType _selectedTypePieceJointeInFilter;
         private String _reportPath;
         private PreviewReportView _previewReportView;
+        private ObservableCollection<PieceJointe> _listPieceJointes = new ObservableCollection<PieceJointe>();
         #endregion
         #region Properties
+        public ObservableCollection<PieceJointe> ListPieceJointes
+        {
+            get
+            {
+                return _listPieceJointes ;
+            }
+
+            set
+            {
+                if (_listPieceJointes  == value)
+                {
+                    return;
+                }
+
+                _listPieceJointes  = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<Pathology> PathologiesList
         {
             get
@@ -368,7 +388,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_previewRecuDeDepoCommand = new RelayCommand(
                     () =>
                     {
-                        ReportPath = "Reports/RecuDeDepot.rdlc";                        
+                        ReportPath = "Reports/RecuDeDepot.rdlc";
                         _previewReportView = new PreviewReportView();
                         Messenger.Default.Send<Patient>(SelectedPatient);
                         _previewReportView.ShowDialog();
@@ -439,8 +459,6 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
-
-
         private RelayCommand _addPatientCommand;
         public RelayCommand AddPatientCommand
         {
@@ -476,8 +494,6 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-
-
 
         private RelayCommand _deletePatientCommand;
         public RelayCommand DeletePatientCommand
@@ -606,6 +622,127 @@ namespace CPMCAppointmentSystem.ViewModel
                         SelectedAppointement = new RendezVous();
                         _addAppointementWindow = new AddPatientAppointment();
                         _addAppointementWindow.ShowDialog();
+                    }));
+            }
+        }
+        private RelayCommand _uploadPieceJointeCommand;
+        public RelayCommand UploadPieceJointeCommand
+        {
+            get
+            {
+                return _uploadPieceJointeCommand
+                    ?? (_uploadPieceJointeCommand = new RelayCommand(
+                    () =>
+                    {
+
+                        OpenFileDialog openFileDialog = new OpenFileDialog();
+                        openFileDialog.ReadOnlyChecked = true;
+                        openFileDialog.Filter = "Image Files (*.bmp, *.png, *.jpg)|*.bmp;*.png;*.jpg";
+                        DialogResult result = openFileDialog.ShowDialog(); // Show the dialog.
+                        if (result == DialogResult.OK) // Test result.
+                        {
+                            try
+                            {
+                                //ImageSource = new BitmapImage(new Uri(openFileDialog.FileName, UriKind.RelativeOrAbsolute));
+                            }
+                            catch (Exception exception)
+                            {
+                                MessageBox.Show(exception.Message);
+                            }
+
+                        }
+
+                    }));
+            }
+        }
+     
+        private BitmapImage _faceBitMapImage  ;
+
+
+        public BitmapImage FaceBitMap
+        {
+            get
+            {
+                return _faceBitMapImage;
+            }
+
+            set
+            {
+                if (_faceBitMapImage == value)
+                {
+                    return;
+                }
+
+                _faceBitMapImage = value;
+                RaisePropertyChanged();
+            }
+        }
+        private RelayCommand _loadPatientImageCommand;
+        public RelayCommand LoadPatientImageCommand
+        {
+            get
+            {
+                return _loadPatientImageCommand
+                    ?? (_loadPatientImageCommand = new RelayCommand(
+                    () =>
+                    {
+                        OpenFileDialog openFileDialog = new OpenFileDialog();
+                        openFileDialog.ReadOnlyChecked = true;
+                        openFileDialog.Filter = "Image Files (*.bmp, *.png, *.jpg)|*.bmp;*.png;*.jpg";
+                        DialogResult result = openFileDialog.ShowDialog(); // Show the dialog.
+                        if (result == DialogResult.OK) // Test result.
+                        {
+                            try
+                            {
+                                FaceBitMap = new BitmapImage(new Uri(openFileDialog.FileName, UriKind.RelativeOrAbsolute));
+                            }
+                            catch (Exception exception)
+                            {
+                                MessageBox.Show(exception.Message);
+                            }
+
+                        } 
+                    }));
+            }
+        }
+        private RelayCommand _previewPieceJointeCommand;
+        public RelayCommand PreviewPieceJointeCommand
+        {
+            get
+            {
+                return _previewPieceJointeCommand
+                    ?? (_previewPieceJointeCommand = new RelayCommand(
+                    () =>
+                    {
+
+                    }));
+            }
+        }
+
+        private RelayCommand _savePieceJointeCommand;
+
+        public RelayCommand SavePieceJointeCommand
+        {
+            get
+            {
+                return _savePieceJointeCommand
+                    ?? (_savePieceJointeCommand = new RelayCommand(
+                    () =>
+                    {
+                        ListPieceJointes.Add(SelectedPieceJointe);
+                    }));
+            }
+        }
+        private RelayCommand _newPieceJointeCommand;
+        public RelayCommand NewPieceJointeCommand
+        {
+            get
+            {
+                return _newPieceJointeCommand
+                    ?? (_newPieceJointeCommand = new RelayCommand(
+                    () =>
+                    {
+                        SelectedPieceJointe=new PieceJointe();
                     }));
             }
         }

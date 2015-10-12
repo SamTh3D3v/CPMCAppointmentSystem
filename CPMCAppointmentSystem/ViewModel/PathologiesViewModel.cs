@@ -144,10 +144,9 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _pathologyViewLoadedCommand
-                    ?? (_pathologyViewLoadedCommand = new RelayCommand(
-                    () =>
+                    ?? (_pathologyViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        LoadPathologies();
+                        await LoadPathologies();                        
 
                     }));
             }
@@ -158,10 +157,9 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _addDoctorToPathologyLoadedCommand
-                    ?? (_addDoctorToPathologyLoadedCommand = new RelayCommand(
-                    () =>
+                    ?? (_addDoctorToPathologyLoadedCommand = new RelayCommand(async () =>
                     {
-                        LoadDoctorsList();
+                        await LoadDoctorsList();
 
                     }));
             }
@@ -228,7 +226,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_savePathologyWhithDoctorsCommand = new RelayCommand(
                     () =>
                     {
-                        
+                        _addDoctorsToPathologyView.Close();
                     }));
             }
         }
@@ -288,11 +286,11 @@ namespace CPMCAppointmentSystem.ViewModel
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
         }
-        private async void LoadPathologies()
+        private async Task LoadPathologies()
         {
             PathologiesList = new ObservableCollection<Pathology>(await Task.Run(() => _dbContext.Pathologies));
         }
-        private async void LoadDoctorsList()
+        private async Task LoadDoctorsList()
         {
             await Task.Run(() =>
             {
