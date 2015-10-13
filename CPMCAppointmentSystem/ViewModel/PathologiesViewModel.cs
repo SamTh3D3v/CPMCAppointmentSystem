@@ -4,6 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View;
@@ -12,12 +15,14 @@ using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 
 
+
 namespace CPMCAppointmentSystem.ViewModel
 {
     public class PathologiesViewModel : NavigableViewModelBase
     {
+
         #region Fields
-      
+        
         private MedecinToAdd _selectedDoctorsToPathologyList  ;           
         private AddDoctorsToPathologyView _addDoctorsToPathologyView;
         private bool _isFormEnabled;
@@ -26,8 +31,27 @@ namespace CPMCAppointmentSystem.ViewModel
         private Pathology _selectedPathology;
         private Medecin _selectedDoctorWithinPathology;
         private ObservableCollection<MedecinToAdd> _doctorsToPathlogyList;
+        private bool _savePathologyCanExecute = true;
         #endregion
         #region Properties
+        public bool SavePathologyCanExecute
+        {
+            get
+            {
+                return _savePathologyCanExecute;
+            }
+
+            set
+            {
+                if (_savePathologyCanExecute == value)
+                {
+                    return;
+                }
+
+                _savePathologyCanExecute = value;
+                RaisePropertyChanged();
+            }
+        }
         public MedecinToAdd SelectedDoctorsToPathologyList
         {
             get
@@ -214,9 +238,10 @@ namespace CPMCAppointmentSystem.ViewModel
                         _dbContext.SaveChanges();
                         LoadPathologies();
 
-                    }));
+                    }, () => SavePathologyCanExecute));
             }
         }
+       
         private RelayCommand _savePathologyWhithDoctorsCommand;     
         public RelayCommand SavePathologyWhithDoctorsCommand
         {
@@ -224,10 +249,7 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _savePathologyWhithDoctorsCommand
                     ?? (_savePathologyWhithDoctorsCommand = new RelayCommand(
-                    () =>
-                    {
-                        _addDoctorsToPathologyView.Close();
-                    }));
+                    () => _addDoctorsToPathologyView.Close()));
             }
         }
         private RelayCommand _deletePathologyWhithDoctorsCommand;        

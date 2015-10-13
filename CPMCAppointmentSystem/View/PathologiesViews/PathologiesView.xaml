@@ -5,7 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-      xmlns:command="http://www.galasoft.ch/mvvmlight"
+      xmlns:command="http://www.galasoft.ch/mvvmlight" 
+      xmlns:v="clr-namespace:System.Windows;assembly=PresentationFramework"
+      xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+      xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700" DataContext="{Binding Source={StaticResource Locator},Path=PathologiesViewModel}"
 	Title="PathologiesView">
@@ -15,7 +18,104 @@
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <Page.Resources>
 
+        <Style TargetType="{x:Type syncfusion:SfMaskedEdit}">
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Margin"  Value="10 5,40,5"/>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Border VerticalAlignment="Top"
+                    BorderBrush="#FFdc000c"
+                    BorderThickness="1"
+                    CornerRadius="0.7">
+                                <Grid>
+                                    <Polygon x:Name="toolTipCorner"
+                             Margin="-1"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Top"
+                             Panel.ZIndex="2"
+                             Fill="#FFdc000c"
+                             IsHitTestVisible="True"
+                             Points="6,6 6,0 0,0" />
+                                    <Polyline Margin="-1"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              Panel.ZIndex="3"
+                              IsHitTestVisible="True"
+                              Points="7,7 0,0"
+                              Stroke="White"
+                              StrokeEndLineCap="Round"
+                              StrokeStartLineCap="Round"
+                              StrokeThickness="1.5" />
+                                    <AdornedElementPlaceholder x:Name="adorner" />
+                                </Grid>
+                            </Border>
+                            <Border x:Name="errorBorder"
+                    MinHeight="24"
+                    MaxWidth="267"
+                    Margin="2,0,0,0"
+                    Background="#FFdc000c"
+                    CornerRadius="1.5"
+                    IsHitTestVisible="False"
+                    Opacity="1">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="4"
+                                      Direction="315"
+                                      Opacity="0.4"
+                                      ShadowDepth="2.25"
+                                      Color="Black" />
+                                </Border.Effect>
+                                <TextBlock Margin="8,3,8,3"
+                           Foreground="White"
+                           Text="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent,
+                                          ElementName=adorner}"
+                           TextWrapping="Wrap" />
+                            </Border>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type syncfusion:SfMaskedEdit}">
+                        <Grid>
+                            <Themes:ListBoxChrome x:Name="Bd"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  RenderFocused="{TemplateBinding IsKeyboardFocusWithin}"
+                                  RenderMouseOver="{TemplateBinding IsMouseOver}"
+                                  SnapsToDevicePixels="True">
+                                <Grid VerticalAlignment="Center">
+                                    <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    <ContentControl x:Name="PART_Watermark"
+                                    Margin="2,0,0,0"
+                                    Background="{TemplateBinding Background}"
+                                    Content="{TemplateBinding Watermark}"
+                                    ContentTemplate="{TemplateBinding WatermarkTemplate}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontStretch="{TemplateBinding FontStretch}"
+                                    FontStyle="{TemplateBinding FontStyle}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    IsHitTestVisible="False"
+                                    IsTabStop="False"
+                                    Opacity="0.5"
+                                    Padding="{TemplateBinding Padding}"
+                                    Visibility="{TemplateBinding Visibility}" />
+                                </Grid>
+                            </Themes:ListBoxChrome>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -40,7 +140,7 @@
                 </Button.Content>
             </Button>
             <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
-            <syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
+            <syncfusion:SfDataGrid  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
                                        AllowDraggingColumns="True"
                                        AllowEditing="True"
                                        AllowFiltering="True"
@@ -72,29 +172,20 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Image Source="{StaticResource PathologyDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
-                <!--To be updated with the proper control-->
-                <TextBlock Grid.Column="1" Grid.Row="0"   VerticalAlignment="Center" Margin="5">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Text" Value="{Binding SelectedPathology.PathologyId}"></Setter>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=SelectedPathology.PathologyId}" Value="Guid.Empty">
-                                    <Setter Property="Text" Value="GeneratedID"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Nom du pathology" Margin="10 5" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay}" x:Name="NomBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
+                <syncfusion:SfMaskedEdit Watermark="Nom du pathology" Validation.Error="NomBox_OnError"
+                                                  ValidationMode="LostFocus" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" x:Name="NomBox" Grid.Column="1" Grid.Row="1" >                  
+                </syncfusion:SfMaskedEdit>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Code du pathology"  Text="{Binding SelectedPathology.CodePathology,Mode=TwoWay}" x:Name="CodeBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
+                <syncfusion:SfMaskedEdit Watermark="Code du pathology" ValidationMode="LostFocus"  Text="{Binding SelectedPathology.CodePathology,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" x:Name="CodeBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
+                </syncfusion:SfMaskedEdit>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Description" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Description" x:Name="DescriptionBox" Text="{Binding SelectedPathology.Description,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Margin="10 5"/>
-                
+                <syncfusion:SfMaskedEdit Watermark="Description du pathology" x:Name="DescriptionBox" Text="{Binding SelectedPathology.Description,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Margin="10 5"/>
+
 
                 <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
@@ -102,7 +193,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding SavePathologyCommand}">
+                    <Button Grid.Column="0"  Margin="2" Command="{Binding SavePathologyCommand}" >
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />

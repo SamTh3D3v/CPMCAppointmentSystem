@@ -12,7 +12,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Pathology")]
-    public class Pathology : INotifyPropertyChanged
+    public class Pathology : INotifyPropertyChanged,IDataErrorInfo
     {
         public Pathology()
         {
@@ -36,5 +36,26 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "NomPathology")
+                {
+                    if (string.IsNullOrEmpty(NomPathology))
+                        result = "donner le nom du pathology";
+                }
+                if (columnName == "CodePathology")
+                {
+                    if (string.IsNullOrEmpty(CodePathology))
+                        result = "Donner le code de pathology";
+                }                
+                return result;
+            }
+        }
+
+        public string Error { get; private set; }
     }
 }
