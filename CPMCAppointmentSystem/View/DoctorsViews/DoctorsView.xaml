@@ -33,21 +33,33 @@
                 <RowDefinition Height="10"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Margin="20,0,0,0" Text="Doctors" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" />
+            <TextBlock Margin="20,0,0,0" Text="Medecins" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" />
             <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddDoctorCommand}">
                 <Button.Content>
                     <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
                 </Button.Content>
             </Button>
             <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
-            <syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
+            <syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="2" AutoGenerateColumns="False" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
                                        AllowDraggingColumns="True"
                                        AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
                                        ItemsSource="{Binding DoctorsList}"
                                    SelectedItem="{Binding SelectedDoctor,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
+                                       ShowGroupDropArea="True" >
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
+                    <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
+                    <syncfusion:GridTextColumn HeaderText="Spécialité" MappingName="Speciality.Name"/>
+                    <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
+                    <syncfusion:GridTextColumn HeaderText="Fixe" MappingName="TelephoneFixe"/>
+                    <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
+                                                                           StringFormat=d}"/> 
+                    
+
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
 
         </Grid>
         <GridSplitter Grid.Column="1" Width="1" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
@@ -122,14 +134,14 @@
                 <syncfusion:SfMaskedEdit x:Name="PrenomBox" Margin="10 5" Watermark="Prenom" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserPrenom,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="TelephoneFixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="TelephoneFixe" x:Name="TelFixBox" Grid.Column="1" Text="{Binding SelectedDoctor.TelephoneFixe,Mode=TwoWay}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
+                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Telephone fixe" x:Name="TelFixBox" Grid.Column="1" Text="{Binding SelectedDoctor.TelephoneFixe,Mode=TwoWay}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Mobile" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Telephone mobile" x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
+                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Telephone mobile" x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="5" Text="Speciality" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBlock Grid.Column="0" Grid.Row="5" Text="Spécialité" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <ComboBox x:Name="SpecialityBox" Margin="10 5" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctor.Speciality,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="5"  Text="Specility">
+                <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="5"  Text="Spécialité">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -151,7 +163,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Grid.Row="0" Text="User Name" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                         <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Nom d'utilisateur" x:Name="UserNameBox" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                        
 
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
@@ -168,7 +180,7 @@
                             </TextBlock.Style>
                         </TextBlock>
 
-                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirm password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                         <TextBox x:Name="CpassBox" Margin="10 5" Grid.Column="1" Grid.Row="2" Text="{Binding SelectedDoctor.User.UserPass,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="2"  Text="Confirm mot de pass">
                             <TextBlock.Style>
@@ -297,7 +309,7 @@
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
                                 </Button>
-                                <TextBlock Margin="20,0,0,0" Text="Specialities" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                                <TextBlock Margin="20,0,0,0" Text="Spécialités" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
 
                                 <syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
@@ -355,20 +367,7 @@
                             </Grid>
                         </syncfusion:TabItemExt.Content>
                     </syncfusion:TabItemExt>
-                    <syncfusion:TabItemExt  MinHeight="35" x:Name="NotesTab">
-                        <syncfusion:TabItemExt.HeaderTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="2"/>
-                                    </Grid.RowDefinitions>
-                                    <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
-                                    <TextBlock Grid.Row="0" Text="Notes"></TextBlock>
-                                </Grid>
-                            </DataTemplate>
-                        </syncfusion:TabItemExt.HeaderTemplate>
-                    </syncfusion:TabItemExt>
+                    
 
 
                     <!--<Syncfusion:TabControlExt.ItemTemplate>
