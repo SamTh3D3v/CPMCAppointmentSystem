@@ -19,11 +19,10 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Page.Resources>
-
         <Style TargetType="{x:Type syncfusion:SfMaskedEdit}">
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="Margin"  Value="10 5,40,5"/>
+            <Setter Property="Margin"  Value="10 5"/>
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
                     <ControlTemplate>

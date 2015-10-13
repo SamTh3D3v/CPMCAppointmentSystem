@@ -76,14 +76,14 @@
                                      Watermark="Lieu du rendez vous"  
                                      />
 
-            <TextBlock Grid.Column="0" Grid.Row="6" Text="Docteur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <TextBlock Grid.Column="0" Grid.Row="6" Text="Medecin" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
             <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedAppointement.Medecin.User.UserNom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="Nom du medecin"  
                                      />
 
-            <Expander Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Expander MaxHeight="150" Header="Sélectionner un medecin" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-                    <syncfusion:SfDataGrid Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                    <syncfusion:SfDataGrid Height="250" SelectionMode="Single" ColumnSizer="Star" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"

@@ -23,9 +23,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Source="{StaticResource SideLogo}"></Image>
-            <TextBlock Text="Appointement Sytem" Grid.Column="1" Style="{StaticResource HeaderTextBlockStyle}" FontSize="17" Foreground="{StaticResource HeaderTextBrush}"></TextBlock>
+            <TextBlock Text="Appointments System" Margin="5,0,0,5" Grid.Column="1" Style="{StaticResource HeaderTextBlockStyle}"  FontSize="17" Foreground="{StaticResource HeaderTextBrush}"></TextBlock>
         </Grid>
-        <Border Grid.Row="1" Background="{StaticResource InnerBodyBackgroundBrush}" Width="425" VerticalAlignment="Center" CornerRadius="5" >
+        <Border BorderThickness="5" BorderBrush="#44777777" Grid.Row="1" Background="{StaticResource InnerBodyBackgroundBrush}" Width="425" VerticalAlignment="Center" CornerRadius="5" >
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -37,21 +37,21 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Login" Style="{StaticResource SubheaderTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <syncfusion:SfMaskedEdit Height="35"   Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Nom d'utilisateur"  Text="{Binding UserName,Mode=TwoWay}" 
+                                     Watermark="Nom d'utilisateur" VerticalContentAlignment="Center"  Text="{Binding UserName,Mode=TwoWay}" 
                                      >              
                 </syncfusion:SfMaskedEdit>
-                <PasswordBox Margin="10 5"  Height="35"  x:Name="PassBox" Style="{DynamicResource  WaterMarkPasswordBoxStyle}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <PasswordBox Margin="10 5" VerticalContentAlignment="Center"  Height="35"  x:Name="PassBox" Style="{DynamicResource  WaterMarkPasswordBoxStyle}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <PasswordBox.Resources>
-                        <system:String x:Key="WaterMarkText">Mot de pass</system:String>
+                        <system:String x:Key="WaterMarkText">Mot de passe</system:String>
                     </PasswordBox.Resources>
                 </PasswordBox>
                 <Button Grid.Row="3" IsDefault="True" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=PassBox}" Style="{StaticResource LoginButtonStyle}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource ConnectionLight}" Height="50"/>
-                            <StackPanel Orientation="Vertical" Margin="5">
-                                <TextBlock Text="signIn" VerticalAlignment="Center" Foreground="White" />
-                                <TextBlock Text="Randomly" FontSize="8" VerticalAlignment="Center" Foreground="Gainsboro" />
+                            <StackPanel Orientation="Vertical" Margin="5" VerticalAlignment="Center">
+                                <TextBlock Text="Connexion" VerticalAlignment="Center" Foreground="White" />
+                                <!--<TextBlock Text="Randomly" FontSize="8" VerticalAlignment="Center" Foreground="Gainsboro" />-->
                             </StackPanel>
                         </StackPanel>
                     </Button.Content>

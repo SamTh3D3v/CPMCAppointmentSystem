@@ -149,7 +149,7 @@
                     <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
                     <Syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
                                                                             StringFormat=d}"/>
-                    <Syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>
+                    <Syncfusion:GridTextColumn HeaderText="Télephone fixe" MappingName="TelephoneFixe"/>
                     <Syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
                     <Syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneMobile2"/>
                     <Syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
@@ -264,7 +264,7 @@
                     </TextBlock.Style>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="6" Text="TelephoneFixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Telephone Fixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <Syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding TelephoneFixe,Mode=TwoWay}" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Telephone fixe"  
                                      />
@@ -279,7 +279,7 @@
                                      Watermark="Telephone mobile 2"  
                                      />
 
-                <TextBlock Grid.Column="0" Grid.Row="9" Text="Adress" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBlock Grid.Column="0" Grid.Row="9" Text="Adresse" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <Syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding Adresse.AddressDesignation,Mode=TwoWay}" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Adresse"  
                                      />
@@ -322,16 +322,16 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <GroupBox Header="select pathology" Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
+                <GroupBox Header="Affecte une pathologie" Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock  Text="Pathology" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                        <TextBlock  Text="Pathologie" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                         <Syncfusion:ComboBoxAdv Margin="10 5" ItemsSource="{Binding DataContext.PathologiesList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Pathology}" DisplayMemberPath="NomPathology"
                                                 x:Name="PathologyBox" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Column="1"   Text="Pathology" >
+                        <TextBlock Grid.Column="1"   Text="Sélectionner" >
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                     <Style.Triggers>
@@ -393,7 +393,7 @@
                                         <RowDefinition Height="2"/>
                                     </Grid.RowDefinitions>
                                     <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
-                                    <TextBlock Grid.Row="0" Text="Appointements"></TextBlock>
+                                    <TextBlock Grid.Row="0" Text="Rendez-vous"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </Syncfusion:TabItemExt.HeaderTemplate>
@@ -413,7 +413,7 @@
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
                                 </Button>
-                                <TextBlock Margin="20,0,0,0" Text="Appointements" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                                <TextBlock Margin="20,0,0,0" Text="Rendez-vous" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
 
                                 <Syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
@@ -483,7 +483,7 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         <ComboBox x:Name="TypeCbx" Grid.Row="0" ItemsSource="{Binding DataContext.TypePieceJointeList,ElementName=RootGrid,Mode=TwoWay}" SelectedItem="{Binding Path=DataContext.SelectedPieceJointe.TypePieceJointe,ElementName=RootGrid}" DisplayMemberPath="PieceJointeTitle" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
-                                        <TextBlock Grid.Row="0"  Text="Type Piece Jointe" >
+                                        <TextBlock Grid.Row="0"  Text="Type de Piece Jointe" >
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                                     <Style.Triggers>
@@ -496,7 +496,7 @@
                                         </TextBlock>
 
                                         <Syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.IdPieceJointe,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
-                                     Watermark="Id Piece Jointe"/>
+                                     Watermark="Identifiant"/>
                                         <Syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.Description,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Description"/>
                                         <Grid Grid.Row="3">
@@ -560,9 +560,9 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Image Source="{StaticResource PrinterDark}" Width="35" Height="35" ></Image>
-                                <TextBlock Margin="20,0,0,0" Text="Piece Jointe" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                                <TextBlock Margin="20,0,0,0" Text="Imprimer" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
-                                <GroupBox Header="Recu de depot" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                                <GroupBox Header="Reçu de dépôt" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions >
                                             <ColumnDefinition Width="*"/>
@@ -656,9 +656,9 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         <Syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Title,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Titre du remarque" />
+                                     Watermark="Titre du note" />
                                         <Syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Content,Mode=TwoWay}"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Contenu du remarque" />
+                                     Watermark="Contenu du note" />
                                         <Grid Grid.Row="2">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
