@@ -6,6 +6,7 @@
         xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
          WindowStyle="SingleBorderWindow"
+                      Title="Affecte des medecins a une pathologie"
                       EnableDWMDropShadow="True"
                       ResizeMode="CanResizeWithGrip"
                       WindowTransitionsEnabled="False"                      
@@ -45,7 +46,7 @@
         <Syncfusion:SfMaskedEdit Margin="10 5" Watermark="Code" x:Name="CodeBox" IsEnabled="False" Text="{Binding SelectedPathology.CodePathology}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
        
 
-        <TextBlock Grid.Column="0"  Grid.Row="3" Text="Docteur" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
+        <TextBlock Grid.Column="0"  Grid.Row="3" Text="Medecin" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
         <Grid Margin="5" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <Syncfusion:SfDataGrid SelectionMode="Multiple"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"

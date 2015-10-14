@@ -42,7 +42,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Sélectionné Patient" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
             <Expander IsExpanded="False" x:Name="PExpander" Grid.Column="1" Grid.Row="0"  HorizontalAlignment="Stretch">
-                <ScrollViewer Width="{Binding ElementName=PExpander,Path=ActualWidth}"> 
+                <ScrollViewer Width="{Binding ElementName=PExpander,Path=ActualWidth}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
@@ -134,6 +134,7 @@
                     </Grid.RowDefinitions>
                     <syncfusion:SfDataGrid Grid.Row="0" Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
+                                           ColumnSizer="Star"
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   

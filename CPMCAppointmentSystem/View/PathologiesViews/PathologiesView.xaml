@@ -146,7 +146,13 @@
                                        AllowGrouping="True"
                                        ItemsSource="{Binding PathologiesList}"
                                    SelectedItem="{Binding SelectedPathology,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
+                                       ShowGroupDropArea="True" >
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn HeaderText="Code" MappingName="CodePathology" />
+                    <syncfusion:GridTextColumn HeaderText="Nom du pathologie" MappingName="NomPathology" />
+                    <syncfusion:GridTextColumn HeaderText="Description" MappingName="Description"/>
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
 
         </Grid>
         <GridSplitter Grid.Column="1" Width="1" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
@@ -174,7 +180,7 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <syncfusion:SfMaskedEdit Watermark="Nom du pathology" Validation.Error="NomBox_OnError"
-                                                  ValidationMode="LostFocus" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" x:Name="NomBox" Grid.Column="1" Grid.Row="1" >                  
+                                                  ValidationMode="LostFocus" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" x:Name="NomBox" Grid.Column="1" Grid.Row="1" >
                 </syncfusion:SfMaskedEdit>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
@@ -264,7 +270,13 @@
                                        AllowGrouping="True"
                                        ItemsSource="{Binding SelectedPathology.Medecins}"
                                    SelectedItem="{Binding SelectedDoctorWithinPathology,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
+                                       ShowGroupDropArea="True" >
+                                    <syncfusion:SfDataGrid.Columns>
+                                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
+                                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
+                                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
+                                    </syncfusion:SfDataGrid.Columns>
+                                </syncfusion:SfDataGrid>
 
                             </Grid>
                         </syncfusion:TabItemExt.Content>
