@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
 using GalaSoft.MvvmLight.Threading;
 using MahApps.Metro.Controls;
@@ -30,6 +32,7 @@ namespace CPMCAppointmentSystem
             Application.Current.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += new UnhandledExceptionEventHandler(DomainUnhandlerEceptionHandler);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("fr");
         }
 
         public async void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
