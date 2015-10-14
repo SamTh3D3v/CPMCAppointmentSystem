@@ -38,7 +38,7 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Image Source="{StaticResource AccountsDark}"></Image>
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Foreground="#FF7B7B7B" Text="ACCOUNTS" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Foreground="#FF7B7B7B" Text="COMPTES" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </TabItem.Header>
                 <TabItem.Content>
@@ -94,7 +94,7 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <GroupBox Grid.Row="0" Grid.Column="0"  Header="Basic inoformation">
+                            <GroupBox Grid.Row="0" Grid.Column="0"  Header="Information globale">
                                 
                                 <Grid >
                                     <Grid.ColumnDefinitions>
@@ -124,7 +124,7 @@
                             </GroupBox>
                             <GroupBox Grid.Row="1" Grid.Column="0">
                                 <GroupBox.Header>
-                                    <CheckBox Content="Change password" x:Name="PassCheckBox" IsChecked="False"></CheckBox>
+                                    <CheckBox Content="Changer le password" x:Name="PassCheckBox" IsChecked="False"></CheckBox>
                                 </GroupBox.Header>
                                 <Grid IsEnabled="{Binding ElementName=PassCheckBox,Path=IsChecked}">
                                     <Grid.ColumnDefinitions>
@@ -142,7 +142,7 @@
                                         </PasswordBox.Resources>
                                     </PasswordBox>
 
-                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Confirm Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Confirmer Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                                     <PasswordBox Margin="10 5" x:Name="UserConfirmPass" Style="{StaticResource WaterMarkPasswordBoxStyle}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                         <PasswordBox.Resources>
                                             <system:String x:Key="WaterMarkText">Confirme password</system:String>
@@ -203,12 +203,12 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Image Source="{StaticResource SettingsDark}"></Image>
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Foreground="#FF7B7B7B" Text="SETTINGS" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Foreground="#FF7B7B7B" Text="PARAMETRE" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </TabItem.Header>
                 <TabItem.Content>
                     <TabControl >
-                        <TabItem Header="Patients Status">
+                        <TabItem Header="Status de Patients">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -320,7 +320,7 @@
                                 </Grid>
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Other">
+                        <TabItem Header="Autre">
                             <TextBlock Text="In Progress" Style="{DynamicResource HeaderTextBlockStyle}" Foreground="Black"/>
                         </TabItem>
                     </TabControl>
@@ -339,7 +339,7 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <TabControl >
-                        <TabItem Header="Sms Settings">
+                        <TabItem Header="Paramètres des Sms">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -349,7 +349,7 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <GroupBox Header="Global Settings" Grid.Row="0" Grid.Column="0">
+                                <GroupBox Header="Paramètres Globaux" Grid.Row="0" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -418,7 +418,7 @@
 
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Appel Settings">
+                        <TabItem Header="Paramètres d'appel">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -441,7 +441,7 @@
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="Appelle vocale" Width="100" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Row="0"/>
+                                        <TextBlock Text="Appel vocale" Width="100" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Row="0"/>
                                         <ProgressBar Grid.Row="0" Foreground="LightSkyBlue" Value="80" Grid.Column="1" HorizontalAlignment="Stretch" Height="5"/>
                                         <Button Style="{DynamicResource MetroCircleButtonStyle}" Grid.Row="0" Grid.Column="2" Width="100" Height="100">
                                             <Path Data="F1M-224.553,1265L-246.174,1283.52 -267.792,1302.04 -267.792,1265 -267.792,1227.97 -246.174,1246.49 -224.553,1265z" Stretch="Uniform" Fill="#FF000000" Width="50" Height="50" Margin="12,0,0,0" RenderTransformOrigin="0.5,0.5">
@@ -467,7 +467,7 @@
                                                 </Path.RenderTransform>
                                             </Path>
                                         </Button>
-                                        <TextBlock Text="Enregistrer une nouvelle appelle vocale " Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center"></TextBlock>
+                                        <TextBlock Text="Enregistrer une nouvelle appelle automatique" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center"></TextBlock>
                                         <Button ToolTip="Supprimer l'appelle Vocale" Style="{DynamicResource MetroCircleButtonStyle}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Width="150" Height="150" Margin="50">
 
                                             <Path Data="M1725.25,2303.97C1729.64,2303.97,1733.2,2300.41,1733.2,2296.02L1733.2,2278.49C1733.2,2274.1 1729.64,2270.54 1725.25,2270.54 1720.86,2270.54 1717.3,2274.1 1717.3,2278.49L1717.3,2296.02C1717.3,2300.41,1720.86,2303.97,1725.25,2303.97z M1742.45,2297.75L1738.72,2297.75C1738.22,2304.75 1732.38,2310.28 1725.25,2310.28 1718.12,2310.28 1712.28,2304.75 1711.78,2297.75L1708.05,2297.75C1708.05,2306.51,1714.61,2313.72,1723.07,2314.79L1723.07,2319.58 1717.2,2319.58 1717.2,2323.87 1733.26,2323.87 1733.26,2319.58 1727.43,2319.58 1727.43,2314.79C1735.9,2313.72,1742.45,2306.51,1742.45,2297.75z" Stretch="Uniform" Fill="#FF000000" Width="90" Height="90" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
