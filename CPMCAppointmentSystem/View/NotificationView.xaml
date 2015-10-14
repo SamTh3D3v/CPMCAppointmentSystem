@@ -19,7 +19,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <syncfusion:LayoutControl HeaderDescriptionText="Liste des sms envoyés et en cour de l'envoie"
+    <syncfusion:LayoutControl HeaderDescriptionText="Liste des sms envoyés et en cours d'envoi"
                         HeaderText="Notification Sms "
                         LayoutMode="Metro"
                         UserOptionsVisibility="Visible">
