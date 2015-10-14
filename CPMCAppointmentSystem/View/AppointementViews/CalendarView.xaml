@@ -87,11 +87,11 @@
                         <ToggleButton x:Name="FilterTb"  HorizontalAlignment="Left"  Width="25" Height="25" Padding="0" Margin="5,0,0,0">
                             <Image Source="{StaticResource FilterDark}"></Image>
                         </ToggleButton>
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Day" Content="Day"  Command="{Binding DayScheduleTypeSelectedCommand}"  Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Week" Content="Week"  Command="{Binding WeekScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Day" Content="Jour"  Command="{Binding DayScheduleTypeSelectedCommand}"  Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Week" Content="Semaine"  Command="{Binding WeekScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
                         <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="WorkWeek" Content="Work Week"  Command="{Binding WorkWeekScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Month"  Command="{Binding MonthScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Timeline"  Command="{Binding TimeLineScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>                        
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Mois"  Command="{Binding MonthScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Chronologie"  Command="{Binding TimeLineScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>                        
                     </StackPanel>
 
                     <!--<Popup x:Name="RadialPopup" syncfusion:SkinStorage.VisualStyle="Metro" Placement="MousePoint" AllowsTransparency="True" IsOpen="False">

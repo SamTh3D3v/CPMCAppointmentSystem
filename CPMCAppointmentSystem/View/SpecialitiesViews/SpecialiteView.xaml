@@ -47,7 +47,13 @@
                                        AllowGrouping="True"
                                        ItemsSource="{Binding SpecialityList}"
                                    SelectedItem="{Binding SelectedSpeciality,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
+                                       ShowGroupDropArea="True" >
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn HeaderText="Designation" MappingName="Name" />
+                    <syncfusion:GridTextColumn HeaderText="Code du spécialité" MappingName="Code" />
+                    <syncfusion:GridTextColumn HeaderText="Description" MappingName="Description"/>
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
 
         </Grid>
         <GridSplitter Grid.Column="1" Width="1" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
@@ -131,7 +137,7 @@
                                         <RowDefinition Height="2"/>
                                     </Grid.RowDefinitions>
                                     <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
-                                    <TextBlock Grid.Row="0" Text="Doctors"></TextBlock>
+                                    <TextBlock Grid.Row="0" Text="Medecins"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </syncfusion:TabItemExt.HeaderTemplate>
@@ -161,25 +167,17 @@
                                        AllowGrouping="True"
                                        ItemsSource="{Binding SelectedSpeciality.Medecins}"
                                    SelectedItem="{Binding SelectedDoctor,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
+                                       ShowGroupDropArea="True" >
+                                    <syncfusion:SfDataGrid.Columns>
+                                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
+                                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
+                                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
+                                    </syncfusion:SfDataGrid.Columns>
+                                </syncfusion:SfDataGrid>
 
                             </Grid>
                         </syncfusion:TabItemExt.Content>
-                    </syncfusion:TabItemExt>
-                    <syncfusion:TabItemExt  MinHeight="35" x:Name="NotesTab">
-                        <syncfusion:TabItemExt.HeaderTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="2"/>
-                                    </Grid.RowDefinitions>
-                                    <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
-                                    <TextBlock Grid.Row="0" Text="Notes"></TextBlock>
-                                </Grid>
-                            </DataTemplate>
-                        </syncfusion:TabItemExt.HeaderTemplate>
-                    </syncfusion:TabItemExt>
+                    </syncfusion:TabItemExt>                    
 
 
                     <!--<Syncfusion:TabControlExt.ItemTemplate>

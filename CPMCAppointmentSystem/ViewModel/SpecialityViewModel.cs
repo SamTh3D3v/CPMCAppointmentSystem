@@ -307,7 +307,7 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private async void LoadDoctorsWithNoSpecialiteList()
         {
-            DoctorsWhithNoSpecialiteList = new ObservableCollection<MedecinToAdd>(await Task.Run(() => _dbContext.Medecins.Where(x => x.Speciality == null).Select(x => new MedecinToAdd()
+            DoctorsWhithNoSpecialiteList = new ObservableCollection<MedecinToAdd>(await Task.Run(() => _dbContext.Medecins.Select(x => new MedecinToAdd()
             {
                 MedecinId = x.MedecinId,               
                 DateDeNaissance = x.DateDeNaissance,

@@ -5,8 +5,16 @@
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="Affecte les spécialités des medecins"
         WindowStartupLocation="CenterScreen"
                              WindowStyle="None"
+                      EnableDWMDropShadow="True"
+                      ResizeMode="CanResizeWithGrip"
+                      WindowTransitionsEnabled="False"  
+                      BorderBrush="{DynamicResource AccentColorBr}"
+                      BorderThickness="1"
+        
+                      syncfusion:SkinStorage.VisualStyle="Metro"
          Height="500" Width="700" 
                              DataContext="{Binding Path=SpecialityViewModel, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
@@ -42,7 +50,7 @@
         <Grid Margin="5" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <syncfusion:SfDataGrid SelectionMode="Multiple"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
-                                       AllowEditing="False"
+                                       AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
                                        ItemsSource="{Binding DoctorsWhithNoSpecialiteList}"
@@ -51,10 +59,10 @@
                                        ShowGroupDropArea="True" >
 
                 <syncfusion:SfDataGrid.Columns>
-                    <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
-                    <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
-                    <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" />
-                    <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded"/>
+                    <syncfusion:GridTextColumn HeaderText="Nom" AllowEditing="False" MappingName="User.UserNom" />
+                    <syncfusion:GridTextColumn HeaderText="Prenom" AllowEditing="False" MappingName="User.UserPrenom" />
+                    <syncfusion:GridTextColumn HeaderText="Mobile" AllowEditing="False" MappingName="TelephoneMobile" />
+                    <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" AllowEditing="True" MappingName="IsAdded"/>
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>            
         </Grid>

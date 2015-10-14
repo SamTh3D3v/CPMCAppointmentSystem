@@ -41,7 +41,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Name " Style="{DynamicResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke"/>
+                                <TextBlock Text="Nom d'utilisateur " Style="{DynamicResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke"/>
                                 <TextBlock Text="{Binding CurrentUser.UserName}"  Style="{DynamicResource TitleTextBlockStyle}" HorizontalAlignment="Right" Foreground="White" Grid.Row="0" Grid.Column="1"/>
                             </Grid>
                         </Border>
@@ -51,11 +51,11 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="User Type" Style="{DynamicResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke"/>
+                                <TextBlock Text="Type du compte " Style="{DynamicResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke"/>
                                 <TextBlock Text="{Binding CurrentUser.UserType.UserTypeName}" Style="{DynamicResource TitleTextBlockStyle}" HorizontalAlignment="Right" Foreground="White" Grid.Row="0" Grid.Column="1"/>
                             </Grid>
                         </Border>
-                        <Button Grid.Row="3" Grid.Column="0" Command="{Binding LogOutCommand}" Content="LogOut" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5"/>
+                        <Button Grid.Row="3" Grid.Column="0" Command="{Binding LogOutCommand}" Content="Déconnexion" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5"/>
                     </Grid>
                 </ScrollViewer>
             </controls:Flyout>
