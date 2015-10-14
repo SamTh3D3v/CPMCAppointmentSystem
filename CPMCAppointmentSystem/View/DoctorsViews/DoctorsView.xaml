@@ -6,6 +6,7 @@
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
        d:DesignHeight="700" d:DesignWidth="800" DataContext="{Binding Source={StaticResource Locator},Path=DoctorsViewModel}"
 	Title="DoctorsView">
@@ -163,36 +164,23 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom d'utilisateur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                         <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Nom d'utilisateur" x:Name="UserNameBox" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                        
 
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <TextBox x:Name="PassBox" Margin="10 5" Grid.Column="1" Grid.Row="1" Text="{Binding SelectedDoctor.User.UserPass,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="1"  Text="Mot de pass">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=PassBox}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-
+                       
                         <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <TextBox x:Name="CpassBox" Margin="10 5" Grid.Column="1" Grid.Row="2" Text="{Binding SelectedDoctor.User.UserPass,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="2"  Text="Confirm mot de pass">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=CpassBox}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="2"  x:Name="UserPass2" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <PasswordBox.Resources>
+                                <system:String x:Key="WaterMarkText">Confirme password</system:String>
+                            </PasswordBox.Resources>
+                        </PasswordBox>
+
+                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="UserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <PasswordBox.Resources>
+                                <system:String x:Key="WaterMarkText">Enter password</system:String>
+                            </PasswordBox.Resources>
+                        </PasswordBox>
                     </Grid>
                 </GroupBox>
                 

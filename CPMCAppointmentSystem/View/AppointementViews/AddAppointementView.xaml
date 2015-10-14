@@ -6,6 +6,7 @@
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         WindowStyle="SingleBorderWindow"
+                      Title="Ajouter un rendez vous"
                       EnableDWMDropShadow="True"
                       ResizeMode="CanResizeWithGrip"
                       WindowTransitionsEnabled="False"                      
@@ -39,7 +40,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Select Patient" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Sélectionné Patient" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
             <Expander IsExpanded="False" x:Name="PExpander" Grid.Column="1" Grid.Row="0"  HorizontalAlignment="Stretch">
                 <ScrollViewer Width="{Binding ElementName=PExpander,Path=ActualWidth}"> 
                     <Grid>
@@ -86,7 +87,7 @@
                 </ScrollViewer>
             </Expander>
 
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Numéro d'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
             <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedRdv.Patient.NumeroDordre,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="numéro d'ordre"  
                                      />
@@ -120,7 +121,7 @@
                                      Watermark="Lieu du rendez vous"  
                                      />
 
-            <TextBlock Grid.Column="0" Grid.Row="6" Text="Docteur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+            <TextBlock Grid.Column="0" Grid.Row="6" Text="Medecin" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
             <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedRdv.Medecin.User.UserNom,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="Nom du medecin"  
                                      />
