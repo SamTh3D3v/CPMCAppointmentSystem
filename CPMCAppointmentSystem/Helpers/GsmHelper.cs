@@ -18,7 +18,7 @@ namespace CPMCAppointmentSystem.Helpers
         #endregion
         #region Fields
         private String _portName;
-        private readonly SerialPort _serialPort;
+        
         private string _messageCenterNumber;
         private int _baudRate;
         #endregion
@@ -103,12 +103,12 @@ namespace CPMCAppointmentSystem.Helpers
             Thread.Sleep(SleepTimeStamp);
             _serialPort.Close();
         }
+
+        private readonly SerialPort _serialPort;
         public void Callphone(string number)
         {
             _serialPort.Open();
-            _serialPort.Write("ATD + +" + number );
-
-            var res=_serialPort.ReadExisting();
+            _serialPort.Write("ATD + +" + number +";");           
             Thread.Sleep(100);
             _serialPort.Close();
         }

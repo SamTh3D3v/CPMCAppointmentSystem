@@ -48,10 +48,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _statisticsViewLoadedCommand
                     ?? (_statisticsViewLoadedCommand = new RelayCommand(
                     () =>
-                    {
-                        //Create the Default Charts Collection 
-                        CreateDeFaultTileChartsCollection();
-
+                    {                        
+                        CreateDeFaultTileChartsCollection();                        
                     }));
             }
         }

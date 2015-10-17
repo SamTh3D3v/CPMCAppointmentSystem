@@ -56,8 +56,8 @@
                     <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
                     <syncfusion:GridTextColumn HeaderText="Fixe" MappingName="TelephoneFixe"/>
                     <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
-                                                                           StringFormat=d}"/> 
-                    
+                                                                           StringFormat=d}"/>
+
 
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
@@ -86,7 +86,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
-                   
+
                 </Grid.RowDefinitions>
                 <Image Source="{StaticResource DoctorDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
                 <Border x:Name="WebCamBorder"  Background="WhiteSmoke" Grid.Column="0" Grid.Row="0" Width="60" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -128,14 +128,14 @@
                 </Border>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Nom" x:Name="NomBox" Margin="10 5" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
+                <syncfusion:SfMaskedEdit Watermark="Nom" x:Name="NomBox" Margin="10 5" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit x:Name="PrenomBox" Margin="10 5" Watermark="Prenom" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserPrenom,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
+                <syncfusion:SfMaskedEdit x:Name="PrenomBox" Margin="10 5" Watermark="Prenom" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserPrenom,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="TelephoneFixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Telephone fixe" x:Name="TelFixBox" Grid.Column="1" Text="{Binding SelectedDoctor.TelephoneFixe,Mode=TwoWay}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
+                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Telephone fixe" x:Name="TelFixBox" Grid.Column="1" Text="{Binding SelectedDoctor.TelephoneFixe,Mode=TwoWay}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Mobile" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Telephone mobile" x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
@@ -165,10 +165,10 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom d'utilisateur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Nom d'utilisateur" x:Name="UserNameBox" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                        
+                        <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Nom d'utilisateur" x:Name="UserNameBox" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                       
+
                         <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                         <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="2"  x:Name="UserPass2" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             <PasswordBox.Resources>
@@ -183,8 +183,8 @@
                         </PasswordBox>
                     </Grid>
                 </GroupBox>
-                
-              
+
+
                 <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -355,19 +355,52 @@
                             </Grid>
                         </syncfusion:TabItemExt.Content>
                     </syncfusion:TabItemExt>
-                    
+                    <syncfusion:TabItemExt  MinHeight="35" x:Name="StagaireTab">
+                        <syncfusion:TabItemExt.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="2"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
+                                    <TextBlock Grid.Row="0" Text="Stagaire"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </syncfusion:TabItemExt.HeaderTemplate>
+                        <syncfusion:TabItemExt.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding AddPatientsToSelectedDoctorCommand}">
+                                    <Button.Content>
+                                        <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
+                                    </Button.Content>
+                                </Button>
+                                <TextBlock Margin="20,0,0,0" Text="Stagiaires" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                                <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
+
+                                <syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                       AllowDraggingColumns="True"
+                                       AllowEditing="True"
+                                       AllowFiltering="True"
+                                       AllowGrouping="True"
+                                       ItemsSource="{Binding SelectedDoctor.Patients}"
+                                   SelectedItem="{Binding SelectedPatientInDoctorView,Mode=TwoWay}"
+                                       ShowGroupDropArea="True" />
+
+                            </Grid>
+                        </syncfusion:TabItemExt.Content>
+                    </syncfusion:TabItemExt>
 
 
-                    <!--<Syncfusion:TabControlExt.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Header}"/>
-                        </DataTemplate>
-                    </Syncfusion:TabControlExt.ItemTemplate>
-                    <Syncfusion:TabControlExt.ContentTemplate>
-                        <DataTemplate>
-                            <local:Weather BorderBrush="{Binding ElementName=options, Path=BorderBrush}" x:Name="weather"/>
-                        </DataTemplate>
-                    </Syncfusion:TabControlExt.ContentTemplate>-->
                 </syncfusion:TabControlExt>
             </Grid>
 
