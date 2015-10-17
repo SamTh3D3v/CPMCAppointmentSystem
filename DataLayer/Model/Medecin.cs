@@ -13,10 +13,7 @@ namespace DataLayer.Model
 {
     [Table("Medecin")]
     public class Medecin : INotifyPropertyChanged
-    {
-        public Medecin()
-        {                
-        }
+    {      
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid MedecinId { get; set; }        
@@ -30,7 +27,9 @@ namespace DataLayer.Model
         [ForeignKey("UserId")]
         public virtual User User { get; set; }              
         public virtual ICollection<Pathology> Pathologies { get; set; }    
-        public virtual ICollection<Patient> Patients { get; set; }
+        public virtual ICollection<Patient> Patients { get; set; }            
+
+        #region INotifyPropertyChanged related
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,7 +37,8 @@ namespace DataLayer.Model
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));             
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }  
 }

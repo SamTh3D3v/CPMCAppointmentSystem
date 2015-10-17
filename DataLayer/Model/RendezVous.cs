@@ -48,13 +48,8 @@ namespace DataLayer.Model
                 this.StartTime = value;
                 this.EndTime = value+new TimeSpan(0,30,0);
             }
-        }
-
-        #endregion
-        public RendezVous()
-        {
-
-        }
+        }        
+      
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid RendezVousId { get; set; }
@@ -150,7 +145,9 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
+        #endregion
 
+        #region INotifyPropertyChanged related
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -160,5 +157,6 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 }

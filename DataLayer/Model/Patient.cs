@@ -12,8 +12,9 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Patient")]
-    public class Patient : INotifyPropertyChanged
+    public class Patient : Auditable, INotifyPropertyChanged
     {
+        #region Fields
         private Guid _patientId;
         private string _numeroDordre;
         private string _nom;
@@ -31,12 +32,10 @@ namespace DataLayer.Model
         private Pathology _pathology;
         private DateTime _dateDeDepot;
         private ICollection<PieceJointe> _pieceJointes;
+        #endregion
 
-        public Patient()
-        {
-            
-        }
 
+        #region Properties                
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PatientId
@@ -241,7 +240,8 @@ namespace DataLayer.Model
         }
 
         public virtual ICollection<Note> Notes { get; set; }
-        
+        #endregion
+        #region INotifyPropertyChanged related
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -251,5 +251,8 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
+
+
 }

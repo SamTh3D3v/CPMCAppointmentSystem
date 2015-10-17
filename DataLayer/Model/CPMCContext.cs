@@ -43,6 +43,7 @@ namespace DataLayer.Model
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //Those props are needed in the UI no need to save em on the database cuz they can be calculated
             modelBuilder.Entity<RendezVous>().Ignore(r => r.AppointmentBackground);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.AllDay);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.EndTime);
@@ -65,6 +66,11 @@ namespace DataLayer.Model
             modelBuilder.Entity<RendezVous>().Ignore(r => r.Subject);
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
         }
     }
 }

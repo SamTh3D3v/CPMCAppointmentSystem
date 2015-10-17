@@ -76,8 +76,10 @@
   <ItemGroup>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Adresse.cs" />
+    <Compile Include="Model\Auditable.cs" />
+    <Compile Include="Model\IAuditable.cs" />
     <Compile Include="Model\CpmcContext.cs" />
-    <Compile Include="Model\CpmcDBInitializer.cs" />
+    <Compile Include="Model\Log.cs" />
     <Compile Include="Model\Medecin.cs" />
     <Compile Include="Model\Note.cs" />
     <Compile Include="Model\Pathology.cs" />

@@ -13,11 +13,7 @@ namespace DataLayer.Model
 {
     [Table("Specialite")]
     public class Specialite : INotifyPropertyChanged
-    {
-        public Specialite()
-        {
-            
-        }
+    {      
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid SpecialiteId { get; set; }
@@ -29,6 +25,8 @@ namespace DataLayer.Model
         public String Description { get; set; }
         
         public virtual ICollection<Medecin> Medecins { get; set; }
+        
+        #region INotifyPropertyChanged related
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,5 +36,6 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 }

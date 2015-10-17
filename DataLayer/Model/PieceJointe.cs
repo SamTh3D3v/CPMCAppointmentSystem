@@ -28,10 +28,8 @@ namespace DataLayer.Model
         public Guid PatientId { get; set; }
         [ForeignKey("PatientId")]
         public Patient Patient { get; set; }
-        public PieceJointe()
-        {
-            
-        }
+        #region INotifyPropertyChanged related
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
@@ -40,5 +38,6 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 }

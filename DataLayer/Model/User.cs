@@ -104,11 +104,8 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-        #endregion
-        public User()
-        {
-
-        }
+        
+        
 
         [Required]
         public Guid RolesCollectionId
@@ -168,6 +165,8 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
+        #endregion
+        #region INotifyPropertyChanged related        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -177,5 +176,6 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 }

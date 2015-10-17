@@ -14,10 +14,6 @@ namespace DataLayer.Model
     [Table("UserType")]
     public class UserType : INotifyPropertyChanged
     {
-        public UserType()
-        {
-
-        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid UserTypeId { get; set; }
@@ -26,12 +22,13 @@ namespace DataLayer.Model
         public String UserTypeName { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
-
+        #region INotifyPropertyChanged related
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 }

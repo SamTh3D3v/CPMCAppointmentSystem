@@ -14,10 +14,7 @@ namespace DataLayer.Model
     [Table("Pathology")]
     public class Pathology : INotifyPropertyChanged,IDataErrorInfo
     {
-        public Pathology()
-        {
-
-        }
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PathologyId { get; set; }
@@ -28,15 +25,7 @@ namespace DataLayer.Model
         public String Description { get; set; }
         public virtual ICollection<Medecin> Medecins { get; set; }
         public virtual ICollection<Patient> Patients { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+       
         public string this[string columnName]
         {
             get
@@ -55,7 +44,19 @@ namespace DataLayer.Model
                 return result;
             }
         }
-
+        
         public string Error { get; private set; }
+
+        #region INotifyPropertyChanged related
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
     }
 }

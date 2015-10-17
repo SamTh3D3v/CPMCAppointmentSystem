@@ -302,14 +302,8 @@ namespace DataLayer.Model
 
         #endregion
         #endregion
-        #region Ctors 
-        public RolesCollection()
-        {
-        }
+        #region INotifyPropertyChanged related
 
-        //public Guid UserId { get; set; }
-        //[ForeignKey("UserId")]
-        //public virtual User User { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
@@ -318,6 +312,6 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion      
+        #endregion
     }
 }

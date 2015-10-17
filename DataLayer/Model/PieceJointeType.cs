@@ -14,18 +14,16 @@ namespace DataLayer.Model
     [Table("PieceJointeType")]
     public class PieceJointeType:INotifyPropertyChanged
     {
-
-        public PieceJointeType()
-        {
-            
-        }
+      
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PieceJointeTypeId { get; set; }
         
         public virtual String  Description { get; set; }
 
-        public String PieceJointeTitle { get; set; }    
+        public String PieceJointeTitle { get; set; }
+
+        #region INotifyPropertyChanged related
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,5 +33,6 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 }
