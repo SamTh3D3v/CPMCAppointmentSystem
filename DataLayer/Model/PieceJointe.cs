@@ -15,19 +15,83 @@ namespace DataLayer.Model
 {
     [Table("PieceJointe")]
     public class PieceJointe:INotifyPropertyChanged
-    {
+    {       
+        #region Fields
+        private Guid _pieceJointeId;
+        private string _description;
+        private string _idPieceJointe;
+        private Guid _pieceJointeTypeId;
+        private PieceJointeType _typePieceJointe;
+        private byte[] _pieceJointeImage;
+        #endregion
+        #region Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid PieceJointeId { get; set; }
-        public String Description { get; set; }
-        public String IdPieceJointe { get; set; }
-        public Guid PieceJointeTypeId { get; set; }
+        public Guid PieceJointeId
+        {
+            get { return _pieceJointeId; }
+            set
+            {
+                if (value.Equals(_pieceJointeId)) return;
+                _pieceJointeId = value;
+                OnPropertyChanged();
+            }
+        }
+        public String Description
+        {
+            get { return _description; }
+            set
+            {
+                if (value == _description) return;
+                _description = value;
+                OnPropertyChanged();
+            }
+        }
+        public String IdPieceJointe
+        {
+            get { return _idPieceJointe; }
+            set
+            {
+                if (value == _idPieceJointe) return;
+                _idPieceJointe = value;
+                OnPropertyChanged();
+            }
+        }
+        public Guid PieceJointeTypeId
+        {
+            get { return _pieceJointeTypeId; }
+            set
+            {
+                if (value.Equals(_pieceJointeTypeId)) return;
+                _pieceJointeTypeId = value;
+                OnPropertyChanged();
+            }
+        }
         [ForeignKey("PieceJointeTypeId")]
-        public PieceJointeType TypePieceJointe { get; set; }
-
+        public PieceJointeType TypePieceJointe
+        {
+            get { return _typePieceJointe; }
+            set
+            {
+                if (Equals(value, _typePieceJointe)) return;
+                _typePieceJointe = value;
+                OnPropertyChanged();
+            }
+        }
+        public byte[] PieceJointeImage
+        {
+            get { return _pieceJointeImage; }
+            set
+            {
+                if (Equals(value, _pieceJointeImage)) return;
+                _pieceJointeImage = value;
+                OnPropertyChanged();
+            }
+        }
         public Guid PatientId { get; set; }
         [ForeignKey("PatientId")]
         public Patient Patient { get; set; }
+        #endregion
         #region INotifyPropertyChanged related
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -750,7 +750,6 @@ namespace CPMCAppointmentSystem.ViewModel
 
                         try
                         {                               
-
                             var imageFileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
                             var imageStreamReader = new BinaryReader(imageFileStream);
                             byte[] pic = imageStreamReader.ReadBytes((int)imageFileStream.Length);
