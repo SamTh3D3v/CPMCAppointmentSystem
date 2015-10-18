@@ -245,6 +245,9 @@
     <Compile Include="View\PathologiesViews\AddDoctorsToPathologyView.xaml.cs">
       <DependentUpon>AddDoctorsToPathologyView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PatienstViews\PreviewPieceJointeView.xaml.cs">
+      <DependentUpon>PreviewPieceJointeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PatienstViews\PreviewReportView.xaml.cs">
       <DependentUpon>PreviewReportView.xaml</DependentUpon>
     </Compile>
@@ -355,6 +358,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PathologiesViews\AddDoctorsToPathologyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PatienstViews\PreviewPieceJointeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

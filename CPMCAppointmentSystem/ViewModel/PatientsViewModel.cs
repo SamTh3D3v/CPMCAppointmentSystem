@@ -20,6 +20,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel : NavigableViewModelBase
     {
         #region Fields
+        private byte[] _pieceJointeImage;
         private ObservableCollection<Note> _notesFakeCollection = new ObservableCollection<Note>();
         private Note _selectedNote;
         private AddPatientAppointment _addAppointementWindow;
@@ -46,7 +47,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private PreviewReportView _previewReportView;
         private ObservableCollection<PieceJointe> _listPieceJointes = new ObservableCollection<PieceJointe>();
         #endregion
-        #region Properties
+        #region Properties       
+        public byte[] PieceJointeImage
+        {
+            get
+            {
+                return _pieceJointeImage;
+            }
+
+            set
+            {
+                if (_pieceJointeImage == value)
+                {
+                    return;
+                }
+
+                _pieceJointeImage = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<Note> NotesFakeCollection
         {
             get
@@ -737,8 +756,8 @@ namespace CPMCAppointmentSystem.ViewModel
                             byte[] pic = imageStreamReader.ReadBytes((int)imageFileStream.Length);
                             imageStreamReader.Close();
                             imageFileStream.Close();
-                            SelectedPatient.ProfilePicture = pic;
-
+                            SelectedPatient.ProfilePicture = pic;                           
+                            
                         }
                         catch (Exception exception)
                         {
@@ -747,6 +766,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
+       
         private RelayCommand _previewPieceJointeCommand;
         public RelayCommand PreviewPieceJointeCommand
         {
