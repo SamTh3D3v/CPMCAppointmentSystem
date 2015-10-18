@@ -708,22 +708,28 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_uploadPieceJointeCommand = new RelayCommand(
                     () =>
                     {
-
-                        OpenFileDialog openFileDialog = new OpenFileDialog();
-                        openFileDialog.ReadOnlyChecked = true;
-                        openFileDialog.Filter = "Image Files (*.bmp, *.png, *.jpg)|*.bmp;*.png;*.jpg";
-                        DialogResult result = openFileDialog.ShowDialog(); // Show the dialog.
-                        if (result == DialogResult.OK) // Test result.
+                        var openFileDialog = new OpenFileDialog
                         {
-                            try
-                            {
-                                //ImageSource = new BitmapImage(new Uri(openFileDialog.FileName, UriKind.RelativeOrAbsolute));
-                            }
-                            catch (Exception exception)
-                            {
-                                MessageBox.Show(exception.Message);
-                            }
+                            ReadOnlyChecked = true,
+                            Filter = "Image Files (*.bmp, *.png, *.jpg)|*.bmp;*.png;*.jpg"
+                        };
+                        var result = openFileDialog.ShowDialog();
+                        if (result != DialogResult.OK) return;
+                        var imagePath = openFileDialog.FileName;
 
+                        try
+                        {
+                            var imageFileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+                            var imageStreamReader = new BinaryReader(imageFileStream);
+                            byte[] pic = imageStreamReader.ReadBytes((int)imageFileStream.Length);
+                            imageStreamReader.Close();
+                            imageFileStream.Close();
+                            //SelectedPatient.ProfilePicture = pic;
+
+                        }
+                        catch (Exception exception)
+                        {
+                            MessageBox.Show(exception.Message);
                         }
 
                     }));
@@ -776,7 +782,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_previewPieceJointeCommand = new RelayCommand(
                     () =>
                     {
-
+                        
                     }));
             }
         }
@@ -805,6 +811,19 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         SelectedPieceJointe = new PieceJointe();
+                    }));
+            }
+        }
+        private RelayCommand _deletePatientImageCommand;
+        public RelayCommand DeletePatientImageCommand
+        {
+            get
+            {
+                return _deletePatientImageCommand
+                    ?? (_deletePatientImageCommand = new RelayCommand(
+                    () =>
+                    {
+                        SelectedPatient.ProfilePicture = null;
                     }));
             }
         }
