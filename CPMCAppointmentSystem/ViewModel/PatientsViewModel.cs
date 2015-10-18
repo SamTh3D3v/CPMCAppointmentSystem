@@ -65,23 +65,23 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-      
-     
+
+
         public ObservableCollection<PieceJointe> ListPieceJointes
         {
             get
             {
-                return _listPieceJointes ;
+                return _listPieceJointes;
             }
 
             set
             {
-                if (_listPieceJointes  == value)
+                if (_listPieceJointes == value)
                 {
                     return;
                 }
 
-                _listPieceJointes  = value;
+                _listPieceJointes = value;
                 RaisePropertyChanged();
             }
         }
@@ -408,15 +408,15 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_saveNewNoteCommand = new RelayCommand(
                     () =>
                     {
-                        if (SelectedNote!=null)
+                        if (SelectedNote != null)
                         {
                             NotesFakeCollection.Add(SelectedNote);
                         }
-                        
+
                     }));
             }
         }
-        private RelayCommand _addNewNoteCommand;     
+        private RelayCommand _addNewNoteCommand;
         public RelayCommand AddNewNoteCommand
         {
             get
@@ -425,12 +425,12 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addNewNoteCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedNote=new Note()
+                        SelectedNote = new Note()
                         {
                             Content = " ",
                             Title = " "
                         };
-                        
+
                     }));
             }
         }
@@ -622,7 +622,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_saveAppointementCommand = new RelayCommand(
                     () =>
                     {
-                        if (SelectedAppointement.RendezVousId == Guid.Empty && SelectedPatient.RendezVouses!=null)
+                        if (SelectedAppointement.RendezVousId == Guid.Empty && SelectedPatient.RendezVouses != null)
                         {
                             SelectedPatient.RendezVouses.Add(SelectedAppointement);
                         }
@@ -710,28 +710,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-     
-        private BitmapImage _faceBitMapImage  ;
 
-
-        public BitmapImage FaceBitMap
-        {
-            get
-            {
-                return _faceBitMapImage;
-            }
-
-            set
-            {
-                if (_faceBitMapImage == value)
-                {
-                    return;
-                }
-
-                _faceBitMapImage = value;
-                RaisePropertyChanged();
-            }
-        }
         private RelayCommand _loadPatientImageCommand;
         public RelayCommand LoadPatientImageCommand
         {
@@ -741,22 +720,30 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_loadPatientImageCommand = new RelayCommand(
                     () =>
                     {
-                        OpenFileDialog openFileDialog = new OpenFileDialog();
-                        openFileDialog.ReadOnlyChecked = true;
-                        openFileDialog.Filter = "Image Files (*.bmp, *.png, *.jpg)|*.bmp;*.png;*.jpg";
-                        DialogResult result = openFileDialog.ShowDialog(); // Show the dialog.
-                        if (result == DialogResult.OK) // Test result.
+                        var openFileDialog = new OpenFileDialog
                         {
-                            try
-                            {
-                                FaceBitMap = new BitmapImage(new Uri(openFileDialog.FileName, UriKind.RelativeOrAbsolute));
-                            }
-                            catch (Exception exception)
-                            {
-                                MessageBox.Show(exception.Message);
-                            }
+                            ReadOnlyChecked = true,
+                            Filter = "Image Files (*.bmp, *.png, *.jpg)|*.bmp;*.png;*.jpg"
+                        };
+                        var result = openFileDialog.ShowDialog();
+                        if (result != DialogResult.OK) return;
+                        var imagePath = openFileDialog.FileName;
 
-                        } 
+                        try
+                        {                               
+
+                            var imageFileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+                            var imageStreamReader = new BinaryReader(imageFileStream);
+                            byte[] pic = imageStreamReader.ReadBytes((int)imageFileStream.Length);
+                            imageStreamReader.Close();
+                            imageFileStream.Close();
+                            SelectedPatient.ProfilePicture = pic;
+
+                        }
+                        catch (Exception exception)
+                        {
+                            MessageBox.Show(exception.Message);
+                        }
                     }));
             }
         }
@@ -797,7 +784,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_newPieceJointeCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedPieceJointe=new PieceJointe();
+                        SelectedPieceJointe = new PieceJointe();
                     }));
             }
         }

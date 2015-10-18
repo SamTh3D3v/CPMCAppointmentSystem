@@ -32,6 +32,8 @@ namespace DataLayer.Model
         private Pathology _pathology;
         private DateTime _dateDeDepot;
         private ICollection<PieceJointe> _pieceJointes;
+        private byte[] _profilePicture;
+
         #endregion
 
 
@@ -173,6 +175,17 @@ namespace DataLayer.Model
             {
                 if (value.Equals(_dateDeNaissance)) return;
                 _dateDeNaissance = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public byte[] ProfilePicture
+        {
+            get { return _profilePicture; }
+            set
+            {
+                if (value == _profilePicture) return;
+                _profilePicture = value;
                 OnPropertyChanged();
             }
         }

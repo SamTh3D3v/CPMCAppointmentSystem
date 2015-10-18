@@ -190,7 +190,7 @@
                 </Grid.RowDefinitions>
                 <Image x:Name="WebCamPic" Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
                 <Border Grid.Column="0" Grid.Row="0" Width="80" Height="80" Padding="2" BorderBrush="Gray" BorderThickness="2">
-                    <Image Stretch="UniformToFill"  Source="{Binding DataContext.FaceBitMap,ElementName=RootGrid}"  Width="75" Height="75" />
+                    <Image Stretch="UniformToFill"  Source="{Binding ProfilePicture}"  Width="75" Height="75" />
                 </Border>
                 <Border x:Name="WebCamBorder" Background="Transparent" Grid.Column="0" Grid.Row="0" Width="60" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Border.Style>
