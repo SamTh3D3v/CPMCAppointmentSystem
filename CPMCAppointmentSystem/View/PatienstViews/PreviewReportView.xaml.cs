@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
-using System.IO;
-using System.Windows.Documents;
+﻿using System.Collections.Generic;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro.Controls;
 using Syncfusion.Windows.Reports;
-using Syncfusion.Windows.Shared;
 
-namespace CPMCAppointmentSystem.View
+namespace CPMCAppointmentSystem.View.PatienstViews
 {
     public partial class PreviewReportView : MetroWindow
     {

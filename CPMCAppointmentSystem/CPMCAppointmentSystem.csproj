@@ -245,7 +245,7 @@
     <Compile Include="View\PathologiesViews\AddDoctorsToPathologyView.xaml.cs">
       <DependentUpon>AddDoctorsToPathologyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PreviewReportView.xaml.cs">
+    <Compile Include="View\PatienstViews\PreviewReportView.xaml.cs">
       <DependentUpon>PreviewReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SpecialitiesViews\AddDoctorToSpecialityView.xaml.cs">
@@ -358,7 +358,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\PreviewReportView.xaml">
+    <Page Include="View\PatienstViews\PreviewReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
