@@ -518,7 +518,18 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
                                             <Button Content="Upload" Command="{Binding DataContext.UploadPieceJointeCommand,ElementName=RootGrid}" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
-                                            <Button Content="Preview" Command="{Binding DataContext.PreviewPieceJointeCommand,ElementName=RootGrid}" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
+                                            <Button Content="Preview" Command="{Binding DataContext.PreviewPieceJointeCommand,ElementName=RootGrid}" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.PieceJointeImage}" Value="{x:Null}">
+                                                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
                                             <Button Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
                                         </Grid>
 

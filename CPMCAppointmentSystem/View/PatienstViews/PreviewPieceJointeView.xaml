@@ -13,7 +13,7 @@
         Height="500" Width="700" DataContext="{Binding Source={StaticResource Locator},Path=PatientsViewModel}">
     <Grid Background="LightGray">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <Image Source="{Binding PieceJointeImage}" Stretch="UniformToFill"/>
+            <Image Source="{Binding SelectedPieceJointe.PieceJointeImage}" Stretch="UniformToFill"/>
         </ScrollViewer>        
     </Grid>
 </controls:MetroWindow>

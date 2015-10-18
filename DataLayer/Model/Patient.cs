@@ -35,8 +35,6 @@ namespace DataLayer.Model
         private byte[] _profilePicture;
 
         #endregion
-
-
         #region Properties                
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

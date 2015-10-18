@@ -20,7 +20,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel : NavigableViewModelBase
     {
         #region Fields
-        private byte[] _pieceJointeImage;
+        
         private ObservableCollection<Note> _notesFakeCollection = new ObservableCollection<Note>();
         private Note _selectedNote;
         private AddPatientAppointment _addAppointementWindow;
@@ -44,28 +44,9 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _filterBySelectedItem;
         private PieceJointeType _selectedTypePieceJointeInFilter;
         private String _reportPath;
-        private PreviewReportView _previewReportView;
-        private ObservableCollection<PieceJointe> _listPieceJointes = new ObservableCollection<PieceJointe>();
+        private PreviewReportView _previewReportView;        
         #endregion
-        #region Properties       
-        public byte[] PieceJointeImage
-        {
-            get
-            {
-                return _pieceJointeImage;
-            }
-
-            set
-            {
-                if (_pieceJointeImage == value)
-                {
-                    return;
-                }
-
-                _pieceJointeImage = value;
-                RaisePropertyChanged();
-            }
-        }
+        #region Properties               
         public ObservableCollection<Note> NotesFakeCollection
         {
             get
@@ -81,26 +62,6 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _notesFakeCollection = value;
-                RaisePropertyChanged();
-            }
-        }
-
-
-        public ObservableCollection<PieceJointe> ListPieceJointes
-        {
-            get
-            {
-                return _listPieceJointes;
-            }
-
-            set
-            {
-                if (_listPieceJointes == value)
-                {
-                    return;
-                }
-
-                _listPieceJointes = value;
                 RaisePropertyChanged();
             }
         }
@@ -724,7 +685,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             byte[] pic = imageStreamReader.ReadBytes((int)imageFileStream.Length);
                             imageStreamReader.Close();
                             imageFileStream.Close();
-                            //SelectedPatient.ProfilePicture = pic;
+                            SelectedPieceJointe.PieceJointeImage = pic;
 
                         }
                         catch (Exception exception)
@@ -782,7 +743,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_previewPieceJointeCommand = new RelayCommand(
                     () =>
                     {
-                        
+                        var preview=new PreviewPieceJointeView();
+                        preview.ShowDialog();
                     }));
             }
         }
@@ -797,7 +759,11 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_savePieceJointeCommand = new RelayCommand(
                     () =>
                     {
-                        ListPieceJointes.Add(SelectedPieceJointe);
+                        if (SelectedPatient.PieceJointes==null)
+                        SelectedPatient.PieceJointes=new Collection<PieceJointe>();
+                        SelectedPatient.PieceJointes.Add(SelectedPieceJointe);
+                        _dbContext.SaveChanges();
+
                     }));
             }
         }
