@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,7 +32,7 @@ namespace DataLayer.Model
         private Adresse _adresse;
         private Pathology _pathology;
         private DateTime _dateDeDepot;
-        private ICollection<PieceJointe> _pieceJointes;
+        private ObservableCollection<PieceJointe> _pieceJointes;
         private byte[] _profilePicture;
 
         #endregion
@@ -239,7 +240,7 @@ namespace DataLayer.Model
         public virtual ICollection<Medecin> Medecins { get; set; }
         public virtual ICollection<RendezVous> RendezVouses { get; set; }
 
-        public virtual ICollection<PieceJointe> PieceJointes
+        public virtual ObservableCollection<PieceJointe> PieceJointes
         {
             get { return _pieceJointes; }
             set

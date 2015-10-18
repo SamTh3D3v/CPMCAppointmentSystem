@@ -7,6 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="800" DataContext="{Binding Source={StaticResource Locator},Path=PatientsViewModel}"
 	Title="PatientsView">
@@ -485,8 +486,19 @@
                                     </Button.Content>
                                 </Button>
                                 <TextBlock Margin="20,0,0,0" Text="Piece Jointe" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
-                                <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Header="Nouveau">
-                                    <Grid  >
+                                <GroupBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Header="Nouveau">
+                                    
+                                    <Grid >
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe}" Value="{x:Null}">
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
@@ -530,14 +542,16 @@
                                                     </Style>
                                                 </Button.Style>
                                             </Button>
-                                            <Button Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
+                                            <Button ToolTip="Enregistrer la piece jointe"  Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5">                                                                                               
+                                            </Button>
+                                            
                                         </Grid>
 
                                     </Grid>
                                 </GroupBox>
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
                                 <GroupBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  Header="Liste de pieces">
-                                    <ListView ItemsSource="{Binding DataContext.ListPieceJointes,ElementName=RootGrid}"  SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe}">
+                                    <ListView ItemsSource="{Binding DataContext.SelectedPatient.PieceJointes,ElementName=RootGrid}"  SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid>
