@@ -203,6 +203,59 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand _openRecuDeDepotDesignerCommand;
+        public RelayCommand OpenRecuDeDepotDesignerCommand
+        {
+            get
+            {
+                return _openRecuDeDepotDesignerCommand
+                    ?? (_openRecuDeDepotDesignerCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _openRendezVousDesignerCommand;
+        public RelayCommand OpenRendezVousDesignerCommand
+        {
+            get
+            {
+                return _openRendezVousDesignerCommand
+                    ?? (_openRendezVousDesignerCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+
+        private RelayCommand _rendezVousIsSelectedCommand;
+        public RelayCommand RendezVousReportIsSelectedCommand
+        {
+            get
+            {
+                return _rendezVousIsSelectedCommand
+                    ?? (_rendezVousIsSelectedCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _recuDeDepotIsSelectedCommand;        
+        public RelayCommand RecuDeDepotRepportIsSelectedCommand
+        {
+            get
+            {
+                return _recuDeDepotIsSelectedCommand
+                    ?? (_recuDeDepotIsSelectedCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
 
         #endregion
         #region Ctors and Methods
