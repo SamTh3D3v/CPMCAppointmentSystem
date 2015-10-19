@@ -1,0 +1,25 @@
+﻿<controls:MetroWindow x:Class="CPMCAppointmentSystem.View.SettingsViews.ReportEditorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        Title="Editer un etat de sortie"
+        WindowStyle="SingleBorderWindow"
+                      EnableDWMDropShadow="True"
+                      ResizeMode="CanResizeWithGrip"
+                      WindowTransitionsEnabled="False"                      
+ BorderBrush="{DynamicResource AccentColorBr}"
+                      BorderThickness="1"
+        WindowStartupLocation="CenterScreen"
+                             
+         Height="500" Width="700" 
+                             DataContext="{Binding Path=SettingsViewModel, Source={StaticResource Locator}}">
+    <Grid>
+        <syncfusion:ReportDesigner  ShowRibbon="True" ShowReportData="True" ShowRuler="True" ShowProperties="True"
+            Grid.Row="0"  EnableMDIDesigner="True"
+            x:Name="ReportDesignerControl" AllReportsClosed="AllReportClosedEventHandler"
+                                   Loaded="ReportEditor_Loded"            
+            />
+        
+    </Grid>
+</controls:MetroWindow>

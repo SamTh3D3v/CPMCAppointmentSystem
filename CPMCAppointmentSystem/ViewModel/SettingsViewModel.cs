@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
+using CPMCAppointmentSystem.View.SettingsViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.Data.Extensions;
@@ -212,6 +213,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_openRecuDeDepotDesignerCommand = new RelayCommand(
                     () =>
                     {
+                        ReportEditorView editor = new ReportEditorView("");                        
+                        editor.ShowDialog();                        
                         
                     }));
             }

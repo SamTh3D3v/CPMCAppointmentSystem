@@ -58,7 +58,7 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             InnerFrameNavigationService = new InnerFrameNavigationService("InnerFrame");
             InnerFrameNavigationService.Configure(App.CalendarViewKey, new Uri("../View/AppointementViews/CalendarView.xaml", UriKind.Relative));
-            InnerFrameNavigationService.Configure(App.SettingsViewKey, new Uri("../View/SettingsView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.SettingsViewKey, new Uri("../View/SettingsViews/SettingsView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.DoctorsViewKey, new Uri("../View/DoctorsViews/DoctorsView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.MyPatientsViewKey, new Uri("../View/DoctorsViews/MyPatientsView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.PathologiesViewKey, new Uri("../View/PathologiesViews/PathologiesView.xaml", UriKind.Relative));
