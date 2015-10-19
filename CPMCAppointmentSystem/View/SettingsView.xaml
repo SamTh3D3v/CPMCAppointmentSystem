@@ -95,7 +95,7 @@
                             </Grid.RowDefinitions>
 
                             <GroupBox Grid.Row="0" Grid.Column="0"  Header="Information globale">
-                                
+
                                 <Grid >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -326,6 +326,41 @@
                     </TabControl>
                 </TabItem.Content>
             </TabItem>
+            <TabItem Style="{StaticResource SettingsTabItemStyle}">
+                <TabItem.Header>
+                    <Grid Width="120" Height="100">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Path Data="M22.1575,13.53399L21.794301,25.304994C21.794301,25.304994,21.3242,33.088695,12.747401,32.148692L5.3958107,31.949492 5.3958107,65.390895C5.3958107,66.135493,6.0026208,66.7391,6.7473808,66.7391L44.5313,66.7391C45.2734,66.7391,45.8802,66.135493,45.8802,65.390895L45.8802,14.883091C45.8802,14.140891,45.2734,13.53399,44.5313,13.53399z M21.804701,8.1369996L44.5313,8.1369996C48.257802,8.1370001,51.279999,11.15899,51.279999,14.883091L51.279999,65.390895C51.279999,69.117496,48.257802,72.136996,44.5313,72.136996L6.7473808,72.136996C3.0208105,72.136996,5.8073994E-07,69.117496,0,65.390895L0,31.142392 2.6718808,28.322993 2.6745006,28.246392 16.6771,13.53399 16.638001,13.53399 12.8945,17.483192 16.816401,13.328391 16.872401,13.328391 16.9961,13.19799 17.0078,13.19799z M30.352,0L55.255002,0 60.581002,0 60.581002,4.747 60.581002,55.207999 55.255002,55.207999 55.255002,4.747 30.352,4.747z" Stretch="Uniform" Fill="#FF7B7B7B" Width="40" Height="40" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5"/>
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Foreground="#FF7B7B7B" Text="RAPPORT" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <TabControl  VerticalAlignment="Stretch" TabStripPlacement="Left"  Padding="0" Margin="0">                        
+                        <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal" Height="50" Margin="0,0,20,0">
+                                    <Path Data="M30.383,9.5469999L30.383,9.6359997 30.198,9.6359997z M20.563,0L30.198,9.6359997 22.417057,9.6359997C21.396342,9.6333103,20.565564,8.8039265,20.563,7.7817736z M2.9636101,0L18.34132,0 18.34132,7.7813263C18.34132,10.033843,20.164132,11.855433,22.416848,11.855433L30.382998,11.855433 30.382998,32.420517C30.382998,34.057205,29.054892,35.383999,27.41948,35.383999L2.9636101,35.383999C1.3281391,35.383999,3.5697749E-07,34.057205,0,32.420517L0,2.9649534C3.5697749E-07,1.3269625,1.3281391,0,2.9636101,0z" Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="20" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                    <TextBlock Text="Recu de dépot" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12"></TextBlock>                                    
+                                </StackPanel>
+                            </TabItem.Header>
+                        </TabItem>
+                        <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal" Height="50" Margin="0,0,20,0">
+                                    <Path Data="M30.383,9.5469999L30.383,9.6359997 30.198,9.6359997z M20.563,0L30.198,9.6359997 22.417057,9.6359997C21.396342,9.6333103,20.565564,8.8039265,20.563,7.7817736z M2.9636101,0L18.34132,0 18.34132,7.7813263C18.34132,10.033843,20.164132,11.855433,22.416848,11.855433L30.382998,11.855433 30.382998,32.420517C30.382998,34.057205,29.054892,35.383999,27.41948,35.383999L2.9636101,35.383999C1.3281391,35.383999,3.5697749E-07,34.057205,0,32.420517L0,2.9649534C3.5697749E-07,1.3269625,1.3281391,0,2.9636101,0z" Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="20" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                    <TextBlock Text="Recu de dépot" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12"></TextBlock>                                    
+                                </StackPanel>
+                            </TabItem.Header>
+                        </TabItem>
+                    </TabControl>
+                </TabItem.Content>
+            </TabItem>
+
+
+
             <TabItem Style="{StaticResource SettingsTabItemStyle}">
                 <TabItem.Header>
                     <Grid Width="120" Height="100">
