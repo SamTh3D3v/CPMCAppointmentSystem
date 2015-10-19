@@ -393,7 +393,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding DataContext.SavePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                    <Button Grid.Column="0" Margin="2" Command="{Binding DataContext.SavePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
