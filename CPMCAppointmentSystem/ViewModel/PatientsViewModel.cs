@@ -423,7 +423,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_previewRecuDeDepoCommand = new RelayCommand(
                     () =>
                     {
-                        ReportPath = "Reports/RecuDeDepot.rdlc";
+                        ReportPath = App.RecuDeDepotReport;
                         _previewReportView = new PreviewReportView();
                         Messenger.Default.Send<Patient>(SelectedPatient);
                         _previewReportView.ShowDialog();
@@ -453,7 +453,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_previewRdvCommand = new RelayCommand(
                     () =>
                     {
-                        ReportPath = "Reports/Rendez_Vous.rdlc";
+                        ReportPath = App.RendezVousReport;
                         _previewReportView = new PreviewReportView();
                         Messenger.Default.Send<RendezVous>(SelectedAppointement);
                         _previewReportView.ShowDialog();

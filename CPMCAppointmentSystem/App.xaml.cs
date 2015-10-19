@@ -25,6 +25,9 @@ namespace CPMCAppointmentSystem
         public static String SpecialityViewKey = "SpecialityView";
         public static String StatisticsViewKey = "StatisticsView";
         public static String NotificationViewKey = "NotificationView";
+        public static String RecuDeDepotReport = "Reports/RecuDeDepot.rdlc";
+        public static String RendezVousReport = "Reports/Rendez_Vous.rdlc";
+
         #endregion
         public App():base()
         {

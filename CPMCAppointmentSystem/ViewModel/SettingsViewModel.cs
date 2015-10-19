@@ -10,6 +10,7 @@ using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View.SettingsViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using Syncfusion.Data.Extensions;
 using Xceed.Wpf.Toolkit;
 
@@ -25,8 +26,27 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<UserTypeToAdd> _userTypeCollection;
         private ObservableCollection<PieceJointeType> _typePieceJointeCollection;
         private PieceJointeType _selectedTypePieceJointe;
+        private string _reportPath;
         #endregion
         #region Properties
+        public string ReportPath
+        {
+            get
+            {
+                return _reportPath;
+            }
+
+            set
+            {
+                if (_reportPath == value)
+                {
+                    return;
+                }
+
+                _reportPath = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<UserTypeToAdd> UserTypeCollection
         {
             get
@@ -210,12 +230,14 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _openRecuDeDepotDesignerCommand
-                    ?? (_openRecuDeDepotDesignerCommand = new RelayCommand(
-                    () =>
+                    ?? (_openRecuDeDepotDesignerCommand = new RelayCommand(async () =>
                     {
-                        ReportEditorView editor = new ReportEditorView("");                        
-                        editor.ShowDialog();                        
-                        
+
+                        var editor = new ReportEditorView(App.RecuDeDepotReport);
+                        await editor.ShowDialogAsync();
+
+
+
                     }));
             }
         }
@@ -225,10 +247,12 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _openRendezVousDesignerCommand
-                    ?? (_openRendezVousDesignerCommand = new RelayCommand(
-                    () =>
+                    ?? (_openRendezVousDesignerCommand = new RelayCommand(async () =>
                     {
-                        
+
+                        var editor = new ReportEditorView(App.RendezVousReport);
+                        await editor.ShowDialogAsync();
+
                     }));
             }
         }
@@ -242,11 +266,12 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_rendezVousIsSelectedCommand = new RelayCommand(
                     () =>
                     {
-                        
+                        ReportPath = App.RendezVousReport;
+                        Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Refresh"));
                     }));
             }
         }
-        private RelayCommand _recuDeDepotIsSelectedCommand;        
+        private RelayCommand _recuDeDepotIsSelectedCommand;
         public RelayCommand RecuDeDepotRepportIsSelectedCommand
         {
             get
@@ -255,7 +280,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_recuDeDepotIsSelectedCommand = new RelayCommand(
                     () =>
                     {
-                        
+                        ReportPath = App.RecuDeDepotReport;
+                        Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Refresh"));
                     }));
             }
         }
@@ -292,7 +318,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
                 if (SelectedUser.RolesCollection == null)
                 {
-                    SelectedUser.RolesCollection=new RolesCollection();
+                    SelectedUser.RolesCollection = new RolesCollection();
                 }
                 TreeViewRollCollection = new ObservableCollection<TreeViewModel>()
                 {
@@ -450,8 +476,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     }
 
                 };
-                }
-            
+            }
+
         }
         #endregion
     }

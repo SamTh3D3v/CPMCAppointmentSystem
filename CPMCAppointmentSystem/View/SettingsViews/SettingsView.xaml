@@ -390,7 +390,7 @@
                                 </Grid>
                             </ListBoxItem>
                         </ListBox>
-                        <syncfusion:ReportViewer Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="ReportVier"/>
+                        <syncfusion:ReportViewer Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="ReportPreviewer" ReportPath="{Binding ReportPath,Mode=TwoWay}"/>
                     </Grid>
                 </TabItem.Content>
             </TabItem>
