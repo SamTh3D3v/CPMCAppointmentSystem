@@ -13,8 +13,8 @@ namespace DataLayer.Model
 {
     [Table("Pathology")]
     public class Pathology : INotifyPropertyChanged,IDataErrorInfo
-    {
-        
+    {        
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PathologyId { get; set; }
@@ -44,8 +44,12 @@ namespace DataLayer.Model
                 return result;
             }
         }
-        
-        public string Error { get; private set; }
+
+        public string Error
+        {
+            get { return String.Empty; }
+           
+        }
 
         #region INotifyPropertyChanged related
 

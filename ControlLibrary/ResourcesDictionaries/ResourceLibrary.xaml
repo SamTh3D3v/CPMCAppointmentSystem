@@ -6,8 +6,7 @@
         <ResourceDictionary Source="Brushes/DefaultColorTheme.xaml"/>
         <ResourceDictionary Source="Brushes/Icons.xaml"/>
 
-        <!--Base Controls Style-->
-        <ResourceDictionary Source="BaseControlStyles/ButtonStyle.xaml"/>
+        <!--Base Controls Style-->        
         <ResourceDictionary Source="BaseControlStyles/CheckBoxStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/ComboBoxStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/ListViewStyle.xaml"/>
@@ -27,6 +26,7 @@
 
         <!--Named Styles-->
 
+        <ResourceDictionary Source="NamedStyles/DarkButtonStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/CloseButtonStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/HelpButtonStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/SearchTextBoxStyle.xaml"/>

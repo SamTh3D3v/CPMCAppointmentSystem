@@ -179,12 +179,12 @@
                 <Image Source="{StaticResource PathologyDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Nom du pathology" Validation.Error="NomBox_OnError"
-                                                  ValidationMode="LostFocus" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" x:Name="NomBox" Grid.Column="1" Grid.Row="1" >
+                <syncfusion:SfMaskedEdit Watermark="Nom du pathology" Validation.Error="NomBox_OnError" 
+                                                  ValidationMode="LostFocus" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" x:Name="TxtEditNomPatho" Grid.Column="1" Grid.Row="1" >
                 </syncfusion:SfMaskedEdit>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Code du pathology" ValidationMode="LostFocus"  Text="{Binding SelectedPathology.CodePathology,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" x:Name="CodeBox" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <syncfusion:SfMaskedEdit Watermark="Code du pathology" ValidationMode="LostFocus" Text="{Binding SelectedPathology.CodePathology,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" x:Name="TxtEditCodePatho" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
                 </syncfusion:SfMaskedEdit>
 
@@ -205,6 +205,20 @@
                                 <TextBlock Text="Save" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                <Setter Property="IsEnabled" Value="false" />
+                                <Style.Triggers>                                    
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=TxtEditNomPatho, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditCodePatho, Path=(Validation.HasError)}" Value="false" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="true" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
                     <Button Grid.Column="1"  Margin="2" Command="{Binding DeletePathologyCommand}">
                         <Button.Content>
