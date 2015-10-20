@@ -296,7 +296,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _cancelChangesToPathologyCommand
                     ?? (_cancelChangesToPathologyCommand = new RelayCommand(
                     () =>
-                    {
+                    {                        
+                        _dbContext.Entry(SelectedPathology).Reload();
                         SelectedPathology = null;
                     }));
             }
