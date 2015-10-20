@@ -284,7 +284,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deletePathologyCommand = new RelayCommand(
                     () =>
                     {
-
+                        //Logical suppression 
                     }));
             }
         }
@@ -296,8 +296,12 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _cancelChangesToPathologyCommand
                     ?? (_cancelChangesToPathologyCommand = new RelayCommand(
                     () =>
-                    {                        
-                        _dbContext.Entry(SelectedPathology).Reload();
+                    {
+                        if (SelectedPathology != null )
+                        {
+                            if (SelectedPathology.PathologyId != Guid.Empty) 
+                            _dbContext.Entry(SelectedPathology).Reload(); 
+                        }
                         SelectedPathology = null;
                     }));
             }
