@@ -284,7 +284,19 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deletePathologyCommand = new RelayCommand(
                     () =>
                     {
-                        //Logical suppression 
+                        //todo Logical suppression 
+                        if (SelectedPathology != null)
+                        {
+                            if (SelectedPathology.PathologyId != Guid.Empty)
+                            {
+                                _dbContext.Pathologies.Remove(SelectedPathology);
+                                PathologiesList.Remove(SelectedPathology);
+                                SelectedPathology = null;
+                                _dbContext.SaveChanges();
+                            }
+
+                        }
+
                     }));
             }
         }
