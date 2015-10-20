@@ -297,7 +297,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelChangesToPathologyCommand = new RelayCommand(
                     () =>
                     {
-
+                        SelectedPathology = null;
                     }));
             }
         }

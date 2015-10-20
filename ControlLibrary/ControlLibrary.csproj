@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\SelecteImageConverter.cs" />
+    <Compile Include="Converters\ValueToEqualsParameterConverter.cs" />
     <Compile Include="Helpers\PasswordBoxMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

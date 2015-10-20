@@ -9,6 +9,7 @@
       xmlns:v="clr-namespace:System.Windows;assembly=PresentationFramework"
       xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
       xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700" DataContext="{Binding Source={StaticResource Locator},Path=PathologiesViewModel}"
 	Title="PathologiesView">
@@ -180,7 +181,7 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <syncfusion:SfMaskedEdit Watermark="Nom du pathology" Validation.Error="NomBox_OnError" 
-                                                  ValidationMode="LostFocus" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" x:Name="TxtEditNomPatho" Grid.Column="1" Grid.Row="1" >
+                                                  ValidationMode="LostFocus" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" x:Name="TxtEditNomPatho" Grid.Column="1" Grid.Row="1" >
                 </syncfusion:SfMaskedEdit>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
@@ -213,6 +214,18 @@
                                         <MultiDataTrigger.Conditions>
                                             <Condition Binding="{Binding ElementName=TxtEditNomPatho, Path=(Validation.HasError)}" Value="false" />
                                             <Condition Binding="{Binding ElementName=TxtEditCodePatho, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition>
+                                                <Condition.Binding>
+                                                    <Binding Path="SelectedPathology" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                        <Binding.ConverterParameter>
+                                                            <x:Null/>
+                                                        </Binding.ConverterParameter>
+                                                    </Binding>
+                                                </Condition.Binding>
+                                                <Condition.Value>
+                                                    <system:Boolean>False</system:Boolean>
+                                                </Condition.Value>
+                                            </Condition>
                                         </MultiDataTrigger.Conditions>
                                         <Setter Property="IsEnabled" Value="true" />
                                     </MultiDataTrigger>

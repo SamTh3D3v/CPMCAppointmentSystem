@@ -51,7 +51,8 @@
         <!--Converters-->
         <ResourceDictionary>
             <converters:SelecteImageConverter x:Key="SelecteImageConverter"/>
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>            
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converters:ValueToEqualsParameterConverter x:Key="IsValueEqualToParameterConverter"/>            
         </ResourceDictionary>
 
 
