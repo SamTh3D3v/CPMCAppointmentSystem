@@ -119,7 +119,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     return;
                 }
-                IsFormEnabled = true;
+                IsFormEnabled = value!=null;
                 _selectedPathology = value;
                 RaisePropertyChanged();
             }
@@ -198,7 +198,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         SelectedPathology = new Pathology();
-                        IsFormEnabled = true;
+                        
 
                     }));
             }
@@ -339,8 +339,7 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private void AddNewPathology()
         {
-            _dbContext.Pathologies.Add(SelectedPathology);
-            IsFormEnabled = false;
+            _dbContext.Pathologies.Add(SelectedPathology);            
         }
         #endregion
     }
