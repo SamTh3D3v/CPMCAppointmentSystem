@@ -11,6 +11,17 @@ using DataLayer.Annotations;
 
 namespace DataLayer.Model
 {
+    [Flags]
+    public enum Days
+    {
+        None = 0,
+        Saturday = 1,
+        Sunday = 2,
+        Monday = 4,
+        Tuesday = 8,
+        Wednesday = 16,
+        Fryday = 32       
+    }
     [Table("Medecin")]
     public class Medecin : INotifyPropertyChanged
     {      
@@ -21,10 +32,11 @@ namespace DataLayer.Model
         public String TelephoneFixe { get; set; }
         public String TelephoneMobile { get; set; }        
         public Guid SpecialiteId { get; set; }
+        public Days JoursDeTravail { get; set; }
         public Guid UserId { get; set; }
         [ForeignKey("SpecialiteId")]
         public virtual  Specialite Speciality { get; set; }
-        [ForeignKey("UserId")]
+        [ForeignKey("UserId")]  
         public virtual User User { get; set; }              
         public virtual ICollection<Pathology> Pathologies { get; set; }    
         public virtual ICollection<Patient> Patients { get; set; }            
