@@ -30,28 +30,9 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<Pathology> _pathologiesList;
         private Pathology _selectedPathology;
         private Medecin _selectedDoctorWithinPathology;
-        private ObservableCollection<MedecinToAdd> _doctorsToPathlogyList;
-        private bool _savePathologyCanExecute = true;
+        private ObservableCollection<MedecinToAdd> _doctorsToPathlogyList;        
         #endregion
-        #region Properties
-        public bool SavePathologyCanExecute
-        {
-            get
-            {
-                return _savePathologyCanExecute;
-            }
-
-            set
-            {
-                if (_savePathologyCanExecute == value)
-                {
-                    return;
-                }
-
-                _savePathologyCanExecute = value;
-                RaisePropertyChanged();
-            }
-        }
+        #region Properties       
         public MedecinToAdd SelectedDoctorsToPathologyList
         {
             get
@@ -237,8 +218,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         _dbContext.SaveChanges();
                         LoadPathologies();
-
-                    }, () => SavePathologyCanExecute));
+                        SelectedPathology = null;
+                    }));
             }
         }
        
