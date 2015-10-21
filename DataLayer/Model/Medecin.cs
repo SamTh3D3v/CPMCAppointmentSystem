@@ -27,15 +27,69 @@ namespace DataLayer.Model
     [Table("Medecin")]
     public class Medecin : INotifyPropertyChanged
     {
+        #region Fields
         private Days _joursDeTravail;
+        private ObservableCollection<Pathology> _pathologies;
+        private ObservableCollection<Patient> _patients;
+        private ObservableCollection<Specialite> _specialities;
+        private byte[] _profilePicture;
+        private Specialite _specialitePrincipale;
+        private User _user;
+        private string _telephoneMobile;
+        private DateTime _dateDeNaissance;
+        private string _telephoneFixe;
+        private Guid _specialitePrincipaleId;
+
+        #endregion 
+        #region Properties
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid MedecinId { get; set; }        
-        public DateTime DateDeNaissance { get; set; }
-        public String TelephoneFixe { get; set; }
-        public String TelephoneMobile { get; set; }        
-        public Guid SpecialitePrincipaleId { get; set; }
+        public Guid MedecinId { get; set; }
+
+        public DateTime DateDeNaissance
+        {
+            get { return _dateDeNaissance; }
+            set
+            {
+                if (value.Equals(_dateDeNaissance)) return;
+                _dateDeNaissance = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String TelephoneFixe
+        {
+            get { return _telephoneFixe; }
+            set
+            {
+                if (value == _telephoneFixe) return;
+                _telephoneFixe = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String TelephoneMobile
+        {
+            get { return _telephoneMobile; }
+            set
+            {
+                if (value == _telephoneMobile) return;
+                _telephoneMobile = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Guid SpecialitePrincipaleId
+        {
+            get { return _specialitePrincipaleId; }
+            set
+            {
+                if (value.Equals(_specialitePrincipaleId)) return;
+                _specialitePrincipaleId = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Days JoursDeTravail
         {
@@ -45,24 +99,78 @@ namespace DataLayer.Model
             }
             set
             {
-                if (value == _joursDeTravail) return;
-                //_joursDeTravail = ((decimal) value > 0)
-                //    ? _joursDeTravail | (Days) value
-                //    : _joursDeTravail & (Days) value;
+                if (value == _joursDeTravail) return;                
                 _joursDeTravail = value;
                 OnPropertyChanged();
             }
         }
-
         public Guid UserId { get; set; }
-        [ForeignKey("SpecialitePrincipaleId")]
-        public virtual  Specialite SpecialitePrincipale { get; set; }
-        [ForeignKey("UserId")]  
-        public virtual User User { get; set; }              
-        public virtual ICollection<Pathology> Pathologies { get; set; }    
-        public virtual ICollection<Patient> Patients { get; set; }            
-        public virtual ObservableCollection<Specialite> Specialities { get; set; }            
 
+        [ForeignKey("SpecialitePrincipaleId")]
+        public virtual Specialite SpecialitePrincipale
+        {
+            get { return _specialitePrincipale; }
+            set
+            {
+                if (Equals(value, _specialitePrincipale)) return;
+                _specialitePrincipale = value;
+                OnPropertyChanged();
+            }
+        }
+
+        [ForeignKey("UserId")]
+        public virtual User User
+        {
+            get { return _user; }
+            set
+            {
+                if (Equals(value, _user)) return;
+                _user = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public virtual ObservableCollection<Pathology> Pathologies
+        {
+            get { return _pathologies; }
+            set
+            {
+                if (Equals(value, _pathologies)) return;
+                _pathologies = value;
+                OnPropertyChanged();
+            }
+        }
+        public virtual ObservableCollection<Patient> Patients
+        {
+            get { return _patients; }
+            set
+            {
+                if (Equals(value, _patients)) return;
+                _patients = value;
+                OnPropertyChanged();
+            }
+        }
+        public virtual ObservableCollection<Specialite> Specialities
+        {
+            get { return _specialities; }
+            set
+            {
+                if (Equals(value, _specialities)) return;
+                _specialities = value;
+                OnPropertyChanged();
+            }
+        }
+        public byte[] ProfilePicture
+        {
+            get { return _profilePicture; }
+            set
+            {
+                if (value == _profilePicture) return;
+                _profilePicture = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion                                   
         #region INotifyPropertyChanged related
 
         public event PropertyChangedEventHandler PropertyChanged;
