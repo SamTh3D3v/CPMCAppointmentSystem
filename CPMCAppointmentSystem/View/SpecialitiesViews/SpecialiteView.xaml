@@ -6,6 +6,7 @@
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="800" DataContext="{Binding Source={StaticResource Locator},Path=SpecialityViewModel}"
 	Title="SpecialiteView">
@@ -81,16 +82,16 @@
                 <Image Source="{StaticResource SpecialityDark}" Grid.Column="0" Grid.Row="0" Width="75"/>              
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Nom du specilaité" x:Name="NomBox" 
-                                          ValidationMode="LostFocus" Grid.Column="1" Text="{Binding SelectedSpeciality.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
+                <syncfusion:SfMaskedEdit  Watermark="Nom du specilaité" x:Name="TxtEditNomSpec" 
+                                           Grid.Column="1" Text="{Binding SelectedSpeciality.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Code du specialité" Margin="10 5" x:Name="CodeBox" 
-                                         Text="{Binding SelectedSpeciality.Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ValidationMode="LostFocus"
+                <syncfusion:SfMaskedEdit Watermark="Code du specialité"  x:Name="TxtEditCodeSpec" 
+                                         Text="{Binding SelectedSpeciality.Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" 
                                          Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Description" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Description du spécialité" x:Name="DescriptionBox" Text="{Binding SelectedSpeciality.Description,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Margin="10 5"/>                
+                <syncfusion:SfMaskedEdit Watermark="Description du spécialité" x:Name="DescriptionBox" Text="{Binding SelectedSpeciality.Description,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2"  Height="Auto" />
 
                 <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
@@ -98,27 +99,66 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveSpecialityCommand}">
+                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveSpecialityCommand}" >
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
-                                <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Save" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                <Setter Property="IsEnabled" Value="false" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=TxtEditNomSpec, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditCodeSpec, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition>
+                                                <Condition.Binding>
+                                                    <Binding Path="SelectedSpeciality" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                        <Binding.ConverterParameter>
+                                                            <x:Null/>
+                                                        </Binding.ConverterParameter>
+                                                    </Binding>
+                                                </Condition.Binding>
+                                                <Condition.Value>
+                                                    <system:Boolean>False</system:Boolean>
+                                                </Condition.Value>
+                                            </Condition>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="true" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
                     <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteSpecialityCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
-                                <TextBlock Text="Delete" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Delete" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                <Setter Property="IsEnabled" Value="True" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedSpeciality.SpecialiteId}">
+                                        <DataTrigger.Value>
+                                            <system:Guid>00000000-0000-0000-0000-000000000000</system:Guid>
+                                        </DataTrigger.Value>
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
-                    <Button Grid.Column="2"  Margin="2" Command="{Binding CancelSpecialityChangesCommand}">
+                    <Button Grid.Column="2"  Margin="2" Command="{Binding CancelSpecialityChangesCommand}" >
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
-                                <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>

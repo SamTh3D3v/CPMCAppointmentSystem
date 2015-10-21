@@ -84,16 +84,16 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <syncfusion:SfMaskedEdit Watermark="Nom du pathology" 
-                                                  ValidationMode="LostFocus" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" x:Name="TxtEditNomPatho" Grid.Column="1" Grid.Row="1" >
+                                                   Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" x:Name="TxtEditNomPatho" Grid.Column="1" Grid.Row="1" >
                 </syncfusion:SfMaskedEdit>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Code du pathology" ValidationMode="LostFocus" Text="{Binding SelectedPathology.CodePathology,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" x:Name="TxtEditCodePatho" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <syncfusion:SfMaskedEdit Watermark="Code du pathology"  Text="{Binding SelectedPathology.CodePathology,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" x:Name="TxtEditCodePatho" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
                 </syncfusion:SfMaskedEdit>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Description" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Description du pathology" x:Name="DescriptionBox" Text="{Binding SelectedPathology.Description,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Margin="10 5"/>
+                <syncfusion:SfMaskedEdit Watermark="Description du pathology" x:Name="DescriptionBox" Text="{Binding SelectedPathology.Description,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" />
 
 
                 <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
