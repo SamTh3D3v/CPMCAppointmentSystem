@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View;
@@ -200,10 +202,6 @@ namespace CPMCAppointmentSystem.ViewModel
         #endregion
         #region Commands
         private RelayCommand _savePathologyWhithDoctorsCommand;
-
-        /// <summary>
-        /// Gets the SavePathologyWhithDoctorsCommand.
-        /// </summary>
         public RelayCommand SavePathologyWhithDoctorsCommand
         {
             get
@@ -455,6 +453,56 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelPatientsToDoctorsViewCommand = new RelayCommand(
                     () =>
                     {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _deleteDoctorImageCommand;
+        public RelayCommand DeleteDoctorImageCommand
+        {
+            get
+            {
+                return _deleteDoctorImageCommand
+                    ?? (_deleteDoctorImageCommand = new RelayCommand(
+                    () =>
+                    {
+                        SelectedDoctor.ProfilePicture = null;
+                        
+                    }));
+            }
+        }
+        private RelayCommand _loadDoctorImageCommand;
+        public RelayCommand LoadDoctorImageCommand
+        {   
+            get
+            {
+                return _loadDoctorImageCommand
+                    ?? (_loadDoctorImageCommand = new RelayCommand(
+                    () =>
+                    {
+                        var openFileDialog = new OpenFileDialog
+                        {
+                            ReadOnlyChecked = true,
+                            Filter = "Image Files (*.bmp, *.png, *.jpg)|*.bmp;*.png;*.jpg"
+                        };
+                        var result = openFileDialog.ShowDialog();
+                        if (result != DialogResult.OK) return;
+                        var imagePath = openFileDialog.FileName;
+
+                        try
+                        {
+                            var imageFileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+                            var imageStreamReader = new BinaryReader(imageFileStream);
+                            byte[] pic = imageStreamReader.ReadBytes((int)imageFileStream.Length);
+                            imageStreamReader.Close();
+                            imageFileStream.Close();
+                            SelectedDoctor.ProfilePicture = pic;
+
+                        }
+                        catch (Exception exception)
+                        {
+                            MessageBox.Show(exception.Message);
+                        }
                         
                     }));
             }
