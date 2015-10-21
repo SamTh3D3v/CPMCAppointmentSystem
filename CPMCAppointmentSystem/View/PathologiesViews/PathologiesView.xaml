@@ -19,103 +19,6 @@
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Page.Resources>
-        <Style TargetType="{x:Type syncfusion:SfMaskedEdit}">
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="Margin"  Value="10 5"/>
-            <Setter Property="Validation.ErrorTemplate">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Border VerticalAlignment="Top"
-                    BorderBrush="#FFdc000c"
-                    BorderThickness="1"
-                    CornerRadius="0.7">
-                                <Grid>
-                                    <Polygon x:Name="toolTipCorner"
-                             Margin="-1"
-                             HorizontalAlignment="Right"
-                             VerticalAlignment="Top"
-                             Panel.ZIndex="2"
-                             Fill="#FFdc000c"
-                             IsHitTestVisible="True"
-                             Points="6,6 6,0 0,0" />
-                                    <Polyline Margin="-1"
-                              HorizontalAlignment="Right"
-                              VerticalAlignment="Top"
-                              Panel.ZIndex="3"
-                              IsHitTestVisible="True"
-                              Points="7,7 0,0"
-                              Stroke="White"
-                              StrokeEndLineCap="Round"
-                              StrokeStartLineCap="Round"
-                              StrokeThickness="1.5" />
-                                    <AdornedElementPlaceholder x:Name="adorner" />
-                                </Grid>
-                            </Border>
-                            <Border x:Name="errorBorder"
-                    MinHeight="24"
-                    MaxWidth="267"
-                    Margin="2,0,0,0"
-                    Background="#FFdc000c"
-                    CornerRadius="1.5"
-                    IsHitTestVisible="False"
-                    Opacity="1">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="4"
-                                      Direction="315"
-                                      Opacity="0.4"
-                                      ShadowDepth="2.25"
-                                      Color="Black" />
-                                </Border.Effect>
-                                <TextBlock Margin="8,3,8,3"
-                           Foreground="White"
-                           Text="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent,
-                                          ElementName=adorner}"
-                           TextWrapping="Wrap" />
-                            </Border>
-                        </StackPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type syncfusion:SfMaskedEdit}">
-                        <Grid>
-                            <Themes:ListBoxChrome x:Name="Bd"
-                                  Background="{TemplateBinding Background}"
-                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                  BorderThickness="{TemplateBinding BorderThickness}"
-                                  RenderFocused="{TemplateBinding IsKeyboardFocusWithin}"
-                                  RenderMouseOver="{TemplateBinding IsMouseOver}"
-                                  SnapsToDevicePixels="True">
-                                <Grid VerticalAlignment="Center">
-                                    <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                    <ContentControl x:Name="PART_Watermark"
-                                    Margin="2,0,0,0"
-                                    Background="{TemplateBinding Background}"
-                                    Content="{TemplateBinding Watermark}"
-                                    ContentTemplate="{TemplateBinding WatermarkTemplate}"
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontStretch="{TemplateBinding FontStretch}"
-                                    FontStyle="{TemplateBinding FontStyle}"
-                                    FontWeight="{TemplateBinding FontWeight}"
-                                    Foreground="{TemplateBinding Foreground}"
-                                    IsHitTestVisible="False"
-                                    IsTabStop="False"
-                                    Opacity="0.5"
-                                    Padding="{TemplateBinding Padding}"
-                                    Visibility="{TemplateBinding Visibility}" />
-                                </Grid>
-                            </Themes:ListBoxChrome>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -180,7 +83,7 @@
                 <Image Source="{StaticResource PathologyDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Nom du pathology" Validation.Error="NomBox_OnError" 
+                <syncfusion:SfMaskedEdit Watermark="Nom du pathology" 
                                                   ValidationMode="LostFocus" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" x:Name="TxtEditNomPatho" Grid.Column="1" Grid.Row="1" >
                 </syncfusion:SfMaskedEdit>
 

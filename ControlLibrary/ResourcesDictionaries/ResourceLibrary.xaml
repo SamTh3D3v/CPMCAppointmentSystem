@@ -18,6 +18,7 @@
         <ResourceDictionary Source="BaseControlStyles/TextBoxStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/ToggleButtonStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/TextBlockStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/SfMaskedEditStyle.xaml"/>
 
         <!--Custom Controls Styles-->
         <ResourceDictionary Source="CustomControlsStyles/PopupButtonStyle.xaml"/>

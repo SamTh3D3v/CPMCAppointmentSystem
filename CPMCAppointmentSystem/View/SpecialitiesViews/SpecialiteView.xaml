@@ -81,10 +81,13 @@
                 <Image Source="{StaticResource SpecialityDark}" Grid.Column="0" Grid.Row="0" Width="75"/>              
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Nom du specilaité" x:Name="NomBox" Grid.Column="1" Text="{Binding SelectedSpeciality.Name,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
+                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Nom du specilaité" x:Name="NomBox" 
+                                          ValidationMode="LostFocus" Grid.Column="1" Text="{Binding SelectedSpeciality.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Code du specialité" Margin="10 5" x:Name="CodeBox" Text="{Binding SelectedSpeciality.Code}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
+                <syncfusion:SfMaskedEdit Watermark="Code du specialité" Margin="10 5" x:Name="CodeBox" 
+                                         Text="{Binding SelectedSpeciality.Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ValidationMode="LostFocus"
+                                         Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>                
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Description" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <syncfusion:SfMaskedEdit Watermark="Description du spécialité" x:Name="DescriptionBox" Text="{Binding SelectedSpeciality.Description,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Margin="10 5"/>                
