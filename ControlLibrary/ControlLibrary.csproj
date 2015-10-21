@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\FlagToIsCheckedConverter.cs" />
     <Compile Include="Converters\SelecteImageConverter.cs" />
     <Compile Include="Converters\ValueToEqualsParameterConverter.cs" />
     <Compile Include="Helpers\PasswordBoxMonitor.cs" />
@@ -313,6 +314,12 @@
     <Resource Include="Images\Icons\Light\ChartLight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{7500895c-7dcd-40eb-8fc7-6023a6145764}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

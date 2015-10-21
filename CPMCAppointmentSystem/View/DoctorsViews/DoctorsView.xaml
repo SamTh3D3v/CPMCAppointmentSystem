@@ -7,6 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:model="clr-namespace:DataLayer.Model;assembly=DataLayer"
       mc:Ignorable="d" 
        d:DesignHeight="700" d:DesignWidth="800" DataContext="{Binding Source={StaticResource Locator},Path=DoctorsViewModel}"
 	Title="DoctorsView">
@@ -85,6 +86,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
 
                 </Grid.RowDefinitions>
@@ -153,7 +155,30 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <GroupBox Header="Données de connection" Margin="0,20,0,0" Grid.Row="7" Grid.Column="0"  Grid.ColumnSpan="2">
+
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Jours de travail" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <ScrollViewer Grid.Column="1" Grid.Row="6" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" Margin="10 5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ToggleButton Width="35" Content="S" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Saturday},Mode=TwoWay}" ToolTip="Samedi" Grid.Column="0" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="D" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Sunday},Mode=TwoWay}" ToolTip="Dimanche" Grid.Column="1" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="L" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Monday},Mode=TwoWay}" ToolTip="Lundi" Grid.Column="2" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="M" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Tuesday},Mode=TwoWay}" ToolTip="Mardi" Grid.Column="3" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="M" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Wednesday},Mode=TwoWay}" ToolTip="Mercredi" Grid.Column="4" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="J" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Thursday},Mode=TwoWay}" ToolTip="Jeudi" Grid.Column="5" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="V" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Friday},Mode=TwoWay}" ToolTip="Vendredi" Grid.Column="6" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                    </Grid>
+                </ScrollViewer>
+
+                <GroupBox Header="Données de connection" Margin="0,20,0,0" Grid.Row="8" Grid.Column="0"  Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -185,7 +210,7 @@
                 </GroupBox>
 
 
-                <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                <Grid Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>

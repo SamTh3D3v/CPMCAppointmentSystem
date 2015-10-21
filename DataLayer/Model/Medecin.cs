@@ -20,11 +20,14 @@ namespace DataLayer.Model
         Monday = 4,
         Tuesday = 8,
         Wednesday = 16,
-        Fryday = 32       
+        Thursday=32,
+        Friday = 64       
     }
     [Table("Medecin")]
     public class Medecin : INotifyPropertyChanged
-    {      
+    {
+        private Days _joursDeTravail;
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid MedecinId { get; set; }        
@@ -32,7 +35,24 @@ namespace DataLayer.Model
         public String TelephoneFixe { get; set; }
         public String TelephoneMobile { get; set; }        
         public Guid SpecialiteId { get; set; }
-        public Days JoursDeTravail { get; set; }
+
+        public Days JoursDeTravail
+        {
+            get
+            {
+                return _joursDeTravail;
+            }
+            set
+            {
+                if (value == _joursDeTravail) return;
+                //_joursDeTravail = ((decimal) value > 0)
+                //    ? _joursDeTravail | (Days) value
+                //    : _joursDeTravail & (Days) value;
+                _joursDeTravail = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Guid UserId { get; set; }
         [ForeignKey("SpecialiteId")]
         public virtual  Specialite Speciality { get; set; }

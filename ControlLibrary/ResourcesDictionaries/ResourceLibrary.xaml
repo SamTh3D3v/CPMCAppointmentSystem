@@ -52,7 +52,8 @@
         <ResourceDictionary>
             <converters:SelecteImageConverter x:Key="SelecteImageConverter"/>
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-            <converters:ValueToEqualsParameterConverter x:Key="IsValueEqualToParameterConverter"/>            
+            <converters:ValueToEqualsParameterConverter x:Key="IsValueEqualToParameterConverter"/>
+            <converters:FlagToIsCheckedConverter x:Key="FlagToIsCheckedConverter"/>            
         </ResourceDictionary>
 
 
