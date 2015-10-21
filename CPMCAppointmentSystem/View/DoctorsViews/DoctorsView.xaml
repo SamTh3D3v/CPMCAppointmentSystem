@@ -53,7 +53,7 @@
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
-                    <syncfusion:GridTextColumn HeaderText="Spécialité" MappingName="Speciality.Name"/>
+                    <syncfusion:GridTextColumn HeaderText="Spécialité" MappingName="SpecialitePrincipale.Name"/>
                     <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
                     <syncfusion:GridTextColumn HeaderText="Fixe" MappingName="TelephoneFixe"/>
                     <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
@@ -143,7 +143,7 @@
                 <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Telephone mobile" x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Spécialité" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <ComboBox x:Name="SpecialityBox" Margin="10 5" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctor.Speciality,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <ComboBox x:Name="SpecialityBox" Margin="10 5" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctor.SpecialitePrincipale,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="5"  Text="Spécialité">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -330,7 +330,7 @@
                                        AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding SelectedDoctor.Speciality}"                                   
+                                       ItemsSource="{Binding SelectedDoctor.SpecialitePrincipale}"                                   
                                        ShowGroupDropArea="True" />
 
                             </Grid>

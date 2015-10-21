@@ -44,8 +44,8 @@
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
         <Syncfusion:SfMaskedEdit Margin="10 5" x:Name="PrenomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserPrenom}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="3" Text="Speciality" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <Syncfusion:SfMaskedEdit Margin="10 5" x:Name="SPrecialityBox" IsEnabled="False" Text="{Binding SelectedDoctor.Speciality.Name}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="SpecialitePrincipale" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <Syncfusion:SfMaskedEdit Margin="10 5" x:Name="SPrecialityBox" IsEnabled="False" Text="{Binding SelectedDoctor.SpecialitePrincipale.Name}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
 

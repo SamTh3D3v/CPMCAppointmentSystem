@@ -48,7 +48,7 @@
                         <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" AllowEditing="False" />                        
                         <syncfusion:GridTextColumn HeaderText="Mobile" AllowEditing="False" MappingName="TelephoneMobile"  />
                         <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded" AllowEditing="True"/>
-                        <syncfusion:GridTextColumn HeaderText="Speciality" MappingName="Speciality.Name" AllowEditing="False"/>
+                        <syncfusion:GridTextColumn HeaderText="SpecialitePrincipale" MappingName="SpecialitePrincipale.Name" AllowEditing="False"/>
                     </syncfusion:SfDataGrid.Columns>
                 </syncfusion:SfDataGrid>
                 <syncfusion:SfDataPager x:Name="DoctorDataPager"

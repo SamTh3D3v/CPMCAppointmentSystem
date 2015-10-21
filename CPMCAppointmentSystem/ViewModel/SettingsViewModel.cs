@@ -380,7 +380,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     },
                     new TreeViewModel()
                     {
-                        Content = "Speciality View",
+                        Content = "SpecialitePrincipale View",
                         TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
                         {
                             new TreeViewModel()

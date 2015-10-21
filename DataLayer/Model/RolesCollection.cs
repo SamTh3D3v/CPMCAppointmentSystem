@@ -140,7 +140,7 @@ namespace DataLayer.Model
         }
 
         #endregion
-        #region Speciality View
+        #region SpecialitePrincipale View
 
         public bool SpecialitiesViewAllow
         {
