@@ -271,11 +271,10 @@ namespace CPMCAppointmentSystem.ViewModel
                             if (SelectedPathology.PathologyId != Guid.Empty)
                             {
                                 _dbContext.Pathologies.Remove(SelectedPathology);
-                                PathologiesList.Remove(SelectedPathology);
-                                SelectedPathology = null;
+                                PathologiesList.Remove(SelectedPathology);                                
                                 _dbContext.SaveChanges();
+                                SelectedPathology = null;
                             }
-
                         }
 
                     }));

@@ -113,7 +113,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     return;
                 }
-                IsFormEnabled = true;
+                IsFormEnabled = value != null;
                 _selectedSpeciality = value;
                 RaisePropertyChanged();
             }
@@ -148,8 +148,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addSpecialityCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedSpeciality = new Specialite();
-                        IsFormEnabled = true;
+                        SelectedSpeciality = new Specialite();                        
                     }));
             }
         }
@@ -193,15 +192,15 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _saveSpecialityCommand
-                    ?? (_saveSpecialityCommand = new RelayCommand(
-                    () =>
+                    ?? (_saveSpecialityCommand = new RelayCommand(async () =>
                     {
                         if (SelectedSpeciality.SpecialiteId == Guid.Empty)
                         {
                             AddNewSpeciality();
                         }
                         _dbContext.SaveChanges();
-                        LoadSpacialities();
+                        await LoadSpacialities();
+                        SelectedSpeciality = null;
                     }));
             }
         }
@@ -214,6 +213,17 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deleteSpecialityCommand = new RelayCommand(
                     () =>
                     {
+                        //todo Logical suppression 
+                        if (SelectedSpeciality != null)
+                        {
+                            if (SelectedSpeciality.SpecialiteId != Guid.Empty)
+                            {
+                                _dbContext.Specialites.Remove(SelectedSpeciality);
+                                SpecialityList.Remove(SelectedSpeciality);                                
+                                _dbContext.SaveChanges();
+                                SelectedSpeciality = null;
+                            }
+                        }
 
                     }));
             }
@@ -227,7 +237,12 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelSpecialityChangesCommand = new RelayCommand(
                     () =>
                     {
-
+                        if (SelectedSpeciality != null)
+                        {
+                            if (SelectedSpeciality.SpecialiteId != Guid.Empty)
+                                _dbContext.Entry(SelectedSpeciality).Reload();
+                        }
+                        SelectedSpeciality = null;
                     }));
             }
         }
@@ -291,7 +306,7 @@ namespace CPMCAppointmentSystem.ViewModel
         {
         }
 
-        private async void LoadSpacialities()
+        private async Task LoadSpacialities()
         {
             SpecialityList = new ObservableCollection<Specialite>(await Task.Run(() => _dbContext.Specialites));
         }
