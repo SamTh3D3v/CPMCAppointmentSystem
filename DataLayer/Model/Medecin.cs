@@ -25,7 +25,7 @@ namespace DataLayer.Model
         Friday = 64       
     }
     [Table("Medecin")]
-    public class Medecin : INotifyPropertyChanged
+    public class Medecin : INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
         private Days _joursDeTravail;
@@ -46,7 +46,6 @@ namespace DataLayer.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid MedecinId { get; set; }
-
         public DateTime DateDeNaissance
         {
             get { return _dateDeNaissance; }
@@ -57,7 +56,6 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
         public String TelephoneFixe
         {
             get { return _telephoneFixe; }
@@ -170,6 +168,10 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
+        public string Error
+        {
+            get { return String.Empty; }
+        }
         #endregion                                   
         #region INotifyPropertyChanged related
 
@@ -182,5 +184,26 @@ namespace DataLayer.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "SpecialitePrincipale")
+                {
+                    if (SpecialitePrincipale ==null)
+                        result = "Spesifiez la specialité principale du medecin";
+                }
+                if (columnName == "JoursDeTravail")
+                {
+                    if (JoursDeTravail==Days.None)
+                        result = "Spesifiez les jours de travail de medecin";
+                }
+                return result;
+            }
+        }
+
+       
     }  
 }

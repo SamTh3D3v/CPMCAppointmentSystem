@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,20 +13,96 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Pathology")]
-    public class Pathology : INotifyPropertyChanged,IDataErrorInfo
-    {        
+    public class Pathology : INotifyPropertyChanged, IDataErrorInfo
+    {
 
+        #region Fields
+        private Guid _pathologyId;
+        private string _codePathology;
+        private string _nomPathology;
+        private string _description;
+        private ObservableCollection<Medecin> _medecins;
+        private ObservableCollection<Patient> _patients;
+        #endregion
+        #region Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid PathologyId { get; set; }
+        public Guid PathologyId
+        {
+            get { return _pathologyId; }
+            set
+            {
+                if (value.Equals(_pathologyId)) return;
+                _pathologyId = value;
+                OnPropertyChanged();
+            }
+        }
+
         [Required]
-        public String CodePathology { get; set; }
+        public String CodePathology
+        {
+            get { return _codePathology; }
+            set
+            {
+                if (value == _codePathology) return;
+                _codePathology = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Item");
+            }
+        }
+
         [Required]
-        public String NomPathology { get; set; }
-        public String Description { get; set; }
-        public virtual ICollection<Medecin> Medecins { get; set; }
-        public virtual ICollection<Patient> Patients { get; set; }
-       
+        public String NomPathology
+        {
+            get { return _nomPathology; }
+            set
+            {
+                if (value == _nomPathology) return;
+                _nomPathology = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Item");
+            }
+        }
+
+        public String Description
+        {
+            get { return _description; }
+            set
+            {
+                if (value == _description) return;
+                _description = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public virtual ObservableCollection<Medecin> Medecins
+        {
+            get { return _medecins; }
+            set
+            {
+                if (Equals(value, _medecins)) return;
+                _medecins = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public virtual ObservableCollection<Patient> Patients
+        {
+            get { return _patients; }
+            set
+            {
+                if (Equals(value, _patients)) return;
+                _patients = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Error
+        {
+            get { return String.Empty; }
+
+        }
+        #endregion
         public string this[string columnName]
         {
             get
@@ -40,15 +117,9 @@ namespace DataLayer.Model
                 {
                     if (string.IsNullOrEmpty(CodePathology))
                         result = "Donner le code de pathology";
-                }                
+                }
                 return result;
             }
-        }
-
-        public string Error
-        {
-            get { return String.Empty; }
-           
         }
 
         #region INotifyPropertyChanged related

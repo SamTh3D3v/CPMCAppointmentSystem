@@ -12,7 +12,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("User")]
-    public class User : INotifyPropertyChanged
+    public class User : INotifyPropertyChanged,IDataErrorInfo
     {
         #region Fields
         private Guid _userId;
@@ -165,6 +165,10 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
+        public string Error
+        {
+            get { return String.Empty; }
+        }
         #endregion
         #region INotifyPropertyChanged related        
 
@@ -177,5 +181,36 @@ namespace DataLayer.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "UserNom")
+                {
+                    if (UserNom.All(Char.IsLetter) || String.IsNullOrEmpty(UserNom))
+                        result = "Donnez un nom valide";
+                }
+                if (columnName == "UserPrenom")
+                {
+                    if (UserPrenom.All(Char.IsLetter) || String.IsNullOrEmpty(UserNom))
+                        result = "Donnez un prenom valide";
+                }
+                if (columnName == "UserName")
+                {
+                    if (UserPrenom.All(Char.IsLetterOrDigit) || String.IsNullOrEmpty(UserNom))
+                        result = "Donnez un nom d'utilisateur valide";
+                    else
+                    {
+                        var _dbContext = new CpmcContext();
+                        if (_dbContext.Users.Any(u=>u.UserName==UserName))
+                            result = "Ce nom d'utlisateur est deja prise";                        
+                    }                    
+                }
+                return result;
+            }
+        }
+        
     }
 }
