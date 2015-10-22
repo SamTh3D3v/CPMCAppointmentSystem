@@ -194,6 +194,7 @@
     <Compile Include="Actions\TileLoadedAction.cs" />
     <Compile Include="Behavior\StateChangeBehavior.cs" />
     <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="Helpers\ApplicationSettings.cs" />
     <Compile Include="Helpers\AsyncWindowExtension.cs" />
     <Compile Include="Helpers\ChartTile.cs" />
     <Compile Include="Helpers\FrameNavigationService.cs" />
