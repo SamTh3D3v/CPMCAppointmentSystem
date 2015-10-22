@@ -52,53 +52,64 @@
                             <ColumnDefinition Width="3"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <ListView ItemsSource="{Binding UserTypeCollection}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="Focusable" Value="False"></Setter>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="2">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <ToggleButton IsChecked="{Binding IsAdded,Mode=TwoWay}" x:Name="FilterButton" Width="45" Height="45"  Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
-                                            <Path Stretch="Uniform"  Width="20" Height="20" Margin="0,0,0,0" >
-                                                <Path.Style>
-                                                    <Style TargetType="Path">
-                                                        <Setter Property="Fill" Value="LightGray"></Setter>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding ElementName=FilterButton,Path=IsChecked}" Value="True">
-                                                                <Setter Property="Fill" Value="White"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding UserTypeName}" Value="Medecin">
-                                                                <Setter Property="Data" Value="{StaticResource DoctorPath}"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding UserTypeName}" Value="Admin">
-                                                                <Setter Property="Data" Value="{StaticResource AdminPath}"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding UserTypeName}" Value="Agent">
-                                                                <Setter Property="Data" Value="{StaticResource AgentPath}"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Path.Style>
-                                            </Path>
-                                        </ToggleButton>
-                                        <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextBlockStyle}"  FontSize="12" Margin="10"  Text="{Binding UserTypeName}"></TextBlock>                                        
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-
-                        </ListView>
+                        <Grid Grid.Row="0" Grid.Column="0" Margin="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ListView ItemsSource="{Binding UserTypeCollection}" Grid.Column="0"  Margin="5">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Focusable" Value="False"></Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <ToggleButton IsChecked="{Binding IsAdded,Mode=TwoWay}" x:Name="FilterButton" Width="45" Height="45"  Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
+                                                <Path Stretch="Uniform"  Width="20" Height="20" Margin="0,0,0,0" >
+                                                    <Path.Style>
+                                                        <Style TargetType="Path">
+                                                            <Setter Property="Fill" Value="LightGray"></Setter>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=FilterButton,Path=IsChecked}" Value="True">
+                                                                    <Setter Property="Fill" Value="White"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding UserTypeName}" Value="Medecin">
+                                                                    <Setter Property="Data" Value="{StaticResource DoctorPath}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding UserTypeName}" Value="Admin">
+                                                                    <Setter Property="Data" Value="{StaticResource AdminPath}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding UserTypeName}" Value="Agent">
+                                                                    <Setter Property="Data" Value="{StaticResource AgentPath}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Path.Style>
+                                                </Path>
+                                            </ToggleButton>
+                                            <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextBlockStyle}"  FontSize="12" Margin="10"  Text="{Binding UserTypeName}"></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddNewUserCommand}" ToolTip="Show filter" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Button.Content>
+                                    <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
+                                </Button.Content>
+                            </Button>
+                        </Grid>
+                       
                         <Grid Grid.Column="0" Grid.Row="1" Margin="4">
                             <syncfusion:SfDataGrid ColumnSizer="Star" AddNewRowPosition="Bottom"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                        AllowDraggingColumns="True"
@@ -106,7 +117,7 @@
                                        AllowFiltering="True"
                                        AllowGrouping="True" 
                                                    AllowDeleting="True"
-                                       ItemsSource="{Binding UsersList,Mode=TwoWay}"
+                                       ItemsSource="{Binding UsersList,Mode=TwoWay}"                                                   
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedUser,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
@@ -114,6 +125,7 @@
                                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="UserNom" />
                                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="UserPrenom"/>
                                     <syncfusion:GridTextColumn HeaderText="UserName" MappingName="UserName"/>
+                                    <syncfusion:GridTextColumn HeaderText="Type" MappingName="UserType.UserTypeName"/>
                                 </syncfusion:SfDataGrid.Columns>
                             </syncfusion:SfDataGrid>
                         </Grid>
@@ -137,6 +149,7 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                                     <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
@@ -152,6 +165,22 @@
                                     <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Prenom de l'utilisateur" 
                                      />
+
+
+                                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Type" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                    <ComboBox x:Name="CbxUserType" Margin="10 5" ItemsSource="{Binding UserTypeCollection}" DisplayMemberPath="UserTypeName" SelectedItem="{Binding SelectedUser.UserType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="3"  Text="Type d'utilisateur" VerticalAlignment="Center">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=CbxUserType}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
                                 </Grid>
                             </GroupBox>
                             <GroupBox Grid.Row="1" Grid.Column="0">
