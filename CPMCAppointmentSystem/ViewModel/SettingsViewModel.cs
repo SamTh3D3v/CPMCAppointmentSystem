@@ -27,8 +27,27 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<PieceJointeType> _typePieceJointeCollection;
         private PieceJointeType _selectedTypePieceJointe;
         private string _reportPath;
+        private bool _isFormEnabled;
         #endregion
         #region Properties
+        public bool IsFormEnabled
+        {
+            get
+            {
+                return _isFormEnabled;
+            }
+
+            set
+            {
+                if (_isFormEnabled == value)
+                {
+                    return;
+                }
+
+                _isFormEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
         public string ReportPath
         {
             get
@@ -80,6 +99,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _selectedUser = value;
+                IsFormEnabled = value != null;
                 RaisePropertyChanged();
                 LoadRollCollectionForSelectedUser();
             }
@@ -285,6 +305,19 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand _addNewUserCommand;
+        public RelayCommand AddNewUserCommand
+        {
+            get
+            {
+                return _addNewUserCommand
+                    ?? (_addNewUserCommand = new RelayCommand(
+                    () =>
+                    {
+                        SelectedUser=new User();                        
+                    }));
+            }
+        }
 
         #endregion
         #region Ctors and Methods
@@ -309,18 +342,19 @@ namespace CPMCAppointmentSystem.ViewModel
             })));
         }
 
-        private void LoadRollCollectionForSelectedUser()
+        private async Task LoadRollCollectionForSelectedUser()
         {
 
-            if (SelectedUser != null)
-            {
-
-
-                if (SelectedUser.RolesCollection == null)
+            await Task.Run(() =>
+            {           
+                if (SelectedUser != null)
                 {
-                    SelectedUser.RolesCollection = new RolesCollection();
-                }
-                TreeViewRollCollection = new ObservableCollection<TreeViewModel>()
+
+                    if (SelectedUser.RolesCollection == null)
+                    {
+                        SelectedUser.RolesCollection = new RolesCollection();
+                    }
+                    TreeViewRollCollection = new ObservableCollection<TreeViewModel>()
                 {
                     new TreeViewModel()
                     {
@@ -476,8 +510,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     }
 
                 };
-            }
-
+                }
+            });
         }
         #endregion
     }

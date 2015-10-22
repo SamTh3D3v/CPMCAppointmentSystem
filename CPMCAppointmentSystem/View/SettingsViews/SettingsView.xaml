@@ -57,7 +57,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <ListView ItemsSource="{Binding UserTypeCollection}" Grid.Column="0"  Margin="5">
+                            <ListView Background="Transparent" ItemsSource="{Binding UserTypeCollection}" Grid.Column="0"  Margin="5" BorderThickness="0">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="Focusable" Value="False"></Setter>
@@ -111,9 +111,9 @@
                         </Grid>
                        
                         <Grid Grid.Column="0" Grid.Row="1" Margin="4">
-                            <syncfusion:SfDataGrid ColumnSizer="Star" AddNewRowPosition="Bottom"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                       AllowDraggingColumns="True"
-                                       AllowEditing="True"
+                            <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                       AllowDraggingColumns="True"                                                   
+                                       AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True" 
                                                    AllowDeleting="True"
@@ -130,7 +130,7 @@
                             </syncfusion:SfDataGrid>
                         </Grid>
                         <GridSplitter Grid.Row="0" Grid.RowSpan="2" Background="Gray" Width="1" Margin="1" Grid.Column="1" VerticalAlignment="Stretch"/>
-                        <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+                        <Grid Grid.Row="0" Grid.Column="2" IsEnabled="{Binding IsFormEnabled}" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
