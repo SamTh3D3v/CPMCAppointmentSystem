@@ -1,5 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.IO;
+using System.Windows.Controls;
 using GalaSoft.MvvmLight.Messaging;
+using Path = System.Windows.Shapes.Path;
 
 namespace CPMCAppointmentSystem.View.SettingsViews
 {    
@@ -17,6 +19,8 @@ namespace CPMCAppointmentSystem.View.SettingsViews
                         break;
                 }
             });
+            
+            
         }
 
        

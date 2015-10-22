@@ -71,13 +71,22 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         <ToggleButton IsChecked="{Binding IsAdded,Mode=TwoWay}" x:Name="FilterButton" Width="45" Height="45"  Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
-                                            <Path Data="M11.961001,32.591001L27.961,32.591001 27.961,38.352 11.961001,38.352z M41.431141,29.375001L46.286661,29.375001C51.203279,29.375001,55.316496,33.104243,56.395998,38.112L31.323,38.112C32.403814,33.104243,36.513142,29.375001,41.431141,29.375001z M11.961001,22.992001L27.961,22.992001 27.961,28.751 11.961001,28.751z M43.85944,14.016001C47.470053,14.016001 50.393,16.945526 50.393,20.549741 50.393,24.159045 47.470053,27.086 43.85944,27.086 40.250229,27.086 37.326,24.159045 37.326,20.549741 37.326,16.945526 40.250229,14.016001 43.85944,14.016001z M11.961001,13.39L27.961,13.39 27.961,19.151 11.961001,19.151z M6.4470005,6.6650009L6.4470005,45.109001 57.779001,45.109001 57.779001,6.6650009z M0,0L64.000002,0 64.000002,51.331001 0,51.331001z" Stretch="Uniform"  Width="20" Height="20" Margin="0,0,0,0" >
+                                            <Path Stretch="Uniform"  Width="20" Height="20" Margin="0,0,0,0" >
                                                 <Path.Style>
                                                     <Style TargetType="Path">
                                                         <Setter Property="Fill" Value="LightGray"></Setter>
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding ElementName=FilterButton,Path=IsChecked}" Value="True">
-                                                                <Setter Property="Fill" Value="White"></Setter>
+                                                                <Setter Property="Fill" Value="White"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding UserTypeName}" Value="Medecin">
+                                                                <Setter Property="Data" Value="{StaticResource DoctorPath}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding UserTypeName}" Value="Admin">
+                                                                <Setter Property="Data" Value="{StaticResource AdminPath}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding UserTypeName}" Value="Agent">
+                                                                <Setter Property="Data" Value="{StaticResource AgentPath}"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>

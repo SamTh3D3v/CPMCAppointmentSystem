@@ -5,6 +5,9 @@
         <!--Load Brush Resources-->
         <ResourceDictionary Source="Brushes/DefaultColorTheme.xaml"/>
         <ResourceDictionary Source="Brushes/Icons.xaml"/>
+        
+        <!--Paths--> 
+        <ResourceDictionary Source="Paths/Paths.xaml"/>
 
         <!--Base Controls Style-->        
         <ResourceDictionary Source="BaseControlStyles/CheckBoxStyle.xaml"/>
