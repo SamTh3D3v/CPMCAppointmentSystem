@@ -134,25 +134,25 @@
                 </Grid>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Watermark="Nom" x:Name="NomBox" Margin="10 5" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <syncfusion:SfMaskedEdit Watermark="Nom" x:Name="TxtEditNom" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" />
 
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit x:Name="PrenomBox" Margin="10 5" Watermark="Prenom" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserPrenom,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <syncfusion:SfMaskedEdit x:Name="TexEditPrenom"  Watermark="Prenom" Grid.Column="1" Text="{Binding SelectedDoctor.User.UserPrenom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2" />
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="TelephoneFixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Telephone fixe" x:Name="TelFixBox" Grid.Column="1" Text="{Binding SelectedDoctor.TelephoneFixe,Mode=TwoWay}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <syncfusion:SfMaskedEdit Watermark="Telephone fixe" x:Name="TexEditTelFix" Grid.Column="1" Text="{Binding SelectedDoctor.TelephoneFixe,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="3"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Mobile" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Telephone mobile" x:Name="Mob1Box" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <syncfusion:SfMaskedEdit Watermark="Telephone mobile" x:Name="TexEditMobile" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" />
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Spécialité" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <ComboBox x:Name="SpecialityBox" Margin="10 5" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctor.SpecialitePrincipale,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="5"  Text="Spécialité">
+                <ComboBox x:Name="CbxSpeciality" Margin="10 5" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctor.SpecialitePrincipale,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="5"  Text="Spécialité" VerticalAlignment="Center">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=SpecialityBox}" Value="">
+                                <DataTrigger Binding="{Binding Text, ElementName=CbxSpeciality}" Value="">
                                     <Setter Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -172,13 +172,13 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <ToggleButton Width="35" Content="S" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Saturday},Mode=TwoWay}" ToolTip="Samedi" Grid.Column="0" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
-                        <ToggleButton Width="35" Content="D" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Sunday},Mode=TwoWay}" ToolTip="Dimanche" Grid.Column="1" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
-                        <ToggleButton Width="35" Content="L" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Monday},Mode=TwoWay}" ToolTip="Lundi" Grid.Column="2" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
-                        <ToggleButton Width="35" Content="M" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Tuesday},Mode=TwoWay}" ToolTip="Mardi" Grid.Column="3" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
-                        <ToggleButton Width="35" Content="M" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Wednesday},Mode=TwoWay}" ToolTip="Mercredi" Grid.Column="4" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
-                        <ToggleButton Width="35" Content="J" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Thursday},Mode=TwoWay}" ToolTip="Jeudi" Grid.Column="5" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
-                        <ToggleButton Width="35" Content="V" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Friday},Mode=TwoWay}" ToolTip="Vendredi" Grid.Column="6" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="S" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Saturday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Samedi" Grid.Column="0" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="D" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Sunday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Dimanche" Grid.Column="1" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="L" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Monday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Lundi" Grid.Column="2" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="M" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Tuesday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Mardi" Grid.Column="3" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="M" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Wednesday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Mercredi" Grid.Column="4" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="J" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Thursday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Jeudi" Grid.Column="5" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="V" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Friday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Vendredi" Grid.Column="6" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
                     </Grid>
                 </ScrollViewer>
 
@@ -194,22 +194,21 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom d'utilisateur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <syncfusion:SfMaskedEdit Margin="10 5" Watermark="Nom d'utilisateur" x:Name="UserNameBox" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <syncfusion:SfMaskedEdit Watermark="Nom d'utilisateur" x:Name="TxtEditUserName" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="2"  x:Name="UserPass2" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            <PasswordBox.Resources>
-                                <system:String x:Key="WaterMarkText">Confirme password</system:String>
-                            </PasswordBox.Resources>
-                        </PasswordBox>
-
                         <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="UserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             <PasswordBox.Resources>
                                 <system:String x:Key="WaterMarkText">Enter password</system:String>
                             </PasswordBox.Resources>
                         </PasswordBox>
+                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="2"  x:Name="UserPass2" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <PasswordBox.Resources>
+                                <system:String x:Key="WaterMarkText">Confirme password</system:String>
+                            </PasswordBox.Resources>
+                        </PasswordBox>                        
                     </Grid>
                 </GroupBox>
 
