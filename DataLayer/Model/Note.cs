@@ -16,7 +16,7 @@ namespace DataLayer.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid NoteId { get; set; }
+        public Guid NoteId { get; set; }        
         public String Title { get; set; }
         public String Content { get; set; }
         public Guid PatientId { get; set; }

@@ -79,6 +79,7 @@
     <Compile Include="Model\Auditable.cs" />
     <Compile Include="Model\IAuditable.cs" />
     <Compile Include="Model\CpmcContext.cs" />
+    <Compile Include="Model\JourFerie.cs" />
     <Compile Include="Model\Log.cs" />
     <Compile Include="Model\Medecin.cs" />
     <Compile Include="Model\Note.cs" />
