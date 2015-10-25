@@ -103,7 +103,7 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddNewUserCommand}" ToolTip="Show filter" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddNewUserCommand}" ToolTip="Ajouter un nouveau utilisateur" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Button.Content>
                                     <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
                                 </Button.Content>
@@ -152,17 +152,17 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                    <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="0"                                       
                                      Watermark="Nom de l'utilisateur"  
                                      />
 
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                    <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1"                                      
                                      Watermark="Prenom de l'utilisateur" 
                                      />
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="UserName" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                    <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2"                                   
                                      Watermark="Prenom de l'utilisateur" 
                                      />
 
@@ -268,8 +268,18 @@
                     </Grid>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <TabControl >
-                        <TabItem Header="Status de Patients">
+                    <TabControl TabStripPlacement="Left">
+                        <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
+                            <TabItem.Header>
+                                <Grid  Height="50" Margin="0,0,5,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>                                        
+                                    </Grid.ColumnDefinitions>
+                                    <Path Grid.Column="0" Data="M30.383,9.5469999L30.383,9.6359997 30.198,9.6359997z M20.563,0L30.198,9.6359997 22.417057,9.6359997C21.396342,9.6333103,20.565564,8.8039265,20.563,7.7817736z M2.9636101,0L18.34132,0 18.34132,7.7813263C18.34132,10.033843,20.164132,11.855433,22.416848,11.855433L30.382998,11.855433 30.382998,32.420517C30.382998,34.057205,29.054892,35.383999,27.41948,35.383999L2.9636101,35.383999C1.3281391,35.383999,3.5697749E-07,34.057205,0,32.420517L0,2.9649534C3.5697749E-07,1.3269625,1.3281391,0,2.9636101,0z" Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="20" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                    <TextBlock Grid.Column="1" Text="Status des patient" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>                                   
+                                </Grid>
+                            </TabItem.Header>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -322,13 +332,24 @@
                                 </GroupBox>
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Pieces joints Type" >
+                        <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
                                     <command:EventToCommand 
                             PassEventArgsToCommand="True" Command="{Binding TypePieceJointeDataGridLoadedCommand}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
+                            <TabItem.Header>
+                                <Grid  Height="50" Margin="0,0,5,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>                                        
+                                    </Grid.ColumnDefinitions>
+                                    <Path Grid.Column="0" Data="M30.383,9.5469999L30.383,9.6359997 30.198,9.6359997z M20.563,0L30.198,9.6359997 22.417057,9.6359997C21.396342,9.6333103,20.565564,8.8039265,20.563,7.7817736z M2.9636101,0L18.34132,0 18.34132,7.7813263C18.34132,10.033843,20.164132,11.855433,22.416848,11.855433L30.382998,11.855433 30.382998,32.420517C30.382998,34.057205,29.054892,35.383999,27.41948,35.383999L2.9636101,35.383999C1.3281391,35.383999,3.5697749E-07,34.057205,0,32.420517L0,2.9649534C3.5697749E-07,1.3269625,1.3281391,0,2.9636101,0z" Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="20" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                    <TextBlock Grid.Column="1" Text="Types des pieces joints" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>                                    
+                                </Grid>
+                                
+                            </TabItem.Header>
 
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -336,7 +357,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <GroupBox Header="Ajouter Une Type De Piece Jointe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <syncfusion:SfDataGrid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
+                                    <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
                                                        AutoGenerateColumns="False"
                                        AllowDraggingColumns="True"
                                        AllowEditing="True"
@@ -381,7 +402,17 @@
                                 </Grid>
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Autre">
+                        <TabItem Style="{StaticResource InnerSettingsTabItemStyle}">
+                            <TabItem.Header>
+                                <Grid  Height="50" Margin="0,0,5,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>                                        
+                                    </Grid.ColumnDefinitions>
+                                    <Path Grid.Column="0" Data="M30.383,9.5469999L30.383,9.6359997 30.198,9.6359997z M20.563,0L30.198,9.6359997 22.417057,9.6359997C21.396342,9.6333103,20.565564,8.8039265,20.563,7.7817736z M2.9636101,0L18.34132,0 18.34132,7.7813263C18.34132,10.033843,20.164132,11.855433,22.416848,11.855433L30.382998,11.855433 30.382998,32.420517C30.382998,34.057205,29.054892,35.383999,27.41948,35.383999L2.9636101,35.383999C1.3281391,35.383999,3.5697749E-07,34.057205,0,32.420517L0,2.9649534C3.5697749E-07,1.3269625,1.3281391,0,2.9636101,0z" Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="20" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                    <TextBlock Grid.Column="1" Text="Autre Settings" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>                                    
+                                </Grid>
+                            </TabItem.Header>
                             <TextBlock Text="In Progress" Style="{DynamicResource HeaderTextBlockStyle}" Foreground="Black"/>
                         </TabItem>
                     </TabControl>

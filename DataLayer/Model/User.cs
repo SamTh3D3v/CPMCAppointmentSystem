@@ -12,7 +12,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("User")]
-    public class User : INotifyPropertyChanged,IDataErrorInfo
+    public class User : INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
         private Guid _userId;
@@ -104,8 +104,8 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-        
-        
+
+
 
         [Required]
         public Guid RolesCollectionId
@@ -170,7 +170,7 @@ namespace DataLayer.Model
             get { return String.Empty; }
         }
         #endregion
-        #region INotifyPropertyChanged related        
+        #region INotifyPropertyChanged related
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -186,31 +186,37 @@ namespace DataLayer.Model
         {
             get
             {
-                string result = null;
                 if (columnName == "UserNom")
                 {
-                    if (UserNom.All(Char.IsLetter) || String.IsNullOrEmpty(UserNom))
-                        result = "Donnez un nom valide";
+                    if (String.IsNullOrEmpty(UserNom))
+                        return "Spesifié votre nom";
+                    if (!UserNom.All(Char.IsLetter))
+                        return "Donnez un nom d'utilisateur valid";
+
                 }
                 if (columnName == "UserPrenom")
                 {
-                    if (UserPrenom.All(Char.IsLetter) || String.IsNullOrEmpty(UserNom))
-                        result = "Donnez un prenom valide";
+                    if (String.IsNullOrEmpty(UserPrenom))
+                        return "Spesifié votre prenom";
+                    if (!UserPrenom.All(Char.IsLetter))
+                        return "Donnez un prenom d'utilisateur valid";
+
                 }
                 if (columnName == "UserName")
                 {
-                    if (UserPrenom.All(Char.IsLetterOrDigit) || String.IsNullOrEmpty(UserNom))
-                        result = "Donnez un nom d'utilisateur valide";
-                    else
-                    {
-                        var _dbContext = new CpmcContext();
-                        if (_dbContext.Users.Any(u=>u.UserName==UserName))
-                            result = "Ce nom d'utlisateur est deja prise";                        
-                    }                    
+                    if (String.IsNullOrEmpty(UserName))
+                        return "Spesifié votre prenom";
+                    if (!UserName.All(Char.IsLetter))
+                        return "Donnez un prenom d'utilisateur valid";
+
+                    var dbContext = new CpmcContext();
+                    if (dbContext.Users.Any(u => u.UserName == UserName))
+                        return "Ce nom d'utlisateur est deja prise";
+
                 }
-                return result;
+                return String.Empty;
             }
         }
-        
+
     }
 }
