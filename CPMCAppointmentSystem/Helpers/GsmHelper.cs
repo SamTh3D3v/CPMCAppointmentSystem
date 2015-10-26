@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Syncfusion.Data.Extensions;
 
 namespace CPMCAppointmentSystem.Helpers
 {
@@ -17,8 +19,7 @@ namespace CPMCAppointmentSystem.Helpers
         private const int SleepTimeStamp = 1000;
         #endregion
         #region Fields
-        private String _portName;
-        
+        private String _portName=String.Empty;
         private string _messageCenterNumber;
         private int _baudRate;
         #endregion
@@ -80,17 +81,66 @@ namespace CPMCAppointmentSystem.Helpers
 
         #endregion
         #region Ctors
-        public GsmHelper(int baudRate, string portName, string messageCenterNumber)
-        {
-            _serialPort = new SerialPort(portName, baudRate);
+        public GsmHelper(int baudRate, string messageCenterNumber)
+        {             
             MessageCenterNumber = messageCenterNumber;
+            BaudRate = baudRate;
             Thread.Sleep(SleepTimeStamp);
         }
+
+        public async Task InitGsmDevice()
+        {
+            if (PortName==String.Empty)
+            {
+                var validport = "";
+                await Task.Run(() => SerialPort.GetPortNames().ForEach((str) =>
+                {
+                    _serialPort = new SerialPort(str, BaudRate);
+                    try
+                    {
+                        _serialPort.Open();
+                        if (CheckExistingModemOnComPort(_serialPort))
+                            validport = str;
+                        _serialPort.Close();
+                    }
+                    catch
+                    {
+                        return;
+                    }
+                }));
+                if (validport == "")
+                    throw new Exception("The GSM device isn't pluged-in");
+                PortName = validport;
+                _serialPort = new SerialPort(validport, BaudRate); 
+            }
+        }
+
+        public bool CheckExistingModemOnComPort(SerialPort serialPort)
+        {
+
+            var modemCommands = new string[] { "AT",       // Check connected modem. After 'AT' command some modems autobaud their speed.
+                                               "ATQ0" };   // Switch on confirmations
+            serialPort.DtrEnable = true;    // Set Data Terminal Ready (DTR) signal 
+            serialPort.RtsEnable = true;
+            foreach (string command in modemCommands)
+            {
+                serialPort.Write(command + "\r");
+                Thread.Sleep(2000);
+                var answer = serialPort.ReadExisting();
+                if (answer.IndexOf("OK", System.StringComparison.Ordinal) >= 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         #endregion
         #region Methods
 
         public void SendSms(string number, string message)
         {
+
             _serialPort.Open();
             _serialPort.Write("AT+CMGF=1\r");
             Thread.Sleep(SleepTimeStamp);
@@ -99,16 +149,15 @@ namespace CPMCAppointmentSystem.Helpers
             _serialPort.Write("AT+CMGS=\"" + number + "\"\r");
             Thread.Sleep(SleepTimeStamp);
             _serialPort.Write(message + "\x1A");
-
             Thread.Sleep(SleepTimeStamp);
             _serialPort.Close();
         }
 
-        private readonly SerialPort _serialPort;
+        private SerialPort _serialPort;
         public void Callphone(string number)
         {
             _serialPort.Open();
-            _serialPort.Write("ATD + +" + number +";");           
+            _serialPort.Write("ATD + +" + number + ";");
             Thread.Sleep(100);
             _serialPort.Close();
         }

@@ -93,7 +93,6 @@
                                            Source="{Binding NotificationSent,Converter={StaticResource SelecteImageConverter}}"
                                            Stretch="UniformToFill">
                                     </Image>
-
                                 </DataTemplate>
                             </syncfusion:GridTemplateColumn.CellTemplate>
                         </syncfusion:GridTemplateColumn>

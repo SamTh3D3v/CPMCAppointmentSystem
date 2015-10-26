@@ -488,8 +488,6 @@ namespace CPMCAppointmentSystem.ViewModel
                         await LoadPatienstList();
                         await LoadPathologiseList();
                         await LoadDoctorsList();
-
-
                     }));
             }
         }

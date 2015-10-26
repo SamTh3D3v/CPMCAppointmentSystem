@@ -26,6 +26,8 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<UserTypeToAdd> _userTypeCollection;
         private ObservableCollection<PieceJointeType> _typePieceJointeCollection;
         private PieceJointeType _selectedTypePieceJointe;
+        private ObservableCollection<JourFerie> _listDesJourFeriesCollection;
+        private JourFerie _selectedJourFerie;
         private string _reportPath;
         private bool _isFormEnabled;
         #endregion
@@ -175,8 +177,43 @@ namespace CPMCAppointmentSystem.ViewModel
                 _selectedTypePieceJointe = value;
                 RaisePropertyChanged();
             }
-        }
+        }                        
+        public ObservableCollection<JourFerie> ListDesJourFeriesCollection
+        {
+            get
+            {
+                return _listDesJourFeriesCollection;
+            }
 
+            set
+            {
+                if (_listDesJourFeriesCollection == value)
+                {
+                    return;
+                }
+
+                _listDesJourFeriesCollection = value;
+                RaisePropertyChanged();
+            }
+        }               
+        public JourFerie SelectedJourFerie
+        {
+            get
+            {
+                return _selectedJourFerie;
+            }
+
+            set
+            {
+                if (_selectedJourFerie == value)
+                {
+                    return;
+                }
+
+                _selectedJourFerie = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
         #region Commands
         private RelayCommand _settingsViewLoadedCommand;
@@ -204,6 +241,24 @@ namespace CPMCAppointmentSystem.ViewModel
 
                     }));
             }
+        }
+
+        private RelayCommand _jourFerieDataGridLoadedCommand;
+        public RelayCommand JourFerieDataGridLoadedCommand
+        {
+            get
+            {
+                return _jourFerieDataGridLoadedCommand
+                    ?? (_jourFerieDataGridLoadedCommand = new RelayCommand(async () =>
+                    {
+                        await LoadJourFerie();
+                    }));
+            }
+        }
+
+        private async Task LoadJourFerie()
+        {
+            ListDesJourFeriesCollection=new ObservableCollection<JourFerie>(await Task.Run(()=>_dbContext.JourFeries));
         }
 
         private async Task LoadTypePieceJointsCollection()
@@ -242,6 +297,29 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         //Todo 
                     }));
+            }
+        }
+        private RelayCommand _saveJourFerieCommand;
+        public RelayCommand SaveJourFerieCommand
+        {
+            get
+            {
+                return _saveJourFerieCommand
+                    ?? (_saveJourFerieCommand = new RelayCommand(
+                        () =>
+                        {
+                            _dbContext.SaveChanges();
+                        }));
+            }
+        }
+        private RelayCommand _cancelUpdateJourFerieCommand;
+        public RelayCommand CancelUpdateJourFerieCommand
+        {
+            get
+            {
+                return _cancelUpdateJourFerieCommand
+                    ?? (_cancelUpdateJourFerieCommand = new RelayCommand(
+                    () => _dbContext.SaveChanges()));
             }
         }
         private RelayCommand _openRecuDeDepotDesignerCommand;

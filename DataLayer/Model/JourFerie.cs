@@ -35,7 +35,6 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
         public DateTime DateJourFerie
         {
             get { return _dateJourFerie; }
@@ -46,7 +45,6 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
         public String TitreJourFerie
         {
             get { return _titreJourFerie; }
@@ -57,7 +55,6 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
         public String DescriptionJourFerie
         {
             get { return _descriptionJourFerie; }

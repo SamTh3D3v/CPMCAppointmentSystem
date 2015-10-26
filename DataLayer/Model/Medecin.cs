@@ -33,12 +33,12 @@ namespace DataLayer.Model
         private ObservableCollection<Patient> _patients;
         private ObservableCollection<Specialite> _specialities;
         private byte[] _profilePicture;
-        private Specialite _specialitePrincipale;
+        //private Specialite _specialitePrincipale;
         private User _user;
         private string _telephoneMobile;
         private DateTime _dateDeNaissance;
         private string _telephoneFixe;
-        private Guid _specialitePrincipaleId;
+        //private Guid _specialitePrincipaleId;
 
         #endregion 
         #region Properties
@@ -78,16 +78,16 @@ namespace DataLayer.Model
             }
         }
 
-        public Guid SpecialitePrincipaleId
-        {
-            get { return _specialitePrincipaleId; }
-            set
-            {
-                if (value.Equals(_specialitePrincipaleId)) return;
-                _specialitePrincipaleId = value;
-                OnPropertyChanged();
-            }
-        }
+        //public Guid SpecialitePrincipaleId
+        //{
+        //    get { return _specialitePrincipaleId; }
+        //    set
+        //    {
+        //        if (value.Equals(_specialitePrincipaleId)) return;
+        //        _specialitePrincipaleId = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         public Days JoursDeTravail
         {
@@ -104,17 +104,17 @@ namespace DataLayer.Model
         }
         public Guid UserId { get; set; }
 
-        [ForeignKey("SpecialitePrincipaleId")]
-        public virtual Specialite SpecialitePrincipale
-        {
-            get { return _specialitePrincipale; }
-            set
-            {
-                if (Equals(value, _specialitePrincipale)) return;
-                _specialitePrincipale = value;
-                OnPropertyChanged();
-            }
-        }
+        //[ForeignKey("SpecialitePrincipaleId")]
+        //public virtual Specialite SpecialitePrincipale
+        //{
+        //    get { return _specialitePrincipale; }
+        //    set
+        //    {
+        //        if (Equals(value, _specialitePrincipale)) return;
+        //        _specialitePrincipale = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         [ForeignKey("UserId")]
         public virtual User User
@@ -190,11 +190,11 @@ namespace DataLayer.Model
             get
             {
                 string result = null;
-                if (columnName == "SpecialitePrincipale")
-                {
-                    if (SpecialitePrincipale ==null)
-                        result = "Spesifiez la specialité principale du medecin";
-                }
+                //if (columnName == "SpecialitePrincipale")
+                //{
+                //    if (SpecialitePrincipale ==null)
+                //        result = "Spesifiez la specialité principale du medecin";
+                //}
                 if (columnName == "JoursDeTravail")
                 {
                     if (JoursDeTravail==Days.None)

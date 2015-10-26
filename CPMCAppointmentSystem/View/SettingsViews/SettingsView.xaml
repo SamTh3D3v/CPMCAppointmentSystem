@@ -402,6 +402,12 @@
                             </Grid>
                         </TabItem>
                         <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Loaded">
+                                    <command:EventToCommand 
+                            PassEventArgsToCommand="True" Command="{Binding JourFerieDataGridLoadedCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <TabItem.Header>
                                 <Grid  Height="50" Margin="0,0,5,0">
                                     <Grid.ColumnDefinitions>
@@ -413,28 +419,68 @@
                                 </Grid>
                             </TabItem.Header> 
                             <TabItem.Content>
-                                <GroupBox Header="Ajoutez une jour férié" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Grid.Row="0" Header="Ajoutez une jour férié" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
                                                        AutoGenerateColumns="False"
                                        AllowDraggingColumns="True"
                                        AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding TypePieceJointeCollection}"
-                                   SelectedItem="{Binding SelectedTypePieceJointe,Mode=TwoWay}"
+                                       ItemsSource="{Binding ListDesJourFeriesCollection,Mode=TwoWay}"
+                                   SelectedItem="{Binding SelectedJourFerie,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseDoubleClick">
-                                                <command:EventToCommand 
-                            PassEventArgsToCommand="True" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                        <syncfusion:SfDataGrid.Columns>
-                                            <syncfusion:GridTextColumn HeaderText="Titre" Width="300" MappingName="PieceJointeTitle" />
-                                            <syncfusion:GridTextColumn HeaderText="Description" Width="300" MappingName="Description"/>
-                                        </syncfusion:SfDataGrid.Columns>
-                                    </syncfusion:SfDataGrid>
-                                </GroupBox>
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseDoubleClick">
+                                                    <command:EventToCommand 
+                            PassEventArgsToCommand="True"  />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                            <syncfusion:SfDataGrid.Columns>
+                                                <syncfusion:GridTemplateColumn HeaderText="Date" MappingName="DateJourFerie" AllowEditing="True">
+                                                    <syncfusion:GridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding DateJourFerie,StringFormat=d}"/>
+                                                        </DataTemplate>
+                                                    </syncfusion:GridTemplateColumn.CellTemplate>
+                                                    <syncfusion:GridTemplateColumn.EditTemplate>
+                                                        <DataTemplate>
+                                                            <syncfusion:DateTimeEdit  Text="{Binding DateJourFerie,Mode=TwoWay,StringFormat=d}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                                        </DataTemplate>
+                                                    </syncfusion:GridTemplateColumn.EditTemplate>
+                                                </syncfusion:GridTemplateColumn>
+                                                <syncfusion:GridTextColumn HeaderText="Titre" MappingName="TitreJourFerie" TextAlignment="Left" AllowEditing="True" />
+                                                <syncfusion:GridTextColumn HeaderText="Description" MappingName="DescriptionJourFerie" TextAlignment="Left" AllowEditing="True"/>
+                                            </syncfusion:SfDataGrid.Columns>
+                                        </syncfusion:SfDataGrid>
+                                    </GroupBox>
+                                    <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieCommand}">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                                                    <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button Grid.Column="1" HorizontalAlignment="Left" Width="200"  Margin="2" Command="{Binding CancelUpdateJourFerieCommand}">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                                                    <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+                                    </Grid>
+                                </Grid>
                             </TabItem.Content>
                         </TabItem>
                     </TabControl>

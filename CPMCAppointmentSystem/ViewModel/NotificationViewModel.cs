@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -92,6 +93,20 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         _dbContext = new CpmcContext();
                         await LoadRdvs();
+                        try
+                        {
+                            await GsmHelper.InitGsmDevice();
+                        }
+                        catch (Exception ex)
+                        {
+
+                            Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
+                            {
+                                var ctontroller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(
+                                    "Echec de com", "check the gprs device ... "));
+                            }));
+                        }
+                        
                     }));
             }
         }
@@ -150,8 +165,8 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Ctors and methods
         public NotificationViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
-        {
-            GsmHelper=new GsmHelper(9600,"COM10","+21350001701");  //le centre de messagerie de ooredoo
+        {            
+            GsmHelper=new GsmHelper(9600,"+21361000750");                        
             Messenger.Default.Register<NotificationMessage>(this, (m) =>
             {
                 try

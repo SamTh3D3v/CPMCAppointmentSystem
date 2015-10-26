@@ -253,7 +253,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         SelectedDoctor = new Medecin()
                         {
-                            SpecialitePrincipale= new Specialite()
+                           // SpecialitePrincipale= new Specialite()
                         };
                         IsFormEnabled = true;
                     }));

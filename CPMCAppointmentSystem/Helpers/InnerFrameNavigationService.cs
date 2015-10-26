@@ -14,7 +14,7 @@ namespace CPMCAppointmentSystem.Helpers
 {
     public class InnerFrameNavigationService : IInnerFrameNavigationService, INotifyPropertyChanged
     {
-     #region Fields
+        #region Fields
         private readonly Dictionary<string, Uri> _pagesByKey;
         private readonly List<string> _historic;
         private string _currentPageKey;
@@ -36,7 +36,7 @@ namespace CPMCAppointmentSystem.Helpers
                 }
 
                 _currentPageKey = value;
-                OnPropertyChanged("CurrentPageKey");
+                OnPropertyChanged();
             }
         }
         public object Parameter { get; private set; }
