@@ -23,7 +23,6 @@ namespace CPMCAppointmentSystem.Helpers
         public bool CanSlide { get; set; }
         public FrameworkElement View { get; set; }
         #endregion
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

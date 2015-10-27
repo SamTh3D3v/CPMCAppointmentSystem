@@ -12,7 +12,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("JourFerie")]
-    public class JourFerie:INotifyPropertyChanged
+    public class JourFerie:INotifyPropertyChanged,IDataErrorInfo
     {
         #region Fields
         private Guid _jourFerieId;
@@ -76,5 +76,26 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "TitreJourFerie")
+                {
+                    if (string.IsNullOrEmpty(TitreJourFerie))
+                        result = "Spesifiez le titre du jour ferié";
+                }
+                if (columnName == "DateJourFerie")
+                {
+                    if (DateJourFerie==null)
+                        result = "Donner la date du jour ferier";
+                }
+                return result;
+            }
+        }
+
+        public string Error { get; private set; }
     }
 }

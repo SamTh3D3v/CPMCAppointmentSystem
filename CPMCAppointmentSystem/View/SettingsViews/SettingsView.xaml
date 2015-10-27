@@ -9,6 +9,7 @@
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700" DataContext="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
 	Title="SettingsView" >
@@ -109,7 +110,7 @@
                                 </Button.Content>
                             </Button>
                         </Grid>
-                       
+
                         <Grid Grid.Column="0" Grid.Row="1" Margin="4">
                             <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                        AllowDraggingColumns="True"                                                   
@@ -268,16 +269,16 @@
                     </Grid>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <TabControl TabStripPlacement="Left">                        
+                    <TabControl TabStripPlacement="Left">
                         <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
                             <TabItem.Header>
                                 <Grid  Height="50" Margin="0,0,5,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>                                        
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="20" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
-                                    <TextBlock Grid.Column="1" Text="Status des patient" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>                                   
+                                    <TextBlock Grid.Column="1" Text="Status des patient" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>
                                 </Grid>
                             </TabItem.Header>
                             <Grid>
@@ -343,11 +344,11 @@
                                 <Grid  Height="50" Margin="0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>                                        
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="20" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
-                                    <TextBlock Grid.Column="1" Text="Types des pieces joints" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>                                    
-                                </Grid>                                
+                                    <TextBlock Grid.Column="1" Text="Types des pieces joints" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>
+                                </Grid>
                             </TabItem.Header>
 
                             <Grid>
@@ -412,74 +413,368 @@
                                 <Grid  Height="50" Margin="0,0,5,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>                                        
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="20" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
-                                    <TextBlock Grid.Column="1" Text="les jours feries" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>                                    
+                                    <TextBlock Grid.Column="1" Text="les jours feries" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>
                                 </Grid>
-                            </TabItem.Header> 
+                            </TabItem.Header>
                             <TabItem.Content>
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <GroupBox Grid.Row="0" Header="Ajoutez une jour férié" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                        <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
+                                    <GroupBox Grid.Row="0" Header="Jour férié occasionnelle" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
                                                        AutoGenerateColumns="False"
-                                       AllowDraggingColumns="True"
-                                       AllowEditing="True"
-                                       AllowFiltering="True"
-                                       AllowGrouping="True"
-                                       ItemsSource="{Binding ListDesJourFeriesCollection,Mode=TwoWay}"
-                                   SelectedItem="{Binding SelectedJourFerie,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" >
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseDoubleClick">
-                                                    <command:EventToCommand 
+                                                               EditTrigger="OnTap"
+                                              LiveDataUpdateMode="AllowDataShaping"
+                                               ShowRowHeader="True"
+                                            AllowDraggingColumns="True"
+                                             AllowEditing="True"
+                                            AllowFiltering="True"
+                                            AllowGrouping="True"
+                                            ItemsSource="{Binding ListDesJourFeriesOccasionnelle,Mode=TwoWay}"
+                                            SelectedItem="{Binding SelectedJourFerie,Mode=TwoWay}"
+                                            ShowGroupDropArea="True" >
+                                                <i:Interaction.Behaviors>
+                                                    <behavior:InitialSetupBehaviour />
+                                                </i:Interaction.Behaviors>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                                        <command:EventToCommand 
                             PassEventArgsToCommand="True"  />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <syncfusion:SfDataGrid.Columns>
-                                                <syncfusion:GridTemplateColumn HeaderText="Date" MappingName="DateJourFerie" AllowEditing="True">
-                                                    <syncfusion:GridTemplateColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <TextBlock Text="{Binding DateJourFerie,StringFormat=d}"/>
-                                                        </DataTemplate>
-                                                    </syncfusion:GridTemplateColumn.CellTemplate>
-                                                    <syncfusion:GridTemplateColumn.EditTemplate>
-                                                        <DataTemplate>
-                                                            <syncfusion:DateTimeEdit  Text="{Binding DateJourFerie,Mode=TwoWay,StringFormat=d}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                                                        </DataTemplate>
-                                                    </syncfusion:GridTemplateColumn.EditTemplate>
-                                                </syncfusion:GridTemplateColumn>
-                                                <syncfusion:GridTextColumn HeaderText="Titre" MappingName="TitreJourFerie" TextAlignment="Left" AllowEditing="True" />
-                                                <syncfusion:GridTextColumn HeaderText="Description" MappingName="DescriptionJourFerie" TextAlignment="Left" AllowEditing="True"/>
-                                            </syncfusion:SfDataGrid.Columns>
-                                        </syncfusion:SfDataGrid>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <syncfusion:SfDataGrid.Resources>
+                                                    <ResourceDictionary>
+                                                        <ResourceDictionary.MergedDictionaries>
+                                                            <ResourceDictionary Source="/Syncfusion.SfGrid.WPF;component/Styles/Styles.xaml" />
+                                                        </ResourceDictionary.MergedDictionaries>
+                                                        <Style TargetType="syncfusion:AddNewRowControl">
+                                                            <Setter Property="FontSize" Value="12" />
+                                                            <Setter Property="Foreground" Value="#FF808080" />
+                                                            <Setter Property="BorderBrush" Value="#FF7fd0de" />
+                                                            <Setter Property="BorderThickness" Value="0" />
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="syncfusion:AddNewRowControl">
+                                                                        <Grid>
+                                                                            <VisualStateManager.VisualStateGroups>
+                                                                                <VisualStateGroup x:Name="AddNewRowStates">
+                                                                                    <VisualState x:Name="Normal" />
+                                                                                    <VisualState x:Name="Edit">
+                                                                                        <Storyboard>
+                                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_AddNewRowTextBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                                                                    <DiscreteObjectKeyFrame.Value>
+                                                                                                        <Visibility>Collapsed</Visibility>
+                                                                                                    </DiscreteObjectKeyFrame.Value>
+                                                                                                </DiscreteObjectKeyFrame>
+                                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                                        </Storyboard>
+                                                                                    </VisualState>
+                                                                                    <VisualState x:Name="HasError">
+                                                                                        <Storyboard>
+                                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_InValidBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_AddNewRowTextBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                                                                    <DiscreteObjectKeyFrame.Value>
+                                                                                                        <Visibility>Collapsed</Visibility>
+                                                                                                    </DiscreteObjectKeyFrame.Value>
+                                                                                                </DiscreteObjectKeyFrame>
+                                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                                        </Storyboard>
+                                                                                    </VisualState>
+                                                                                    <VisualState x:Name="NoError">
+                                                                                        <Storyboard>
+                                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_AddNewRowTextBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                                                                    <DiscreteObjectKeyFrame.Value>
+                                                                                                        <Visibility>Collapsed</Visibility>
+                                                                                                    </DiscreteObjectKeyFrame.Value>
+                                                                                                </DiscreteObjectKeyFrame>
+                                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                                        </Storyboard>
+                                                                                    </VisualState>
+                                                                                </VisualStateGroup>
+                                                                                <VisualStateGroup x:Name="BorderStates">
+                                                                                    <VisualState x:Name="NormalRow" />
+                                                                                    <VisualState x:Name="FooterRow">
+                                                                                        <Storyboard BeginTime="0">
+                                                                                            <ThicknessAnimationUsingKeyFrames BeginTime="0"
+                                                                          Duration="1"
+                                                                          Storyboard.TargetName="PART_AddNewRowBorder"
+                                                                          Storyboard.TargetProperty="BorderThickness">
+                                                                                                <EasingThicknessKeyFrame KeyTime="0" Value="0, 1, 0, 0" />
+                                                                                            </ThicknessAnimationUsingKeyFrames>
+                                                                                            <ThicknessAnimationUsingKeyFrames BeginTime="0"
+                                                                          Duration="1"
+                                                                          Storyboard.TargetName="PART_AddNewRowBorder"
+                                                                          Storyboard.TargetProperty="Margin">
+                                                                                                <EasingThicknessKeyFrame KeyTime="0" Value="0, -1, 0, 0" />
+                                                                                            </ThicknessAnimationUsingKeyFrames>
+                                                                                        </Storyboard>
+                                                                                    </VisualState>
+                                                                                </VisualStateGroup>
+                                                                            </VisualStateManager.VisualStateGroups>
+                                                                            <Border Background="{TemplateBinding RowSelectionBrush}"
+                                                        Clip="{TemplateBinding SelectionBorderClipRect}"
+                                                        Visibility="{TemplateBinding SelectionBorderVisiblity}" />
+                                                                            <Border x:Name="PART_InValidBorder"
+                                                        Margin="0,0,1,1"
+                                                        Background="Transparent"
+                                                        BorderBrush="Red"
+                                                        BorderThickness="1"
+                                                        Visibility="Collapsed" />
+                                                                            <Border x:Name="PART_AddNewRowBorder"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                                                <ContentPresenter />
+                                                                            </Border>
+                                                                            <Border x:Name="PART_AddNewRowTextBorder"
+                                                        Background="#FFE5E5E5"
+                                                        BorderBrush="Transparent"
+                                                        BorderThickness="0,0,1,1"
+                                                        Clip="{TemplateBinding TextBorderClip}"
+                                                        IsHitTestVisible="False">
+                                                                                <ContentPresenter Margin="{TemplateBinding TextMargin}"
+                                                                      HorizontalAlignment="Left"
+                                                                      VerticalAlignment="Center"
+                                                                      Content="{TemplateBinding AddNewRowText}" />
+                                                                            </Border>
+                                                                        </Grid>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </ResourceDictionary>
+                                                </syncfusion:SfDataGrid.Resources>
+                                                <syncfusion:SfDataGrid.Columns>
+                                                    <syncfusion:GridTemplateColumn HeaderText="Date" MappingName="DateJourFerie" AllowEditing="True">
+                                                        <syncfusion:GridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding DateJourFerie,StringFormat=d}"/>
+                                                            </DataTemplate>
+                                                        </syncfusion:GridTemplateColumn.CellTemplate>
+                                                        <syncfusion:GridTemplateColumn.EditTemplate>
+                                                            <DataTemplate>
+                                                                <syncfusion:DateTimeEdit DateTime="{Binding DateJourFerie,Mode=TwoWay,StringFormat=d}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                                            </DataTemplate>
+                                                        </syncfusion:GridTemplateColumn.EditTemplate>
+                                                    </syncfusion:GridTemplateColumn>
+                                                    <syncfusion:GridTextColumn HeaderText="Titre" MappingName="TitreJourFerie" TextAlignment="Left" AllowEditing="True" />
+                                                    <syncfusion:GridTextColumn HeaderText="Description" MappingName="DescriptionJourFerie" TextAlignment="Left" AllowEditing="True"/>
+                                                </syncfusion:SfDataGrid.Columns>
+                                            </syncfusion:SfDataGrid>
+                                            <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieCommand}">
+                                                    <Button.Content>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                                                            <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </Button.Content>
+                                                </Button>
+                                                <Button Grid.Column="1" HorizontalAlignment="Left" Width="200"  Margin="2" Command="{Binding CancelUpdateJourFerieCommand}">
+                                                    <Button.Content>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                                                            <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </Button.Content>
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </GroupBox> 
+                                    <GroupBox Grid.Row="1" Header="Jour férié fixe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
+                                                       AutoGenerateColumns="False"
+                                                               EditTrigger="OnTap"
+                                              LiveDataUpdateMode="AllowDataShaping"
+                                               ShowRowHeader="True"
+                                            AllowDraggingColumns="True"
+                                             AllowEditing="True"
+                                            AllowFiltering="True"
+                                            AllowGrouping="True"
+                                            ItemsSource="{Binding ListDesJourFeriesOccasionnelle,Mode=TwoWay}"
+                                            SelectedItem="{Binding SelectedJourFerie,Mode=TwoWay}"
+                                            ShowGroupDropArea="True" >
+                                                <i:Interaction.Behaviors>
+                                                    <behavior:InitialSetupBehaviour />
+                                                </i:Interaction.Behaviors>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                                        <command:EventToCommand 
+                            PassEventArgsToCommand="True"  />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <syncfusion:SfDataGrid.Resources>
+                                                    <ResourceDictionary>
+                                                        <ResourceDictionary.MergedDictionaries>
+                                                            <ResourceDictionary Source="/Syncfusion.SfGrid.WPF;component/Styles/Styles.xaml" />
+                                                        </ResourceDictionary.MergedDictionaries>
+                                                        <Style TargetType="syncfusion:AddNewRowControl">
+                                                            <Setter Property="FontSize" Value="12" />
+                                                            <Setter Property="Foreground" Value="#FF808080" />
+                                                            <Setter Property="BorderBrush" Value="#FF7fd0de" />
+                                                            <Setter Property="BorderThickness" Value="0" />
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="syncfusion:AddNewRowControl">
+                                                                        <Grid>
+                                                                            <VisualStateManager.VisualStateGroups>
+                                                                                <VisualStateGroup x:Name="AddNewRowStates">
+                                                                                    <VisualState x:Name="Normal" />
+                                                                                    <VisualState x:Name="Edit">
+                                                                                        <Storyboard>
+                                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_AddNewRowTextBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                                                                    <DiscreteObjectKeyFrame.Value>
+                                                                                                        <Visibility>Collapsed</Visibility>
+                                                                                                    </DiscreteObjectKeyFrame.Value>
+                                                                                                </DiscreteObjectKeyFrame>
+                                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                                        </Storyboard>
+                                                                                    </VisualState>
+                                                                                    <VisualState x:Name="HasError">
+                                                                                        <Storyboard>
+                                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_InValidBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_AddNewRowTextBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                                                                    <DiscreteObjectKeyFrame.Value>
+                                                                                                        <Visibility>Collapsed</Visibility>
+                                                                                                    </DiscreteObjectKeyFrame.Value>
+                                                                                                </DiscreteObjectKeyFrame>
+                                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                                        </Storyboard>
+                                                                                    </VisualState>
+                                                                                    <VisualState x:Name="NoError">
+                                                                                        <Storyboard>
+                                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_AddNewRowTextBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                                                                    <DiscreteObjectKeyFrame.Value>
+                                                                                                        <Visibility>Collapsed</Visibility>
+                                                                                                    </DiscreteObjectKeyFrame.Value>
+                                                                                                </DiscreteObjectKeyFrame>
+                                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                                        </Storyboard>
+                                                                                    </VisualState>
+                                                                                </VisualStateGroup>
+                                                                                <VisualStateGroup x:Name="BorderStates">
+                                                                                    <VisualState x:Name="NormalRow" />
+                                                                                    <VisualState x:Name="FooterRow">
+                                                                                        <Storyboard BeginTime="0">
+                                                                                            <ThicknessAnimationUsingKeyFrames BeginTime="0"
+                                                                          Duration="1"
+                                                                          Storyboard.TargetName="PART_AddNewRowBorder"
+                                                                          Storyboard.TargetProperty="BorderThickness">
+                                                                                                <EasingThicknessKeyFrame KeyTime="0" Value="0, 1, 0, 0" />
+                                                                                            </ThicknessAnimationUsingKeyFrames>
+                                                                                            <ThicknessAnimationUsingKeyFrames BeginTime="0"
+                                                                          Duration="1"
+                                                                          Storyboard.TargetName="PART_AddNewRowBorder"
+                                                                          Storyboard.TargetProperty="Margin">
+                                                                                                <EasingThicknessKeyFrame KeyTime="0" Value="0, -1, 0, 0" />
+                                                                                            </ThicknessAnimationUsingKeyFrames>
+                                                                                        </Storyboard>
+                                                                                    </VisualState>
+                                                                                </VisualStateGroup>
+                                                                            </VisualStateManager.VisualStateGroups>
+                                                                            <Border Background="{TemplateBinding RowSelectionBrush}"
+                                                        Clip="{TemplateBinding SelectionBorderClipRect}"
+                                                        Visibility="{TemplateBinding SelectionBorderVisiblity}" />
+                                                                            <Border x:Name="PART_InValidBorder"
+                                                        Margin="0,0,1,1"
+                                                        Background="Transparent"
+                                                        BorderBrush="Red"
+                                                        BorderThickness="1"
+                                                        Visibility="Collapsed" />
+                                                                            <Border x:Name="PART_AddNewRowBorder"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                                                <ContentPresenter />
+                                                                            </Border>
+                                                                            <Border x:Name="PART_AddNewRowTextBorder"
+                                                        Background="#FFE5E5E5"
+                                                        BorderBrush="Transparent"
+                                                        BorderThickness="0,0,1,1"
+                                                        Clip="{TemplateBinding TextBorderClip}"
+                                                        IsHitTestVisible="False">
+                                                                                <ContentPresenter Margin="{TemplateBinding TextMargin}"
+                                                                      HorizontalAlignment="Left"
+                                                                      VerticalAlignment="Center"
+                                                                      Content="{TemplateBinding AddNewRowText}" />
+                                                                            </Border>
+                                                                        </Grid>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </ResourceDictionary>
+                                                </syncfusion:SfDataGrid.Resources>
+                                                <syncfusion:SfDataGrid.Columns>
+                                                    <syncfusion:GridTemplateColumn HeaderText="Date" MappingName="DateJourFerie" AllowEditing="True">
+                                                        <syncfusion:GridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding DateJourFerie,StringFormat=d}"/>
+                                                            </DataTemplate>
+                                                        </syncfusion:GridTemplateColumn.CellTemplate>
+                                                        <syncfusion:GridTemplateColumn.EditTemplate>
+                                                            <DataTemplate>
+                                                                <syncfusion:DateTimeEdit DateTime="{Binding DateJourFerie,Mode=TwoWay,StringFormat=d}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                                            </DataTemplate>
+                                                        </syncfusion:GridTemplateColumn.EditTemplate>
+                                                    </syncfusion:GridTemplateColumn>
+                                                    <syncfusion:GridTextColumn HeaderText="Titre" MappingName="TitreJourFerie" TextAlignment="Left" AllowEditing="True" />
+                                                    <syncfusion:GridTextColumn HeaderText="Description" MappingName="DescriptionJourFerie" TextAlignment="Left" AllowEditing="True"/>
+                                                </syncfusion:SfDataGrid.Columns>
+                                            </syncfusion:SfDataGrid>
+                                            <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieCommand}">
+                                                    <Button.Content>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                                                            <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </Button.Content>
+                                                </Button>
+                                                <Button Grid.Column="1" HorizontalAlignment="Left" Width="200"  Margin="2" Command="{Binding CancelUpdateJourFerieCommand}">
+                                                    <Button.Content>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                                                            <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </Button.Content>
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
                                     </GroupBox>
-                                    <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieCommand}">
-                                            <Button.Content>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
-                                                    <TextBlock Text="Save" HorizontalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Button.Content>
-                                        </Button>
-                                        <Button Grid.Column="1" HorizontalAlignment="Left" Width="200"  Margin="2" Command="{Binding CancelUpdateJourFerieCommand}">
-                                            <Button.Content>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
-                                                    <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Button.Content>
-                                        </Button>
-                                    </Grid>
                                 </Grid>
                             </TabItem.Content>
                         </TabItem>

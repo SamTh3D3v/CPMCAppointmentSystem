@@ -211,6 +211,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Actions\TileLoadedAction.cs" />
+    <Compile Include="Behavior\InitialSetupBehaviour.cs" />
     <Compile Include="Behavior\StateChangeBehavior.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Helpers\ApplicationSettings.cs" />

@@ -26,7 +26,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<UserTypeToAdd> _userTypeCollection;
         private ObservableCollection<PieceJointeType> _typePieceJointeCollection;
         private PieceJointeType _selectedTypePieceJointe;
-        private ObservableCollection<JourFerie> _listDesJourFeriesCollection;
+        private ObservableCollection<JourFerie> _listDesJourFeriesOccasionnelle;
         private JourFerie _selectedJourFerie;
         private string _reportPath;
         private bool _isFormEnabled;
@@ -178,21 +178,21 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }                        
-        public ObservableCollection<JourFerie> ListDesJourFeriesCollection
+        public ObservableCollection<JourFerie> ListDesJourFeriesOccasionnelle
         {
             get
             {
-                return _listDesJourFeriesCollection;
+                return _listDesJourFeriesOccasionnelle;
             }
 
             set
             {
-                if (_listDesJourFeriesCollection == value)
+                if (_listDesJourFeriesOccasionnelle == value)
                 {
                     return;
                 }
 
-                _listDesJourFeriesCollection = value;
+                _listDesJourFeriesOccasionnelle = value;
                 RaisePropertyChanged();
             }
         }               
@@ -258,7 +258,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadJourFerie()
         {
-            ListDesJourFeriesCollection=new ObservableCollection<JourFerie>(await Task.Run(()=>_dbContext.JourFeries));
+            ListDesJourFeriesOccasionnelle=new ObservableCollection<JourFerie>(await Task.Run(()=>_dbContext.JourFeries));
         }
 
         private async Task LoadTypePieceJointsCollection()
@@ -305,9 +305,15 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _saveJourFerieCommand
-                    ?? (_saveJourFerieCommand = new RelayCommand(
-                        () =>
+                    ?? (_saveJourFerieCommand = new RelayCommand(async () =>
                         {
+                           await Task.Run(() => ListDesJourFeriesOccasionnelle.ForEach((jf) =>
+                           {
+                               if (jf.JourFerieId == Guid.Empty)
+                               {
+                                   _dbContext.JourFeries.Add(jf);
+                               }
+                           }));                          
                             _dbContext.SaveChanges();
                         }));
             }
@@ -318,8 +324,10 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _cancelUpdateJourFerieCommand
-                    ?? (_cancelUpdateJourFerieCommand = new RelayCommand(
-                    () => _dbContext.SaveChanges()));
+                    ?? (_cancelUpdateJourFerieCommand = new RelayCommand(async () =>
+                        {
+                            await LoadJourFerie();
+                        }));
             }
         }
         private RelayCommand _openRecuDeDepotDesignerCommand;
