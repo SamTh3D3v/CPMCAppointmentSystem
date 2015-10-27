@@ -58,7 +58,8 @@
             <converters:SelecteImageConverter x:Key="SelecteImageConverter"/>
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <converters:ValueToEqualsParameterConverter x:Key="IsValueEqualToParameterConverter"/>
-            <converters:FlagToIsCheckedConverter x:Key="FlagToIsCheckedConverter"/>            
+            <converters:FlagToIsCheckedConverter x:Key="FlagToIsCheckedConverter"/>
+            <converters:DateJourFerieToNumberConverter x:Key="DateJourFerieToNumberConverter"/>            
         </ResourceDictionary>
 
 

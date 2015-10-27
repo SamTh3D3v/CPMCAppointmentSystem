@@ -21,7 +21,7 @@ namespace DataLayer.Model
     {
         #region Fields
         private Guid _jourFerieId;
-        private DateTime _dateJourFerie;
+        private DateTime _dateJourFerie=DateTime.Now;
         private string _titreJourFerie;    
         private string _descriptionJourFerie;
         private TypeJourFerie _typeJourFerie;
@@ -113,7 +113,7 @@ namespace DataLayer.Model
                 return result;
             }
         }
-
+        [NotMapped]
         public string Error { get; private set; }
     }
 }

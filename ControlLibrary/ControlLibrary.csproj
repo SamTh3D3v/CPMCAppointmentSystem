@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\DateJourFerieToNumberConverter.cs" />
     <Compile Include="Converters\FlagToIsCheckedConverter.cs" />
     <Compile Include="Converters\SelecteImageConverter.cs" />
     <Compile Include="Converters\ValueToEqualsParameterConverter.cs" />

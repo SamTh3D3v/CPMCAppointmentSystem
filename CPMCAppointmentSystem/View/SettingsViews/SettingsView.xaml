@@ -431,7 +431,7 @@
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
+                                            <syncfusion:SfDataGrid ColumnSizer="Star" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
                                                        AutoGenerateColumns="False"
                                                                EditTrigger="OnTap"
                                               LiveDataUpdateMode="AllowDataShaping"
@@ -445,13 +445,7 @@
                                             ShowGroupDropArea="True" >
                                                 <i:Interaction.Behaviors>
                                                     <behavior:InitialSetupBehaviour />
-                                                </i:Interaction.Behaviors>
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseDoubleClick">
-                                                        <command:EventToCommand 
-                            PassEventArgsToCommand="True"  />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
+                                                </i:Interaction.Behaviors>                                                
                                                 <syncfusion:SfDataGrid.Resources>
                                                     <ResourceDictionary>
                                                         <ResourceDictionary.MergedDictionaries>
@@ -573,7 +567,7 @@
                                                         </syncfusion:GridTemplateColumn.EditTemplate>
                                                     </syncfusion:GridTemplateColumn>
                                                     <syncfusion:GridTextColumn HeaderText="Titre" MappingName="TitreJourFerie" TextAlignment="Left" AllowEditing="True" />
-                                                    <syncfusion:GridTextColumn HeaderText="Description" MappingName="DescriptionJourFerie" TextAlignment="Left" AllowEditing="True"/>
+                                                    <syncfusion:GridTextColumn HeaderText="Description" MappingName="DescriptionJourFerie" TextAlignment="Left" AllowEditing="True"/>                                                   
                                                 </syncfusion:SfDataGrid.Columns>
                                             </syncfusion:SfDataGrid>
                                             <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom">
@@ -581,7 +575,7 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieCommand}">
+                                                <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieOcasiCommand}">
                                                     <Button.Content>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -738,7 +732,7 @@
                                                     <syncfusion:GridTemplateColumn HeaderText="Date" MappingName="DateJourFerie" AllowEditing="True">
                                                         <syncfusion:GridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
-                                                                <TextBlock Text="{Binding DateJourFerie,StringFormat=d}"/>
+                                                                <TextBlock Text="{Binding DateJourFerie,StringFormat=dd-MMMM}"/>
                                                             </DataTemplate>
                                                         </syncfusion:GridTemplateColumn.CellTemplate>
                                                         <syncfusion:GridTemplateColumn.EditTemplate>
@@ -748,8 +742,8 @@
                                                                         <ColumnDefinition Width=".5*"/>
                                                                         <ColumnDefinition Width="*"/>
                                                                     </Grid.ColumnDefinitions>
-                                                                    <controls:NumericUpDown Grid.Row="0" Minimum="1" Maximum="31"/>
-                                                                    <ComboBox Grid.Column="1" ItemsSource="{Binding DataContext.MonthsList,ElementName=RootGrid}"></ComboBox>
+                                                                    <controls:NumericUpDown Grid.Row="0" Minimum="1" Maximum="31" Value="{Binding DateJourFerie,Mode=TwoWay,Converter={StaticResource DateJourFerieToNumberConverter},ConverterParameter={Binding ElementName=DaysNumericUpDown}}" Name="DaysNumericUpDown"/>
+                                                                    <ComboBox Grid.Column="1" ItemsSource="{Binding DataContext.MonthsList,ElementName=RootGrid}" SelectedIndex="{Binding DateJourFerie,Mode=TwoWay,Converter={StaticResource DateJourFerieToNumberConverter},ConverterParameter={Binding ElementName=MonthsBox}}" Name="MonthsBox" />
                                                                 </Grid>
                                                             </DataTemplate>
                                                         </syncfusion:GridTemplateColumn.EditTemplate>
@@ -763,7 +757,7 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieCommand}">
+                                                <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieOcasiCommand}">
                                                     <Button.Content>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />

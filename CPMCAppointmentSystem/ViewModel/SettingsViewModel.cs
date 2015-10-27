@@ -366,22 +366,55 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-        private RelayCommand _saveJourFerieCommand;
-        public RelayCommand SaveJourFerieCommand
+        private RelayCommand _saveJourFerieOcasCommand;
+        public RelayCommand SaveJourFerieOcasiCommand
         {
             get
             {
-                return _saveJourFerieCommand
-                    ?? (_saveJourFerieCommand = new RelayCommand(async () =>
+                return _saveJourFerieOcasCommand
+                    ?? (_saveJourFerieOcasCommand = new RelayCommand(async () =>
                         {
                            await Task.Run(() => ListDesJourFeriesOccasionnelle.ForEach((jf) =>
                            {
                                if (jf.JourFerieId == Guid.Empty)
                                {
-                                   _dbContext.JourFeries.Add(jf);
+                                   _dbContext.JourFeries.Add(new JourFerie()
+                                   {
+                                       DateJourFerie = jf.DateJourFerie,
+                                       TitreJourFerie = jf.TitreJourFerie,
+                                       DescriptionJourFerie = jf.DescriptionJourFerie,
+                                       TypeJourFerie = TypeJourFerie.Ocas
+                                   });
                                }
                            }));                          
                             _dbContext.SaveChanges();
+                            await LoadJourFerieOcasion();
+                        }));
+            }
+        }
+        private RelayCommand _saveJourFerieFixCommand;
+        public RelayCommand SaveJourFerieFixCommand
+        {
+            get
+            {
+                return _saveJourFerieFixCommand
+                    ?? (_saveJourFerieFixCommand = new RelayCommand(async () =>
+                        {
+                           await Task.Run(() => ListDesJourFeriesOccasionnelle.ForEach((jf) =>
+                           {
+                               if (jf.JourFerieId == Guid.Empty)
+                               {
+                                   _dbContext.JourFeries.Add(new JourFerie()
+                                   {
+                                       DateJourFerie = jf.DateJourFerie,
+                                       TitreJourFerie = jf.TitreJourFerie,
+                                       DescriptionJourFerie = jf.DescriptionJourFerie,
+                                       TypeJourFerie = TypeJourFerie.Fix
+                                   });
+                               }
+                           }));                          
+                            _dbContext.SaveChanges();
+                            await LoadJourFerieFix();
                         }));
             }
         }
