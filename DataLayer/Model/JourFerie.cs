@@ -11,6 +11,11 @@ using DataLayer.Annotations;
 
 namespace DataLayer.Model
 {
+    public enum TypeJourFerie
+    {
+        Fix=1,
+        Ocas=2
+    }
     [Table("JourFerie")]
     public class JourFerie:INotifyPropertyChanged,IDataErrorInfo
     {
@@ -18,7 +23,9 @@ namespace DataLayer.Model
         private Guid _jourFerieId;
         private DateTime _dateJourFerie;
         private string _titreJourFerie;    
-        private string _descriptionJourFerie;                  
+        private string _descriptionJourFerie;
+        private TypeJourFerie _typeJourFerie;
+
         #endregion
 
         #region Properties
@@ -62,6 +69,17 @@ namespace DataLayer.Model
             {
                 if (value == _descriptionJourFerie) return;
                 _descriptionJourFerie = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TypeJourFerie TypeJourFerie
+        {
+            get { return _typeJourFerie; }
+            set
+            {
+                if (value == _typeJourFerie) return;
+                _typeJourFerie = value;
                 OnPropertyChanged();
             }
         }

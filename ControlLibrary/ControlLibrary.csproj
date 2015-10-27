@@ -37,6 +37,10 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="Syncfusion.SfGrid.WPF, Version=13.2451.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.2.0.29\Assemblies\4.5.1\Syncfusion.SfGrid.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.SfInput.WPF, Version=13.2451.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.2.0.29\Assemblies\4.5.1\Syncfusion.SfInput.WPF.dll</HintPath>
@@ -136,6 +140,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ResourcesDictionaries\CustomControlsStyles\TimelineStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourcesDictionaries\NamedStyles\AddNewRowControlStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

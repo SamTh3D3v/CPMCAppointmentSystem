@@ -29,7 +29,7 @@
         </HierarchicalDataTemplate>
     </Page.Resources>
 
-    <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="RootGrid">
         <TabControl  TabStripPlacement="Left"  Padding="0" Margin="0">
             <TabItem Style="{StaticResource SettingsTabItemStyle}">
                 <TabItem.Header>
@@ -599,7 +599,7 @@
                                                 </Button>
                                             </Grid>
                                         </Grid>
-                                    </GroupBox> 
+                                    </GroupBox>
                                     <GroupBox Grid.Row="1" Header="Jour férié fixe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                         <Grid>
                                             <Grid.RowDefinitions>
@@ -615,8 +615,8 @@
                                              AllowEditing="True"
                                             AllowFiltering="True"
                                             AllowGrouping="True"
-                                            ItemsSource="{Binding ListDesJourFeriesOccasionnelle,Mode=TwoWay}"
-                                            SelectedItem="{Binding SelectedJourFerie,Mode=TwoWay}"
+                                            ItemsSource="{Binding ListDesJoursFerieFix,Mode=TwoWay}"
+                                            SelectedItem="{Binding SelectedJourFerieFix,Mode=TwoWay}"
                                             ShowGroupDropArea="True" >
                                                 <i:Interaction.Behaviors>
                                                     <behavior:InitialSetupBehaviour />
@@ -743,7 +743,14 @@
                                                         </syncfusion:GridTemplateColumn.CellTemplate>
                                                         <syncfusion:GridTemplateColumn.EditTemplate>
                                                             <DataTemplate>
-                                                                <syncfusion:DateTimeEdit DateTime="{Binding DateJourFerie,Mode=TwoWay,StringFormat=d}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width=".5*"/>
+                                                                        <ColumnDefinition Width="*"/>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <controls:NumericUpDown Grid.Row="0" Minimum="1" Maximum="31"/>
+                                                                    <ComboBox Grid.Column="1" ItemsSource="{Binding DataContext.MonthsList,ElementName=RootGrid}"></ComboBox>
+                                                                </Grid>
                                                             </DataTemplate>
                                                         </syncfusion:GridTemplateColumn.EditTemplate>
                                                     </syncfusion:GridTemplateColumn>

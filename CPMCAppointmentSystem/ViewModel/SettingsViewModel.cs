@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,12 @@ using Xceed.Wpf.Toolkit;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
+    
     public class SettingsViewModel : NavigableViewModelBase
     {
         #region Fields
+        private ObservableCollection<JourFerie> _listDesJoursFerieFix;
+        private JourFerie _selectedJourFerieFix;
         private readonly CpmcContext _dbContext = new CpmcContext();
         private ObservableCollection<User> _usersList;
         private User _selectedUser;
@@ -30,8 +34,63 @@ namespace CPMCAppointmentSystem.ViewModel
         private JourFerie _selectedJourFerie;
         private string _reportPath;
         private bool _isFormEnabled;
+        private ObservableCollection<string> _monthList ;  
         #endregion
         #region Properties
+        public ObservableCollection<string> MonthsList
+        {
+            get
+            {
+                return _monthList;
+            }
+
+            set
+            {
+                if (_monthList == value)
+                {
+                    return;
+                }
+
+                _monthList = value;
+                RaisePropertyChanged();
+            }
+        }
+        public  ObservableCollection<JourFerie> ListDesJoursFerieFix
+        {
+            get
+            {
+                return _listDesJoursFerieFix;
+            }
+
+            set
+            {
+                if (_listDesJoursFerieFix == value)
+                {
+                    return;
+                }
+
+                _listDesJoursFerieFix = value;
+                RaisePropertyChanged();
+            }
+        }
+        public JourFerie SelectedJourFerieFix
+        {
+            get
+            {
+                return _selectedJourFerieFix;
+            }
+
+            set
+            {
+                if (_selectedJourFerieFix == value)
+                {
+                    return;
+                }
+
+                _selectedJourFerieFix = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool IsFormEnabled
         {
             get
@@ -251,14 +310,22 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _jourFerieDataGridLoadedCommand
                     ?? (_jourFerieDataGridLoadedCommand = new RelayCommand(async () =>
                     {
-                        await LoadJourFerie();
+                        
+                        await LoadJourFerieOcasion();
+                        await LoadJourFerieFix();                        
                     }));
             }
         }
 
-        private async Task LoadJourFerie()
+       
+
+        private async Task LoadJourFerieOcasion()
         {
-            ListDesJourFeriesOccasionnelle=new ObservableCollection<JourFerie>(await Task.Run(()=>_dbContext.JourFeries));
+            ListDesJourFeriesOccasionnelle=new ObservableCollection<JourFerie>(await Task.Run(()=>_dbContext.JourFeries.Where(x=>x.TypeJourFerie==TypeJourFerie.Ocas)));
+        }
+        private async Task LoadJourFerieFix()
+        {
+            ListDesJoursFerieFix = new ObservableCollection<JourFerie>(await Task.Run(() => _dbContext.JourFeries.Where(x => x.TypeJourFerie == TypeJourFerie.Fix)));
         }
 
         private async Task LoadTypePieceJointsCollection()
@@ -326,7 +393,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _cancelUpdateJourFerieCommand
                     ?? (_cancelUpdateJourFerieCommand = new RelayCommand(async () =>
                         {
-                            await LoadJourFerie();
+                            await LoadJourFerieOcasion();
                         }));
             }
         }
@@ -410,6 +477,8 @@ namespace CPMCAppointmentSystem.ViewModel
         public SettingsViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
+            if (DateTimeFormatInfo.CurrentInfo != null)
+                MonthsList = new ObservableCollection<string>(DateTimeFormatInfo.CurrentInfo.MonthNames);
         }
 
         private async Task LoadUsersList()
