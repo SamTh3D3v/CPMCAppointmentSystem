@@ -86,7 +86,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     return;
                 }
-                IsFormEnabled = true;
+                IsFormEnabled = value != null;
                 _seletedDoctor = value;
                 RaisePropertyChanged();
             }
@@ -251,11 +251,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addDoctorCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedDoctor = new Medecin()
-                        {
-                           // SpecialitePrincipale= new Specialite()
-                        };
-                        IsFormEnabled = true;
+                        SelectedDoctor = new Medecin();
+                                                                      
                     }));
             }
         }
