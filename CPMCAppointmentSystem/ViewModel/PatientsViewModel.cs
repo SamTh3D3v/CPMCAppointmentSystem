@@ -245,7 +245,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     return;
                 }
-                IsFormEnabled = true;
+                IsFormEnabled = value != null;
                 _selectedPatient = value;
                 RaisePropertyChanged();
             }
@@ -501,11 +501,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addPatientCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedPatient = new Patient()
-                        {
-                            Adresse = new Adresse()
-                        };
-                        IsFormEnabled = true;
+                        SelectedPatient = new Patient();                        
+                        
                     }));
             }
         }
@@ -537,7 +534,17 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deletePatientCommand = new RelayCommand(
                     () =>
                     {
-                        //
+                        //todo Logical suppression 
+                        if (SelectedPatient != null)
+                        {
+                            if (SelectedPatient.PatientId != Guid.Empty)
+                            {
+                                _dbContext.Patients.Remove(SelectedPatient);
+                                PatientList.Remove(SelectedPatient);
+                                _dbContext.SaveChanges();
+                                SelectedPatient = null;
+                            }
+                        }
                     }));
             }
         }
@@ -550,7 +557,12 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelPatientChangesCommand = new RelayCommand(
                     () =>
                     {
-
+                        if (SelectedPatient != null)
+                        {
+                            if (SelectedPatient.PatientId != Guid.Empty)
+                                _dbContext.Entry(SelectedPatient).Reload();
+                        }
+                        SelectedPatient = null;
                     }));
             }
         }

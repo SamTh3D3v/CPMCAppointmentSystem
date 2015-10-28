@@ -29,7 +29,7 @@ namespace DataLayer.Model
         private Guid? _pathologyId;
         private DateTime _dateDeNaissance=DateTime.Now;
         private Sexe _sexe;
-        private Adresse _adresse;
+        private Adresse _adresse=new Adresse();
         private Pathology _pathology;
         private DateTime _dateDeDepot=DateTime.Now;
         private ObservableCollection<PieceJointe> _pieceJointes;
@@ -236,8 +236,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
-        //[Required]
+        
         public DateTime DateDeDepot
         {
             get { return _dateDeDepot; }
@@ -282,6 +281,15 @@ namespace DataLayer.Model
             get
             {
                 string result = null;
+                if (columnName == "NumeroDordre")
+                {
+                    if (string.IsNullOrEmpty(NumeroDordre))
+                        result = "Spesifiez le numero d'ordre";
+                    var dbContext = new CpmcContext();
+                    if (dbContext.Patients.Any(p => p.NumeroDordre == NumeroDordre))
+                        return "Ce numero d'ordre exist deja";
+                   
+                }
                 if (columnName == "Nom")
                 {
                     if (string.IsNullOrEmpty(Nom))
@@ -292,11 +300,11 @@ namespace DataLayer.Model
                     if (string.IsNullOrEmpty(Prenom))
                         result = "Spesifiez le prenom du patient";
                 }
-                if (columnName == "DateDeNaissance")
+                if (columnName == "SexeId")
                 {
-                    if (DateDeNaissance==null)
-                        result = "Spesifiez la date de naissance";
-                }
+                    if (SexeId==0)
+                        result = "Spesifiez le sexe du patient";
+                }                
                 if (columnName == "TelephoneFixe")
                 {
                     if (String.IsNullOrEmpty(TelephoneFixe))

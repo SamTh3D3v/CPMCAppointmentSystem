@@ -23,6 +23,7 @@ namespace CPMCAppointmentSystem.View.SettingsViews
         {
             InitializeComponent();
             _reportPath = reportPath;
+            
         }
 
         private void ReportEditor_Loded(object sender, RoutedEventArgs e)
