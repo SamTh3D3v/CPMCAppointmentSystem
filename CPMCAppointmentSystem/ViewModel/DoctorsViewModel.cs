@@ -309,6 +309,12 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelChangesToDoctorCommand = new RelayCommand(
                     () =>
                     {
+                        if (SelectedDoctor != null)
+                        {
+                            if (SelectedDoctor.MedecinId != Guid.Empty)
+                                _dbContext.Entry(SelectedDoctor).Reload();
+                        }
+                        SelectedDoctor = null;
                         
                     }));
             }
