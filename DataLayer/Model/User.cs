@@ -169,7 +169,7 @@ namespace DataLayer.Model
             get { return String.Empty; }
         }
         #endregion
-        #region INotifyPropertyChanged related
+        #region INotifyPropertyChanged and IDataErrorInfo related logic
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -179,8 +179,6 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
-
         public string this[string columnName]
         {
             get
@@ -216,6 +214,6 @@ namespace DataLayer.Model
                 return String.Empty;
             }
         }
-
+        #endregion        
     }
 }

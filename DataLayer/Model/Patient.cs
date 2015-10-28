@@ -51,7 +51,7 @@ namespace DataLayer.Model
             }
         }
 
-        //[Required]
+        [Required]
         public String NumeroDordre
         {
             get { return _numeroDordre; }
@@ -248,6 +248,12 @@ namespace DataLayer.Model
             }
         }
 
+        [NotMapped]
+        public string Error
+        {
+            get { return String.Empty; }
+        }
+
         public virtual ICollection<Medecin> Medecins { get; set; }
         public virtual ICollection<RendezVous> RendezVouses { get; set; }
 
@@ -264,7 +270,7 @@ namespace DataLayer.Model
 
         public virtual ICollection<Note> Notes { get; set; }
         #endregion
-        #region INotifyPropertyChanged related
+        #region INotifyPropertyChanged and IDataErrorInfo related logic
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -274,8 +280,6 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
-
         public string this[string columnName]
         {
             get
@@ -288,7 +292,7 @@ namespace DataLayer.Model
                     var dbContext = new CpmcContext();
                     if (dbContext.Patients.Any(p => p.NumeroDordre == NumeroDordre))
                         return "Ce numero d'ordre exist deja";
-                   
+
                 }
                 if (columnName == "Nom")
                 {
@@ -302,9 +306,9 @@ namespace DataLayer.Model
                 }
                 if (columnName == "SexeId")
                 {
-                    if (SexeId==0)
+                    if (SexeId == 0)
                         result = "Spesifiez le sexe du patient";
-                }                
+                }
                 if (columnName == "TelephoneFixe")
                 {
                     if (String.IsNullOrEmpty(TelephoneFixe))
@@ -323,11 +327,7 @@ namespace DataLayer.Model
                 return result;
             }
         }
-        [NotMapped]
-        public string Error
-        {
-            get { return String.Empty; }
-        }
+        #endregion        
     }
 
 
