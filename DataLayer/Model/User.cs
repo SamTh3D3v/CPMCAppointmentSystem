@@ -19,7 +19,7 @@ namespace DataLayer.Model
         private String _userNom;
         private String _userPrenom;
         private String _userName;
-        private Guid _rolesCollectionId;
+        private Guid? _rolesCollectionId;
         private string _userPass;
         private Guid _userTypeId;
         private UserType _userType;
@@ -107,8 +107,7 @@ namespace DataLayer.Model
 
 
 
-        [Required]
-        public Guid RolesCollectionId
+        public virtual Guid? RolesCollectionId
         {
             get { return _rolesCollectionId; }
             set
