@@ -172,7 +172,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <ToggleButton Width="35" Content="S" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Saturday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Samedi" Grid.Column="0" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
+                        <ToggleButton Width="35" Content="S" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Saturday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Samedi" Grid.Column="0" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}" Name="TbJourDeTravail"/>
                         <ToggleButton Width="35" Content="D" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Sunday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Dimanche" Grid.Column="1" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
                         <ToggleButton Width="35" Content="L" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Monday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Lundi" Grid.Column="2" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
                         <ToggleButton Width="35" Content="M" IsChecked="{Binding SelectedDoctor.JoursDeTravail,Converter={StaticResource FlagToIsCheckedConverter},ConverterParameter={x:Static model:Days.Tuesday},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" ToolTip="Mardi" Grid.Column="3" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}"/>
@@ -199,12 +199,12 @@
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="UserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             <PasswordBox.Resources>
                                 <system:String x:Key="WaterMarkText">Enter password</system:String>
                             </PasswordBox.Resources>
                         </PasswordBox>
-                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="2"  x:Name="UserPass2" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="2"  x:Name="PassBoxConfirmPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             <PasswordBox.Resources>
                                 <system:String x:Key="WaterMarkText">Confirme password</system:String>
                             </PasswordBox.Resources>
@@ -226,6 +226,38 @@
                                 <TextBlock Text="Save" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                <Setter Property="IsEnabled" Value="false" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=TxtEditNom, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TexEditPrenom, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TexEditTelFix, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TexEditMobile, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TbJourDeTravail, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditUserName, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=PassBoxUserPass, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=PassBoxConfirmPass, Path=(Validation.HasError)}" Value="false"/>
+                                            <Condition>
+                                                <Condition.Binding>
+                                                    <Binding Path="SelectedDoctor" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                        <Binding.ConverterParameter>
+                                                            <x:Null/>
+                                                        </Binding.ConverterParameter>
+                                                    </Binding>
+                                                </Condition.Binding>
+                                                <Condition.Value>
+                                                    <system:Boolean>False</system:Boolean>
+                                                </Condition.Value>
+                                            </Condition>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="true" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
                     <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteDoctorCommand}">
                         <Button.Content>
