@@ -285,6 +285,17 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deleteDoctorCommand = new RelayCommand(
                     () =>
                     {
+                        //todo Logical suppression 
+                        if (SelectedDoctor != null)
+                        {
+                            if (SelectedDoctor.MedecinId != Guid.Empty)
+                            {
+                                _dbContext.Medecins.Remove(SelectedDoctor);
+                                DoctorsList.Remove(SelectedDoctor);
+                                _dbContext.SaveChanges();
+                                SelectedDoctor = null;
+                            }
+                        }
                         
                     }));
             }
