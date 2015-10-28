@@ -219,7 +219,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}">
+                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}" CommandParameter="{Binding ElementName=PassBoxUserPass}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />

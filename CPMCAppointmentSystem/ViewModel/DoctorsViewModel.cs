@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
@@ -257,16 +258,20 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
-        private RelayCommand _saveDoctorCommand;
-        public RelayCommand SaveDoctorCommand
+        private RelayCommand<object> _saveDoctorCommand;
+        public RelayCommand<object> SaveDoctorCommand
         {
             get
             {
                 return _saveDoctorCommand
-                    ?? (_saveDoctorCommand = new RelayCommand(
-                    () =>
+                    ?? (_saveDoctorCommand = new RelayCommand<object>(
+                    (obj) =>
                     {
-
+                        var passwordBox = obj as PasswordBox;
+                        if (passwordBox != null)
+                        {
+                            SelectedDoctor.User.UserPass = passwordBox.Password;
+                        }
                         if (SelectedDoctor.MedecinId == Guid.Empty)
                         {
                             AddNewDoctor();
@@ -541,7 +546,6 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             SelectedDoctor.User.UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId;                                 
             _dbContext.Users.Add(SelectedDoctor.User);
-
             _dbContext.SaveChanges();
             _dbContext.Medecins.Add(SelectedDoctor);
         }

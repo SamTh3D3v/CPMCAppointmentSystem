@@ -36,7 +36,7 @@ namespace DataLayer.Model
         //private Specialite _specialitePrincipale;
         private User _user=new User();
         private string _telephoneMobile;
-        private DateTime _dateDeNaissance;
+        private DateTime _dateDeNaissance=DateTime.Now;
         private string _telephoneFixe;
         //private Guid _specialitePrincipaleId;
 
