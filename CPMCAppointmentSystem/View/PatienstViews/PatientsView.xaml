@@ -152,7 +152,7 @@
                                                                             StringFormat=d}"/>
                     <Syncfusion:GridTextColumn HeaderText="Télephone fixe" MappingName="TelephoneFixe"/>
                     <Syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
-                    <Syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneMobile2"/>
+                    <Syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneDaccompagnant"/>
                     <Syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
                     <Syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
 
@@ -174,6 +174,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -315,17 +316,21 @@
                                      Watermark="Telephone mobile 1"  
                                      />
 
-                <TextBlock Grid.Column="0" Grid.Row="8" Text="Mobile 2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding TelephoneMobile2,Mode=TwoWay}" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Telephone mobile 2"  
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="Mobile d'accompagnant" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <Syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding TelephoneDaccompagnant,Mode=TwoWay}" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Telephone mobile d'accompagnant"  
+                                     />
+                <TextBlock Grid.Column="0" Grid.Row="9" Text="Nom d'accompagnant" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <Syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding NomPrenomDaccompagnant,Mode=TwoWay}" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Nom et prenom d'accompagnant"  
                                      />
 
-                <TextBlock Grid.Column="0" Grid.Row="9" Text="Adresse" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding Adresse.AddressDesignation,Mode=TwoWay}" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                <TextBlock Grid.Column="0" Grid.Row="10" Text="Adresse" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <Syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding Adresse.AddressDesignation,Mode=TwoWay}" Grid.Row="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Adresse"  
                                      />
 
-                <Grid Grid.Column="1" Grid.Row="10" >
+                <Grid Grid.Column="1" Grid.Row="11" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -350,9 +355,9 @@
                                      Watermark="code postal"  
                                      />
                 </Grid>
-                <TextBlock Grid.Column="0" Grid.Row="11" Text="Date depot" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:DateTimeEdit Margin="10 5"  Text="{Binding DateDeDepot,Mode=TwoWay,StringFormat=d}"   x:Name="DepotDateBox" Grid.Column="1" Grid.Row="11" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="11"  Text="Date de dépot" >
+                <TextBlock Grid.Column="0" Grid.Row="12" Text="Date depot" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <Syncfusion:DateTimeEdit Margin="10 5"  Text="{Binding DateDeDepot,Mode=TwoWay,StringFormat=d}"   x:Name="DepotDateBox" Grid.Column="1" Grid.Row="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="12"  Text="Date de dépot" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -363,7 +368,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <GroupBox Header="Affecte une pathologie" Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
+                <GroupBox Header="Affecte une pathologie" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2">
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -385,9 +390,7 @@
                         </TextBlock>
                     </Grid>
                 </GroupBox>
-
-
-                <Grid Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                <Grid Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>

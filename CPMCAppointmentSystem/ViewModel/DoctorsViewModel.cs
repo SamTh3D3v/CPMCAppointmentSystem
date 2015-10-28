@@ -416,7 +416,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             DateDeNaissance = patient.DateDeNaissance,
                             TelephoneFixe = patient.TelephoneFixe,
                             TelephoneMobile1 = patient.TelephoneMobile1,
-                            TelephoneMobile2 = patient.TelephoneMobile2,
+                            TelephoneDaccompagnant = patient.TelephoneDaccompagnant,
                             AdressId = patient.AdressId,
                             Adresse = patient.Adresse,
                             DateDeDepot = patient.DateDeDepot,

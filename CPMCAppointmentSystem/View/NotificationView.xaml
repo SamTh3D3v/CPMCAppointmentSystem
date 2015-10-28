@@ -82,7 +82,7 @@
                         <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Patient.Prenom" TextAlignment="Right" />
                         <syncfusion:GridTextColumn HeaderText="Telephone Fixe" MappingName="Patient.TelephoneFixe" />
                         <syncfusion:GridTextColumn HeaderText="Mobile1" MappingName="Patient.TelephoneMobile1" />
-                        <syncfusion:GridTextColumn HeaderText="Mobile2" MappingName="Patient.TelephoneMobile2" />
+                        <syncfusion:GridTextColumn HeaderText="Mobile2" MappingName="Patient.TelephoneDaccompagnant" />
                         <syncfusion:GridTextColumn HeaderText="Nom Medecin" MappingName="Medecin.User.UserNom" />
                         <syncfusion:GridTextColumn HeaderText="Prenom Medecin" MappingName="Medecin.User.UserPrenom" />
                         <syncfusion:GridTemplateColumn HeaderText="Notification envoyé" MappingName="NotificationSent" >

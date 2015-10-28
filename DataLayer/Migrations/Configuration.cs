@@ -51,13 +51,13 @@ namespace DataLayer.Migrations
 
             ////Patient Table
             //IList<Patient> fakePatientsList = new List<Patient>();
-            //fakePatientsList.Add(new Patient() { Nom = "Lahlou", Prenom = "Amine",SexeId = 0, DateDeNaissance = new DateTime(1989, 4, 13), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneMobile2 = "0772548798" });
-            //fakePatientsList.Add(new Patient() { Nom = "Bentalha", Prenom = "Nadhir", SexeId = 0, DateDeNaissance = new DateTime(1988, 5, 23), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneMobile2 = "0772548798" });
-            //fakePatientsList.Add(new Patient() { Nom = "Boumedian", Prenom = "Farid Djilali", SexeId = 0, DateDeNaissance = new DateTime(1990, 7, 22), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneMobile2 = "0772548798" });
-            //fakePatientsList.Add(new Patient() { Nom = "Benmira", Prenom = "Ibtissam", SexeId = 1, DateDeNaissance = new DateTime(1978, 9, 3), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneMobile2 = "0772548798" });
-            //fakePatientsList.Add(new Patient() { Nom = "Mansour", Prenom = "Ismail", SexeId = 0, DateDeNaissance = new DateTime(1996, 1, 9), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneMobile2 = "0772548798" });
-            //fakePatientsList.Add(new Patient() { Nom = "Zahaf", Prenom = "Ahmed", SexeId = 0, DateDeNaissance = new DateTime(2005, 8, 16), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneMobile2 = "0772548798" });
-            //fakePatientsList.Add(new Patient() { Nom = "Moumen", Prenom = "Radhia", SexeId = 1, DateDeNaissance = new DateTime(1993, 12, 7), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneMobile2 = "0772548798" });
+            //fakePatientsList.Add(new Patient() { Nom = "Lahlou", Prenom = "Amine",SexeId = 0, DateDeNaissance = new DateTime(1989, 4, 13), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneDaccompagnant = "0772548798" });
+            //fakePatientsList.Add(new Patient() { Nom = "Bentalha", Prenom = "Nadhir", SexeId = 0, DateDeNaissance = new DateTime(1988, 5, 23), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneDaccompagnant = "0772548798" });
+            //fakePatientsList.Add(new Patient() { Nom = "Boumedian", Prenom = "Farid Djilali", SexeId = 0, DateDeNaissance = new DateTime(1990, 7, 22), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneDaccompagnant = "0772548798" });
+            //fakePatientsList.Add(new Patient() { Nom = "Benmira", Prenom = "Ibtissam", SexeId = 1, DateDeNaissance = new DateTime(1978, 9, 3), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneDaccompagnant = "0772548798" });
+            //fakePatientsList.Add(new Patient() { Nom = "Mansour", Prenom = "Ismail", SexeId = 0, DateDeNaissance = new DateTime(1996, 1, 9), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneDaccompagnant = "0772548798" });
+            //fakePatientsList.Add(new Patient() { Nom = "Zahaf", Prenom = "Ahmed", SexeId = 0, DateDeNaissance = new DateTime(2005, 8, 16), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneDaccompagnant = "0772548798" });
+            //fakePatientsList.Add(new Patient() { Nom = "Moumen", Prenom = "Radhia", SexeId = 1, DateDeNaissance = new DateTime(1993, 12, 7), TelephoneFixe = "021549865", TelephoneMobile1 = "0698626598", TelephoneDaccompagnant = "0772548798" });
 
             //foreach (Patient patient in fakePatientsList)
             //    context.Patients.Add(patient);

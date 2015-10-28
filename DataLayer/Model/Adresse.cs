@@ -14,7 +14,8 @@ namespace DataLayer.Model
 {
     [Table("Adresse")]
     public class Adresse:INotifyPropertyChanged
-    {       
+    {
+       
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid AdressId { get; set; }                             

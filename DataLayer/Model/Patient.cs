@@ -13,7 +13,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Patient")]
-    public class Patient : Auditable, INotifyPropertyChanged
+    public class Patient : Auditable, INotifyPropertyChanged,IDataErrorInfo
     {
         #region Fields
         private Guid _patientId;
@@ -23,17 +23,18 @@ namespace DataLayer.Model
         private int _sexeId;
         private string _telephoneFixe;
         private string _telephoneMobile1;
-        private string _telephoneMobile2;
+        private string _telephoneDaccompagnant;
         private Guid _adressId;
         private bool _carteProfessionel;
-        private Guid _pathologyId;
-        private DateTime _dateDeNaissance;
+        private Guid? _pathologyId;
+        private DateTime _dateDeNaissance=DateTime.Now;
         private Sexe _sexe;
         private Adresse _adresse;
         private Pathology _pathology;
-        private DateTime _dateDeDepot;
+        private DateTime _dateDeDepot=DateTime.Now;
         private ObservableCollection<PieceJointe> _pieceJointes;
         private byte[] _profilePicture;
+        private string _nomPrenomDaccompagnant;
 
         #endregion
         #region Properties                
@@ -121,13 +122,24 @@ namespace DataLayer.Model
             }
         }
 
-        public String TelephoneMobile2
+        public String TelephoneDaccompagnant
         {
-            get { return _telephoneMobile2; }
+            get { return _telephoneDaccompagnant; }
             set
             {
-                if (value == _telephoneMobile2) return;
-                _telephoneMobile2 = value;
+                if (value == _telephoneDaccompagnant) return;
+                _telephoneDaccompagnant = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String NomPrenomDaccompagnant
+        {
+            get { return _nomPrenomDaccompagnant; }
+            set
+            {
+                if (value == _nomPrenomDaccompagnant) return;
+                _nomPrenomDaccompagnant = value;
                 OnPropertyChanged();
             }
         }
@@ -155,7 +167,7 @@ namespace DataLayer.Model
             }
         }
 
-        public Guid PathologyId
+        public virtual Guid? PathologyId
         {
             get { return _pathologyId; }
             set
@@ -264,6 +276,50 @@ namespace DataLayer.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "Nom")
+                {
+                    if (string.IsNullOrEmpty(Nom))
+                        result = "Spesifiez le nom du patient";
+                }
+                if (columnName == "Prenom")
+                {
+                    if (string.IsNullOrEmpty(Prenom))
+                        result = "Spesifiez le prenom du patient";
+                }
+                if (columnName == "DateDeNaissance")
+                {
+                    if (DateDeNaissance==null)
+                        result = "Spesifiez la date de naissance";
+                }
+                if (columnName == "TelephoneFixe")
+                {
+                    if (String.IsNullOrEmpty(TelephoneFixe))
+                        result = "Spesifiez le numero de tel fix du patient";
+                }
+                if (columnName == "TelephoneMobile1")
+                {
+                    if (String.IsNullOrEmpty(TelephoneMobile1))
+                        result = "Spesifiez le numero de tel mobile de l'assurant";
+                }
+                if (columnName == "TelephoneDaccompagnant")
+                {
+                    if (String.IsNullOrEmpty(TelephoneDaccompagnant))
+                        result = "Spesifiez le numero de tel mobile de l'accompagnant";
+                }
+                return result;
+            }
+        }
+        [NotMapped]
+        public string Error
+        {
+            get { return String.Empty; }
+        }
     }
 
 

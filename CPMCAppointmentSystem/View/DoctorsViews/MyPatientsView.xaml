@@ -151,7 +151,7 @@
                                                                             StringFormat=d}"/>
                     <syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>
                     <syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
-                    <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneMobile2"/>
+                    <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneDaccompagnant"/>
                     <syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
                     <syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
 
@@ -275,7 +275,7 @@
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="8" Text="Mobile 2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding TelephoneMobile2,Mode=TwoWay}" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding TelephoneDaccompagnant,Mode=TwoWay}" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Telephone mobile 2"  
                                      />
 
