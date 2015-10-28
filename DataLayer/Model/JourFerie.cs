@@ -20,8 +20,9 @@ namespace DataLayer.Model
     public class JourFerie:INotifyPropertyChanged,IDataErrorInfo
     {
         #region Fields
+        
         private Guid _jourFerieId;
-        private DateTime _dateJourFerie=DateTime.Now;
+        private DateTime _dateJourFerie = new DateTime(2015,1,1);
         private string _titreJourFerie;    
         private string _descriptionJourFerie;
         private TypeJourFerie _typeJourFerie;

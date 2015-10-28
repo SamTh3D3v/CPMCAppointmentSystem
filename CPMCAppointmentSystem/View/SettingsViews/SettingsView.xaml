@@ -742,8 +742,8 @@
                                                                         <ColumnDefinition Width=".5*"/>
                                                                         <ColumnDefinition Width="*"/>
                                                                     </Grid.ColumnDefinitions>
-                                                                    <controls:NumericUpDown Grid.Row="0" Minimum="1" Maximum="31" Value="{Binding DateJourFerie,Mode=TwoWay,Converter={StaticResource DateJourFerieToNumberConverter},ConverterParameter={Binding ElementName=DaysNumericUpDown}}" Name="DaysNumericUpDown"/>
-                                                                    <ComboBox Grid.Column="1" ItemsSource="{Binding DataContext.MonthsList,ElementName=RootGrid}" SelectedIndex="{Binding DateJourFerie,Mode=TwoWay,Converter={StaticResource DateJourFerieToNumberConverter},ConverterParameter={Binding ElementName=MonthsBox}}" Name="MonthsBox" />
+                                                                    <controls:NumericUpDown Grid.Row="0" Minimum="1" Maximum="31" Value="{Binding DateJourFerie,Mode=TwoWay,Converter={StaticResource DateJourFerieToNumberConverter},ConverterParameter={x:Static system:Boolean.FalseString}}"/>
+                                                                    <ComboBox Grid.Column="1" ItemsSource="{Binding DataContext.MonthsList,ElementName=RootGrid}" SelectedIndex="{Binding DateJourFerie,Mode=TwoWay,Converter={StaticResource DateJourFerieToNumberConverter},ConverterParameter={x:Static system:Boolean.TrueString}}" />
                                                                 </Grid>
                                                             </DataTemplate>
                                                         </syncfusion:GridTemplateColumn.EditTemplate>
@@ -757,7 +757,7 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieOcasiCommand}">
+                                                <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieFixCommand}">
                                                     <Button.Content>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />

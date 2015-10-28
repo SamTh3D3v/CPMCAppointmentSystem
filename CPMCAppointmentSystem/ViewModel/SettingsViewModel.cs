@@ -400,7 +400,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _saveJourFerieFixCommand
                     ?? (_saveJourFerieFixCommand = new RelayCommand(async () =>
                         {
-                           await Task.Run(() => ListDesJourFeriesOccasionnelle.ForEach((jf) =>
+                           await Task.Run(() => ListDesJoursFerieFix.ForEach((jf) =>
                            {
                                if (jf.JourFerieId == Guid.Empty)
                                {
