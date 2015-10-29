@@ -544,9 +544,14 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private void AddNewDoctor()
         {
-            SelectedDoctor.User.UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId;                                 
-            _dbContext.Users.Add(SelectedDoctor.User);
-            _dbContext.SaveChanges();
+            var rolls = new RolesCollection()
+            {
+                RolesCollectionId = new Guid() //get the default medecin rolls from the xml settings file
+            };
+            _dbContext.RolesCollections.Add(rolls);
+            SelectedDoctor.User.RolesCollectionId = rolls.RolesCollectionId;
+            SelectedDoctor.User.UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId;           
+            _dbContext.Users.Add(SelectedDoctor.User);            
             _dbContext.Medecins.Add(SelectedDoctor);
         }
         #endregion
