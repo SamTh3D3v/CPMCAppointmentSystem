@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="CPMCAppointmentSystem.UserControls.NotificationTile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:model="clr-namespace:DataLayer.Model;assembly=DataLayer"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="310">
+    <Grid Margin="2">
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static model:TypeNotification.Critical}">
+                        <Setter Property="Background" Value="Red"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static model:TypeNotification.Reminder}">
+                        <Setter Property="Background" Value="Orange"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static model:TypeNotification.Warnning}">
+                        <Setter Property="Background" Value="Yellow"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static model:TypeNotification.Information}">
+                        <Setter Property="Background" Value="DodgerBlue"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Path Grid.Row="0" Grid.Column="0" Fill="White" Margin="2">
+            <Path.Style>
+                <Style TargetType="Path">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static model:TypeNotification.Critical}">
+                            <Setter Property="Data" Value="{StaticResource CriticalPath}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static model:TypeNotification.Reminder}">
+                            <Setter Property="Data" Value="{StaticResource ReminderPath}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static model:TypeNotification.Warnning}">
+                            <Setter Property="Data" Value="{StaticResource WarnningPath}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static model:TypeNotification.Information}">
+                            <Setter Property="Data" Value="{StaticResource InfoPath}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Path.Style>
+        </Path>
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="NotificationTitle" Grid.Row="0" Grid.Column="1" Margin="2"/>
+        <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="2">
+            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{Binding NotificationTitle}" TextWrapping="Wrap" />
+        </ScrollViewer>        
+    </Grid>
+</UserControl>

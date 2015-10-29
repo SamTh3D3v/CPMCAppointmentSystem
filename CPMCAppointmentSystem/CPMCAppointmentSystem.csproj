@@ -235,6 +235,9 @@
     <Compile Include="SubModel\PatientToAdd.cs" />
     <Compile Include="SubModel\SpecialityToAdd.cs" />
     <Compile Include="SubModel\UserTypeToAdd.cs" />
+    <Compile Include="UserControls\NotificationTile.xaml.cs">
+      <DependentUpon>NotificationTile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TileItemView.xaml.cs">
       <DependentUpon>TileItemView.xaml</DependentUpon>
     </Compile>
@@ -374,6 +377,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\NotificationTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\TileItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
