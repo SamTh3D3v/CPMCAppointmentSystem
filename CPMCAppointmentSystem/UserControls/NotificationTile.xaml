@@ -33,7 +33,7 @@
             <ColumnDefinition Width="75"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Path Grid.Row="0" Grid.Column="0" Fill="White" Margin="2">
+        <Path Grid.Row="0" Grid.Column="0" Fill="White" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform">
             <Path.Style>
                 <Style TargetType="Path">
                     <Style.Triggers>
@@ -53,9 +53,14 @@
                 </Style>
             </Path.Style>
         </Path>
-        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="NotificationTitle" Grid.Row="0" Grid.Column="1" Margin="2"/>
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="NotificationTitle" FontSize="25" Foreground="White" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="2"/>
         <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="2">
             <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{Binding NotificationTitle}" TextWrapping="Wrap" />
-        </ScrollViewer>        
+        </ScrollViewer>    
+        <Button Grid.Column="1" Grid.Row="0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Click="RemoveNotificationClick">
+            <Path Fill="Black" Data="{StaticResource ClosePath}" Stretch="Uniform" >
+                
+            </Path>
+        </Button>
     </Grid>
 </UserControl>

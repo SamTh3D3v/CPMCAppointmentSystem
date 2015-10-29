@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CPMCAppointmentSystem.Helpers;
 
 namespace CPMCAppointmentSystem.UserControls
 {
@@ -21,6 +22,11 @@ namespace CPMCAppointmentSystem.UserControls
         public NotificationTile()
         {
             InitializeComponent();
+        }
+
+        private void RemoveNotificationClick(object sender, RoutedEventArgs e)
+        {
+            NotficationManager.
         }
     }
 }

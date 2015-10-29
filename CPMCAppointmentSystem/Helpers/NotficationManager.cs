@@ -10,9 +10,14 @@ namespace CPMCAppointmentSystem.Helpers
 {
     public static class NotficationManager
     {
-        public static void SendNotification(Notification notification)
+        public static void AddNotification(Notification notification)
         {
-            Messenger.Default.Send<Notification>(notification);            
+            Messenger.Default.Send<Notification>(notification, "AddNotification");          
+        }
+
+        public static void RemoveNotification(Notification notification)
+        {
+            Messenger.Default.Send<Notification>(notification, "RemoveNotification");
         }
     }
 }
