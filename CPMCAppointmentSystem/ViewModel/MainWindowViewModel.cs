@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight;
 using CPMCAppointmentSystem.Model;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -14,8 +16,27 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Fields
         private User _currentUser;
         private bool _isCurrentUserFlayoutOpen;
+        private ObservableCollection<Notification> _notificationCollection;
         #endregion
         #region Properties
+        public ObservableCollection<Notification> NotificationsCollection
+        {
+            get
+            {
+                return _notificationCollection;
+            }
+
+            set
+            {
+                if (_notificationCollection == value)
+                {
+                    return;
+                }
+
+                _notificationCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public User CurrentUser
         {
             get
@@ -33,9 +54,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _currentUser = value;
                 RaisePropertyChanged();
             }
-        }
-       
-        
+        }              
         public bool IsCurrentUserFlayoutOpen
         {
             get
@@ -103,15 +122,14 @@ namespace CPMCAppointmentSystem.ViewModel
         #endregion
         #region Ctors and Methods
 
-        #endregion
-
-        private readonly IDataService _dataService;
+        #endregion       
         public MainWindowViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService,innerFrameNavigationService)
         {
-
+            NotificationsCollection=new ObservableCollection<Notification>();
+            Messenger.Default.Register<Notification>(this, (notification) => NotificationsCollection.Add(notification));
+            
         }
-
         public override void Cleanup()
         {
             // Clean up if needed

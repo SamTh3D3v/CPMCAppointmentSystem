@@ -8,6 +8,7 @@
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:userControls="clr-namespace:CPMCAppointmentSystem.UserControls"
         mc:Ignorable="d ignore"       
         WindowState="Maximized"                                    
         WindowStartupLocation="CenterScreen"
@@ -60,14 +61,16 @@
                 </ScrollViewer>
             </controls:Flyout>
             <controls:Flyout x:Name="NotificationFlyout" Header="Notification"  Position="Right"  Theme="Dark" Width="300">
-                <ListView >
+                <ListView ItemsSource="{Binding NotificationsCollection}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
-                        
+                        <DataTemplate>
+                            <userControls:NotificationTile/>
+                        </DataTemplate>                    
                     </ListView.ItemTemplate>
                     
                 </ListView>

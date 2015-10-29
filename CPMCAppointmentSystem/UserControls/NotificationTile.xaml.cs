@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace CPMCAppointmentSystem.UserControls
 {
-    /// <summary>
-    /// Interaction logic for NotificationTile.xaml
-    /// </summary>
+
     public partial class NotificationTile : UserControl
     {
         public NotificationTile()
