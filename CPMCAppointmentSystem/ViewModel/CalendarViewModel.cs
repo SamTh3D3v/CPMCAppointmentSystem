@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using CPMCAppointmentSystem.Helpers;
@@ -25,6 +26,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class CalendarViewModel : NavigableViewModelBase
     {
         #region Fields
+        private bool _isProgressRingActive;
         private CpmcContext _dbContext = new CpmcContext();
         private ScheduleType _scheduleType = ScheduleType.Month;
         private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
@@ -43,6 +45,24 @@ namespace CPMCAppointmentSystem.ViewModel
         private AddAppointementView _addAppointementView;
         #endregion
         #region Properties
+        public bool IsProgressRingActive
+        {
+            get
+            {
+                return _isProgressRingActive;
+            }
+
+            set
+            {
+                if (_isProgressRingActive == value)
+                {
+                    return;
+                }
+
+                _isProgressRingActive = value;
+                RaisePropertyChanged();
+            }
+        }
         public ScheduleType SelectedScheduleType
         {
             get
@@ -328,7 +348,9 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _calendarViewLoadedCommand
                     ?? (_calendarViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        IsProgressRingActive = true;
                         await LoadRendezVous();
+                        IsProgressRingActive = false;
 
                     }));
             }
@@ -402,12 +424,13 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             //Load Other stuff
         }
-
-        private object loking=new object();
+        
         private async Task LoadRendezVous()
         {
-          
-                RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
+            await Task.Run(() =>
+            {
+                Thread.Sleep(1000);
+                RdvousCollection = new ObservableCollection<RendezVous>(_dbContext.RendezVouses);
                 foreach (var rdv in RdvousCollection)
                 {
                     //Update the rdv status based on rdv date
@@ -423,7 +446,8 @@ namespace CPMCAppointmentSystem.ViewModel
 
                     PatientsScheduleAppointmentCollection.Add(rdv);
                 }
-                //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });            
+            });
+            //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });            
         }
 
         //Super Ugly code --> will be updated InchaAllah
@@ -581,7 +605,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_onScheduleClickCommand = new RelayCommand<ScheduleClickEventArgs>(
                     (args) =>
                     {
-                        SelectedDateInScedule = (DateTime) args.SelectedDate;
+                        SelectedDateInScedule = (DateTime)args.SelectedDate;
                     }));
             }
         }
