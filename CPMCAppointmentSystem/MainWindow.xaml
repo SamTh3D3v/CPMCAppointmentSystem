@@ -59,7 +59,7 @@
                     </Grid>
                 </ScrollViewer>
             </controls:Flyout>
-            <controls:Flyout x:Name="NotificationFlyout" Header="Notification"    Position="Right"  Theme="Accent" Width="300">
+            <controls:Flyout x:Name="NotificationFlyout" Header="Notification"  Position="Right"  Theme="Dark" Width="300">
                 <ScrollViewer Margin="5,40,5,5" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
                     <Grid   HorizontalAlignment="Stretch">
                     </Grid>

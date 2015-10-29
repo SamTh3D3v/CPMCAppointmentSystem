@@ -102,7 +102,18 @@ namespace DataLayer.Model
             get { return String.Empty; }
 
         }
-        #endregion
+        #endregion        
+        #region INotifyPropertyChanged and IDataErrorInfo related logic
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public string this[string columnName]
         {
             get
@@ -120,17 +131,6 @@ namespace DataLayer.Model
                 }
                 return result;
             }
-        }
-
-        #region INotifyPropertyChanged related
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }
