@@ -159,6 +159,19 @@ namespace DataLayer.Model
             }
         }
 
+        [ForeignKey("AdressId")]
+        public virtual Adresse Adresse
+        {
+            get { return _adresse; }
+            set
+            {
+                if (Equals(value, _adresse)) return;
+                _adresse = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public bool CarteProfessionel
         {
             get { return _carteProfessionel; }
@@ -215,19 +228,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
-        [ForeignKey("AdressId")]
-        public virtual Adresse Adresse
-        {
-            get { return _adresse; }
-            set
-            {
-                if (Equals(value, _adresse)) return;
-                _adresse = value;
-                OnPropertyChanged();
-            }
-        }
-
+      
         [ForeignKey("PathologyId")]
         public virtual Pathology Pathology
         {

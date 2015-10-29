@@ -873,7 +873,7 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private void AddNewPatient()
         {
-            _dbContext.Patients.Add(SelectedPatient);
+            _dbContext.Patients.Add(SelectedPatient);            
             IsFormEnabled = false;
         }
         private async Task LoadPatientAppointementList()
