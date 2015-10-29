@@ -213,6 +213,23 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (SelectedPathology.PathologyId == Guid.Empty)
                         {
                             AddNewPathology();
+                            NotficationManager.AddNotification(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "New",
+                                NotificationMessage = "Pathology " + SelectedPathology.NomPathology + " a été inserer avec succes",
+                                NotificationType = TypeNotification.Information
+                            });
+                        }
+                        else
+                        {
+                            NotficationManager.AddNotification(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "Update",
+                                NotificationMessage = "Pathology " + SelectedPathology.NomPathology + " a été mise a jour avec succes",
+                                NotificationType = TypeNotification.Information
+                            });
                         }
                         _dbContext.SaveChanges();
                         LoadPathologies();

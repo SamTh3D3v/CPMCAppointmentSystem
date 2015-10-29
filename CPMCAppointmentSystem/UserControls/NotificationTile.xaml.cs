@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CPMCAppointmentSystem.Helpers;
+using DataLayer.Model;
 
 namespace CPMCAppointmentSystem.UserControls
 {
@@ -26,7 +27,7 @@ namespace CPMCAppointmentSystem.UserControls
 
         private void RemoveNotificationClick(object sender, RoutedEventArgs e)
         {
-            NotficationManager.
+            NotficationManager.RemoveNotification(this.DataContext as Notification);
         }
     }
 }

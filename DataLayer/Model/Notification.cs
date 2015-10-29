@@ -37,7 +37,7 @@ namespace DataLayer.Model
         public Guid NotificationId { get; set; }
         public String NotificationTitle { get; set; }
         public TypeNotification NotificationType { get; set; }
-        public TypeNotification NotificationMessage { get; set; }
+        public String NotificationMessage { get; set; }
         
         #endregion
         #region INotifyPropertyChanged Related logic                

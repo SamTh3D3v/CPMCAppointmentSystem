@@ -6,7 +6,7 @@
              xmlns:model="clr-namespace:DataLayer.Model;assembly=DataLayer"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="310">
-    <Grid Margin="2">
+    <Grid Margin="2" Background="CornflowerBlue" Name="RootGrid">
         <Grid.Style>
             <Style TargetType="Grid">
                 <Style.Triggers>
@@ -26,14 +26,14 @@
             </Style>
         </Grid.Style>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="75"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Path Grid.Row="0" Grid.Column="0" Fill="White" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform">
+        <Path Grid.Row="0" Grid.Column="0" Fill="White" Margin="5"  VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform">
             <Path.Style>
                 <Style TargetType="Path">
                     <Style.Triggers>
@@ -53,12 +53,23 @@
                 </Style>
             </Path.Style>
         </Path>
-        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="NotificationTitle" FontSize="25" Foreground="White" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="2"/>
-        <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="2">
-            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{Binding NotificationTitle}" TextWrapping="Wrap" />
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{Binding NotificationTitle}" FontSize="20" Foreground="White" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="2"/>
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="5" Background="#77ffffff">
+            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{Binding NotificationTitle}" FontSize="18" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" />
         </ScrollViewer>    
-        <Button Grid.Column="1" Grid.Row="0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Click="RemoveNotificationClick">
-            <Path Fill="Black" Data="{StaticResource ClosePath}" Stretch="Uniform" >
+        <Button Grid.Column="1" BorderThickness="0" Padding="0" Grid.Row="0" Width="20" Height="20" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Click="RemoveNotificationClick">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=RootGrid,Path=IsMouseOver}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Path Fill="White" Data="{StaticResource ClosePath}" Stretch="Uniform" >
+               
                 
             </Path>
         </Button>
