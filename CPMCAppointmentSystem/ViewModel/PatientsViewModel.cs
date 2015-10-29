@@ -501,8 +501,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addPatientCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedPatient = new Patient();                        
-                        
+                        SelectedPatient = new Patient();
+
                     }));
             }
         }
@@ -609,29 +609,64 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _saveAppointementCommand
-                    ?? (_saveAppointementCommand = new RelayCommand(
-                    () =>
+                    ?? (_saveAppointementCommand = new RelayCommand(async () =>
                     {
-                        if (SelectedAppointement.RendezVousId == Guid.Empty && SelectedPatient.RendezVouses != null)
+
+                        if (SelectedAppointement.RendezVousId == Guid.Empty)
                         {
-                            SelectedPatient.RendezVouses.Add(SelectedAppointement);
+                            AddNewAppointement();
+                            NotficationManager.AddNotification(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "New",
+                                NotificationMessage = "Rendez vous du patient  " + SelectedPatient.Nom + " " + SelectedPatient.Prenom,
+                                NotificationType = TypeNotification.Information
+                            });
+                        }
+                        else
+                        {
+                            NotficationManager.AddNotification(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "Update",
+                                NotificationMessage = "Rendez vous du patient  " + SelectedPatient.Nom + " " + SelectedPatient.Prenom,
+                                NotificationType = TypeNotification.Information
+                            });
                         }
                         _dbContext.SaveChanges();
                         _addAppointementWindow.Close();
-                        LoadPatientAppointementList();
+                        await LoadPatientAppointementList();
+                        SelectedAppointement = null;
 
                     }));
             }
         }
+
+        private void AddNewAppointement()
+        {
+            _dbContext.RendezVouses.Add(SelectedAppointement);
+        }
+
         private RelayCommand _deleteAppointementCommand;
         public RelayCommand DeleteAppointementCommand
         {
             get
             {
                 return _deleteAppointementCommand
-                    ?? (_deleteAppointementCommand = new RelayCommand(
-                    () =>
+                    ?? (_deleteAppointementCommand = new RelayCommand(async () =>
                     {
+                        //todo Logical suppression 
+                        if (SelectedAppointement != null)
+                        {
+                            if (SelectedAppointement.RendezVousId != Guid.Empty)
+                            {
+                                _dbContext.RendezVouses.Remove(SelectedAppointement);
+                                _dbContext.SaveChanges();
+                                SelectedAppointement = null;
+                                _addAppointementWindow.Close();
+                                await LoadPatientAppointementList();
+                            }
+                        }
 
                     }));
             }
@@ -841,11 +876,12 @@ namespace CPMCAppointmentSystem.ViewModel
             _dbContext.Patients.Add(SelectedPatient);
             IsFormEnabled = false;
         }
-        private void LoadPatientAppointementList()
+        private async Task LoadPatientAppointementList()
         {
-            //Eather Reload the Entire List Or Just The Selected Patient 
-            SelectedPatient.RendezVouses =
-                _dbContext.RendezVouses.Where(x => x.PatientId == SelectedPatient.PatientId).ToList();
+            SelectedPatient.RendezVouses = new ObservableCollection<RendezVous>(await Task.Run(() =>
+                _dbContext.RendezVouses.Where(x => x.PatientId == SelectedPatient.PatientId)
+            ));
+
         }
         #endregion
     }

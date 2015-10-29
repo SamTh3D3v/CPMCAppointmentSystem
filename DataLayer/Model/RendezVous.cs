@@ -13,10 +13,10 @@ using Syncfusion.UI.Xaml.Schedule;
 namespace DataLayer.Model
 {
     [Table("RendezVous")]
-    public class RendezVous : ScheduleAppointment, INotifyPropertyChanged
+    public class RendezVous : ScheduleAppointment, INotifyPropertyChanged,IDataErrorInfo
     {
         #region Fileds
-        private DateTime _dateTimeRdv;
+        private DateTime _dateTimeRdv=DateTime.Now;
         private string _lieuRdv;
         private Guid _medecinId;
         private Guid _patientId;
@@ -25,7 +25,6 @@ namespace DataLayer.Model
         private bool _notificationSent;
         private bool _patientConfirmRdv;
         private bool _isTheLastOne;
-
         #endregion
         #region Properties
         [Required]
@@ -145,9 +144,14 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-        #endregion
+        [NotMapped]
+        public string Error
+        {
+            get { return String.Empty; }
+        }
 
-        #region INotifyPropertyChanged related
+        #endregion
+        #region INotifyPropertyChanged and IDataErrorInfo related logic
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -157,6 +161,33 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "Medecin")
+                {
+                    if (MedecinId==Guid.Empty)
+                        result = "Selectionnez un medecin";
+                }
+                if (columnName == "LieuRdv")
+                {
+                    if (string.IsNullOrEmpty(LieuRdv))
+                        result = "Spesifiez le lieu du rendez vous";
+                }
+                if (columnName == "CodePathology")
+                {
+                    if (DateTimeRdv == null)                    
+                        result = "Spesifiez la date du rendez vous";
+                    if (DateTimeRdv < DateTime.Now)                    
+                        result = "Cette date est invalide";                    
+                        
+                }
+                return result;
+            }
+        }
+        
+        #endregion       
     }
 }

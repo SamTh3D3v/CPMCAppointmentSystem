@@ -35,6 +35,9 @@ namespace DataLayer.Model
         private ObservableCollection<PieceJointe> _pieceJointes;
         private byte[] _profilePicture;
         private string _nomPrenomDaccompagnant;
+        private ObservableCollection<Medecin> _medecins;
+        private ObservableCollection<RendezVous> _rendezVouses=new ObservableCollection<RendezVous>();
+        private ObservableCollection<Note> _notes;
 
         #endregion
         #region Properties                
@@ -254,8 +257,27 @@ namespace DataLayer.Model
             get { return String.Empty; }
         }
 
-        public virtual ICollection<Medecin> Medecins { get; set; }
-        public virtual ICollection<RendezVous> RendezVouses { get; set; }
+        public virtual ObservableCollection<Medecin> Medecins
+        {
+            get { return _medecins; }
+            set
+            {
+                if (Equals(value, _medecins)) return;
+                _medecins = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public virtual ObservableCollection<RendezVous> RendezVouses
+        {
+            get { return _rendezVouses; }
+            set
+            {
+                if (Equals(value, _rendezVouses)) return;
+                _rendezVouses = value;
+                OnPropertyChanged();
+            }
+        }
 
         public virtual ObservableCollection<PieceJointe> PieceJointes
         {
@@ -268,7 +290,17 @@ namespace DataLayer.Model
             }
         }
 
-        public virtual ICollection<Note> Notes { get; set; }
+        public virtual ObservableCollection<Note> Notes
+        {
+            get { return _notes; }
+            set
+            {
+                if (Equals(value, _notes)) return;
+                _notes = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
         #region INotifyPropertyChanged and IDataErrorInfo related logic
 
