@@ -41,6 +41,7 @@ namespace DataLayer.Model
         public DbSet<PieceJointe> PieceJointes { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<JourFerie> JourFeries { get; set; }
+        public DbSet<SchedulerSetting> SchedulerSettings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

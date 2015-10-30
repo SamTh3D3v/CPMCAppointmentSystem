@@ -52,8 +52,7 @@
                                        ShowGroupDropArea="True" >
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
-                    <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
-                    <syncfusion:GridTextColumn HeaderText="Spécialité" MappingName="SpecialitePrincipale.Name"/>
+                    <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />                    
                     <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
                     <syncfusion:GridTextColumn HeaderText="Fixe" MappingName="TelephoneFixe"/>
                     <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
@@ -182,7 +181,18 @@
                     </Grid>
                 </ScrollViewer>
 
-                <GroupBox Header="Données de connection" Margin="0,20,0,0" Grid.Row="8" Grid.Column="0"  Grid.ColumnSpan="2">
+                <GroupBox  Margin="0,20,0,0" Grid.Row="8" Grid.Column="0"  Grid.ColumnSpan="2">
+                    <GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Données de connection" Grid.Column="0" HorizontalAlignment="Left"/>
+                            <CheckBox  Content="Changer le mot de passe"  Grid.Column="2" HorizontalAlignment="Right"/>
+                        </Grid>
+                    </GroupBox.Header>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>

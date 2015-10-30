@@ -222,6 +222,7 @@
     <Compile Include="SubModel\MedecinToAdd.cs" />
     <Compile Include="SubModel\PathologyToAdd.cs" />
     <Compile Include="SubModel\PatientToAdd.cs" />
+    <Compile Include="SubModel\SettingsCollection.cs" />
     <Compile Include="SubModel\SpecialityToAdd.cs" />
     <Compile Include="SubModel\UserTypeToAdd.cs" />
     <Compile Include="UserControls\NotificationTile.xaml.cs">

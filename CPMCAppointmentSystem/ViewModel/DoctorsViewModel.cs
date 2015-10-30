@@ -235,11 +235,10 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _doctorsViewLoadedCommand
-                    ?? (_doctorsViewLoadedCommand = new RelayCommand(
-                    () =>
+                    ?? (_doctorsViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        LoadDoctorsList();
-                        LoadSpacialities();
+                        await LoadDoctorsList();
+                        await LoadSpacialities();
                     }));
             }
         }
@@ -487,10 +486,10 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         SelectedDoctor.ProfilePicture = null;
-
                     }));
             }
         }
+        
         private RelayCommand _loadDoctorImageCommand;
         public RelayCommand LoadDoctorImageCommand
         {
@@ -533,12 +532,12 @@ namespace CPMCAppointmentSystem.ViewModel
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
         }
-        private async void LoadDoctorsList()
+        private async Task LoadDoctorsList()
         {
             DoctorsList = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
         }
 
-        private async void LoadSpacialities()
+        private async Task LoadSpacialities()
         {
             SpecialitiesList = new ObservableCollection<Specialite>(await Task.Run(() => _dbContext.Specialites));
         }
@@ -546,12 +545,22 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             var rolls = new RolesCollection()
             {
-                RolesCollectionId = new Guid() //get the default medecin rolls from the xml settings file
+                 //get the default medecin rolls from the xml settings file
             };
-            _dbContext.RolesCollections.Add(rolls);
+            try
+            {
+                _dbContext.RolesCollections.Add(rolls);
+                _dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                var r = ex;
+            }
             SelectedDoctor.User.RolesCollectionId = rolls.RolesCollectionId;
             SelectedDoctor.User.UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId;           
-            _dbContext.Users.Add(SelectedDoctor.User);            
+            _dbContext.Users.Add(SelectedDoctor.User);
+            _dbContext.SaveChanges();
             _dbContext.Medecins.Add(SelectedDoctor);
         }
         #endregion

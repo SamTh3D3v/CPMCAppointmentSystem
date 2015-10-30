@@ -34,7 +34,8 @@ namespace CPMCAppointmentSystem.ViewModel
         private JourFerie _selectedJourFerie;
         private string _reportPath;
         private bool _isFormEnabled;
-        private ObservableCollection<string> _monthList ;  
+        private ObservableCollection<string> _monthList ;
+        private SettingsCollection _settingsCollection;
         #endregion
         #region Properties
         public ObservableCollection<string> MonthsList
@@ -88,6 +89,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _selectedJourFerieFix = value;
+                RaisePropertyChanged();
+            }
+        }
+        public SettingsCollection SettingsCollection
+        {
+            get
+            {
+                return _settingsCollection;
+            }
+
+            set
+            {
+                if (_settingsCollection == value)
+                {
+                    return;
+                }
+
+                _settingsCollection = value;
                 RaisePropertyChanged();
             }
         }
@@ -275,6 +294,19 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _statusDesPatientsSettingsLoadedCommand;
+        public RelayCommand StatusDesPatientsSettingsLoadedCommand
+        {
+            get
+            {
+                return _statusDesPatientsSettingsLoadedCommand
+                    ?? (_statusDesPatientsSettingsLoadedCommand = new RelayCommand(async () =>
+                    {
+                        SettingsCollection=new SettingsCollection();
+                        await SettingsCollection.LoadSchedulerSettings();
+                    }));
+            }
+        }
         private RelayCommand _settingsViewLoadedCommand;
         public RelayCommand SettingsViewLoadedCommand
         {
