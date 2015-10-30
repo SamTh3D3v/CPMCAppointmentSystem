@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
@@ -12,7 +13,7 @@ using JetBrains.Annotations;
 
 namespace CPMCAppointmentSystem.SubModel
 {
-    public class SettingsCollection:INotifyPropertyChanged
+    public class SettingsCollection:INotifyPropertyChanged,INotifyCollectionChanged
     {        
         #region Fields
 
@@ -40,7 +41,7 @@ namespace CPMCAppointmentSystem.SubModel
                 if (ScheduleSettingsCollection == null) return null;               
                 return ScheduleSettingsCollection.FirstOrDefault(s => s.SettingName == settingName);
             }
-            set
+            internal set
             {
                 if (ScheduleSettingsCollection != null)
                 {
@@ -63,11 +64,17 @@ namespace CPMCAppointmentSystem.SubModel
         #region Ctors and Methods
         public SettingsCollection()
         {
-           _dbContext=new CpmcContext(); 
+           _dbContext=new CpmcContext();
+           
         }
         public async Task LoadSchedulerSettings()
         {
             ScheduleSettingsCollection=new ObservableCollection<SchedulerSetting>(await Task.Run(() => _dbContext.SchedulerSettings));
+            ScheduleSettingsCollection.CollectionChanged += (s, e) =>
+            {
+                if (CollectionChanged != null)
+                    CollectionChanged(s, e);
+            };
             if (!ScheduleSettingsCollection.Any())
             {
                 //Get the schedule settings from the Xml file then save them to the database                
@@ -83,5 +90,7 @@ namespace CPMCAppointmentSystem.SubModel
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
     }
 }

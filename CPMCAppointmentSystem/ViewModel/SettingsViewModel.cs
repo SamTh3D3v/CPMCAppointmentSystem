@@ -304,6 +304,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         SettingsCollection=new SettingsCollection();
                         await SettingsCollection.LoadSchedulerSettings();
+                        RaisePropertyChanged("SettingsCollection");
                     }));
             }
         }

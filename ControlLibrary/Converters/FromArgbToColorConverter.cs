@@ -17,7 +17,7 @@ namespace ControlLibrary.Converters
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((Color) value).ToString();
+            return value.ToString();
         }
     }
 }
