@@ -234,6 +234,13 @@ namespace CPMCAppointmentSystem.ViewModel
                             SelectedDoctor.Pathologies.Add(_dbContext.Pathologies.Find(pToAdd.PathologyId));
                         }
                     }
+                    else
+                    {
+                        if (SelectedDoctor.Pathologies.Any(pp=>pp.PathologyId==pToAdd.PathologyId))
+                        {
+                            SelectedDoctor.Pathologies.Remove(_dbContext.Pathologies.Find(pToAdd.PathologyId));
+                        }
+                    }
                 });
 
             });
