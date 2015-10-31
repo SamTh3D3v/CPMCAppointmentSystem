@@ -252,31 +252,28 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         SelectedDoctor = new Medecin();
-
                     }));
             }
         }
-
         private RelayCommand<object> _saveDoctorCommand;
         public RelayCommand<object> SaveDoctorCommand
         {
             get
             {
                 return _saveDoctorCommand
-                    ?? (_saveDoctorCommand = new RelayCommand<object>(
-                    (obj) =>
+                    ?? (_saveDoctorCommand = new RelayCommand<object>(async (obj) =>
                     {
                         var passwordBox = obj as PasswordBox;
                         if (passwordBox != null)
                         {
-                            SelectedDoctor.User.UserPass = passwordBox.Password;
+                            SelectedDoctor.User.UserPass = passwordBox.Password;  //to be hashed
                         }
                         if (SelectedDoctor.MedecinId == Guid.Empty)
                         {
                             AddNewDoctor();
                         }
                         _dbContext.SaveChanges();
-                        LoadDoctorsList();
+                        await LoadDoctorsList();
 
                     }));
             }
@@ -489,7 +486,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-        
+
         private RelayCommand _loadDoctorImageCommand;
         public RelayCommand LoadDoctorImageCommand
         {
@@ -543,24 +540,11 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private void AddNewDoctor()
         {
-            var rolls = new RolesCollection()
+            SelectedDoctor.User.RolesCollection = new RolesCollection()
             {
-                 //get the default medecin rolls from the xml settings file
-            };
-            try
-            {
-                _dbContext.RolesCollections.Add(rolls);
-                _dbContext.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-
-                var r = ex;
-            }
-            SelectedDoctor.User.RolesCollectionId = rolls.RolesCollectionId;
-            SelectedDoctor.User.UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId;           
-            _dbContext.Users.Add(SelectedDoctor.User);
-            _dbContext.SaveChanges();
+                //get the default medecin rolls from the xml settings file
+            };                                                
+            SelectedDoctor.User.UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId;                        
             _dbContext.Medecins.Add(SelectedDoctor);
         }
         #endregion

@@ -145,7 +145,7 @@
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Mobile" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <syncfusion:SfMaskedEdit Watermark="Telephone mobile" x:Name="TexEditMobile" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" />
 
-                <TextBlock Grid.Column="0" Grid.Row="5" Text="Spécialité" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <!--<TextBlock Grid.Column="0" Grid.Row="5" Text="Spécialité" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,156,10" Grid.ColumnSpan="2"/>
                 <ComboBox x:Name="CbxSpeciality" IsEnabled="False" Margin="10 5" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctor.SpecialitePrincipale,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="5"  Text="Spécialité" VerticalAlignment="Center">
                     <TextBlock.Style>
@@ -157,7 +157,7 @@
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
-                </TextBlock>
+                </TextBlock>-->
 
                 <TextBlock Grid.Column="0" Grid.Row="6" Text="Jours de travail" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <ScrollViewer Grid.Column="1" Grid.Row="6" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" Margin="10 5">
@@ -189,36 +189,47 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Données de connection" Grid.Column="0" HorizontalAlignment="Left"/>
-                            <CheckBox  Content="Changer le mot de passe"  Grid.Column="2" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Données de connection" Grid.Column="0" HorizontalAlignment="Left"/>                            
                         </Grid>
                     </GroupBox.Header>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>                                                        
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom d'utilisateur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <syncfusion:SfMaskedEdit Watermark="Nom d'utilisateur" x:Name="TxtEditUserName" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"/>
+                        <syncfusion:SfMaskedEdit Watermark="Nom d'utilisateur" x:Name="TxtEditUserName" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"/>                        
+                            <Expander Header="Mot de passe" Grid.Row="1" Style="{StaticResource {x:Type Expander}}" Grid.Column="0" Grid.ColumnSpan="2">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                               
 
-                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
 
-                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            <PasswordBox.Resources>
-                                <system:String x:Key="WaterMarkText">Enter password</system:String>
-                            </PasswordBox.Resources>
-                        </PasswordBox>
-                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="2"  x:Name="PassBoxConfirmPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            <PasswordBox.Resources>
-                                <system:String x:Key="WaterMarkText">Confirme password</system:String>
-                            </PasswordBox.Resources>
-                        </PasswordBox>                        
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                            <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="0"  x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <PasswordBox.Resources>
+                                    <system:String x:Key="WaterMarkText">Enter password</system:String>
+                                </PasswordBox.Resources>
+                            </PasswordBox>
+                            <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="PassBoxConfirmPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <PasswordBox.Resources>
+                                    <system:String x:Key="WaterMarkText">Confirme password</system:String>
+                                </PasswordBox.Resources>
+                            </PasswordBox>
+                            </Grid>
+                        </Expander>
                     </Grid>
                 </GroupBox>
 

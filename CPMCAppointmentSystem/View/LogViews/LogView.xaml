@@ -17,17 +17,21 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <syncfusion:LayoutControl HeaderDescriptionText="Histroire de log d'utilisation"
+    <Grid>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}">
+            
+        </Button>
+        <syncfusion:LayoutControl HeaderDescriptionText="Histroire de log d'utilisation" 
                         HeaderText="Histoire du log "
                         LayoutMode="Metro"
-                        UserOptionsVisibility="Collapsed">        
-        <syncfusion:LayoutControl.GridView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <syncfusion:SfDataGrid AllowEditing="False" x:Name="LogDataGrid"
+                        UserOptionsVisibility="Collapsed">
+            <syncfusion:LayoutControl.GridView>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <syncfusion:SfDataGrid AllowEditing="False" x:Name="LogDataGrid"
                                        AllowFiltering="True"
                                        AutoGenerateColumns="False"                                     
                                        ColumnSizer="Star"
@@ -38,9 +42,9 @@
                                        RowHeight="40"
                                        NavigationMode="Cell"
                                        ShowGroupDropArea="True">
-                                        
-                </syncfusion:SfDataGrid>
-                <syncfusion:SfDataPager x:Name="LogDataPager"
+
+                    </syncfusion:SfDataGrid>
+                    <syncfusion:SfDataPager x:Name="LogDataPager"
                                        Grid.Row="1"                                       
                                        Height="60"
                                        HorizontalAlignment="Right"
@@ -51,8 +55,9 @@
                                        Orientation="Horizontal"
                                        PageSize="16"
                                        Source="{Binding LogCollectionList}" />
-            </Grid>
-        </syncfusion:LayoutControl.GridView>
+                </Grid>
+            </syncfusion:LayoutControl.GridView>
 
-    </syncfusion:LayoutControl>
+        </syncfusion:LayoutControl>
+    </Grid>
 </Page>
