@@ -203,8 +203,40 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom d'utilisateur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                         <syncfusion:SfMaskedEdit Watermark="Nom d'utilisateur" x:Name="TxtEditUserName" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"/>
-                        <Expander Header="Mot de passe" Grid.Row="1" Style="{StaticResource {x:Type Expander}}" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Expander  Grid.Row="1" Style="{StaticResource {x:Type Expander}}" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Expander.Header>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="MoT De Passe" HorizontalAlignment="Left" Foreground="White"/>
+                                    <CheckBox x:Name="CbUpdatePass" Content="Changer" Grid.Column="2" HorizontalAlignment="Right">
+                                        <CheckBox.Style>
+                                            <Style TargetType="CheckBox">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding SelectedDoctor.MedecinId}" Value="{x:Static system:Guid.Empty}">   
+                                                        <Setter Property="IsChecked" Value="True"/>
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </CheckBox.Style>
+                                    </CheckBox>
+                                </Grid>
+                            </Expander.Header>
                             <Grid>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=CbUpdatePass,Path=IsChecked}" Value="True" >
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -218,7 +250,7 @@
                                 <TextBlock Grid.Column="0" Grid.Row="0" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
 
                                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                <PasswordBox Margin="10 5" Grid.Column="1"  Grid.Row="0"  x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <PasswordBox Margin="10 5" Grid.Column="1"  Grid.Row="0" x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <PasswordBox.Resources>
                                         <system:String x:Key="WaterMarkText">Enter password</system:String>
                                     </PasswordBox.Resources>
@@ -240,7 +272,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}" CommandParameter="{Binding ElementName=PassBoxUserPass}">
+                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}">                        
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -251,6 +283,13 @@
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="IsEnabled" Value="false" />
                                 <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=CbUpdatePass,Path=IsChecked}" Value="True">                                        
+                                        <Setter Property="CommandParameter">
+                                            <Setter.Value>
+                                                <Binding ElementName="PassBoxUserPass"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
                                             <Condition Binding="{Binding ElementName=TxtEditNom, Path=(Validation.HasError)}" Value="false" />

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -230,13 +232,13 @@ namespace CPMCAppointmentSystem.ViewModel
                     if (pToAdd.IsAdded)
                     {
                         if (SelectedDoctor.Pathologies.All(p => p.PathologyId != pToAdd.PathologyId))
-                        {                            
+                        {
                             SelectedDoctor.Pathologies.Add(_dbContext.Pathologies.Find(pToAdd.PathologyId));
                         }
                     }
                     else
                     {
-                        if (SelectedDoctor.Pathologies.Any(pp=>pp.PathologyId==pToAdd.PathologyId))
+                        if (SelectedDoctor.Pathologies.Any(pp => pp.PathologyId == pToAdd.PathologyId))
                         {
                             SelectedDoctor.Pathologies.Remove(_dbContext.Pathologies.Find(pToAdd.PathologyId));
                         }
@@ -245,7 +247,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
             });
         }
-        private RelayCommand _cancelPathologyWhithDoctorsCommand;     
+        private RelayCommand _cancelPathologyWhithDoctorsCommand;
         public RelayCommand CancelPathologyWhithDoctorsCommand
         {
             get
@@ -273,9 +275,9 @@ namespace CPMCAppointmentSystem.ViewModel
         }
 
         private async Task LoadDoctorsPathologies()
-        {            
+        {
             PathologiesToDoctorList = new ObservableCollection<PathologyToAdd>(await Task.Run(() => _dbContext.Pathologies.Select(p => new PathologyToAdd()
-            {  
+            {
                 CodePathology = p.CodePathology,                                             //To be updated to a better code 
                 Description = p.Description,
                 Medecins = p.Medecins,
@@ -283,7 +285,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 PathologyId = p.PathologyId,
                 Patients = p.Patients,
                 //IsAdded = SelectedDoctor.Pathologies.Any(dp=>p.PathologyId==dp.PathologyId)       //throw [Only primitive types or enumeration types are supported in this context] exception     
-                          
+
             })));
             foreach (var pathToAdd in PathologiesToDoctorList)
             {
@@ -319,7 +321,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             {
                                 RolesCollection = new RolesCollection()
                                 {
-                                     //get the default medecin rolls from the xml settings file
+                                    //get the default medecin rolls from the xml settings file
                                 },
                                 UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId
                             },
@@ -344,7 +346,24 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             await AddNewDoctor();
                         }
-                        _dbContext.SaveChanges();
+                        try
+                        {
+                            _dbContext.SaveChanges();
+                        }
+                        catch (DbEntityValidationException e)
+                        {
+                            foreach (var eve in e.EntityValidationErrors)
+                            {
+                                Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                                foreach (var ve in eve.ValidationErrors)
+                                {
+                                    Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                        ve.PropertyName, ve.ErrorMessage);
+                                }
+                            }
+                            throw;
+                        }
                         await LoadDoctorsList();
                         SelectedDoctor = null;
 
