@@ -234,6 +234,7 @@
     <Compile Include="ViewModel\CalendarViewModel.cs" />
     <Compile Include="ViewModel\DoctorsViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MyPatientsViewModel.cs" />
@@ -261,6 +262,9 @@
     </Compile>
     <Compile Include="View\AppointementViews\ListMedecinToAddView.xaml.cs">
       <DependentUpon>ListMedecinToAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LogViews\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NotificationView.xaml.cs">
       <DependentUpon>NotificationView.xaml</DependentUpon>
@@ -380,6 +384,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AppointementViews\ListMedecinToAddView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LogViews\LogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -559,6 +567,9 @@
       <Project>{7500895c-7dcd-40eb-8fc7-6023a6145764}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Readme.MvvmlightSnippet.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
