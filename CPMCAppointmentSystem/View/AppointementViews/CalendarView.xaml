@@ -287,6 +287,5 @@
             <Grid Background="WhiteSmoke" Opacity=".5"/>
             <controls:ProgressRing VerticalAlignment="Center" HorizontalAlignment="Center" IsLarge="True" IsActive="{Binding IsProgressRingActive}"></controls:ProgressRing>
         </Grid>
-
     </Grid>
 </Page>
