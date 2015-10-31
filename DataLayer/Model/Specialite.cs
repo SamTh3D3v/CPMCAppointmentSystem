@@ -39,6 +39,7 @@ namespace DataLayer.Model
         #endregion
         public string this[string columnName]
         {
+
             get
             {
                 string result = null;
