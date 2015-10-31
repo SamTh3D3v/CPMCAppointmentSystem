@@ -29,12 +29,12 @@ namespace DataLayer.Model
     {
         #region Fields
         private Days _joursDeTravail;
-        private ObservableCollection<Pathology> _pathologies=new ObservableCollection<Pathology>();
-        private ObservableCollection<Patient> _patients=new ObservableCollection<Patient>();
-        private ObservableCollection<Specialite> _specialities=new ObservableCollection<Specialite>();
+        private ObservableCollection<Pathology> _pathologies;
+        private ObservableCollection<Patient> _patients;
+        private ObservableCollection<Specialite> _specialities;
         private byte[] _profilePicture;
         //private Specialite _specialitePrincipale;
-        private User _user=new User();
+        private User _user;
         private string _telephoneMobile;
         private DateTime _dateDeNaissance=DateTime.Now;
         private string _telephoneFixe;

@@ -251,7 +251,17 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addDoctorCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedDoctor = new Medecin();
+                        SelectedDoctor = new Medecin()
+                        {
+                            User = new User()
+                            {
+                                RolesCollection = new RolesCollection()
+                                {
+                                     //get the default medecin rolls from the xml settings file
+                                },
+                                UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId
+                            },
+                        };
                     }));
             }
         }
@@ -270,7 +280,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         if (SelectedDoctor.MedecinId == Guid.Empty)
                         {
-                            AddNewDoctor();
+                            await AddNewDoctor();
                         }
                         _dbContext.SaveChanges();
                         await LoadDoctorsList();
@@ -538,14 +548,12 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             SpecialitiesList = new ObservableCollection<Specialite>(await Task.Run(() => _dbContext.Specialites));
         }
-        private void AddNewDoctor()
+        private async Task AddNewDoctor()
         {
-            SelectedDoctor.User.RolesCollection = new RolesCollection()
+            await Task.Run(() =>
             {
-                //get the default medecin rolls from the xml settings file
-            };                                                
-            SelectedDoctor.User.UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId;                        
-            _dbContext.Medecins.Add(SelectedDoctor);
+                _dbContext.Medecins.Add(SelectedDoctor);
+            });
         }
         #endregion
     }
