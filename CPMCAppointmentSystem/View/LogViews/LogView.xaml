@@ -5,8 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
+      xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
-       d:DesignHeight="700" d:DesignWidth="800"
+       d:DesignHeight="700" d:DesignWidth="800" DataContext="{Binding Source={StaticResource Locator}, Path=LogViewModel}"
 	Title="LogView">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -15,7 +17,42 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
-        
-    </Grid>
+    <syncfusion:LayoutControl HeaderDescriptionText="Histroire de log d'utilisation"
+                        HeaderText="Histoire du log "
+                        LayoutMode="Metro"
+                        UserOptionsVisibility="Collapsed">        
+        <syncfusion:LayoutControl.GridView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <syncfusion:SfDataGrid AllowEditing="False" x:Name="LogDataGrid"
+                                       AllowFiltering="True"
+                                       AutoGenerateColumns="False"                                     
+                                       ColumnSizer="Star"
+                                        SelectedItem="{Binding SelectedLog,Mode=TwoWay}"
+                                       IsGroupDropAreaExpanded="True"
+                                       ItemsSource="{Binding Path=PagedSource,
+                                                             ElementName=LogDataPager}"
+                                       RowHeight="40"
+                                       NavigationMode="Cell"
+                                       ShowGroupDropArea="True">
+                                        
+                </syncfusion:SfDataGrid>
+                <syncfusion:SfDataPager x:Name="LogDataPager"
+                                       Grid.Row="1"                                       
+                                       Height="60"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"
+                                       AccentBackground="#FF53C3D5"
+                                       AccentForeground="White"
+                                       NumericButtonCount="10"
+                                       Orientation="Horizontal"
+                                       PageSize="16"
+                                       Source="{Binding LogCollectionList}" />
+            </Grid>
+        </syncfusion:LayoutControl.GridView>
+
+    </syncfusion:LayoutControl>
 </Page>
