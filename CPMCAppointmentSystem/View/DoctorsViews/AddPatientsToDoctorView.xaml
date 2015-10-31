@@ -30,7 +30,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -44,36 +43,31 @@
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
         <Syncfusion:SfMaskedEdit Margin="10 5" x:Name="PrenomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserPrenom}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="3" Text="SpecialitePrincipale" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <Syncfusion:SfMaskedEdit Margin="10 5" x:Name="SPrecialityBox" IsEnabled="False" Text="{Binding SelectedDoctor.SpecialitePrincipale.Name}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-
-
-
-        <TextBlock Grid.Column="0"  Grid.Row="4" Text="Patients" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
-        <Expander IsExpanded="True" x:Name="PExpander" Margin="5" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Stretch">
+        <Expander IsExpanded="True" x:Name="PExpander" Margin="5" Grid.Column="0" Grid.ColumnSpan="2"
+                  Grid.Row="3" Header="Selectionnez les patients"  HorizontalAlignment="Stretch">
             <ScrollViewer >
                 <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Syncfusion:SfDataGrid SelectionMode="Multiple" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                                       AllowDraggingColumns="True"
+                    <Syncfusion:SfDataGrid SelectionMode="Multiple" Grid.Row="0" Background="WhiteSmoke"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                       AllowDraggingColumns="True"                                           
                                        AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
                                        ItemsSource="{Binding ElementName=PatientsToAddDataPager,Path=PagedSource}"
-                                   AutoGenerateColumns="False"
-                                   SelectedItem="{Binding SelectedPatientToAdd,Mode=TwoWay}"
+                                       AutoGenerateColumns="False"                                   
                                        ShowGroupDropArea="True" >
 
                         <Syncfusion:SfDataGrid.Columns>
-                            <Syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Nom" />
-                            <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Prenom" />
-                            <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="TelephoneMobile" />
-                            <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation" />
-                            <Syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" />
-                            <Syncfusion:GridCheckBoxColumn HeaderText="Ajouter" AllowEditing="True" MappingName="IsAdded"/>
+                            <Syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Entity.Nom" AllowEditing="False"/>
+                            <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Entity.Prenom" AllowEditing="False"/>
+                            <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Entity.TelephoneMobile" AllowEditing="False"/>
+                            <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Entity.Sexe.Designation" AllowEditing="False"/>
+                            <Syncfusion:GridTextColumn HeaderText="Mobile" MappingName="Entity.TelephoneMobile" AllowEditing="False"/>
+                            <Syncfusion:GridTextColumn HeaderText="Pathology" MappingName="Entity.Pathology.NomPathology" AllowEditing="False"/>
+                            <Syncfusion:GridCheckBoxColumn HeaderText="Ajouter" AllowEditing="True" MappingName="IsAdded" />
                         </Syncfusion:SfDataGrid.Columns>
                     </Syncfusion:SfDataGrid>
                     <Syncfusion:SfDataPager x:Name="PatientsToAddDataPager"
@@ -91,9 +85,8 @@
             </ScrollViewer>
         </Expander>
 
-        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -105,15 +98,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="1"  Margin="2" Command="{Binding DeletePatientsToDoctorsViewCommand}">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
-                        <TextBlock Text="Delete" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Grid.Column="2"  Margin="2" Command="{Binding CancelPatientsToDoctorsViewCommand}">
+            <Button Grid.Column="1"  Margin="2" Command="{Binding CancelPatientsToDoctorsViewCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />

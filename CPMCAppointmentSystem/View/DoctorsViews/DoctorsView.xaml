@@ -489,12 +489,22 @@
 
                                 <syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
-                                       AllowEditing="True"
+                                       AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
                                        ItemsSource="{Binding SelectedDoctor.Patients}"
                                    SelectedItem="{Binding SelectedPatientInDoctorView,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
+                                       ShowGroupDropArea="True" >
+                                    <syncfusion:SfDataGrid.Columns>
+                                        <syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Nom" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Prenom" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="TelephoneMobile" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Pathology" MappingName="Pathology.NomPathology" AllowEditing="False"/>                                        
+                                    </syncfusion:SfDataGrid.Columns>
+
+                                </syncfusion:SfDataGrid>
 
                             </Grid>
                         </syncfusion:TabItemExt.Content>

@@ -35,8 +35,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private Pathology _selectedPathologyInDoctorsViewPathology;
         private bool _isFormEnabled;
         private Patient _selectedPatientInDoctorView;
-        private ObservableCollection<PatientToAdd> _patientsToAddList;
-        private PatientToAdd _selectedPatientToAdd;
+        private ObservableCollection<EntityToAdd<Patient>> _patientsToAddList;        
         #endregion
         #region Properties        
         public ObservableCollection<EntityToAdd<Pathology>> PathologiesToDoctorList
@@ -183,7 +182,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<PatientToAdd> PatientsToAddList
+        public ObservableCollection<EntityToAdd<Patient>> PatientsToAddList
         {
             get
             {
@@ -200,25 +199,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _patientsToAddList = value;
                 RaisePropertyChanged();
             }
-        }
-        public PatientToAdd SelectedPatientToAdd
-        {
-            get
-            {
-                return _selectedPatientToAdd;
-            }
-
-            set
-            {
-                if (_selectedPatientToAdd == value)
-                {
-                    return;
-                }
-
-                _selectedPatientToAdd = value;
-                RaisePropertyChanged();
-            }
-        }
+        }     
         #endregion
         #region Commands
         private RelayCommand _savePathologyWhithDoctorsCommand;
@@ -262,6 +243,49 @@ namespace CPMCAppointmentSystem.ViewModel
 
             });
         }
+        private RelayCommand _savePatientsToDoctorsViewCommand;
+        public RelayCommand SavePatientsToDoctorsViewCommand
+        {
+            get
+            {
+                return _savePatientsToDoctorsViewCommand
+                    ?? (_savePatientsToDoctorsViewCommand = new RelayCommand(async () =>
+                    {                        
+                        await SavePatientsAddedToDoctor();
+                        _dbContext.SaveChanges();
+                        _addPatientsToDoctorView.Close();
+
+                    }));
+            }
+        }
+
+        private async Task SavePatientsAddedToDoctor()
+        {
+            await Task.Run(() =>
+            {
+                if (SelectedDoctor.Patients == null)
+                    SelectedDoctor.Patients = new ObservableCollection<Patient>();
+                PatientsToAddList.ForEach(pToAdd =>
+                {
+                    if (pToAdd.IsAdded)
+                    {
+                        if (SelectedDoctor.Patients.All(p => p.PatientId != pToAdd.Entity.PatientId))
+                        {
+                            SelectedDoctor.Patients.Add(_dbContext.Patients.Find(pToAdd.Entity.PatientId));
+                        }
+                    }
+                    else
+                    {
+                        if (SelectedDoctor.Patients.Any(p => p.PatientId == pToAdd.Entity.PatientId))
+                        {
+                            SelectedDoctor.Patients.Remove(_dbContext.Patients.Find(pToAdd.Entity.PatientId));
+                        }
+                    }
+                });
+
+            });
+        }
+
         private RelayCommand _saveSpecialityWithDoctorsCommand;    
         public RelayCommand SaveSpecialityWithDoctorsCommand
         {
@@ -359,6 +383,31 @@ namespace CPMCAppointmentSystem.ViewModel
                 pathToAdd.IsAdded = SelectedDoctor.Pathologies.Any(dp => pathToAdd.Entity.PathologyId == dp.PathologyId);
             }
         }
+        private RelayCommand _addPatientsToDoctorLoadedCommand;
+        public RelayCommand AddPatientsToDoctorLoadedCommand
+        {
+            get
+            {
+                return _addPatientsToDoctorLoadedCommand
+                    ?? (_addPatientsToDoctorLoadedCommand = new RelayCommand(async () =>
+                    {
+                       await LoadPatientsToAddCommand();
+
+                    }));
+            }
+        }
+
+        private async Task LoadPatientsToAddCommand()
+        {
+            PatientsToAddList = new ObservableCollection<EntityToAdd<Patient>>(await Task.Run(() => _dbContext.Patients.Select(s => new EntityToAdd<Patient>()
+            {
+                Entity = s
+            })));
+            foreach (var patToAdd in PatientsToAddList)
+            {
+                patToAdd.IsAdded = SelectedDoctor.Patients.Any(dp => patToAdd.Entity.PatientId == dp.PatientId);
+            }
+        }
         private RelayCommand _addSpecialitiesToDoctorCommand;
         public RelayCommand AddSpecialitiesToDoctorLoadedCommand
         {
@@ -367,8 +416,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addSpecialitiesToDoctorCommand
                     ?? (_addSpecialitiesToDoctorCommand = new RelayCommand(async () =>
                     {
-                        await LoadDoctorsSpecialities();
-
+                        await LoadDoctorsSpecialities();                       
                     }));
             }
         }
@@ -562,97 +610,17 @@ namespace CPMCAppointmentSystem.ViewModel
 
                     }));
             }
-        }
-        private RelayCommand _addPatientsToDoctorLoadedCommand;
-        public RelayCommand AddPatientsToDoctorLoadedCommand
-        {
-            get
-            {
-                return _addPatientsToDoctorLoadedCommand
-                    ?? (_addPatientsToDoctorLoadedCommand = new RelayCommand(
-                    () =>
-                    {
-                        LoadPatientsToAddCommand();
-
-                    }));
-            }
-        }
-
-        private async Task LoadPatientsToAddCommand()
-        {
-            await Task.Run(() =>
-            {
-                try
-                {
-                    var patientsList = _dbContext.Patients;
-                    PatientsToAddList = new ObservableCollection<PatientToAdd>();
-                    foreach (var patient in patientsList)
-                    {
-                        PatientsToAddList.Add(new PatientToAdd()
-                        {
-                            PatientId = patient.PatientId,
-                            Nom = patient.Nom,
-                            Prenom = patient.Prenom,
-                            DateDeNaissance = patient.DateDeNaissance,
-                            TelephoneFixe = patient.TelephoneFixe,
-                            TelephoneMobile1 = patient.TelephoneMobile1,
-                            TelephoneDaccompagnant = patient.TelephoneDaccompagnant,
-                            AdressId = patient.AdressId,
-                            Adresse = patient.Adresse,
-                            DateDeDepot = patient.DateDeDepot,
-                            Medecins = patient.Medecins,
-                            NumeroDordre = patient.NumeroDordre,
-                            RendezVouses = patient.RendezVouses,
-                            Sexe = patient.Sexe,
-                            SexeId = patient.SexeId,
-                            IsAdded = (SelectedDoctor.Patients.Contains(patient)) ? true : false
-                        });
-                    }
-                }
-                catch (Exception)
-                {
-
-                    var exception = true;
-                }
-            });
-        }
-
-        //Add Patients To Doctor View
-        private RelayCommand _savePatientsToDoctorsViewCommand;
-        public RelayCommand SavePatientsToDoctorsViewCommand
-        {
-            get
-            {
-                return _savePatientsToDoctorsViewCommand
-                    ?? (_savePatientsToDoctorsViewCommand = new RelayCommand(
-                    () =>
-                    {
-
-                    }));
-            }
-        }
-        private RelayCommand _deletePatientsToDoctorsViewCommand;
-        public RelayCommand DeletePatientsToDoctorsViewCommand
-        {
-            get
-            {
-                return _deletePatientsToDoctorsViewCommand
-                    ?? (_deletePatientsToDoctorsViewCommand = new RelayCommand(
-                    () =>
-                    {
-
-                    }));
-            }
-        }
+        }             
         private RelayCommand _cancelPatientsToDoctorsViewCommand;
         public RelayCommand CancelPatientsToDoctorsViewCommand
         {
             get
             {
                 return _cancelPatientsToDoctorsViewCommand
-                    ?? (_cancelPatientsToDoctorsViewCommand = new RelayCommand(
-                    () =>
+                    ?? (_cancelPatientsToDoctorsViewCommand = new RelayCommand(async () =>
                     {
+                        _addPatientsToDoctorView.Close();
+                        await LoadPatientsToAddCommand();
 
                     }));
             }
