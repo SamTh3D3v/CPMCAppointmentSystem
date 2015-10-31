@@ -16,7 +16,7 @@
                              DataContext="{Binding Path=DoctorsViewModel, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <command:EventToCommand Command="{Binding Mode=OneWay, Path=AddDoctorToPathologyLoadedCommand}"
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=AddPathologiesToDoctorLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -43,7 +43,7 @@
         <Syncfusion:SfMaskedEdit Watermark="Prenom Du medecin" Margin="10 5" x:Name="CodeBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserPrenom}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
-        <TextBlock Grid.Column="0"  Grid.Row="3" Text="Pathology" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
+        <TextBlock Grid.Column="0"  Grid.Row="3" Text="Pathologies" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
         <Grid Margin="5" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="67*"/>
@@ -60,9 +60,9 @@
                                        ShowGroupDropArea="True" Grid.ColumnSpan="2" >
 
                 <Syncfusion:SfDataGrid.Columns>
-                    <Syncfusion:GridTextColumn HeaderText="CodePathology" MappingName="CodePathology" AllowEditing="True" />
-                    <Syncfusion:GridTextColumn HeaderText="NomPathology" MappingName="NomPathology" AllowEditing="False"/>
-                    <Syncfusion:GridTextColumn HeaderText="Description" MappingName="Description" AllowEditing="False"/>
+                    <Syncfusion:GridTextColumn HeaderText="CodePathology" MappingName="Entity.CodePathology" AllowEditing="True" />
+                    <Syncfusion:GridTextColumn HeaderText="NomPathology" MappingName="Entity.NomPathology" AllowEditing="False"/>
+                    <Syncfusion:GridTextColumn HeaderText="Description" MappingName="Entity.Description" AllowEditing="False"/>
                     <Syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded" AllowEditing="True"/>
                 </Syncfusion:SfDataGrid.Columns>
             </Syncfusion:SfDataGrid>

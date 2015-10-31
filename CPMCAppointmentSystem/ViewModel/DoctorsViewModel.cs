@@ -23,6 +23,8 @@ namespace CPMCAppointmentSystem.ViewModel
     public class DoctorsViewModel : NavigableViewModelBase
     {
         #region Fields
+        private ObservableCollection<EntityToAdd<Pathology>> _pathologiesToDoctorListAdds;
+        private ObservableCollection<SpecialityToAdd> _specialityToDoctorList;
         private readonly CpmcContext _dbContext = new CpmcContext();
         private AddSpecialitiesToDoctorView _addSpecialitiesToDoctorView;
         private AddPathologiesToDoctorView _addPathologiesToDoctorView;
@@ -36,12 +38,8 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<PatientToAdd> _patientsToAddList;
         private PatientToAdd _selectedPatientToAdd;
         #endregion
-        #region Properties
-
-        private ObservableCollection<PathologyToAdd> _pathologiesToDoctorListAdds;
-
-
-        public ObservableCollection<PathologyToAdd> PathologiesToDoctorList
+        #region Properties        
+        public ObservableCollection<EntityToAdd<Pathology>> PathologiesToDoctorList
         {
             get
             {
@@ -56,6 +54,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _pathologiesToDoctorListAdds = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<SpecialityToAdd> SpecialitiesToDoctorList
+        {
+            get
+            {
+                return _specialityToDoctorList;
+            }
+
+            set
+            {
+                if (_specialityToDoctorList == value)
+                {
+                    return;
+                }
+
+                _specialityToDoctorList = value;
                 RaisePropertyChanged();
             }
         }
@@ -231,16 +247,16 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     if (pToAdd.IsAdded)
                     {
-                        if (SelectedDoctor.Pathologies.All(p => p.PathologyId != pToAdd.PathologyId))
+                        if (SelectedDoctor.Pathologies.All(p => p.PathologyId != pToAdd.Entity.PathologyId))
                         {
-                            SelectedDoctor.Pathologies.Add(_dbContext.Pathologies.Find(pToAdd.PathologyId));
+                            SelectedDoctor.Pathologies.Add(_dbContext.Pathologies.Find(pToAdd.Entity.PathologyId));
                         }
                     }
                     else
                     {
-                        if (SelectedDoctor.Pathologies.Any(pp => pp.PathologyId == pToAdd.PathologyId))
+                        if (SelectedDoctor.Pathologies.Any(pp => pp.PathologyId == pToAdd.Entity.PathologyId))
                         {
-                            SelectedDoctor.Pathologies.Remove(_dbContext.Pathologies.Find(pToAdd.PathologyId));
+                            SelectedDoctor.Pathologies.Remove(_dbContext.Pathologies.Find(pToAdd.Entity.PathologyId));
                         }
                     }
                 });
@@ -262,7 +278,7 @@ namespace CPMCAppointmentSystem.ViewModel
         }
 
         private RelayCommand _addDoctorToPathologyLoadedCommand;
-        public RelayCommand AddDoctorToPathologyLoadedCommand
+        public RelayCommand AddPathologiesToDoctorLoadedCommand
         {
             get
             {
@@ -276,20 +292,28 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadDoctorsPathologies()
         {
-            PathologiesToDoctorList = new ObservableCollection<PathologyToAdd>(await Task.Run(() => _dbContext.Pathologies.Select(p => new PathologyToAdd()
-            {
-                CodePathology = p.CodePathology,                                             //To be updated to a better code 
-                Description = p.Description,
-                Medecins = p.Medecins,
-                NomPathology = p.NomPathology,
-                PathologyId = p.PathologyId,
-                Patients = p.Patients,
+            PathologiesToDoctorList = new ObservableCollection<EntityToAdd<Pathology>>(await Task.Run(() => _dbContext.Pathologies.Select(p => new EntityToAdd<Pathology>()
+            {               
+                Entity = p
                 //IsAdded = SelectedDoctor.Pathologies.Any(dp=>p.PathologyId==dp.PathologyId)       //throw [Only primitive types or enumeration types are supported in this context] exception     
 
             })));
             foreach (var pathToAdd in PathologiesToDoctorList)
             {
-                pathToAdd.IsAdded = SelectedDoctor.Pathologies.Any(dp => pathToAdd.PathologyId == dp.PathologyId);
+                pathToAdd.IsAdded = SelectedDoctor.Pathologies.Any(dp => pathToAdd.Entity.PathologyId == dp.PathologyId);
+            }
+        }
+        private RelayCommand _addSpecialitiesToDoctorCommand;
+        public RelayCommand AddSpecialitiesToDoctorCommand
+        {
+            get
+            {
+                return _addSpecialitiesToDoctorCommand
+                    ?? (_addSpecialitiesToDoctorCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
             }
         }
 
