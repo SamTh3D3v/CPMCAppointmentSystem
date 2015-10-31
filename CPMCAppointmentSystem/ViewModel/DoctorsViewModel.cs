@@ -13,6 +13,7 @@ using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.DoctorsViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
+using Syncfusion.Data.Extensions;
 using Syncfusion.Windows.Forms.Tools;
 
 namespace CPMCAppointmentSystem.ViewModel
@@ -208,27 +209,81 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _savePathologyWhithDoctorsCommand
-                    ?? (_savePathologyWhithDoctorsCommand = new RelayCommand(
-                    () =>
+                    ?? (_savePathologyWhithDoctorsCommand = new RelayCommand(async () =>
                     {
+                        await SavePathologiesAddedToDoctor();
+                        _dbContext.SaveChanges();
                         _addPathologiesToDoctorView.Close();
 
                     }));
             }
         }
-        private RelayCommand _AddDoctorToPathologyLoadedCommand;
+
+        private async Task SavePathologiesAddedToDoctor()
+        {
+            await Task.Run(() =>
+            {
+                if (SelectedDoctor.Pathologies == null)
+                    SelectedDoctor.Pathologies = new ObservableCollection<Pathology>();
+                PathologiesToDoctorList.ForEach(pToAdd =>
+                {
+                    if (pToAdd.IsAdded)
+                    {
+                        if (SelectedDoctor.Pathologies.All(p => p.PathologyId != pToAdd.PathologyId))
+                        {                            
+                            SelectedDoctor.Pathologies.Add(_dbContext.Pathologies.Find(pToAdd.PathologyId));
+                        }
+                    }
+                });
+
+            });
+        }
+        private RelayCommand _cancelPathologyWhithDoctorsCommand;     
+        public RelayCommand CancelPathologyWhithDoctorsCommand
+        {
+            get
+            {
+                return _cancelPathologyWhithDoctorsCommand
+                    ?? (_cancelPathologyWhithDoctorsCommand = new RelayCommand(async () =>
+                    {
+                        _addPathologiesToDoctorView.Close();
+                        await LoadDoctorsPathologies();
+                    }));
+            }
+        }
+
+        private RelayCommand _addDoctorToPathologyLoadedCommand;
         public RelayCommand AddDoctorToPathologyLoadedCommand
         {
             get
             {
-                return _AddDoctorToPathologyLoadedCommand
-                    ?? (_AddDoctorToPathologyLoadedCommand = new RelayCommand(async () =>
+                return _addDoctorToPathologyLoadedCommand
+                    ?? (_addDoctorToPathologyLoadedCommand = new RelayCommand(async () =>
                     {
-                        PathologiesToDoctorList = new ObservableCollection<PathologyToAdd>(await Task.Run(() => _dbContext.Pathologies.Select(p => new PathologyToAdd())));
-
+                        await LoadDoctorsPathologies();
                     }));
             }
         }
+
+        private async Task LoadDoctorsPathologies()
+        {            
+            PathologiesToDoctorList = new ObservableCollection<PathologyToAdd>(await Task.Run(() => _dbContext.Pathologies.Select(p => new PathologyToAdd()
+            {  
+                CodePathology = p.CodePathology,                                             //To be updated to a better code 
+                Description = p.Description,
+                Medecins = p.Medecins,
+                NomPathology = p.NomPathology,
+                PathologyId = p.PathologyId,
+                Patients = p.Patients,
+                //IsAdded = SelectedDoctor.Pathologies.Any(dp=>p.PathologyId==dp.PathologyId)       //throw [Only primitive types or enumeration types are supported in this context] exception     
+                          
+            })));
+            foreach (var pathToAdd in PathologiesToDoctorList)
+            {
+                pathToAdd.IsAdded = SelectedDoctor.Pathologies.Any(dp => pathToAdd.PathologyId == dp.PathologyId);
+            }
+        }
+
         private RelayCommand _doctorsViewLoadedCommand;
         public RelayCommand DoctorsViewLoadedCommand
         {
@@ -284,6 +339,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         _dbContext.SaveChanges();
                         await LoadDoctorsList();
+                        SelectedDoctor = null;
 
                     }));
             }

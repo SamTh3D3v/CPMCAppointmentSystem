@@ -198,7 +198,7 @@ namespace DataLayer.Model
                     if (!UserPrenom.All(Char.IsLetter))
                         return "Donnez un prenom valide";
 
-                }
+                }              
                 if (columnName == "UserName")
                 {
                     if (String.IsNullOrEmpty(UserName))
