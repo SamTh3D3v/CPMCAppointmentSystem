@@ -16,7 +16,7 @@
                              DataContext="{Binding Path=DoctorsViewModel, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <command:EventToCommand Command="{Binding Mode=OneWay, Path=AddSpecialitiesToDoctorCommand}"
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=AddSpecialitiesToDoctorLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -50,19 +50,20 @@
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
             <Syncfusion:SfDataGrid SelectionMode="Multiple"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke"
-                                       AllowDraggingColumns="True"
+                                       AllowDraggingColumns="True" 
                                        AllowEditing="True"                                   
                                        AllowFiltering="True"
+                                   ColumnSizer="Star"
                                        AllowGrouping="True"                                   
-                                       ItemsSource="{Binding PathologiesToDoctorList}"
+                                       ItemsSource="{Binding SpecialitiesToDoctorList}"
                                    AutoGenerateColumns="False"
                                    
                                        ShowGroupDropArea="True" Grid.ColumnSpan="2" >
 
                 <Syncfusion:SfDataGrid.Columns>
-                    <Syncfusion:GridTextColumn HeaderText="CodePathology" MappingName="CodePathology" AllowEditing="True" />
-                    <Syncfusion:GridTextColumn HeaderText="NomPathology" MappingName="NomPathology" AllowEditing="False"/>
-                    <Syncfusion:GridTextColumn HeaderText="Description" MappingName="Description" AllowEditing="False"/>
+                    <Syncfusion:GridTextColumn HeaderText="Designation" MappingName="Entity.Name" />
+                    <Syncfusion:GridTextColumn HeaderText="Code du spécialité" MappingName="Entity.Code" />
+                    <Syncfusion:GridTextColumn HeaderText="Description" MappingName="Entity.Description"/>
                     <Syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded" AllowEditing="True"/>
                 </Syncfusion:SfDataGrid.Columns>
             </Syncfusion:SfDataGrid>
@@ -73,7 +74,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"  Margin="2" Command="{Binding SavePathologyWhithDoctorsCommand}">
+            <Button Grid.Column="0"  Margin="2" Command="{Binding SaveSpecialityWithDoctorsCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -82,7 +83,7 @@
                 </Button.Content>
             </Button>
 
-            <Button Grid.Column="1"  Margin="2" Command="{Binding CancelPathologyWhithDoctorsCommand}">
+            <Button Grid.Column="1"  Margin="2" Command="{Binding CancelSpecialityWhithDoctorsCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />

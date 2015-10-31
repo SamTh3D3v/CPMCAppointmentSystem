@@ -677,6 +677,7 @@
                                                        AutoGenerateColumns="False"
                                                                EditTrigger="OnTap"
                                               LiveDataUpdateMode="AllowDataShaping"
+                                                                   
                                                ShowRowHeader="True"
                                             AllowDraggingColumns="True"
                                              AllowEditing="True"

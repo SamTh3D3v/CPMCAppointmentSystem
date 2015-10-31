@@ -216,7 +216,7 @@
                                         <CheckBox.Style>
                                             <Style TargetType="CheckBox">
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding SelectedDoctor.MedecinId}" Value="{x:Static system:Guid.Empty}">   
+                                                    <DataTrigger Binding="{Binding SelectedDoctor.MedecinId}" Value="{x:Static system:Guid.Empty}">
                                                         <Setter Property="IsChecked" Value="True"/>
                                                         <Setter Property="IsEnabled" Value="False"/>
                                                     </DataTrigger>
@@ -272,7 +272,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}">                        
+                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -283,7 +283,7 @@
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="IsEnabled" Value="false" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=CbUpdatePass,Path=IsChecked}" Value="True">                                        
+                                    <DataTrigger Binding="{Binding ElementName=CbUpdatePass,Path=IsChecked}" Value="True">
                                         <Setter Property="CommandParameter">
                                             <Setter.Value>
                                                 <Binding ElementName="PassBoxUserPass"/>
@@ -437,11 +437,20 @@
 
                                 <syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
-                                       AllowEditing="True"
+                                                       AutoGenerateColumns="False"
+                                                  ColumnSizer="Star"     
+                                       AllowEditing="False"
+                                                       SelectionMode="Single"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding SelectedDoctor.SpecialitePrincipale}"                                   
-                                       ShowGroupDropArea="True" />
+                                       ItemsSource="{Binding SelectedDoctor.Specialities}"                                   
+                                       ShowGroupDropArea="True" >
+                                    <syncfusion:SfDataGrid.Columns>
+                                        <syncfusion:GridTextColumn HeaderText="Designation" MappingName="Name" />
+                                        <syncfusion:GridTextColumn HeaderText="Code du spécialité" MappingName="Code" />
+                                        <syncfusion:GridTextColumn HeaderText="Description" MappingName="Description"/>
+                                    </syncfusion:SfDataGrid.Columns>
+                                </syncfusion:SfDataGrid>
 
                             </Grid>
                         </syncfusion:TabItemExt.Content>
