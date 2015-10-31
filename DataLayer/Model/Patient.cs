@@ -29,7 +29,7 @@ namespace DataLayer.Model
         private Guid? _pathologyId;
         private DateTime _dateDeNaissance=DateTime.Now;
         private Sexe _sexe;
-        private Adresse _adresse=new Adresse();
+        private Adresse _adresse;
         private Pathology _pathology;
         private DateTime _dateDeDepot=DateTime.Now;
         private ObservableCollection<PieceJointe> _pieceJointes;
