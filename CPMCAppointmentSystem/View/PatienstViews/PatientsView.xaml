@@ -135,7 +135,7 @@
                 </Grid>
 
             </Grid>
-            <Syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
+            <Syncfusion:SfDataGrid Grid.Column="0"  Grid.ColumnSpan="3"  Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"

@@ -9,7 +9,7 @@ namespace CPMCAppointmentSystem.View.PatienstViews
     {
         public PatientsView()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
     }
 }

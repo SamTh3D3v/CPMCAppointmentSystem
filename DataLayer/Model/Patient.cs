@@ -13,7 +13,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Patient")]
-    public class Patient :  INotifyPropertyChanged,IDataErrorInfo
+    public class Patient : INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
         private Guid _patientId;
@@ -40,7 +40,7 @@ namespace DataLayer.Model
         private ObservableCollection<Note> _notes;
 
         #endregion
-        #region Properties                
+        #region Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PatientId
@@ -228,7 +228,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-      
+
         [ForeignKey("PathologyId")]
         public virtual Pathology Pathology
         {
@@ -240,7 +240,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-        
+
         public DateTime DateDeDepot
         {
             get { return _dateDeDepot; }
@@ -323,7 +323,9 @@ namespace DataLayer.Model
                     if (string.IsNullOrEmpty(NumeroDordre))
                         result = "Spesifiez le numero d'ordre";
                     var dbContext = new CpmcContext();
-                    if (dbContext.Patients.Any(p => p.NumeroDordre == NumeroDordre))
+                    var firstOrDefault = dbContext.Patients.FirstOrDefault(u => u.NumeroDordre == NumeroDordre);
+                    if (firstOrDefault != null && ((dbContext.Patients.Any(u => u.NumeroDordre == NumeroDordre) && PatientId == Guid.Empty)
+                                                                                                || ((firstOrDefault.PatientId != PatientId && PatientId != Guid.Empty))))
                         return "Ce numero d'ordre exist deja";
 
                 }
@@ -360,7 +362,7 @@ namespace DataLayer.Model
                 return result;
             }
         }
-        #endregion       
+        #endregion
     }
 
 
