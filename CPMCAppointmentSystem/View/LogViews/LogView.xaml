@@ -22,7 +22,7 @@
             
         </Button>
         <syncfusion:LayoutControl HeaderDescriptionText="Histroire de log d'utilisation" 
-                        HeaderText="Histoire du log "
+                        HeaderText="Historique du log "
                         LayoutMode="Metro"
                         UserOptionsVisibility="Collapsed">
             <syncfusion:LayoutControl.GridView>
