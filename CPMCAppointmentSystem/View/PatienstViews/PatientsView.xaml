@@ -279,7 +279,7 @@
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de naiss" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:DateTimeEdit Name="DateTimeNaiss"  Margin="10 5"  Text="{Binding DateDeNaissance,Mode=TwoWay,StringFormat=d,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <DatePicker Name="DateTimeNaiss"  Margin="10 5"  Text="{Binding DateDeNaissance,Mode=TwoWay,StringFormat=d,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="4"  Text="Date de naissance" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -293,7 +293,7 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Sexe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:ComboBoxAdv Name="CbxSexe" Margin="10 5" ItemsSource="{Binding DataContext.SexeList,RelativeSource={RelativeSource AncestorType=Page},UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" SelectedItem="{Binding Path=Sexe}" DisplayMemberPath="Designation" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <Syncfusion:ComboBoxAdv Syncfusion:SkinStorage.VisualStyle="Metro" Name="CbxSexe" Margin="10 5" ItemsSource="{Binding DataContext.SexeList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Sexe,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" DisplayMemberPath="Designation" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="5"  Text="Sexe" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -316,11 +316,11 @@
                                      Watermark="Telephone mobile 1"  
                                      />
 
-                <TextBlock Grid.Column="0" Grid.Row="8" Text="Mobile d'accompagnant" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="Mobile d'accomp" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <Syncfusion:SfMaskedEdit Name="TxtEditMobileAcc" Grid.Column="1" Text="{Binding TelephoneDaccompagnant,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Telephone mobile d'accompagnant"  
                                      />
-                <TextBlock Grid.Column="0" Grid.Row="9" Text="Nom d'accompagnant" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBlock Grid.Column="0" Grid.Row="9" Text="Nom d'accomp" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <Syncfusion:SfMaskedEdit Name="TxtEditNomAcc" Grid.Column="1" Text="{Binding NomPrenomDaccompagnant,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Nom et prenom d'accompagnant"  
                                      />
@@ -356,7 +356,7 @@
                                      />
                 </Grid>
                 <TextBlock Grid.Column="0" Grid.Row="12" Text="Date depot" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:DateTimeEdit IsEnabled="False" Margin="10 5"  Text="{Binding DateDeDepot,Mode=TwoWay,StringFormat=d}"   x:Name="DepotDateBox" Grid.Column="1" Grid.Row="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <DatePicker  Margin="10 5"  Text="{Binding DateDeDepot,Mode=TwoWay}"    Grid.Column="1" Grid.Row="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="12"  Text="Date de dépot" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
