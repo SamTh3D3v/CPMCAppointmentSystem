@@ -266,7 +266,6 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                     }
                 });
-
             });
         }
 

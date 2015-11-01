@@ -37,7 +37,7 @@
         <Image Source="{StaticResource DoctorDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
 
 
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Pathologie" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
         <Syncfusion:SfMaskedEdit Watermark="Nom du Pathology" Margin="10 5" x:Name="NomBox" IsEnabled="False" Text="{Binding SelectedPathology.NomPathology,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
@@ -46,7 +46,7 @@
 
 
         <Expander IsExpanded="True" x:Name="PExpander" Margin="5" Grid.Column="0" Grid.ColumnSpan="2" Syncfusion:SkinStorage.VisualStyle="Metro"
-                  Grid.Row="3" Header="Selectionnez les medecin a ajouté"  HorizontalAlignment="Stretch">
+                  Grid.Row="3" Header="Selectionnez les medecins a ajouté"  HorizontalAlignment="Stretch">
             <Grid Margin="5"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                 <Syncfusion:SfDataGrid SelectionMode="Multiple" Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke"
                                        AllowDraggingColumns="True"
