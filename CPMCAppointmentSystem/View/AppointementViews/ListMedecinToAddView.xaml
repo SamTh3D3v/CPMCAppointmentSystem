@@ -33,22 +33,21 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <syncfusion:SfDataGrid Grid.Row="0" Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                <syncfusion:SfDataGrid Grid.Row="0" Height="250" SelectionMode="Single" Background="WhiteSmoke"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
+                                       ColumnSizer="Star"
                                        AllowEditing="True"
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
                                        ItemsSource="{Binding ElementName=DoctorDataPager,Path=PagedSource}"
-                                   AutoGenerateColumns="False"
-                                   SelectedItem="{Binding SelectedAddDoctorToFilter}"
+                                   AutoGenerateColumns="False"                                   
                                        ShowGroupDropArea="True" >
 
                     <syncfusion:SfDataGrid.Columns>
-                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" AllowEditing="False" />
-                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" AllowEditing="False" />                        
-                        <syncfusion:GridTextColumn HeaderText="Mobile" AllowEditing="False" MappingName="TelephoneMobile"  />
-                        <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded" AllowEditing="True"/>
-                        <syncfusion:GridTextColumn HeaderText="SpecialitePrincipale" MappingName="SpecialitePrincipale.Name" AllowEditing="False"/>
+                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Entity.User.UserNom" AllowEditing="False" />
+                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Entity.User.UserPrenom" AllowEditing="False" />
+                        <syncfusion:GridTextColumn HeaderText="Mobile" AllowEditing="False" MappingName="Entity.TelephoneMobile"  />
+                        <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" MappingName="IsAdded" AllowEditing="True"/>                        
                     </syncfusion:SfDataGrid.Columns>
                 </syncfusion:SfDataGrid>
                 <syncfusion:SfDataPager x:Name="DoctorDataPager"

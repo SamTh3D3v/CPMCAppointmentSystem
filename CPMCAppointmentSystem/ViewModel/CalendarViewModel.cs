@@ -32,12 +32,11 @@ namespace CPMCAppointmentSystem.ViewModel
         private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
         private RendezVous _selectedRdv;
         private ObservableCollection<Patient> _allPatientsCollection;
-        private ObservableCollection<Medecin> _allDoctorsCollection;
-        private MedecinToAdd _selectedAddDoctorToFilter;
+        private ObservableCollection<Medecin> _allDoctorsCollection;        
         private Patient _selectedPatientInAddAptView;
         private ObservableCollection<RendezVous> _rdvousCollaction;
         private Medecin _selectedMedecinInAddAptView;
-        private ObservableCollection<MedecinToAdd> _addDoctorsToFilterListAdd;
+        private ObservableCollection<EntityToAdd<Medecin>> _addDoctorsToFilterListAdd;
         private ObservableCollection<Medecin> _doctorsInFilter = new ObservableCollection<Medecin>();
         private bool _filterByPatientIsChecked;
         private bool _filterByMedecinIsChecked;
@@ -136,7 +135,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<MedecinToAdd> AddDoctorsToFilterList
+        public ObservableCollection<EntityToAdd<Medecin>> AddDoctorsToFilterList
         {
             get
             {
@@ -153,25 +152,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _addDoctorsToFilterListAdd = value;
                 RaisePropertyChanged();
             }
-        }
-        public MedecinToAdd SelectedAddDoctorToFilter
-        {
-            get
-            {
-                return _selectedAddDoctorToFilter;
-            }
-
-            set
-            {
-                if (_selectedAddDoctorToFilter == value)
-                {
-                    return;
-                }
-
-                _selectedAddDoctorToFilter = value;
-                RaisePropertyChanged();
-            }
-        }
+        }      
         public ObservableCollection<RendezVous> RdvousCollection
         {
             get
@@ -319,7 +300,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_applyMedecinFilterCommand = new RelayCommand(
                     () =>
                     {
-                        DoctorsInFilter = new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x => x.IsAdded));
+                       // DoctorsInFilter = new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x => x.IsAdded));
                         _listMedecinToAddView.Close();
                     }));
             }
@@ -378,37 +359,37 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _listMedecinToAddViewLoadedCommand
                     ?? (_listMedecinToAddViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        await LoadDoctorsToAddList();
+                        //await LoadDoctorsToAddList();
 
                     }));
             }
         }
 
-        private async Task LoadDoctorsToAddList()
-        {
-            await Task.Run(() =>
-            {
-                var doctorsList = _dbContext.Medecins;
-                AddDoctorsToFilterList = new ObservableCollection<MedecinToAdd>();
-                foreach (var medecin in doctorsList)
-                {
-                    AddDoctorsToFilterList.Add(new MedecinToAdd()
-                    {
-                        MedecinId = medecin.MedecinId,
-                        DateDeNaissance = medecin.DateDeNaissance,
-                        TelephoneFixe = medecin.TelephoneFixe,
-                        TelephoneMobile = medecin.TelephoneMobile,
-                        //SpecialitePrincipaleId = medecin.SpecialitePrincipaleId,
-                        UserId = medecin.UserId,
-                        //SpecialitePrincipale = medecin.SpecialitePrincipale,
-                        User = medecin.User,
-                        Pathologies = medecin.Pathologies,
-                        Patients = medecin.Patients,
-                        IsAdded = DoctorsInFilter.FirstOrDefault(x => x.MedecinId == medecin.MedecinId) != null
-                    });
-                }
-            });
-        }
+        //private async Task LoadDoctorsToAddList()
+        //{
+        //    await Task.Run(() =>
+        //    {
+        //        var doctorsList = _dbContext.Medecins;
+        //        AddDoctorsToFilterList = new ObservableCollection<MedecinToAdd>();
+        //        foreach (var medecin in doctorsList)
+        //        {
+        //            AddDoctorsToFilterList.Add(new MedecinToAdd()
+        //            {
+        //                MedecinId = medecin.MedecinId,
+        //                DateDeNaissance = medecin.DateDeNaissance,
+        //                TelephoneFixe = medecin.TelephoneFixe,
+        //                TelephoneMobile = medecin.TelephoneMobile,
+        //                //SpecialitePrincipaleId = medecin.SpecialitePrincipaleId,
+        //                UserId = medecin.UserId,
+        //                //SpecialitePrincipale = medecin.SpecialitePrincipale,
+        //                User = medecin.User,
+        //                Pathologies = medecin.Pathologies,
+        //                Patients = medecin.Patients,
+        //                IsAdded = DoctorsInFilter.FirstOrDefault(x => x.MedecinId == medecin.MedecinId) != null
+        //            });
+        //        }
+        //    });
+        //}
 
         private async Task LoadAllDoctorsList()
         {
