@@ -12,17 +12,17 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Note")]
-    public class Note:INotifyPropertyChanged
+    public class Note : Auditable, INotifyPropertyChanged
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid NoteId { get; set; }        
+        public Guid NoteId { get; set; }
         public String Title { get; set; }
         public String Content { get; set; }
         public Guid PatientId { get; set; }
         [ForeignKey("PatientId")]
         public Patient Patient { get; set; }
-      
+
         #region INotifyPropertyChanged related
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Model
 {
-    public class CpmcContext:DbContext
+    public partial class CpmcContext:DbContext
     {
         public CpmcContext()
             : base("CpmcAppointmentDb")  //"CpmcConnectionString"
@@ -21,7 +21,7 @@ namespace DataLayer.Model
             //Custom Db Inializer to populate Db With Fake Data
             //Database.SetInitializer<CpmcContext>(new CpmcDbInitializer());
             
-
+            
             //-> By Using the DataMigration
             Database.SetInitializer(
                 new MigrateDatabaseToLatestVersion<CpmcContext, Migrations.Configuration>()); //"CpmcConnectionString"
@@ -41,6 +41,7 @@ namespace DataLayer.Model
         public DbSet<PieceJointe> PieceJointes { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<JourFerie> JourFeries { get; set; }
+        public DbSet<Trace> Traces { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -69,9 +70,6 @@ namespace DataLayer.Model
             base.OnModelCreating(modelBuilder);
         }
 
-        public override int SaveChanges()
-        {
-            return base.SaveChanges();
-        }
+      
     }
 }

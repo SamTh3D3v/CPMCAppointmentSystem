@@ -12,6 +12,5 @@ namespace DataLayer.Model
         DateTime ModifiedOn { get; set; }
         Guid ModifiedBy { get; set; }
         Guid CreatedBy { get; set; }
-        String MachineId { get; set; }
     }
 }

@@ -19,23 +19,37 @@ namespace DataLayer.Migrations
         protected override void Seed(CpmcContext context)
         {
             ////Sexe Table
-            //context.Sexes.Add(new Sexe() {SexeId = 0, Designation = "Male"});
-            //context.Sexes.Add(new Sexe() { SexeId = 1, Designation = "Femelle" });
 
+            context.Database.Connection.Open();
+
+
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Sexe] ON");
+            context.Sexes.AddOrUpdate(s=>s.Designation,new Sexe() { SexeId = 0, Designation = "Male" });
+            context.Sexes.AddOrUpdate(s=>s.Designation,new Sexe() { SexeId = 1, Designation = "Femelle" });
+            context.SaveChanges();
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Sexe] OFF");
+            
+            
             ////Willaya Table
-
-            //context.Willayas.AddOrUpdate(w => w.WillayaId,
-            //    new Willaya() { WillayaId = 2, Designation = "Chlef" },
-            //new Willaya() { WillayaId = 31, Designation = "Oran" },
-            //new Willaya() { WillayaId = 16, Designation = "Alger" },
-            // new Willaya() { WillayaId = 28, Designation = "Msilla" },
-            //  new Willaya() { WillayaId = 29, Designation = "Mascara" });
-            //context.UserTypes.AddOrUpdate(u=>u.UserTypeId,
-            //    new UserType(){UserTypeName = "Medecin"},
-            //    new UserType(){UserTypeName = "Admin"},
-            //    new UserType(){UserTypeName = "Agent de saisie"});
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Willaya] ON");
+            context.Willayas.AddOrUpdate(w => w.WillayaId,
+                new Willaya() { WillayaId = 2, Designation = "Chlef" },
+                new Willaya() { WillayaId = 31, Designation = "Oran" },
+                new Willaya() { WillayaId = 16, Designation = "Alger" },
+                new Willaya() { WillayaId = 28, Designation = "Msilla" },
+                new Willaya() { WillayaId = 29, Designation = "Mascara" });
+            context.SaveChanges();
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Willaya] OFF");
 
 
+            
+            context.UserTypes.AddOrUpdate(u => u.UserTypeName,
+                new UserType() { UserTypeName = "Medecin" },
+                new UserType() { UserTypeName = "Admin" },
+                new UserType() { UserTypeName = "Agent" });
+
+            context.SaveChanges();
+            context.Database.Connection.Close();
             ////Adress Table
             //IList<Adresse> fakeAdressesList = new List<Adresse>();
             //fakeAdressesList.Add(new Adresse(){AddressDesignation = "03, Rue Good Weather",City = "Elward",CodePosatal = "16000",WillayaId = 16});
