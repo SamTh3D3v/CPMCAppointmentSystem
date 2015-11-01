@@ -60,7 +60,8 @@
             <converters:ValueToEqualsParameterConverter x:Key="IsValueEqualToParameterConverter"/>
             <converters:FlagToIsCheckedConverter x:Key="FlagToIsCheckedConverter"/>
             <converters:DateJourFerieToNumberConverter x:Key="DateJourFerieToNumberConverter"/>
-            <converters:BooleanOrConverter x:Key="BooleanOrConverter"/>            
+            <converters:BooleanOrConverter x:Key="BooleanOrConverter"/>
+            <converters:FromArgbToColorConverter x:Key="FromArgbToColorConverter"/>            
         </ResourceDictionary>
 
 

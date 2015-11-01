@@ -9,5 +9,10 @@ namespace CPMCAppointmentSystem.View.DoctorsViews
         {
             InitializeComponent();
         }
+
+        private void SPrecialityBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }

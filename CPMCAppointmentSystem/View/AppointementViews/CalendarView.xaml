@@ -17,12 +17,8 @@
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=CalendarViewLoadedCommand}"
                             PassEventArgsToCommand="True"  />
         </i:EventTrigger>
-    </i:Interaction.Triggers>
-    <Page.Resources>
-       
-    </Page.Resources>
-
-    <Grid x:Name="grid1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">        
+    </i:Interaction.Triggers>   
+    <Grid x:Name="grid1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -34,38 +30,38 @@
                     <syncfusion:SfSchedule  ScheduleClick="Schedule_OnScheduleClick"  x:Name="Schedule"  Appointments="{Binding PatientsScheduleAppointmentCollection}"
                                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="False" Margin="5"  WorkEndHour="18" WorkStartHour="9" IsHighLightWorkingHours="True" 
                                    ScheduleType="{Binding SelectedScheduleType,Mode=TwoWay}" EnableTouch="True"  TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening">
-                        <i:Interaction.Triggers>                           
+                        <i:Interaction.Triggers>
                             <i:EventTrigger EventName="AppointmentEditorOpening">
                                 <command:EventToCommand Command="{Binding Mode=OneWay, Path=ScheduleOnAppointmentEditorOpeningCommand}" CommandParameter="{Binding ElementName=Schedule}"
                             PassEventArgsToCommand="True"  />
                             </i:EventTrigger>
-                            
+
                         </i:Interaction.Triggers>
-                        
+
                         <syncfusion:SfSchedule.AppointmentTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <Rectangle Fill="{Binding Status.Brush}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                                    <Grid>                                     
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="35"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>                                      
+                                        </Grid.ColumnDefinitions>
                                         <Image Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="35" Width="35">
                                             <Image.Style>
                                                 <Style TargetType="Image">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Boy"> 
+                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Boy">
                                                             <Setter Property="Source" Value="{DynamicResource BoyDark}"/>
-                                                        </DataTrigger> 
-                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Girl"> 
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Girl">
                                                             <Setter Property="Source" Value="{DynamicResource GirlDark}"/>
-                                                        </DataTrigger> 
-                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Man"> 
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Man">
                                                             <Setter Property="Source" Value="{DynamicResource ManDark}"/>
-                                                        </DataTrigger> 
-                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Woman"> 
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status.Status}" Value="Woman">
                                                             <Setter Property="Source" Value="{DynamicResource WomanDark}"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
@@ -74,24 +70,24 @@
                                         </Image>
                                         <TextBlock Text="{Binding Patient.NumeroDordre}"   Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
                                         <TextBlock Text="{Binding Patient.Nom}"  Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Normal" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
-                                        
+
                                     </Grid>
                                 </Grid>
                             </DataTemplate>
                         </syncfusion:SfSchedule.AppointmentTemplate>
 
                     </syncfusion:SfSchedule>
-                    
+
 
                     <StackPanel Grid.Row="0"  Margin="20 12 80 0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
                         <ToggleButton x:Name="FilterTb"  HorizontalAlignment="Left"  Width="25" Height="25" Padding="0" Margin="5,0,0,0">
                             <Image Source="{StaticResource FilterDark}"></Image>
                         </ToggleButton>
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Day" Content="Jour"  Command="{Binding DayScheduleTypeSelectedCommand}"  Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Week" Content="Semaine"  Command="{Binding WeekScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="WorkWeek" Content="Work Week"  Command="{Binding WorkWeekScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0" />
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Mois"  Command="{Binding MonthScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0"/>
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Chronologie"  Command="{Binding TimeLineScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="10 0 0 0"/>                        
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Day" Content="Jour"  Command="{Binding DayScheduleTypeSelectedCommand}"  Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="5 0"/>
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Week" Content="Semaine"  Command="{Binding WeekScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="5 0" />
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="WorkWeek" Content="Work Week"  Command="{Binding WorkWeekScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="5 0" />
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Mois"  Command="{Binding MonthScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="5 0"/>
+                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Chronologie"  Command="{Binding TimeLineScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="5 0 0 0"/>
                     </StackPanel>
 
                     <!--<Popup x:Name="RadialPopup" syncfusion:SkinStorage.VisualStyle="Metro" Placement="MousePoint" AllowsTransparency="True" IsOpen="False">
@@ -160,7 +156,7 @@
                                 </syncfusion:SfRadialMenuItem.Header>
                             </syncfusion:SfRadialMenuItem>
                         </syncfusion:SfRadialMenu>
-                    </Popup>-->                   
+                    </Popup>-->
                 </Grid>
             </Border>
             <Border  Grid.Column="1" Background="WhiteSmoke" Width="300">
@@ -207,29 +203,29 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
-                                    
+
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Filtrer par medecin" Grid.Column="0"/>
                                 <CheckBox Grid.Column="1" x:Name="FilterByDoctorCeckBox" IsChecked="{Binding FilterByMedecinIsChecked,Mode=TwoWay}" HorizontalAlignment="Right"/>
                             </Grid>
                         </Expander.Header>
-                        <Grid IsEnabled="{Binding ElementName=FilterByDoctorCeckBox,Path=IsChecked}">                           
+                        <Grid IsEnabled="{Binding ElementName=FilterByDoctorCeckBox,Path=IsChecked}">
                             <Button Content="ListDes medecin" Command="{Binding ShowListDesMedecinFilterCommand}"/>
                         </Grid>
-                                              
-                    </Expander> 
+
+                    </Expander>
                     <Expander  IsExpanded="True" Grid.Row="2">
                         <Expander.Header>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
-                                    
+
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Filtrer par Patient" Grid.Column="0"/>
                                 <CheckBox Grid.Column="1" x:Name="FilterByPatientCheckBox" IsChecked="{Binding FilterByPatientIsChecked}" HorizontalAlignment="Right"/>
                             </Grid>
-                        </Expander.Header>   
+                        </Expander.Header>
                         <Grid IsEnabled="{Binding ElementName=FilterByPatientCheckBox,Path=IsChecked}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -269,13 +265,27 @@
                                     <TextBlock Text="Carte Pro"  Grid.Column="1"/>
                                 </Grid>
                             </GroupBox>
-                            
+
                         </Grid>
-                                          
+
                     </Expander>
                 </Grid>
-                
+
             </Border>
+        </Grid>
+        <Grid >
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsProgressRingActive}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid Background="WhiteSmoke" Opacity=".5"/>
+            <controls:ProgressRing VerticalAlignment="Center" HorizontalAlignment="Center" IsLarge="True" IsActive="{Binding IsProgressRingActive}"></controls:ProgressRing>
         </Grid>
     </Grid>
 </Page>

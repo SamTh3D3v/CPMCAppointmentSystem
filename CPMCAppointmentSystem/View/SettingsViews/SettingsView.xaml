@@ -11,7 +11,7 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="700" DataContext="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
+      d:DesignHeight="500" d:DesignWidth="1000" DataContext="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
 	Title="SettingsView" >
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -32,6 +32,12 @@
     <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="RootGrid">
         <TabControl  TabStripPlacement="Left"  Padding="0" Margin="0">
             <TabItem Style="{StaticResource SettingsTabItemStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=AccountsViewLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <TabItem.Header>
                     <Grid Width="120" Height="100">
                         <Grid.RowDefinitions>
@@ -271,6 +277,12 @@
                 <TabItem.Content>
                     <TabControl TabStripPlacement="Left">
                         <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Loaded">
+                                    <command:EventToCommand 
+                            PassEventArgsToCommand="True" Command="{Binding StatusDesPatientsSettingsLoadedCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <TabItem.Header>
                                 <Grid  Height="50" Margin="0,0,5,0">
                                     <Grid.ColumnDefinitions>
@@ -283,8 +295,7 @@
                             </TabItem.Header>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>                                    
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -294,43 +305,111 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <GroupBox Header="Carte proffesionel" Grid.Row="0" Grid.Column="0">
+                                <Expander Header="Age et sexe">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Text="Tiles brush" VerticalAlignment="Center"/>
-                                        <xctk:ColorPicker Grid.Row="0" Grid.Column="1" Margin="30,5,5,5"  
+                                        <GroupBox Header="Enfant"  Grid.Column="0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="Code Couleur" VerticalAlignment="Center"/>
+                                                <xctk:ColorPicker Grid.Row="0" SelectedColor="{Binding SettingsCollection[EnfantSetting].Color,Converter={StaticResource FromArgbToColorConverter},Mode=TwoWay}" Grid.Column="1" Margin="30,5,5,5"  
                                             HorizontalAlignment="Stretch" VerticalAlignment="Center"                                                                                                                                                                                  
                                             />
-                                        <controls:ToggleSwitch Grid.Row="0" Grid.Column="2" Width="150"  OnLabel="Blink" OffLabel="don't blink" />
-                                    </Grid>
-                                </GroupBox>
-                                <GroupBox Header="Enfant" Grid.Row="0" Grid.Column="1">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Text="Tiles brush" VerticalAlignment="Center"/>
-                                        <xctk:ColorPicker Grid.Row="0" Grid.Column="1" Margin="30,5,5,5"  
+                                                <ToggleButton Grid.Column="2" Margin="5" IsChecked="{Binding SettingsCollection[EnfantSetting].Blink,Mode=TwoWay}" Grid.Row="0" Background="{StaticResource AccentColorBrush}" Content="Clignoter" Foreground="WhiteSmoke"/>
+                                                <TextBlock Text="Age minimum" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
+                                                <controls:NumericUpDown Margin="30,5,5,5" Minimum="1" Maximum="100" Value="{Binding SettingsCollection[EnfantSetting].Information,Mode=TwoWay}"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"></controls:NumericUpDown>
+                                            </Grid>
+                                        </GroupBox>
+                                        <GroupBox Header="Homme"  Grid.Column="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="Code Couleur" VerticalAlignment="Center"/>
+                                                <xctk:ColorPicker Grid.Row="0" Grid.Column="1" SelectedColor="{Binding SettingsCollection[HommeSetting].Color,Converter={StaticResource FromArgbToColorConverter}}" Margin="30,5,5,5"  
                                             HorizontalAlignment="Stretch" VerticalAlignment="Center"                                                                                                                                                                                  
                                             />
-                                        <controls:ToggleSwitch Grid.Row="0" Grid.Column="2" Width="150"  OnLabel="Blink" OffLabel="don't blink" Grid.ColumnSpan="2" Margin="0,2,38,31" Grid.RowSpan="2" />
-                                        <TextBlock Text="Age minimum" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
-                                        <syncfusion:SfMaskedEdit Margin="30,5,5,5"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"></syncfusion:SfMaskedEdit>
-                                    </Grid>
-                                </GroupBox>
+                                                <ToggleButton Grid.Column="2" Margin="5" IsChecked="{Binding SettingsCollection[HommeSetting].Blink}" Grid.Row="0" Background="{StaticResource AccentColorBrush}" Content="Clignoter" Foreground="WhiteSmoke"/>
+                                            </Grid>
+                                        </GroupBox>
+                                        <GroupBox Header="Femme" Grid.Column="2">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="Code Couleur" VerticalAlignment="Center"/>
+                                                <xctk:ColorPicker Grid.Row="0" Grid.Column="1" SelectedColor="{Binding SettingsCollection[FemmeSetting].Color,Converter={StaticResource FromArgbToColorConverter}}" Margin="30,5,5,5"  
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"                                                                                                                                                                                  
+                                            />
+                                                <ToggleButton Grid.Column="2" Grid.Row="0" Margin="5" IsChecked="{Binding SettingsCollection[FemmeSetting].Blink}" Background="{StaticResource AccentColorBrush}" Content="Clignoter" Foreground="WhiteSmoke"/>
+                                            </Grid>
+                                        </GroupBox>
+                                    </Grid>                                    
+                                </Expander>
+                                <Expander Header="Professionel" Grid.Row="1">
+                                    <GroupBox Header="Carte proffesionel" Grid.Row="0" Grid.Column="0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="Code Couleur" VerticalAlignment="Center"/>
+                                            <xctk:ColorPicker Grid.Row="0" Grid.Column="1" SelectedColor="{Binding SettingsCollection[ProSetting].Color,Converter={StaticResource FromArgbToColorConverter},Mode=TwoWay}" Margin="30,5,5,5"  
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"                                                                                                                                                                                  
+                                            />
+                                            <ToggleButton Grid.Column="2" Margin="5" IsChecked="{Binding SettingsCollection[ProSetting].Blink,Mode=TwoWay}" Grid.Row="0" Background="{StaticResource AccentColorBrush}" Content="Clignoter" Foreground="WhiteSmoke"/>
+                                        </Grid>
+                                    </GroupBox>
+                                </Expander>
+                                <Expander Header="Rendez vous" Grid.Row="2">
+                                    <GroupBox Header="Date rendez vous" >
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="Code couleur" VerticalAlignment="Center"/>
+                                            <xctk:ColorPicker Grid.Row="0" Grid.Column="1" SelectedColor="{Binding SettingsCollection[RdvSetting].Color,Converter={StaticResource FromArgbToColorConverter},Mode=TwoWay}" Margin="30,5,5,5"  
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"                                                                                                                                                                                  
+                                            />
+                                            <ToggleButton Grid.Column="2" Grid.Row="0" Margin="5" IsChecked="{Binding SettingsCollection[RdvSetting].Blink,Mode=TwoWay}" Background="{StaticResource AccentColorBrush}" Content="Clignoter" Foreground="WhiteSmoke"/>
+                                            <TextBlock Text="Date s'approche par" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
+                                            <controls:NumericUpDown Margin="30,5,5,5" Minimum="1" Maximum="365" Value="{Binding SettingsCollection[RdvSetting].Information,Mode=TwoWay}"  Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch"/>
+                                            <TextBlock Text="Jour" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                        </Grid>
+                                    </GroupBox>
+                                </Expander>                                                                
                             </Grid>
                         </TabItem>
                         <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
@@ -445,7 +524,7 @@
                                             ShowGroupDropArea="True" >
                                                 <i:Interaction.Behaviors>
                                                     <behavior:InitialSetupBehaviour />
-                                                </i:Interaction.Behaviors>                                                
+                                                </i:Interaction.Behaviors>
                                                 <syncfusion:SfDataGrid.Resources>
                                                     <ResourceDictionary>
                                                         <ResourceDictionary.MergedDictionaries>
@@ -567,7 +646,7 @@
                                                         </syncfusion:GridTemplateColumn.EditTemplate>
                                                     </syncfusion:GridTemplateColumn>
                                                     <syncfusion:GridTextColumn HeaderText="Titre" MappingName="TitreJourFerie" TextAlignment="Left" AllowEditing="True" />
-                                                    <syncfusion:GridTextColumn HeaderText="Description" MappingName="DescriptionJourFerie" TextAlignment="Left" AllowEditing="True"/>                                                   
+                                                    <syncfusion:GridTextColumn HeaderText="Description" MappingName="DescriptionJourFerie" TextAlignment="Left" AllowEditing="True"/>
                                                 </syncfusion:SfDataGrid.Columns>
                                             </syncfusion:SfDataGrid>
                                             <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom">
@@ -604,6 +683,7 @@
                                                        AutoGenerateColumns="False"
                                                                EditTrigger="OnTap"
                                               LiveDataUpdateMode="AllowDataShaping"
+                                                                   
                                                ShowRowHeader="True"
                                             AllowDraggingColumns="True"
                                              AllowEditing="True"

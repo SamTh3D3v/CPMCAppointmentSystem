@@ -15,7 +15,6 @@ namespace DataLayer.Model
     [Table("Pathology")]
     public class Pathology : INotifyPropertyChanged, IDataErrorInfo
     {
-
         #region Fields
         private Guid _pathologyId;
         private string _codePathology;
@@ -96,7 +95,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
+        [NotMapped]
         public string Error
         {
             get { return String.Empty; }

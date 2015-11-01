@@ -188,7 +188,7 @@ namespace DataLayer.Model
                     if (String.IsNullOrEmpty(UserNom))
                         return "Spesifié votre nom";
                     if (!UserNom.All(Char.IsLetter))
-                        return "Donnez un nom d'utilisateur valid";
+                        return "Donnez un nom valide";
 
                 }
                 if (columnName == "UserPrenom")
@@ -196,19 +196,21 @@ namespace DataLayer.Model
                     if (String.IsNullOrEmpty(UserPrenom))
                         return "Spesifié votre prenom";
                     if (!UserPrenom.All(Char.IsLetter))
-                        return "Donnez un prenom d'utilisateur valid";
+                        return "Donnez un prenom valide";
 
-                }
+                }              
                 if (columnName == "UserName")
                 {
                     if (String.IsNullOrEmpty(UserName))
                         return "Spesifié votre prenom";
-                    if (!UserName.All(Char.IsLetter))
-                        return "Donnez un prenom d'utilisateur valid";
+                    if (!UserName.All(Char.IsLetterOrDigit))
+                        return "Donnez un nomd'utilisateur valide";
 
                     var dbContext = new CpmcContext();
-                    if (dbContext.Users.Any(u => u.UserName == UserName))
-                        return "Ce nom d'utlisateur est deja prise";
+                    var firstOrDefault = dbContext.Users.FirstOrDefault(u => u.UserName == UserName);
+                    if (firstOrDefault != null && ((dbContext.Users.Any(u => u.UserName == UserName) && UserId==Guid.Empty)
+                                                                                                ||((firstOrDefault.UserId!= UserId && UserId!=Guid.Empty))))
+                        return "Ce nom d'utilisateur est déjà pris";
 
                 }
                 return String.Empty;

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -501,7 +503,12 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addPatientCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedPatient = new Patient();
+                        SelectedPatient = new Patient()
+                        {
+                            Adresse = new Adresse(),
+                            DateDeDepot = DateTime.Now,
+                            DateDeNaissance = DateTime.Now
+                        };
 
                     }));
             }
@@ -519,7 +526,25 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             AddNewPatient();
                         }
-                        _dbContext.SaveChanges();
+
+                        try
+                        {
+                            _dbContext.SaveChanges();
+                        }
+                        catch (DbEntityValidationException e)
+                        {
+                            foreach (var eve in e.EntityValidationErrors)
+                            {
+                                Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                                foreach (var ve in eve.ValidationErrors)
+                                {
+                                    Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                        ve.PropertyName, ve.ErrorMessage);
+                                }
+                            }
+                            throw;
+                        }
                         LoadPatienstList();
                     }));
             }
@@ -873,7 +898,7 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private void AddNewPatient()
         {
-            _dbContext.Patients.Add(SelectedPatient);
+            _dbContext.Patients.Add(SelectedPatient);            
             IsFormEnabled = false;
         }
         private async Task LoadPatientAppointementList()

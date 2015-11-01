@@ -53,7 +53,6 @@
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
-                    <syncfusion:GridTextColumn HeaderText="Spécialité" MappingName="SpecialitePrincipale.Name"/>
                     <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
                     <syncfusion:GridTextColumn HeaderText="Fixe" MappingName="TelephoneFixe"/>
                     <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
@@ -68,9 +67,9 @@
         <Grid Grid.Column="2" Background="{StaticResource BodyBackgroundBrush}" IsEnabled="{Binding IsFormEnabled}">
             <!--the patients details Grid-->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" MinWidth="100"/>
                 <ColumnDefinition Width="3"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" MinWidth="100"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="5,20" >
                 <Grid.ColumnDefinitions>
@@ -146,7 +145,7 @@
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Mobile" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <syncfusion:SfMaskedEdit Watermark="Telephone mobile" x:Name="TexEditMobile" Grid.Column="1" Grid.Row="4" Text="{Binding SelectedDoctor.TelephoneMobile,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" />
 
-                <TextBlock Grid.Column="0" Grid.Row="5" Text="Spécialité" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <!--<TextBlock Grid.Column="0" Grid.Row="5" Text="Spécialité" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,156,10" Grid.ColumnSpan="2"/>
                 <ComboBox x:Name="CbxSpeciality" IsEnabled="False" Margin="10 5" ItemsSource="{Binding SpecialitiesList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDoctor.SpecialitePrincipale,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="5"  Text="Spécialité" VerticalAlignment="Center">
                     <TextBlock.Style>
@@ -158,7 +157,7 @@
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
-                </TextBlock>
+                </TextBlock>-->
 
                 <TextBlock Grid.Column="0" Grid.Row="6" Text="Jours de travail" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <ScrollViewer Grid.Column="1" Grid.Row="6" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" Margin="10 5">
@@ -182,10 +181,19 @@
                     </Grid>
                 </ScrollViewer>
 
-                <GroupBox Header="Données de connection" Margin="0,20,0,0" Grid.Row="8" Grid.Column="0"  Grid.ColumnSpan="2">
+                <GroupBox  Margin="0,20,0,0" Grid.Row="8" Grid.Column="0"  Grid.ColumnSpan="2">
+                    <GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Données de connection" Grid.Column="0" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </GroupBox.Header>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -195,20 +203,65 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom d'utilisateur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                         <syncfusion:SfMaskedEdit Watermark="Nom d'utilisateur" x:Name="TxtEditUserName" Grid.Column="1" Grid.Row="0" Text="{Binding SelectedDoctor.User.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"/>
+                        <Expander  Grid.Row="1" Style="{StaticResource {x:Type Expander}}" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Expander.Header>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="MoT De Passe" HorizontalAlignment="Left" Foreground="White"/>
+                                    <CheckBox x:Name="CbUpdatePass" Content="Changer" Grid.Column="2" HorizontalAlignment="Right">
+                                        <CheckBox.Style>
+                                            <Style TargetType="CheckBox">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding SelectedDoctor.MedecinId}" Value="{x:Static system:Guid.Empty}">
+                                                        <Setter Property="IsChecked" Value="True"/>
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </CheckBox.Style>
+                                    </CheckBox>
+                                </Grid>
+                            </Expander.Header>
+                            <Grid>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=CbUpdatePass,Path=IsChecked}" Value="True" >
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
 
-                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            <PasswordBox.Resources>
-                                <system:String x:Key="WaterMarkText">Enter password</system:String>
-                            </PasswordBox.Resources>
-                        </PasswordBox>
-                        <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="2"  x:Name="PassBoxConfirmPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            <PasswordBox.Resources>
-                                <system:String x:Key="WaterMarkText">Confirme password</system:String>
-                            </PasswordBox.Resources>
-                        </PasswordBox>                        
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                <PasswordBox Margin="10 5" Grid.Column="1"  Grid.Row="0" x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <PasswordBox.Resources>
+                                        <system:String x:Key="WaterMarkText">Enter password</system:String>
+                                    </PasswordBox.Resources>
+                                </PasswordBox>
+                                <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="PassBoxConfirmPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <PasswordBox.Resources>
+                                        <system:String x:Key="WaterMarkText">Confirme password</system:String>
+                                    </PasswordBox.Resources>
+                                </PasswordBox>
+                            </Grid>
+                        </Expander>
                     </Grid>
                 </GroupBox>
 
@@ -219,7 +272,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}" CommandParameter="{Binding ElementName=PassBoxUserPass}">
+                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -230,6 +283,13 @@
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="IsEnabled" Value="false" />
                                 <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=CbUpdatePass,Path=IsChecked}" Value="True">
+                                        <Setter Property="CommandParameter">
+                                            <Setter.Value>
+                                                <Binding ElementName="PassBoxUserPass"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
                                             <Condition Binding="{Binding ElementName=TxtEditNom, Path=(Validation.HasError)}" Value="false" />
@@ -252,6 +312,14 @@
                                                     <system:Boolean>False</system:Boolean>
                                                 </Condition.Value>
                                             </Condition>
+                                            <!--<Condition>
+                                                <Condition.Binding>
+                                                    <Binding Path="Password" ElementName="PassBoxUserPass" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:String.Empty}"/>
+                                                </Condition.Binding>
+                                                <Condition.Value>
+                                                    <system:Boolean>False</system:Boolean>
+                                                </Condition.Value>
+                                            </Condition>-->
                                         </MultiDataTrigger.Conditions>
                                         <Setter Property="IsEnabled" Value="true" />
                                     </MultiDataTrigger>
@@ -278,7 +346,7 @@
                 </Grid>
 
             </Grid>
-            <GridSplitter Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1" VerticalAlignment="Stretch"/>
+            <GridSplitter Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
             <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <syncfusion:TabControlExt  EnableLabelEdit="False" syncfusion:SkinStorage.VisualStyle="Metro" Margin="5,30,5,5"
                                   CloseButtonType="Hide" ShowTabItemContextMenu="False"
@@ -318,12 +386,19 @@
 
                                 <syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
-                                       AllowEditing="True"
+                                                       AutoGenerateColumns="False"
+                                       AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
                                        ItemsSource="{Binding SelectedDoctor.Pathologies}"
                                    SelectedItem="{Binding SelectedPathologyInDoctorsView,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
+                                       ShowGroupDropArea="True" >
+                                    <syncfusion:SfDataGrid.Columns>
+                                        <syncfusion:GridTextColumn HeaderText="Code" MappingName="CodePathology" />
+                                        <syncfusion:GridTextColumn HeaderText="Nom du pathologie" MappingName="NomPathology" />
+                                        <syncfusion:GridTextColumn HeaderText="Description" MappingName="Description"/>
+                                    </syncfusion:SfDataGrid.Columns>
+                                </syncfusion:SfDataGrid>
 
                             </Grid>
                         </syncfusion:TabItemExt.Content>
@@ -362,11 +437,20 @@
 
                                 <syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
-                                       AllowEditing="True"
+                                                       AutoGenerateColumns="False"
+                                                  ColumnSizer="Star"     
+                                       AllowEditing="False"
+                                                       SelectionMode="Single"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding SelectedDoctor.SpecialitePrincipale}"                                   
-                                       ShowGroupDropArea="True" />
+                                       ItemsSource="{Binding SelectedDoctor.Specialities}"                                   
+                                       ShowGroupDropArea="True" >
+                                    <syncfusion:SfDataGrid.Columns>
+                                        <syncfusion:GridTextColumn HeaderText="Designation" MappingName="Name" />
+                                        <syncfusion:GridTextColumn HeaderText="Code du spécialité" MappingName="Code" />
+                                        <syncfusion:GridTextColumn HeaderText="Description" MappingName="Description"/>
+                                    </syncfusion:SfDataGrid.Columns>
+                                </syncfusion:SfDataGrid>
 
                             </Grid>
                         </syncfusion:TabItemExt.Content>
@@ -405,60 +489,27 @@
 
                                 <syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
-                                       AllowEditing="True"
+                                       AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
                                        ItemsSource="{Binding SelectedDoctor.Patients}"
                                    SelectedItem="{Binding SelectedPatientInDoctorView,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
+                                       ShowGroupDropArea="True" >
+                                    <syncfusion:SfDataGrid.Columns>
+                                        <syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Nom" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Prenom" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="TelephoneMobile" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Pathology" MappingName="Pathology.NomPathology" AllowEditing="False"/>                                        
+                                    </syncfusion:SfDataGrid.Columns>
+
+                                </syncfusion:SfDataGrid>
 
                             </Grid>
                         </syncfusion:TabItemExt.Content>
                     </syncfusion:TabItemExt>
-                    <syncfusion:TabItemExt  MinHeight="35" x:Name="StagaireTab">
-                        <syncfusion:TabItemExt.HeaderTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="2"/>
-                                    </Grid.RowDefinitions>
-                                    <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
-                                    <TextBlock Grid.Row="0" Text="Stagaire"></TextBlock>
-                                </Grid>
-                            </DataTemplate>
-                        </syncfusion:TabItemExt.HeaderTemplate>
-                        <syncfusion:TabItemExt.Content>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding AddPatientsToSelectedDoctorCommand}">
-                                    <Button.Content>
-                                        <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
-                                    </Button.Content>
-                                </Button>
-                                <TextBlock Margin="20,0,0,0" Text="Stagiaires" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
-                                <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
 
-                                <syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                                       AllowDraggingColumns="True"
-                                       AllowEditing="True"
-                                       AllowFiltering="True"
-                                       AllowGrouping="True"
-                                       ItemsSource="{Binding SelectedDoctor.Patients}"
-                                   SelectedItem="{Binding SelectedPatientInDoctorView,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" />
-
-                            </Grid>
-                        </syncfusion:TabItemExt.Content>
-                    </syncfusion:TabItemExt>
 
 
                 </syncfusion:TabControlExt>

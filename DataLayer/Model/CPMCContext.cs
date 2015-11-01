@@ -21,7 +21,7 @@ namespace DataLayer.Model
             //Custom Db Inializer to populate Db With Fake Data
             //Database.SetInitializer<CpmcContext>(new CpmcDbInitializer());
             
-            
+
             //-> By Using the DataMigration
             Database.SetInitializer(
                 new MigrateDatabaseToLatestVersion<CpmcContext, Migrations.Configuration>()); //"CpmcConnectionString"
@@ -42,6 +42,7 @@ namespace DataLayer.Model
         public DbSet<Note> Notes { get; set; }
         public DbSet<JourFerie> JourFeries { get; set; }
         public DbSet<Trace> Traces { get; set; }
+        public DbSet<SchedulerSetting> SchedulerSettings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -58,7 +59,7 @@ namespace DataLayer.Model
             modelBuilder.Entity<RendezVous>().Ignore(r => r.ReadOnly);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.ReadOnlyVisibility);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceID);
-            modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceProperites );
+            //modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceProperites );
             modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceRule);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.ReminderTime);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.ResourceCollection);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using CPMCAppointmentSystem.Helpers;
@@ -25,17 +26,17 @@ namespace CPMCAppointmentSystem.ViewModel
     public class CalendarViewModel : NavigableViewModelBase
     {
         #region Fields
+        private bool _isProgressRingActive;
         private CpmcContext _dbContext = new CpmcContext();
         private ScheduleType _scheduleType = ScheduleType.Month;
         private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
         private RendezVous _selectedRdv;
         private ObservableCollection<Patient> _allPatientsCollection;
-        private ObservableCollection<Medecin> _allDoctorsCollection;
-        private MedecinToAdd _selectedAddDoctorToFilter;
+        private ObservableCollection<Medecin> _allDoctorsCollection;        
         private Patient _selectedPatientInAddAptView;
         private ObservableCollection<RendezVous> _rdvousCollaction;
         private Medecin _selectedMedecinInAddAptView;
-        private ObservableCollection<MedecinToAdd> _addDoctorsToFilterListAdd;
+        private ObservableCollection<EntityToAdd<Medecin>> _addDoctorsToFilterListAdd;
         private ObservableCollection<Medecin> _doctorsInFilter = new ObservableCollection<Medecin>();
         private bool _filterByPatientIsChecked;
         private bool _filterByMedecinIsChecked;
@@ -43,6 +44,24 @@ namespace CPMCAppointmentSystem.ViewModel
         private AddAppointementView _addAppointementView;
         #endregion
         #region Properties
+        public bool IsProgressRingActive
+        {
+            get
+            {
+                return _isProgressRingActive;
+            }
+
+            set
+            {
+                if (_isProgressRingActive == value)
+                {
+                    return;
+                }
+
+                _isProgressRingActive = value;
+                RaisePropertyChanged();
+            }
+        }
         public ScheduleType SelectedScheduleType
         {
             get
@@ -116,7 +135,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<MedecinToAdd> AddDoctorsToFilterList
+        public ObservableCollection<EntityToAdd<Medecin>> AddDoctorsToFilterList
         {
             get
             {
@@ -133,25 +152,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _addDoctorsToFilterListAdd = value;
                 RaisePropertyChanged();
             }
-        }
-        public MedecinToAdd SelectedAddDoctorToFilter
-        {
-            get
-            {
-                return _selectedAddDoctorToFilter;
-            }
-
-            set
-            {
-                if (_selectedAddDoctorToFilter == value)
-                {
-                    return;
-                }
-
-                _selectedAddDoctorToFilter = value;
-                RaisePropertyChanged();
-            }
-        }
+        }      
         public ObservableCollection<RendezVous> RdvousCollection
         {
             get
@@ -299,7 +300,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_applyMedecinFilterCommand = new RelayCommand(
                     () =>
                     {
-                        DoctorsInFilter = new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x => x.IsAdded));
+                       // DoctorsInFilter = new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x => x.IsAdded));
                         _listMedecinToAddView.Close();
                     }));
             }
@@ -328,7 +329,9 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _calendarViewLoadedCommand
                     ?? (_calendarViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        IsProgressRingActive = true;
                         await LoadRendezVous();
+                        IsProgressRingActive = false;
 
                     }));
             }
@@ -356,37 +359,37 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _listMedecinToAddViewLoadedCommand
                     ?? (_listMedecinToAddViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        await LoadDoctorsToAddList();
+                        //await LoadDoctorsToAddList();
 
                     }));
             }
         }
 
-        private async Task LoadDoctorsToAddList()
-        {
-            await Task.Run(() =>
-            {
-                var doctorsList = _dbContext.Medecins;
-                AddDoctorsToFilterList = new ObservableCollection<MedecinToAdd>();
-                foreach (var medecin in doctorsList)
-                {
-                    AddDoctorsToFilterList.Add(new MedecinToAdd()
-                    {
-                        MedecinId = medecin.MedecinId,
-                        DateDeNaissance = medecin.DateDeNaissance,
-                        TelephoneFixe = medecin.TelephoneFixe,
-                        TelephoneMobile = medecin.TelephoneMobile,
-                        //SpecialitePrincipaleId = medecin.SpecialitePrincipaleId,
-                        UserId = medecin.UserId,
-                        //SpecialitePrincipale = medecin.SpecialitePrincipale,
-                        User = medecin.User,
-                        Pathologies = medecin.Pathologies,
-                        Patients = medecin.Patients,
-                        IsAdded = DoctorsInFilter.FirstOrDefault(x => x.MedecinId == medecin.MedecinId) != null
-                    });
-                }
-            });
-        }
+        //private async Task LoadDoctorsToAddList()
+        //{
+        //    await Task.Run(() =>
+        //    {
+        //        var doctorsList = _dbContext.Medecins;
+        //        AddDoctorsToFilterList = new ObservableCollection<MedecinToAdd>();
+        //        foreach (var medecin in doctorsList)
+        //        {
+        //            AddDoctorsToFilterList.Add(new MedecinToAdd()
+        //            {
+        //                MedecinId = medecin.MedecinId,
+        //                DateDeNaissance = medecin.DateDeNaissance,
+        //                TelephoneFixe = medecin.TelephoneFixe,
+        //                TelephoneMobile = medecin.TelephoneMobile,
+        //                //SpecialitePrincipaleId = medecin.SpecialitePrincipaleId,
+        //                UserId = medecin.UserId,
+        //                //SpecialitePrincipale = medecin.SpecialitePrincipale,
+        //                User = medecin.User,
+        //                Pathologies = medecin.Pathologies,
+        //                Patients = medecin.Patients,
+        //                IsAdded = DoctorsInFilter.FirstOrDefault(x => x.MedecinId == medecin.MedecinId) != null
+        //            });
+        //        }
+        //    });
+        //}
 
         private async Task LoadAllDoctorsList()
         {
@@ -402,12 +405,13 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             //Load Other stuff
         }
-
-        private object loking=new object();
+        
         private async Task LoadRendezVous()
         {
-          
-                RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
+            await Task.Run(() =>
+            {
+                Thread.Sleep(1000);
+                RdvousCollection = new ObservableCollection<RendezVous>(_dbContext.RendezVouses);
                 foreach (var rdv in RdvousCollection)
                 {
                     //Update the rdv status based on rdv date
@@ -423,7 +427,8 @@ namespace CPMCAppointmentSystem.ViewModel
 
                     PatientsScheduleAppointmentCollection.Add(rdv);
                 }
-                //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });            
+            });
+            //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });            
         }
 
         //Super Ugly code --> will be updated InchaAllah
@@ -581,7 +586,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_onScheduleClickCommand = new RelayCommand<ScheduleClickEventArgs>(
                     (args) =>
                     {
-                        SelectedDateInScedule = (DateTime) args.SelectedDate;
+                        SelectedDateInScedule = (DateTime)args.SelectedDate;
                     }));
             }
         }

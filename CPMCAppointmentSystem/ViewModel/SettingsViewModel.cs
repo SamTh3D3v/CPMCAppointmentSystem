@@ -27,14 +27,15 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<User> _usersList;
         private User _selectedUser;
         private ObservableCollection<TreeViewModel> _treeViewRollCollection = new ObservableCollection<TreeViewModel>();
-        private ObservableCollection<UserTypeToAdd> _userTypeCollection;
+        private ObservableCollection<EntityToAdd<UserType>> _userTypeCollection;
         private ObservableCollection<PieceJointeType> _typePieceJointeCollection;
         private PieceJointeType _selectedTypePieceJointe;
         private ObservableCollection<JourFerie> _listDesJourFeriesOccasionnelle;
         private JourFerie _selectedJourFerie;
         private string _reportPath;
         private bool _isFormEnabled;
-        private ObservableCollection<string> _monthList ;  
+        private ObservableCollection<string> _monthList ;
+        private SettingsCollection _settingsCollection;
         #endregion
         #region Properties
         public ObservableCollection<string> MonthsList
@@ -91,6 +92,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
+        public SettingsCollection SettingsCollection
+        {
+            get
+            {
+                return _settingsCollection;
+            }
+
+            set
+            {
+                if (_settingsCollection == value)
+                {
+                    return;
+                }
+
+                _settingsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool IsFormEnabled
         {
             get
@@ -127,7 +146,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<UserTypeToAdd> UserTypeCollection
+        public ObservableCollection<EntityToAdd<UserType>> UserTypeCollection
         {
             get
             {
@@ -275,6 +294,20 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _statusDesPatientsSettingsLoadedCommand;
+        public RelayCommand StatusDesPatientsSettingsLoadedCommand
+        {
+            get
+            {
+                return _statusDesPatientsSettingsLoadedCommand
+                    ?? (_statusDesPatientsSettingsLoadedCommand = new RelayCommand(async () =>
+                    {
+                        SettingsCollection=new SettingsCollection();
+                        await SettingsCollection.LoadSchedulerSettings();
+                        RaisePropertyChanged("SettingsCollection");
+                    }));
+            }
+        }
         private RelayCommand _settingsViewLoadedCommand;
         public RelayCommand SettingsViewLoadedCommand
         {
@@ -282,6 +315,18 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _settingsViewLoadedCommand
                     ?? (_settingsViewLoadedCommand = new RelayCommand(async () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _accountsViewLoadedCommand;
+        public RelayCommand AccountsViewLoadedCommand
+        {
+            get
+            {
+                return _accountsViewLoadedCommand
+                    ?? (_accountsViewLoadedCommand = new RelayCommand(async () =>
                     {
                         await LoadUserTypeCollection();
                         await LoadUsersList();
@@ -521,11 +566,9 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadUserTypeCollection()
         {
-            UserTypeCollection = new ObservableCollection<UserTypeToAdd>(await Task.Run(() => _dbContext.UserTypes.Select(x => new UserTypeToAdd()
+            UserTypeCollection = new ObservableCollection<EntityToAdd<UserType>>(await Task.Run(() => _dbContext.UserTypes.Select(x => new EntityToAdd<UserType>()
             {
-                UserTypeId = x.UserTypeId,
-                UserTypeName = x.UserTypeName,
-                Users = x.Users,
+                Entity = x,               
                 IsAdded = true
             })));
         }

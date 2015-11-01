@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +15,7 @@ using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.DoctorsViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
+using Syncfusion.Data.Extensions;
 using Syncfusion.Windows.Forms.Tools;
 
 namespace CPMCAppointmentSystem.ViewModel
@@ -20,6 +23,8 @@ namespace CPMCAppointmentSystem.ViewModel
     public class DoctorsViewModel : NavigableViewModelBase
     {
         #region Fields
+        private ObservableCollection<EntityToAdd<Pathology>> _pathologiesToDoctorListAdds;
+        private ObservableCollection<EntityToAdd<Specialite>> _specialityToDoctorList;
         private readonly CpmcContext _dbContext = new CpmcContext();
         private AddSpecialitiesToDoctorView _addSpecialitiesToDoctorView;
         private AddPathologiesToDoctorView _addPathologiesToDoctorView;
@@ -30,15 +35,10 @@ namespace CPMCAppointmentSystem.ViewModel
         private Pathology _selectedPathologyInDoctorsViewPathology;
         private bool _isFormEnabled;
         private Patient _selectedPatientInDoctorView;
-        private ObservableCollection<PatientToAdd> _patientsToAddList;
-        private PatientToAdd _selectedPatientToAdd;
+        private ObservableCollection<EntityToAdd<Patient>> _patientsToAddList;        
         #endregion
-        #region Properties
-
-        private ObservableCollection<PathologyToAdd> _pathologiesToDoctorListAdds;
-
-
-        public ObservableCollection<PathologyToAdd> PathologiesToDoctorList
+        #region Properties        
+        public ObservableCollection<EntityToAdd<Pathology>> PathologiesToDoctorList
         {
             get
             {
@@ -53,6 +53,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _pathologiesToDoctorListAdds = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<EntityToAdd<Specialite>> SpecialitiesToDoctorList
+        {
+            get
+            {
+                return _specialityToDoctorList;
+            }
+
+            set
+            {
+                if (_specialityToDoctorList == value)
+                {
+                    return;
+                }
+
+                _specialityToDoctorList = value;
                 RaisePropertyChanged();
             }
         }
@@ -164,7 +182,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<PatientToAdd> PatientsToAddList
+        public ObservableCollection<EntityToAdd<Patient>> PatientsToAddList
         {
             get
             {
@@ -181,25 +199,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _patientsToAddList = value;
                 RaisePropertyChanged();
             }
-        }
-        public PatientToAdd SelectedPatientToAdd
-        {
-            get
-            {
-                return _selectedPatientToAdd;
-            }
-
-            set
-            {
-                if (_selectedPatientToAdd == value)
-                {
-                    return;
-                }
-
-                _selectedPatientToAdd = value;
-                RaisePropertyChanged();
-            }
-        }
+        }     
         #endregion
         #region Commands
         private RelayCommand _savePathologyWhithDoctorsCommand;
@@ -208,38 +208,239 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _savePathologyWhithDoctorsCommand
-                    ?? (_savePathologyWhithDoctorsCommand = new RelayCommand(
-                    () =>
+                    ?? (_savePathologyWhithDoctorsCommand = new RelayCommand(async () =>
                     {
+                        await SavePathologiesAddedToDoctor();
+                        _dbContext.SaveChanges();
                         _addPathologiesToDoctorView.Close();
 
                     }));
             }
         }
-        private RelayCommand _AddDoctorToPathologyLoadedCommand;
-        public RelayCommand AddDoctorToPathologyLoadedCommand
+        private async Task SavePathologiesAddedToDoctor()
+        {
+            await Task.Run(() =>
+            {
+                if (SelectedDoctor.Pathologies == null)
+                    SelectedDoctor.Pathologies = new ObservableCollection<Pathology>();
+                PathologiesToDoctorList.ForEach(pToAdd =>
+                {
+                    if (pToAdd.IsAdded)
+                    {
+                        if (SelectedDoctor.Pathologies.All(p => p.PathologyId != pToAdd.Entity.PathologyId))
+                        {
+                            SelectedDoctor.Pathologies.Add(_dbContext.Pathologies.Find(pToAdd.Entity.PathologyId));
+                        }
+                    }
+                    else
+                    {
+                        if (SelectedDoctor.Pathologies.Any(pp => pp.PathologyId == pToAdd.Entity.PathologyId))
+                        {
+                            SelectedDoctor.Pathologies.Remove(_dbContext.Pathologies.Find(pToAdd.Entity.PathologyId));
+                        }
+                    }
+                });
+
+            });
+        }
+        private RelayCommand _savePatientsToDoctorsViewCommand;
+        public RelayCommand SavePatientsToDoctorsViewCommand
         {
             get
             {
-                return _AddDoctorToPathologyLoadedCommand
-                    ?? (_AddDoctorToPathologyLoadedCommand = new RelayCommand(async () =>
-                    {
-                        PathologiesToDoctorList = new ObservableCollection<PathologyToAdd>(await Task.Run(() => _dbContext.Pathologies.Select(p => new PathologyToAdd())));
+                return _savePatientsToDoctorsViewCommand
+                    ?? (_savePatientsToDoctorsViewCommand = new RelayCommand(async () =>
+                    {                        
+                        await SavePatientsAddedToDoctor();
+                        _dbContext.SaveChanges();
+                        _addPatientsToDoctorView.Close();
 
                     }));
             }
         }
+
+        private async Task SavePatientsAddedToDoctor()
+        {
+            await Task.Run(() =>
+            {
+                if (SelectedDoctor.Patients == null)
+                    SelectedDoctor.Patients = new ObservableCollection<Patient>();
+                PatientsToAddList.ForEach(pToAdd =>
+                {
+                    if (pToAdd.IsAdded)
+                    {
+                        if (SelectedDoctor.Patients.All(p => p.PatientId != pToAdd.Entity.PatientId))
+                        {
+                            SelectedDoctor.Patients.Add(_dbContext.Patients.Find(pToAdd.Entity.PatientId));
+                        }
+                    }
+                    else
+                    {
+                        if (SelectedDoctor.Patients.Any(p => p.PatientId == pToAdd.Entity.PatientId))
+                        {
+                            SelectedDoctor.Patients.Remove(_dbContext.Patients.Find(pToAdd.Entity.PatientId));
+                        }
+                    }
+                });
+            });
+        }
+
+        private RelayCommand _saveSpecialityWithDoctorsCommand;    
+        public RelayCommand SaveSpecialityWithDoctorsCommand
+        {
+            get
+            {
+                return _saveSpecialityWithDoctorsCommand
+                    ?? (_saveSpecialityWithDoctorsCommand = new RelayCommand(async () =>
+                    {
+                         await SaveSpecialitiesAddedToDoctor();
+                        _dbContext.SaveChanges();
+                        _addSpecialitiesToDoctorView.Close();
+                    }));
+            }
+        }
+
+
+        private async Task SaveSpecialitiesAddedToDoctor()
+        {
+            await Task.Run(() =>
+            {
+                if (SelectedDoctor.Specialities == null)
+                    SelectedDoctor.Specialities = new ObservableCollection<Specialite>();
+                SpecialitiesToDoctorList.ForEach(sToAdd =>
+                {
+                    if (sToAdd.IsAdded)
+                    {
+                        if (SelectedDoctor.Specialities.All(s => s.SpecialiteId != sToAdd.Entity.SpecialiteId))
+                        {
+                            SelectedDoctor.Specialities.Add(_dbContext.Specialites.Find(sToAdd.Entity.SpecialiteId));
+                        }
+                    }
+                    else
+                    {
+                        if (SelectedDoctor.Specialities.Any(s => s.SpecialiteId == sToAdd.Entity.SpecialiteId))
+                        {
+                            SelectedDoctor.Specialities.Remove(_dbContext.Specialites.Find(sToAdd.Entity.SpecialiteId));
+                        }
+                    }
+                });
+
+            });
+        }
+       
+        private RelayCommand _cancelPathologyWhithDoctorsCommand;
+        public RelayCommand CancelPathologyWhithDoctorsCommand
+        {
+            get
+            {
+                return _cancelPathologyWhithDoctorsCommand
+                    ?? (_cancelPathologyWhithDoctorsCommand = new RelayCommand(async () =>
+                    {
+                        _addPathologiesToDoctorView.Close();
+                        await LoadDoctorsPathologies();
+                    }));
+            }
+        }
+        private RelayCommand _cancelSpecialityWhithDoctorsCommand;
+        public RelayCommand CancelSpecialityWhithDoctorsCommand
+        {
+            get
+            {
+                return _cancelSpecialityWhithDoctorsCommand
+                    ?? (_cancelSpecialityWhithDoctorsCommand = new RelayCommand(async () =>
+                    {
+                        _addSpecialitiesToDoctorView.Close();
+                        await LoadDoctorsSpecialities();
+                        
+                    }));
+            }
+        }
+
+        private RelayCommand _addDoctorToPathologyLoadedCommand;
+        public RelayCommand AddPathologiesToDoctorLoadedCommand
+        {
+            get
+            {
+                return _addDoctorToPathologyLoadedCommand
+                    ?? (_addDoctorToPathologyLoadedCommand = new RelayCommand(async () =>
+                    {
+                        await LoadDoctorsPathologies();
+                    }));
+            }
+        }
+
+        private async Task LoadDoctorsPathologies()
+        {
+            PathologiesToDoctorList = new ObservableCollection<EntityToAdd<Pathology>>(await Task.Run(() => _dbContext.Pathologies.Select(p => new EntityToAdd<Pathology>()
+            {               
+                Entity = p
+                //IsAdded = SelectedDoctor.Pathologies.Any(dp=>p.PathologyId==dp.PathologyId)       //throw [Only primitive types or enumeration types are supported in this context] exception     
+
+            })));
+            foreach (var pathToAdd in PathologiesToDoctorList)
+            {
+                pathToAdd.IsAdded = SelectedDoctor.Pathologies.Any(dp => pathToAdd.Entity.PathologyId == dp.PathologyId);
+            }
+        }
+        private RelayCommand _addPatientsToDoctorLoadedCommand;
+        public RelayCommand AddPatientsToDoctorLoadedCommand
+        {
+            get
+            {
+                return _addPatientsToDoctorLoadedCommand
+                    ?? (_addPatientsToDoctorLoadedCommand = new RelayCommand(async () =>
+                    {
+                       await LoadPatientsToAddList();
+                    }));
+            }
+        }
+
+        private async Task LoadPatientsToAddList()
+        {
+            PatientsToAddList = new ObservableCollection<EntityToAdd<Patient>>(await Task.Run(() => _dbContext.Patients.Select(s => new EntityToAdd<Patient>()
+            {
+                Entity = s
+            })));
+            foreach (var patToAdd in PatientsToAddList)
+            {
+                patToAdd.IsAdded = SelectedDoctor.Patients.Any(dp => patToAdd.Entity.PatientId == dp.PatientId);
+            }
+        }
+        private RelayCommand _addSpecialitiesToDoctorCommand;
+        public RelayCommand AddSpecialitiesToDoctorLoadedCommand
+        {
+            get
+            {
+                return _addSpecialitiesToDoctorCommand
+                    ?? (_addSpecialitiesToDoctorCommand = new RelayCommand(async () =>
+                    {
+                        await LoadDoctorsSpecialities();                       
+                    }));
+            }
+        }
+
+        private async Task LoadDoctorsSpecialities()
+        {
+            SpecialitiesToDoctorList = new ObservableCollection<EntityToAdd<Specialite>>(await Task.Run(() => _dbContext.Specialites.Select(s => new EntityToAdd<Specialite>()
+            {
+                Entity = s                
+            })));
+            foreach (var speToAdd in SpecialitiesToDoctorList)
+            {
+                speToAdd.IsAdded = SelectedDoctor.Specialities.Any(ds => speToAdd.Entity.SpecialiteId == ds.SpecialiteId);
+            }
+        }
+
         private RelayCommand _doctorsViewLoadedCommand;
         public RelayCommand DoctorsViewLoadedCommand
         {
             get
             {
                 return _doctorsViewLoadedCommand
-                    ?? (_doctorsViewLoadedCommand = new RelayCommand(
-                    () =>
+                    ?? (_doctorsViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        LoadDoctorsList();
-                        LoadSpacialities();
+                        await LoadDoctorsList();
+                        await LoadSpacialities();
                     }));
             }
         }
@@ -252,32 +453,57 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addDoctorCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedDoctor = new Medecin();
-
+                        SelectedDoctor = new Medecin()
+                        {
+                            User = new User()
+                            {
+                                RolesCollection = new RolesCollection()
+                                {
+                                    //get the default medecin rolls from the xml settings file
+                                },
+                                UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId
+                            },
+                        };
                     }));
             }
         }
-
         private RelayCommand<object> _saveDoctorCommand;
         public RelayCommand<object> SaveDoctorCommand
         {
             get
             {
                 return _saveDoctorCommand
-                    ?? (_saveDoctorCommand = new RelayCommand<object>(
-                    (obj) =>
+                    ?? (_saveDoctorCommand = new RelayCommand<object>(async (obj) =>
                     {
                         var passwordBox = obj as PasswordBox;
                         if (passwordBox != null)
                         {
-                            SelectedDoctor.User.UserPass = passwordBox.Password;
+                            SelectedDoctor.User.UserPass = passwordBox.Password;  //to be hashed
                         }
                         if (SelectedDoctor.MedecinId == Guid.Empty)
                         {
-                            AddNewDoctor();
+                            await AddNewDoctor();
                         }
-                        _dbContext.SaveChanges();
-                        LoadDoctorsList();
+                        try
+                        {
+                            _dbContext.SaveChanges();
+                        }
+                        catch (DbEntityValidationException e)
+                        {
+                            foreach (var eve in e.EntityValidationErrors)
+                            {
+                                Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                                foreach (var ve in eve.ValidationErrors)
+                                {
+                                    Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                        ve.PropertyName, ve.ErrorMessage);
+                                }
+                            }
+                            throw;
+                        }
+                        await LoadDoctorsList();
+                        SelectedDoctor = null;
 
                     }));
             }
@@ -382,97 +608,17 @@ namespace CPMCAppointmentSystem.ViewModel
 
                     }));
             }
-        }
-        private RelayCommand _addPatientsToDoctorLoadedCommand;
-        public RelayCommand AddPatientsToDoctorLoadedCommand
-        {
-            get
-            {
-                return _addPatientsToDoctorLoadedCommand
-                    ?? (_addPatientsToDoctorLoadedCommand = new RelayCommand(
-                    () =>
-                    {
-                        LoadPatientsToAddCommand();
-
-                    }));
-            }
-        }
-
-        private async Task LoadPatientsToAddCommand()
-        {
-            await Task.Run(() =>
-            {
-                try
-                {
-                    var patientsList = _dbContext.Patients;
-                    PatientsToAddList = new ObservableCollection<PatientToAdd>();
-                    foreach (var patient in patientsList)
-                    {
-                        PatientsToAddList.Add(new PatientToAdd()
-                        {
-                            PatientId = patient.PatientId,
-                            Nom = patient.Nom,
-                            Prenom = patient.Prenom,
-                            DateDeNaissance = patient.DateDeNaissance,
-                            TelephoneFixe = patient.TelephoneFixe,
-                            TelephoneMobile1 = patient.TelephoneMobile1,
-                            TelephoneDaccompagnant = patient.TelephoneDaccompagnant,
-                            AdressId = patient.AdressId,
-                            Adresse = patient.Adresse,
-                            DateDeDepot = patient.DateDeDepot,
-                            Medecins = patient.Medecins,
-                            NumeroDordre = patient.NumeroDordre,
-                            RendezVouses = patient.RendezVouses,
-                            Sexe = patient.Sexe,
-                            SexeId = patient.SexeId,
-                            IsAdded = (SelectedDoctor.Patients.Contains(patient)) ? true : false
-                        });
-                    }
-                }
-                catch (Exception)
-                {
-
-                    var exception = true;
-                }
-            });
-        }
-
-        //Add Patients To Doctor View
-        private RelayCommand _savePatientsToDoctorsViewCommand;
-        public RelayCommand SavePatientsToDoctorsViewCommand
-        {
-            get
-            {
-                return _savePatientsToDoctorsViewCommand
-                    ?? (_savePatientsToDoctorsViewCommand = new RelayCommand(
-                    () =>
-                    {
-
-                    }));
-            }
-        }
-        private RelayCommand _deletePatientsToDoctorsViewCommand;
-        public RelayCommand DeletePatientsToDoctorsViewCommand
-        {
-            get
-            {
-                return _deletePatientsToDoctorsViewCommand
-                    ?? (_deletePatientsToDoctorsViewCommand = new RelayCommand(
-                    () =>
-                    {
-
-                    }));
-            }
-        }
+        }             
         private RelayCommand _cancelPatientsToDoctorsViewCommand;
         public RelayCommand CancelPatientsToDoctorsViewCommand
         {
             get
             {
                 return _cancelPatientsToDoctorsViewCommand
-                    ?? (_cancelPatientsToDoctorsViewCommand = new RelayCommand(
-                    () =>
+                    ?? (_cancelPatientsToDoctorsViewCommand = new RelayCommand(async () =>
                     {
+                        _addPatientsToDoctorView.Close();
+                        await LoadPatientsToAddList();
 
                     }));
             }
@@ -487,10 +633,10 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         SelectedDoctor.ProfilePicture = null;
-
                     }));
             }
         }
+
         private RelayCommand _loadDoctorImageCommand;
         public RelayCommand LoadDoctorImageCommand
         {
@@ -533,21 +679,21 @@ namespace CPMCAppointmentSystem.ViewModel
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
         }
-        private async void LoadDoctorsList()
+        private async Task LoadDoctorsList()
         {
             DoctorsList = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
         }
 
-        private async void LoadSpacialities()
+        private async Task LoadSpacialities()
         {
             SpecialitiesList = new ObservableCollection<Specialite>(await Task.Run(() => _dbContext.Specialites));
         }
-        private void AddNewDoctor()
+        private async Task AddNewDoctor()
         {
-            SelectedDoctor.User.UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId;                                 
-            _dbContext.Users.Add(SelectedDoctor.User);
-            _dbContext.SaveChanges();
-            _dbContext.Medecins.Add(SelectedDoctor);
+            await Task.Run(() =>
+            {
+                _dbContext.Medecins.Add(SelectedDoctor);
+            });
         }
         #endregion
     }

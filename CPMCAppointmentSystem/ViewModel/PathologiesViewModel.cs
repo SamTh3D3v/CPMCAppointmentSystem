@@ -13,7 +13,7 @@ using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.PathologiesViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
-
+using Syncfusion.Data.Extensions;
 
 
 namespace CPMCAppointmentSystem.ViewModel
@@ -22,36 +22,16 @@ namespace CPMCAppointmentSystem.ViewModel
     {
 
         #region Fields
-        
-        private MedecinToAdd _selectedDoctorsToPathologyList  ;           
         private AddDoctorsToPathologyView _addDoctorsToPathologyView;
         private bool _isFormEnabled;
         private readonly CpmcContext _dbContext = new CpmcContext();
         private ObservableCollection<Pathology> _pathologiesList;
         private Pathology _selectedPathology;
         private Medecin _selectedDoctorWithinPathology;
-        private ObservableCollection<MedecinToAdd> _doctorsToPathlogyList;        
+        private ObservableCollection<EntityToAdd<Medecin>> _doctorsToPathlogyList;
         #endregion
-        #region Properties       
-        public MedecinToAdd SelectedDoctorsToPathologyList
-        {
-            get
-            {
-                return _selectedDoctorsToPathologyList;
-            }
-
-            set
-            {
-                if (_selectedDoctorsToPathologyList == value)
-                {
-                    return;
-                }
-
-                _selectedDoctorsToPathologyList = value;
-                RaisePropertyChanged();
-            }
-        }
-        public ObservableCollection<MedecinToAdd> DoctorsToPathlogyList
+        #region Properties
+        public ObservableCollection<EntityToAdd<Medecin>> DoctorsToPathlogyList
         {
             get
             {
@@ -100,7 +80,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     return;
                 }
-                IsFormEnabled = value!=null;
+                IsFormEnabled = value != null;
                 _selectedPathology = value;
                 RaisePropertyChanged();
             }
@@ -151,7 +131,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _pathologyViewLoadedCommand
                     ?? (_pathologyViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        await LoadPathologies();                        
+                        await LoadPathologies();
 
                     }));
             }
@@ -164,9 +144,19 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addDoctorToPathologyLoadedCommand
                     ?? (_addDoctorToPathologyLoadedCommand = new RelayCommand(async () =>
                     {
-                        await LoadDoctorsList();
-
+                        await LoadDoctorsToAddList();
                     }));
+            }
+        }
+        private async Task LoadDoctorsToAddList()
+        {
+            DoctorsToPathlogyList = new ObservableCollection<EntityToAdd<Medecin>>(await Task.Run(() => _dbContext.Medecins.Select(s => new EntityToAdd<Medecin>()
+            {
+                Entity = s
+            })));
+            foreach (var docToAdd in DoctorsToPathlogyList)
+            {
+                docToAdd.IsAdded = SelectedPathology.Medecins.Any(dp => docToAdd.Entity.MedecinId == dp.MedecinId);
             }
         }
         private RelayCommand _addPathologyCommand;
@@ -178,7 +168,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addPathologyCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedPathology = new Pathology();                        
+                        SelectedPathology = new Pathology();
                     }));
             }
         }
@@ -190,11 +180,11 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addDoctorToPathologyCommand
                     ?? (_addDoctorToPathologyCommand = new RelayCommand(
                     () =>
-                    {                        
+                    {
                         if (SelectedPathology.PathologyId == Guid.Empty)
                         {
                             AddNewPathology();
-                        }                                                                  
+                        }
                         _addDoctorsToPathologyView = new AddDoctorsToPathologyView();
                         _addDoctorsToPathologyView.ShowDialog();
 
@@ -237,18 +227,49 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-       
-        private RelayCommand _savePathologyWhithDoctorsCommand;     
+
+        private RelayCommand _savePathologyWhithDoctorsCommand;
         public RelayCommand SavePathologyWhithDoctorsCommand
         {
             get
             {
                 return _savePathologyWhithDoctorsCommand
-                    ?? (_savePathologyWhithDoctorsCommand = new RelayCommand(
-                    () => _addDoctorsToPathologyView.Close()));
+                    ?? (_savePathologyWhithDoctorsCommand = new RelayCommand(async () =>
+                        {
+                            await SaveDoctorsAddedToPathology();
+                            _dbContext.SaveChanges();
+                            _addDoctorsToPathologyView.Close();
+                        }));
             }
         }
-        private RelayCommand _deletePathologyWhithDoctorsCommand;        
+
+        private async Task SaveDoctorsAddedToPathology()
+        {
+            await Task.Run(() =>
+            {
+                if (SelectedPathology.Medecins == null)
+                    SelectedPathology.Medecins = new ObservableCollection<Medecin>();
+                DoctorsToPathlogyList.ForEach(dToAdd =>
+                {
+                    if (dToAdd.IsAdded)
+                    {
+                        if (SelectedPathology.Medecins.All(m => m.MedecinId != dToAdd.Entity.MedecinId))
+                        {
+                            SelectedPathology.Medecins.Add(_dbContext.Medecins.Find(dToAdd.Entity.MedecinId));
+                        }
+                    }
+                    else
+                    {
+                        if (SelectedPathology.Medecins.Any(m => m.MedecinId == dToAdd.Entity.MedecinId))
+                        {
+                            SelectedPathology.Medecins.Remove(_dbContext.Medecins.Find(dToAdd.Entity.MedecinId));
+                        }
+                    }
+                });
+            });
+        }
+
+        private RelayCommand _deletePathologyWhithDoctorsCommand;
         public RelayCommand DeletePathologyWhithDoctorsCommand
         {
             get
@@ -257,20 +278,23 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deletePathologyWhithDoctorsCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
             }
         }
-        private RelayCommand _cancelPathologyWhithDoctorsCommand;   
+        private RelayCommand _cancelPathologyWhithDoctorsCommand;
         public RelayCommand CancelPathologyWhithDoctorsCommand
         {
             get
             {
                 return _cancelPathologyWhithDoctorsCommand
-                    ?? (_cancelPathologyWhithDoctorsCommand = new RelayCommand(
-                    () => _addDoctorsToPathologyView.Close()));
+                    ?? (_cancelPathologyWhithDoctorsCommand = new RelayCommand(async () =>
+                        {
+                            _addDoctorsToPathologyView.Close();
+                            await LoadDoctorsToAddList();
+                        }));
             }
-        }      
+        }
         private RelayCommand _deletePathologyCommand;
         public RelayCommand DeletePathologyCommand
         {
@@ -286,7 +310,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             if (SelectedPathology.PathologyId != Guid.Empty)
                             {
                                 _dbContext.Pathologies.Remove(SelectedPathology);
-                                PathologiesList.Remove(SelectedPathology);                                
+                                PathologiesList.Remove(SelectedPathology);
                                 _dbContext.SaveChanges();
                                 SelectedPathology = null;
                             }
@@ -304,10 +328,10 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelChangesToPathologyCommand = new RelayCommand(
                     () =>
                     {
-                        if (SelectedPathology != null )
+                        if (SelectedPathology != null)
                         {
-                            if (SelectedPathology.PathologyId != Guid.Empty) 
-                            _dbContext.Entry(SelectedPathology).Reload(); 
+                            if (SelectedPathology.PathologyId != Guid.Empty)
+                                _dbContext.Entry(SelectedPathology).Reload();
                         }
                         SelectedPathology = null;
                     }));
@@ -324,34 +348,10 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             PathologiesList = new ObservableCollection<Pathology>(await Task.Run(() => _dbContext.Pathologies));
         }
-        private async Task LoadDoctorsList()
-        {
-            await Task.Run(() =>
-            {
-                var doctorsList = _dbContext.Medecins;
-                DoctorsToPathlogyList = new ObservableCollection<MedecinToAdd>();
-                foreach (var medecin in doctorsList)
-                {
-                    DoctorsToPathlogyList.Add(new MedecinToAdd()
-                    {
-                        MedecinId = medecin.MedecinId,                       
-                        DateDeNaissance = medecin.DateDeNaissance,
-                        TelephoneFixe = medecin.TelephoneFixe,
-                        TelephoneMobile = medecin.TelephoneMobile,
-                        //SpecialitePrincipaleId = medecin.SpecialitePrincipaleId,
-                        UserId = medecin.UserId,
-                        //SpecialitePrincipale = medecin.SpecialitePrincipale,
-                        User = medecin.User,
-                        Pathologies = medecin.Pathologies,
-                        Patients = medecin.Patients,
-                        IsAdded = (SelectedPathology.Medecins.Contains(medecin)) ? true : false
-                    });
-                }
-            });
-        }
+
         private void AddNewPathology()
         {
-            _dbContext.Pathologies.Add(SelectedPathology);            
+            _dbContext.Pathologies.Add(SelectedPathology);
         }
         #endregion
     }
