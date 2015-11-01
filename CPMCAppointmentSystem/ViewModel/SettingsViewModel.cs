@@ -27,7 +27,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<User> _usersList;
         private User _selectedUser;
         private ObservableCollection<TreeViewModel> _treeViewRollCollection = new ObservableCollection<TreeViewModel>();
-        private ObservableCollection<UserTypeToAdd> _userTypeCollection;
+        private ObservableCollection<EntityToAdd<UserType>> _userTypeCollection;
         private ObservableCollection<PieceJointeType> _typePieceJointeCollection;
         private PieceJointeType _selectedTypePieceJointe;
         private ObservableCollection<JourFerie> _listDesJourFeriesOccasionnelle;
@@ -146,7 +146,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<UserTypeToAdd> UserTypeCollection
+        public ObservableCollection<EntityToAdd<UserType>> UserTypeCollection
         {
             get
             {
@@ -315,6 +315,18 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _settingsViewLoadedCommand
                     ?? (_settingsViewLoadedCommand = new RelayCommand(async () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _accountsViewLoadedCommand;
+        public RelayCommand AccountsViewLoadedCommand
+        {
+            get
+            {
+                return _accountsViewLoadedCommand
+                    ?? (_accountsViewLoadedCommand = new RelayCommand(async () =>
                     {
                         await LoadUserTypeCollection();
                         await LoadUsersList();
@@ -554,11 +566,9 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadUserTypeCollection()
         {
-            UserTypeCollection = new ObservableCollection<UserTypeToAdd>(await Task.Run(() => _dbContext.UserTypes.Select(x => new UserTypeToAdd()
+            UserTypeCollection = new ObservableCollection<EntityToAdd<UserType>>(await Task.Run(() => _dbContext.UserTypes.Select(x => new EntityToAdd<UserType>()
             {
-                UserTypeId = x.UserTypeId,
-                UserTypeName = x.UserTypeName,
-                Users = x.Users,
+                Entity = x,               
                 IsAdded = true
             })));
         }

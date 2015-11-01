@@ -32,6 +32,12 @@
     <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="RootGrid">
         <TabControl  TabStripPlacement="Left"  Padding="0" Margin="0">
             <TabItem Style="{StaticResource SettingsTabItemStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=AccountsViewLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <TabItem.Header>
                     <Grid Width="120" Height="100">
                         <Grid.RowDefinitions>
