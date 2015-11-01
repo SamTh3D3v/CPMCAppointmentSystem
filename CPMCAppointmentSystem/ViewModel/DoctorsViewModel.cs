@@ -282,7 +282,6 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                     }
                 });
-
             });
         }
 
@@ -391,13 +390,12 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addPatientsToDoctorLoadedCommand
                     ?? (_addPatientsToDoctorLoadedCommand = new RelayCommand(async () =>
                     {
-                       await LoadPatientsToAddCommand();
-
+                       await LoadPatientsToAddList();
                     }));
             }
         }
 
-        private async Task LoadPatientsToAddCommand()
+        private async Task LoadPatientsToAddList()
         {
             PatientsToAddList = new ObservableCollection<EntityToAdd<Patient>>(await Task.Run(() => _dbContext.Patients.Select(s => new EntityToAdd<Patient>()
             {
@@ -620,7 +618,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelPatientsToDoctorsViewCommand = new RelayCommand(async () =>
                     {
                         _addPatientsToDoctorView.Close();
-                        await LoadPatientsToAddCommand();
+                        await LoadPatientsToAddList();
 
                     }));
             }
