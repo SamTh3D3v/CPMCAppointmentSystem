@@ -12,19 +12,52 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Note")]
-    public class Note : Auditable, INotifyPropertyChanged
+    public class Note : Auditable, INotifyPropertyChanged,IDataErrorInfo
     {
+        #region Fields
+        private string _title;
+        private string _content;
+        #endregion
+        #region Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid NoteId { get; set; }
-        public String Title { get; set; }
-        public String Content { get; set; }
+
+        public String Title
+        {
+            get { return _title; }
+            set
+            {
+                if (value == _title) return;
+                _title = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String Content
+        {
+            get { return _content; }
+            set
+            {
+                if (value == _content) return;
+                _content = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Guid PatientId { get; set; }
         [ForeignKey("PatientId")]
         public Patient Patient { get; set; }
-
-        #region INotifyPropertyChanged related
-
+        [NotMapped]
+        public string Error
+        {
+            get
+            {
+                return String.Empty;
+            }
+        }
+        #endregion              
+        #region INotifyPropertyChanged and IDataError related logic
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
@@ -33,6 +66,19 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "Title")
+                {
+                    if (String.IsNullOrEmpty(Title))
+                        result = "Spesifier le titre du note";
+                }
+                return result;
+            }
+        }   
+        #endregion            
     }
 }

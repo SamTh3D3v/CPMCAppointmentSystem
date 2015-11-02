@@ -14,7 +14,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("PieceJointe")]
-    public class PieceJointe:Auditable,INotifyPropertyChanged
+    public class PieceJointe:Auditable,INotifyPropertyChanged,IDataErrorInfo
     {       
         #region Fields
         private Guid _pieceJointeId;
@@ -91,8 +91,11 @@ namespace DataLayer.Model
         public Guid PatientId { get; set; }
         [ForeignKey("PatientId")]
         public Patient Patient { get; set; }
+        [NotMapped]
+        public string Error {
+            get { return String.Empty; }}
         #endregion
-        #region INotifyPropertyChanged related
+        #region INotifyPropertyChanged and IDataErrorInfo related logic
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -102,6 +105,21 @@ namespace DataLayer.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "TypePieceJointe")
+                {
+                    if (TypePieceJointe==null)
+                        result = "Spesifier le type du piece jonte";
+                }               
+                return result;
+            }
+        }
         #endregion
+     
+        
     }
 }
