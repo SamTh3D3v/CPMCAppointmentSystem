@@ -11,7 +11,7 @@ using DataLayer.Annotations;
 
 namespace DataLayer.Model
 {
-    [Table("Willaya")]
+    [Table("Willaya")]    
     public class Willaya:INotifyPropertyChanged
     {    
         public Willaya()

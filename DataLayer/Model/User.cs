@@ -12,7 +12,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("User")]
-    public class User :Auditable, INotifyPropertyChanged, IDataErrorInfo
+    public class User : Auditable,INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
         private Guid _userId;

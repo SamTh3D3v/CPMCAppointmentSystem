@@ -22,8 +22,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel : NavigableViewModelBase
     {
         #region Fields
-
-        private ObservableCollection<Note> _notesFakeCollection = new ObservableCollection<Note>();
+        
         private Note _selectedNote;
         private AddPatientAppointment _addAppointementWindow;
         private ObservableCollection<Patient> _patientList;
@@ -48,25 +47,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _reportPath;
         private PreviewReportView _previewReportView;
         #endregion
-        #region Properties
-        public ObservableCollection<Note> NotesFakeCollection
-        {
-            get
-            {
-                return _notesFakeCollection;
-            }
-
-            set
-            {
-                if (_notesFakeCollection == value)
-                {
-                    return;
-                }
-
-                _notesFakeCollection = value;
-                RaisePropertyChanged();
-            }
-        }
+        #region Properties       
         public ObservableCollection<Pathology> PathologiesList
         {
             get
@@ -390,11 +371,19 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_saveNewNoteCommand = new RelayCommand(
                     () =>
                     {
-                        if (SelectedNote != null)
-                        {
-                            NotesFakeCollection.Add(SelectedNote);
+                        if (SelectedNote.NoteId == Guid.Empty)
+                        {                            
+                            if (SelectedPatient.Notes == null)
+                                SelectedPatient.Notes = new ObservableCollection<Note>();
+                            SelectedPatient.Notes.Add(SelectedNote);
+                            _dbContext.SaveChanges();
+                            SelectedNote = null;
                         }
-
+                        else
+                        {                                                        
+                            _dbContext.SaveChanges();
+                            SelectedNote = null;
+                        }
                     }));
             }
         }
@@ -407,12 +396,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addNewNoteCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedNote = new Note()
-                        {
-                            Content = " ",
-                            Title = " "
-                        };
-
+                        SelectedNote = new Note();
                     }));
             }
         }
@@ -878,6 +862,57 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         SelectedPatient.ProfilePicture = null;
+                    }));
+            }
+        }
+        private RelayCommand _deletePieceJointeCommand;
+        public RelayCommand DeletePieceJointeCommand
+        {
+            get
+            {
+                return _deletePieceJointeCommand
+                    ?? (_deletePieceJointeCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedPieceJointe!=null)
+                        {
+                            _dbContext.PieceJointes.Remove(SelectedPieceJointe);
+                            SelectedPatient.PieceJointes.Remove(SelectedPieceJointe);
+                            _dbContext.SaveChanges();
+                        }
+                        
+                    }));
+            }
+        }
+        private RelayCommand _deleteNoteCommand;
+        public RelayCommand DeleteNoteCommand
+        {
+            get
+            {
+                return _deleteNoteCommand
+                    ?? (_deleteNoteCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedNote != null)
+                        {
+                            _dbContext.Notes.Remove(SelectedNote);
+                            SelectedPatient.Notes.Remove(SelectedNote);
+                            _dbContext.SaveChanges();
+                        }
+                        
+                    }));
+            }
+        }
+        private RelayCommand _deleteSelectedPieceJointsCommand;
+        public RelayCommand DeleteSelectedPieceJointsCommand
+        {
+            get
+            {
+                return _deleteSelectedPieceJointsCommand
+                    ?? (_deleteSelectedPieceJointsCommand = new RelayCommand(
+                    () =>
+                    {
+                        
                     }));
             }
         }
