@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,7 +33,7 @@ namespace DataLayer.Model
             {
                 if (value.Equals(_schedulerSettingsId)) return;
                 _schedulerSettingsId = value;
-                OnPropertyChanged();
+                OnPropertyChanged();                
             }
         }
         public String SettingName
@@ -89,5 +90,6 @@ namespace DataLayer.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+        
     }
 }

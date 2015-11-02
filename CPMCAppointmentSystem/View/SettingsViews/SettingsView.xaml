@@ -82,7 +82,7 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <ToggleButton IsChecked="{Binding IsAdded,Mode=TwoWay}" x:Name="FilterButton" Width="45" Height="45"  Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
+                                            <ToggleButton IsChecked="{Binding IsAdded,Mode=TwoWay}" Command="{Binding DataContext.UserTypeCheckedCommand,ElementName=RootGrid}" CommandParameter="{Binding Entity.UserTypeId}" x:Name="FilterButton" Width="45" Height="45"  Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
                                                 <Path Stretch="Uniform"  Width="20" Height="20" Margin="0,0,0,0" >
                                                     <Path.Style>
                                                         <Style TargetType="Path">

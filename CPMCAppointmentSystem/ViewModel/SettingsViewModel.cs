@@ -303,7 +303,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_statusDesPatientsSettingsLoadedCommand = new RelayCommand(async () =>
                     {
                         SettingsCollection=new SettingsCollection();
-                        await SettingsCollection.LoadSchedulerSettings();                        
+                        await SettingsCollection.LoadSchedulerSettings();
+                        RaisePropertyChanged("SettingsCollection");
                     }));
             }
         }
@@ -549,6 +550,21 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
+        private RelayCommand<object> _userTypeCheckedCommand;
+
+        public RelayCommand<object> UserTypeCheckedCommand
+        {
+            get
+            {
+                return _userTypeCheckedCommand
+                    ?? (_userTypeCheckedCommand = new RelayCommand<object>(async (obj) =>
+                    {                        
+                        var search=UserTypeCollection.Where(ut => ut.IsAdded).Select(x=>x.Entity.UserTypeId);
+                        UsersList=new ObservableCollection<User>(await  Task.Run(()=>_dbContext.Users.Where(u=>search.Contains(u.UserTypeId))));
+
+                    }));
+            }
+        }
         #endregion
         #region Ctors and Methods
         public SettingsViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
