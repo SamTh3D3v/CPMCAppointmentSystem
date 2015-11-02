@@ -874,6 +874,38 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand _deletePieceJointeCommand;
+        public RelayCommand DeletePieceJointeCommand
+        {
+            get
+            {
+                return _deletePieceJointeCommand
+                    ?? (_deletePieceJointeCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedPieceJointe!=null)
+                        {
+                            _dbContext.PieceJointes.Remove(SelectedPieceJointe);
+                            SelectedPatient.PieceJointes.Remove(SelectedPieceJointe);
+                            _dbContext.SaveChanges();
+                        }
+                        
+                    }));
+            }
+        }
+        private RelayCommand _deleteSelectedPieceJointsCommand;
+        public RelayCommand DeleteSelectedPieceJointsCommand
+        {
+            get
+            {
+                return _deleteSelectedPieceJointsCommand
+                    ?? (_deleteSelectedPieceJointsCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
         #endregion
         #region Ctors and Methods
         public PatientsViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)

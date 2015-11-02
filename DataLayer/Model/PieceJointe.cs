@@ -14,7 +14,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("PieceJointe")]
-    public class PieceJointe:Auditable,INotifyPropertyChanged,IDataErrorInfo
+    public class PieceJointe:INotifyPropertyChanged,IDataErrorInfo
     {       
         #region Fields
         private Guid _pieceJointeId;

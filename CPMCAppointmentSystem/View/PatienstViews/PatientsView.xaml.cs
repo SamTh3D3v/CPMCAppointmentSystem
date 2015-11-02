@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace CPMCAppointmentSystem.View.PatienstViews
 {
@@ -11,5 +12,7 @@ namespace CPMCAppointmentSystem.View.PatienstViews
         {
             InitializeComponent();            
         }
+
+       
     }
 }

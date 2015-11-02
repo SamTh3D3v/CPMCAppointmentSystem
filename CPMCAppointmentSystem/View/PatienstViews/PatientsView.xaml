@@ -205,7 +205,7 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <Grid >                        
+                    <Grid >
                         <Button ToolTip="Ajouter image" Background="WhiteSmoke" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding DataContext.LoadPatientImageCommand,ElementName=RootGrid}">
                             <Path Data="M31.478432,15.239C36.687607,15.239 40.906941,19.457997 40.906941,24.661992 40.906941,29.865988 36.687607,34.085986 31.478432,34.085986 26.279251,34.085986 22.059918,29.865988 22.059918,24.661992 22.059918,19.457997 26.279251,15.239 31.478432,15.239z M31.425879,9.8389888C23.416933,9.8389888 16.88777,16.362975 16.88777,24.379973 16.88777,32.394988 23.416933,38.916991 31.425879,38.916991 39.444832,38.916991 45.963986,32.394988 45.963986,24.379973 45.963986,16.362975 39.444832,9.8389888 31.425879,9.8389888z M43.904202,0C45.124008,-2.9131115E-08,46.113869,0.98797598,46.113869,2.205993L46.113869,4.8519898C46.113869,4.9059749,46.103981,4.9589839,46.103981,5.013L49.523449,5.013C51.613137,5.013,53.333,6.7279964,53.333,8.8219905L53.333,39.297972C53.333,41.392973,51.613137,43.108,49.523449,43.108L3.8095522,43.108C1.7198642,43.108,0,41.392973,0,39.297972L0,8.8219905C0,6.7279964,1.7198642,5.013,3.8095522,5.013L5.6292574,5.013C5.6192486,4.9459834,5.6192486,4.8799739,5.6192486,4.8109741L5.6192486,3.6089783C5.6192486,1.836975,7.0491121,0.40100091,8.8188965,0.40100085L22.057127,0.40100085C23.826912,0.40100091,25.266663,1.836975,25.266663,3.6089783L25.266663,4.8109741C25.266663,4.8799739,25.256653,4.9459834,25.246645,5.013L41.71455,5.013C41.70454,4.9589839,41.70454,4.9059749,41.70454,4.8519898L41.70454,2.205993C41.70454,1.8799743,41.774479,1.5699767,41.904465,1.2909849L41.904465,1.2019956 41.9445,1.2019956C42.314446,0.48999017,43.054337,-2.9131115E-08,43.904202,0z" Stretch="Uniform" Fill="#FF000000" Width="30" Height="30" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5"/>
                         </Button>
@@ -224,9 +224,9 @@
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource MetroCircleButtonStyle}">
                                 <Setter Property="IsEnabled" Value="True"></Setter>
-                                <Style.Triggers>                                    
+                                <Style.Triggers>
                                     <DataTrigger Binding="{Binding ElementName=ProfileImage,Path=Source}" Value="{x:Null}">
-                                        <Setter Property="IsEnabled" Value="False"/>                                        
+                                        <Setter Property="IsEnabled" Value="False"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -246,13 +246,13 @@
                                 </Style>
                             </Path.Style>
                         </Path>
-                    </ToggleButton>-->            
+                    </ToggleButton>-->
                     <ToggleButton IsChecked="{Binding CarteProfessionel,Mode=TwoWay}" x:Name="CardProButton" Width="60" Height="60" ToolTip="Ajouter image" Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right">
                         <Path Data="M11.961001,32.591001L27.961,32.591001 27.961,38.352 11.961001,38.352z M41.431141,29.375001L46.286661,29.375001C51.203279,29.375001,55.316496,33.104243,56.395998,38.112L31.323,38.112C32.403814,33.104243,36.513142,29.375001,41.431141,29.375001z M11.961001,22.992001L27.961,22.992001 27.961,28.751 11.961001,28.751z M43.85944,14.016001C47.470053,14.016001 50.393,16.945526 50.393,20.549741 50.393,24.159045 47.470053,27.086 43.85944,27.086 40.250229,27.086 37.326,24.159045 37.326,20.549741 37.326,16.945526 40.250229,14.016001 43.85944,14.016001z M11.961001,13.39L27.961,13.39 27.961,19.151 11.961001,19.151z M6.4470005,6.6650009L6.4470005,45.109001 57.779001,45.109001 57.779001,6.6650009z M0,0L64.000002,0 64.000002,51.331001 0,51.331001z" Stretch="Uniform"  Width="30" Height="30" Margin="0,0,0,0" >
                             <Path.Style>
                                 <Style TargetType="Path">
                                     <Setter Property="Fill" Value="LightGray"></Setter>
-                                    <Style.Triggers>                                        
+                                    <Style.Triggers>
                                         <DataTrigger Binding="{Binding ElementName=CardProButton,Path=IsChecked}" Value="True">
                                             <Setter Property="Fill" Value="White"></Setter>
                                         </DataTrigger>
@@ -260,7 +260,7 @@
                                 </Style>
                             </Path.Style>
                         </Path>
-                    </ToggleButton>                   
+                    </ToggleButton>
                 </Grid>
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <Syncfusion:SfMaskedEdit Name="TxtEditNumOrdre" Grid.Column="1" Text="{Binding NumeroDordre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
@@ -422,7 +422,7 @@
                                             <Condition Binding="{Binding ElementName=TxtEditCity, Path=(Validation.HasError)}" Value="false" />
                                             <Condition Binding="{Binding ElementName=TxtEditCodeP, Path=(Validation.HasError)}" Value="false" />
                                             <Condition Binding="{Binding ElementName=CbxWillaya, Path=(Validation.HasError)}" Value="false" />
-                                            <Condition Binding="{Binding ElementName=CbxPath, Path=(Validation.HasError)}" Value="false" />                                            
+                                            <Condition Binding="{Binding ElementName=CbxPath, Path=(Validation.HasError)}" Value="false" />
                                             <Condition>
                                                 <Condition.Binding>
                                                     <Binding Path="DataContext.SelectedPatient" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}">
@@ -556,7 +556,7 @@
                                 </Button>
                                 <TextBlock Margin="20,0,0,0" Text="Piece Jointe" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
                                 <GroupBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Header="Nouveau">
-                                    
+
                                     <Grid >
                                         <Grid.Style>
                                             <Style TargetType="Grid">
@@ -622,7 +622,7 @@
                                                             <MultiDataTrigger>
                                                                 <MultiDataTrigger.Conditions>
                                                                     <Condition Binding="{Binding ElementName=TxtEditIde, Path=(Validation.HasError)}" Value="false" />
-                                                                    <Condition Binding="{Binding ElementName=TxtEditDesc, Path=(Validation.HasError)}" Value="false" />                                                                                                                                       
+                                                                    <Condition Binding="{Binding ElementName=TxtEditDesc, Path=(Validation.HasError)}" Value="false" />
                                                                     <Condition>
                                                                         <Condition.Binding>
                                                                             <Binding Path="DataContext.SelectedPieceJointe.TypePieceJointe" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}">
@@ -642,7 +642,7 @@
                                                     </Style>
                                                 </Button.Style>
                                             </Button>
-                                            
+
                                         </Grid>
 
                                     </Grid>
@@ -650,29 +650,44 @@
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
                                 <GroupBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  Header="Liste de pieces">
                                     <ListView ItemsSource="{Binding DataContext.SelectedPatient.PieceJointes,ElementName=RootGrid}"  SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe}">
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
                                                         <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <CheckBox Margin="5" VerticalAlignment="Center" />
                                                     <TextBlock Grid.Column="1" Margin="10,5,5,5" VerticalAlignment="Center" Text="{Binding TypePieceJointe.PieceJointeTitle}"/>
+                                                    <Button Style="{StaticResource MetroCircleButtonStyle}" BorderThickness="0" Grid.Column="2" Width="20" Height="20"  Command="{Binding ElementName=RootGrid,Path=DataContext.DeletePieceJointeCommand}" >
+                                                        <Path Data="{StaticResource DeletePath}" Width="10" Height="10" Fill="Black" Stretch="Uniform"/>
+                                                    </Button>
                                                 </Grid>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                         <ListView.ContextMenu>
-                                            <ContextMenu>
-                                                <MenuItem Header="Supprimer piece jointe">
+                                            <ContextMenu DataContext="{Binding Path=DataContext,  ElementName=RootGrid}">
+                                                <MenuItem  Header="Supprimer piece jointe" Command="{Binding DeletePieceJointeCommand}" >                                                 
                                                     <MenuItem.Icon>
                                                         <Path Data="{StaticResource DeletePath}" Width="7" Height="7" Fill="Black" Stretch="Uniform"/>
-                                                    </MenuItem.Icon>                                                                                                       
+                                                    </MenuItem.Icon>
                                                 </MenuItem>
                                                 <MenuItem IsEnabled="False" Header="Supprimer les pieces selectionner">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <command:EventToCommand Command="{Binding DataContext.DeletePieceJointeCommand,ElementName=RootGrid}"
+                                                             PassEventArgsToCommand="True" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
                                                     <MenuItem.Icon>
                                                         <Path Data="{StaticResource DeleteAllPath}" Width="7" Height="7" Fill="Black" Stretch="Uniform"/>
-                                                    </MenuItem.Icon>                                                    
+                                                    </MenuItem.Icon>
                                                 </MenuItem>
                                             </ContextMenu>
                                         </ListView.ContextMenu>
@@ -697,7 +712,7 @@
                         </Syncfusion:TabItemExt.HeaderTemplate>
                         <Syncfusion:TabItemExt.Content>
                             <Grid>
-                                <Grid.RowDefinitions>                                    
+                                <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="Auto"/>
