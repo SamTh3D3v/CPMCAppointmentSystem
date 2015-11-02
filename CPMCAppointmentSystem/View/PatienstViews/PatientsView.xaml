@@ -381,7 +381,7 @@
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=PathologyBox}" Value="{x:Null}">
+                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=CbxPath}" Value="{x:Null}">
                                             <Setter Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -514,7 +514,7 @@
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                     <Syncfusion:SfDataGrid.Columns>
-                                        <Syncfusion:GridTextColumn HeaderText="Date" MappingName="DateTimeRdv" />
+                                        <Syncfusion:GridTextColumn HeaderText="Date" ValueBinding="{Binding DateTimeRdv,StringFormat='{}{0:dd/MM/yyyy}'}"/>
                                         <Syncfusion:GridTextColumn HeaderText="Lieu" MappingName="LieuRdv" />
                                         <Syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserNom"/>
                                         <Syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserPrenom"/>
