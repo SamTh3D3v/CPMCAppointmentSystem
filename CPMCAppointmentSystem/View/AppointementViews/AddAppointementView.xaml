@@ -106,8 +106,8 @@
                     </ScrollViewer>
                 </Expander>
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:DateTimeEdit syncfusion:SkinStorage.VisualStyle="Metro"
-                                         Margin="2 5"  DateTime="{Binding SelectedRdv.DateTimeRdv,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  x:Name="DateEditRdv" 
+                <DatePicker syncfusion:SkinStorage.VisualStyle="Metro"
+                                         Margin="2 5"  SelectedDate="{Binding SelectedRdv.DateTimeRdv ,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}', UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  x:Name="DateEditRdv" 
                                          Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="4"  Text="La date du rendez vous" >
                     <TextBlock.Style>

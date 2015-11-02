@@ -63,8 +63,8 @@
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:DateTimeEdit Name="TxtEditDateRdv" Margin="2 5"  Text="{Binding SelectedAppointement.DateTimeRdv,Mode=TwoWay,StringFormat=d,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"   Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="4"  Text="La date du rendez vous" >
+                <DatePicker Name="TxtEditDateRdv" Margin="2 5"  SelectedDate="{Binding SelectedAppointement.DateTimeRdv,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}',UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"   Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <!--<TextBlock Grid.Column="1" Grid.Row="4"  Text="La date du rendez vous" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -74,7 +74,7 @@
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
-                </TextBlock>
+                </TextBlock>-->
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Lieu de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <syncfusion:SfMaskedEdit Name="TxtEditLieuRdv" Grid.Column="1" Text="{Binding SelectedAppointement.LieuRdv,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
