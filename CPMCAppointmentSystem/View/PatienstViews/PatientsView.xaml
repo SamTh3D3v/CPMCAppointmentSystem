@@ -575,12 +575,13 @@
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <ComboBox x:Name="TypeCbx" Grid.Row="0" ItemsSource="{Binding DataContext.TypePieceJointeList,ElementName=RootGrid,Mode=TwoWay}" SelectedItem="{Binding Path=DataContext.SelectedPieceJointe.TypePieceJointe,ElementName=RootGrid}" DisplayMemberPath="PieceJointeTitle" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
+                                        <ComboBox x:Name="CbTypePj" Grid.Row="0" ItemsSource="{Binding DataContext.TypePieceJointeList,ElementName=RootGrid,Mode=TwoWay}" SelectedItem="{Binding Path=DataContext.SelectedPieceJointe.TypePieceJointe,ElementName=RootGrid,
+                                            UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" DisplayMemberPath="PieceJointeTitle" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
                                         <TextBlock Grid.Row="0"  Text="Type de Piece Jointe" >
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=TypeCbx}" Value="{x:Null}">
+                                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=CbTypePj}" Value="{x:Null}">
                                                             <Setter Property="Visibility" Value="Visible"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
@@ -588,9 +589,11 @@
                                             </TextBlock.Style>
                                         </TextBlock>
 
-                                        <Syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.IdPieceJointe,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
+                                        <Syncfusion:SfMaskedEdit Name="TxtEditIde" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.IdPieceJointe,Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Identifiant"/>
-                                        <Syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.Description,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
+                                        <Syncfusion:SfMaskedEdit Name="TxtEditDesc" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.Description,Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Description"/>
                                         <Grid Grid.Row="3">
                                             <Grid.ColumnDefinitions>
@@ -598,10 +601,10 @@
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Button Content="Upload" Command="{Binding DataContext.UploadPieceJointeCommand,ElementName=RootGrid}" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
-                                            <Button Content="Preview" Command="{Binding DataContext.PreviewPieceJointeCommand,ElementName=RootGrid}" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5">
+                                            <Button Content="Upload" Style="{StaticResource {x:Type Button}}" Command="{Binding DataContext.UploadPieceJointeCommand,ElementName=RootGrid}" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
+                                            <Button Content="Preview" Command="{Binding DataContext.PreviewPieceJointeCommand,ElementName=RootGrid}" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5" >
                                                 <Button.Style>
-                                                    <Style TargetType="Button">
+                                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                                                         <Setter Property="IsEnabled" Value="True"/>
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.PieceJointeImage}" Value="{x:Null}">
@@ -611,7 +614,33 @@
                                                     </Style>
                                                 </Button.Style>
                                             </Button>
-                                            <Button ToolTip="Enregistrer la piece jointe"  Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5">                                                                                               
+                                            <Button ToolTip="Enregistrer la piece jointe"  Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5">
+                                                <Button.Style>
+                                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                                        <Setter Property="IsEnabled" Value="false" />
+                                                        <Style.Triggers>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding ElementName=TxtEditIde, Path=(Validation.HasError)}" Value="false" />
+                                                                    <Condition Binding="{Binding ElementName=TxtEditDesc, Path=(Validation.HasError)}" Value="false" />                                                                                                                                       
+                                                                    <Condition>
+                                                                        <Condition.Binding>
+                                                                            <Binding Path="DataContext.SelectedPieceJointe.TypePieceJointe" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                                                <Binding.ConverterParameter>
+                                                                                    <x:Null/>
+                                                                                </Binding.ConverterParameter>
+                                                                            </Binding>
+                                                                        </Condition.Binding>
+                                                                        <Condition.Value>
+                                                                            <sys:Boolean>False</sys:Boolean>
+                                                                        </Condition.Value>
+                                                                    </Condition>
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="IsEnabled" Value="true" />
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
                                             </Button>
                                             
                                         </Grid>
