@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -200,8 +201,8 @@ namespace DataLayer.Model
             get { return _dateDeNaissance; }
             set
             {
-                if (value.Equals(_dateDeNaissance)) return;
-                _dateDeNaissance = value;
+                if (value.Equals(_dateDeNaissance)) return;                
+                _dateDeNaissance=value;                
                 OnPropertyChanged();
             }
         }

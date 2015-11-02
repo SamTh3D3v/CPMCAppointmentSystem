@@ -41,7 +41,7 @@ namespace CPMCAppointmentSystem.SubModel
                 if (ScheduleSettingsCollection == null) return null;               
                 return ScheduleSettingsCollection.FirstOrDefault(s => s.SettingName == settingName);
             }
-            internal set
+            set
             {
                 if (ScheduleSettingsCollection != null)
                 {
@@ -77,7 +77,38 @@ namespace CPMCAppointmentSystem.SubModel
             };
             if (!ScheduleSettingsCollection.Any())
             {
-                //Get the schedule settings from the Xml file then save them to the database                
+                //Get the schedule settings from the settings Xml file then save them to the database  //todo
+                _dbContext.SchedulerSettings.Add(new SchedulerSetting()
+                {
+                    SettingName = "EnfantSetting",
+                    Blink = false,
+                    Color = "#ffff0000",
+                    Information = "15"
+                });_dbContext.SchedulerSettings.Add(new SchedulerSetting()
+                {
+                    SettingName = "HommeSetting",
+                    Blink = false,
+                    Color = "#ff00ff00"                    
+                });_dbContext.SchedulerSettings.Add(new SchedulerSetting()
+                {
+                    SettingName = "FemmeSetting",
+                    Blink = false,
+                    Color = "#ff0000ff"                    
+                });_dbContext.SchedulerSettings.Add(new SchedulerSetting()
+                {
+                    SettingName = "ProSetting",
+                    Blink = false,
+                    Color = "#ffffff00",                    
+                });_dbContext.SchedulerSettings.Add(new SchedulerSetting()
+                {
+                    SettingName = "RdvSetting",
+                    Blink = false,
+                    Color = "#ff00ffff",
+                    Information = "7"
+                });
+                _dbContext.SaveChanges();
+                ScheduleSettingsCollection = new ObservableCollection<SchedulerSetting>(await Task.Run(() => _dbContext.SchedulerSettings));
+
             }
         }
         #endregion

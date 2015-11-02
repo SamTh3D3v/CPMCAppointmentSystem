@@ -88,7 +88,7 @@
 
                 <Expander MaxHeight="150" Name="ExpMed" Header="Sélectionner un medecin" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-                        <syncfusion:SfDataGrid Width="{Binding ElementName=ExpMed,Path=ActualWidth}" Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke"
+                        <syncfusion:SfDataGrid  Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke"
                                        AllowDraggingColumns="True"
                                                ColumnSizer="Star"
                                        AllowEditing="False"                                               

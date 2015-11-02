@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
@@ -23,16 +24,18 @@ namespace CPMCAppointmentSystem.ViewModel
         public Brush Brush { get; set; }
         public String Status { get; set; }
     }
+   
     public class CalendarViewModel : NavigableViewModelBase
     {
         #region Fields
+        private SettingsCollection _settingsCollection;
         private bool _isProgressRingActive;
         private CpmcContext _dbContext = new CpmcContext();
         private ScheduleType _scheduleType = ScheduleType.Month;
         private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
         private RendezVous _selectedRdv;
         private ObservableCollection<Patient> _allPatientsCollection;
-        private ObservableCollection<Medecin> _allDoctorsCollection;        
+        private ObservableCollection<Medecin> _allDoctorsCollection;
         private Patient _selectedPatientInAddAptView;
         private ObservableCollection<RendezVous> _rdvousCollaction;
         private Medecin _selectedMedecinInAddAptView;
@@ -41,9 +44,27 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _filterByPatientIsChecked;
         private bool _filterByMedecinIsChecked;
         private ListMedecinToAddView _listMedecinToAddView;
-        private AddAppointementView _addAppointementView;                
+        private AddAppointementView _addAppointementView;
         #endregion
-        #region Properties    
+        #region Properties
+        public SettingsCollection SettingsCollection
+        {
+            get
+            {
+                return _settingsCollection;
+            }
+
+            set
+            {
+                if (_settingsCollection == value)
+                {
+                    return;
+                }
+
+                _settingsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool IsProgressRingActive
         {
             get
@@ -152,7 +173,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _addDoctorsToFilterListAdd = value;
                 RaisePropertyChanged();
             }
-        }      
+        }
         public ObservableCollection<RendezVous> RdvousCollection
         {
             get
@@ -300,7 +321,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_applyMedecinFilterCommand = new RelayCommand(
                     () =>
                     {
-                       // DoctorsInFilter = new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x => x.IsAdded));
+                        // DoctorsInFilter = new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x => x.IsAdded));
                         _listMedecinToAddView.Close();
                     }));
             }
@@ -371,8 +392,8 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 Entity = s,
                 IsAdded = true
-            })));             
-           
+            })));
+
         }
 
         private async Task LoadAllDoctorsList()
@@ -389,34 +410,38 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             //Load Other stuff
         }
-        
+
         private async Task LoadRendezVous()
         {
-            await Task.Run(() =>
+            await LoadScheduleSettings();
+            RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
+            RdvousCollection.ForEach((rdv) =>
             {
-                Thread.Sleep(1000);
-                RdvousCollection = new ObservableCollection<RendezVous>(_dbContext.RendezVouses);
-                foreach (var rdv in RdvousCollection)
+                //Update the rdv status based on rdv date
+                rdv.Status = new ScheduleAppointmentStatus()
                 {
-                    //Update the rdv status based on rdv date
-                    rdv.Status = new ScheduleAppointmentStatus()
-                    {
-                        Brush =
-                            (getBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
-                                rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Brush,
-                        Status =
-                            (getBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
-                                rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Status
-                    };
-
-                    PatientsScheduleAppointmentCollection.Add(rdv);
-                }
+                    Brush =
+                        (GetBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
+                            rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Brush,
+                    Status =
+                        (GetBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
+                            rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Status
+                };
+                PatientsScheduleAppointmentCollection.Add(rdv);
             });
+            
             //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });            
         }
 
+        private async Task LoadScheduleSettings()
+        {
+            SettingsCollection = new SettingsCollection();
+            await SettingsCollection.LoadSchedulerSettings();
+        }
+
+
         //Super Ugly code --> will be updated InchaAllah
-        private BrushStatus getBrushFromSettings(DateTime dateTimeRdv, DateTime dateDeNaissance, string sexe, bool carteProfessionel)
+        private BrushStatus GetBrushFromSettings(DateTime dateTimeRdv, DateTime dateDeNaissance, string sexe, bool carteProfessionel)
         {
             var brushStatus = new BrushStatus();
             if (dateTimeRdv.Date < DateTime.Now.Date)
@@ -424,58 +449,27 @@ namespace CPMCAppointmentSystem.ViewModel
                 brushStatus.Brush = new SolidColorBrush(Colors.LightGray); //Get From Settings
                 if ((DateTime.Now.Year - dateDeNaissance.Year) < 18)
                 {
-                    if (sexe == "Male")
-                    {
-                        brushStatus.Status = "Boy";
-                    }
-                    else
-                    {
-                        brushStatus.Status = "Girl";
-                    }
-
+                    brushStatus.Status = sexe == "Male" ? "Boy" : "Girl";
                 }
                 else
                 {
-                    if (sexe == "Male")
-                    {
-                        brushStatus.Status = "Man";
-                    }
-                    else
-                    {
-                        brushStatus.Brush = new SolidColorBrush(Colors.Salmon); //Get From Settings   
-                        brushStatus.Status = "Woman";
-                    }
+                    brushStatus.Status = sexe == "Male" ? "Man" : "Woman";
                 }
             }
             else
             {
-                if ((DateTime.Now.Year - dateDeNaissance.Year) < 18)
-                {
-                    if (sexe == "Male")
+                var ageMin = SettingsCollection["EnfantSetting"].Information;
+                if (ageMin != null)
+                    if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMin))
                     {
-                        brushStatus.Brush = new SolidColorBrush(Colors.LightSkyBlue); //Get From Settings   
-                        brushStatus.Status = "Boy";
+                        brushStatus.Status = sexe == "Male" ? "Boy" : "Girl";
+                        brushStatus.Brush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(SettingsCollection["EnfantSetting"].Color));
                     }
                     else
                     {
-                        brushStatus.Brush = new SolidColorBrush(Colors.LightSalmon); //Get From Settings   
-                        brushStatus.Status = "Girl";
+                        brushStatus.Status = sexe == "Male" ? "Man" : "Woman";
+                        brushStatus.Brush = sexe == "Male" ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color)) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
                     }
-
-                }
-                else
-                {
-                    if (sexe == "Male")
-                    {
-                        brushStatus.Brush = new SolidColorBrush(Colors.DeepSkyBlue); //Get From Settings   
-                        brushStatus.Status = "Man";
-                    }
-                    else
-                    {
-                        brushStatus.Brush = new SolidColorBrush(Colors.Salmon); //Get From Settings   
-                        brushStatus.Status = "Woman";
-                    }
-                }
             }
             return brushStatus;
         }
@@ -546,20 +540,24 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         if (SelectedRdv.RendezVousId == Guid.Empty)
                         {
-                            //This Is a new Appointement 
-                            _dbContext.RendezVouses.Add(SelectedRdv);
-                            _dbContext.SaveChanges();
+                            AddNewAppointement();                            
                         }
                         else
-                        {
-                            //Appointement Update
-                            _dbContext.SaveChanges();
+                        {                            
+                            //Notification insertion
                         }
+                        _dbContext.SaveChanges();
                         _addAppointementView.Close();
                         await LoadRendezVous();
 
                     }));
             }
+        }
+        private void AddNewAppointement()
+        {
+            //Added by Farouk for Audit purpose
+            SelectedRdv.RendezVousId = Guid.NewGuid();
+            _dbContext.RendezVouses.Add(SelectedRdv);
         }
         private RelayCommand<ScheduleClickEventArgs> _onScheduleClickCommand;
         public RelayCommand<ScheduleClickEventArgs> OnScheduleClickCommand

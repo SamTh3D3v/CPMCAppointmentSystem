@@ -303,8 +303,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_statusDesPatientsSettingsLoadedCommand = new RelayCommand(async () =>
                     {
                         SettingsCollection=new SettingsCollection();
-                        await SettingsCollection.LoadSchedulerSettings();
-                        RaisePropertyChanged("SettingsCollection");
+                        await SettingsCollection.LoadSchedulerSettings();                        
                     }));
             }
         }

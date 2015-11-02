@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace ControlLibrary.Converters
@@ -11,15 +12,9 @@ namespace ControlLibrary.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            foreach (object value in values)
-            {
-                if ((bool)value == true)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return values.Where(value => DependencyProperty.UnsetValue != value).Any(value => (bool) value);
         }
+
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotSupportedException();
