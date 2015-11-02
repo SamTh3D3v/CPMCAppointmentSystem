@@ -24,7 +24,7 @@ namespace CPMCAppointmentSystem.ViewModel
         public Brush Brush { get; set; }
         public String Status { get; set; }
     }
-   
+
     public class CalendarViewModel : NavigableViewModelBase
     {
         #region Fields
@@ -429,8 +429,6 @@ namespace CPMCAppointmentSystem.ViewModel
                 };
                 PatientsScheduleAppointmentCollection.Add(rdv);
             });
-            
-            //PatientsScheduleAppointmentCollection.Add(new RendezVous() { Status = new ScheduleAppointmentStatus() { Brush = new SolidColorBrush(Colors.Green), Status = "Free" }, StartTime = new DateTime(2015, 10, 10, 5, 0, 0), Subject = "Meet the doc", Location = "Hutchison road", AllDay = false });            
         }
 
         private async Task LoadScheduleSettings()
@@ -440,13 +438,12 @@ namespace CPMCAppointmentSystem.ViewModel
         }
 
 
-        //Super Ugly code --> will be updated InchaAllah
         private BrushStatus GetBrushFromSettings(DateTime dateTimeRdv, DateTime dateDeNaissance, string sexe, bool carteProfessionel)
         {
             var brushStatus = new BrushStatus();
             if (dateTimeRdv.Date < DateTime.Now.Date)
             {
-                brushStatus.Brush = new SolidColorBrush(Colors.LightGray); //Get From Settings
+                brushStatus.Brush = new SolidColorBrush(Colors.LightGray); 
                 if ((DateTime.Now.Year - dateDeNaissance.Year) < 18)
                 {
                     brushStatus.Status = sexe == "Male" ? "Boy" : "Girl";
@@ -460,16 +457,24 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 var ageMin = SettingsCollection["EnfantSetting"].Information;
                 if (ageMin != null)
+                {
                     if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMin))
                     {
                         brushStatus.Status = sexe == "Male" ? "Boy" : "Girl";
-                        brushStatus.Brush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(SettingsCollection["EnfantSetting"].Color));
+                        brushStatus.Brush =
+                            new SolidColorBrush(
+                                (Color) ColorConverter.ConvertFromString(SettingsCollection["EnfantSetting"].Color));
                     }
                     else
                     {
                         brushStatus.Status = sexe == "Male" ? "Man" : "Woman";
-                        brushStatus.Brush = sexe == "Male" ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color)) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
+                        brushStatus.Brush = sexe == "Male"
+                            ? new SolidColorBrush(
+                                (Color) ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color))
+                            : new SolidColorBrush(
+                                (Color) ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
                     }
+                }
             }
             return brushStatus;
         }
@@ -488,7 +493,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         var sfSchedule = obj as SfSchedule;
                         if (sfSchedule != null)
                         {
-                            var selectedAppointement = sfSchedule.SelectedAppointment;
+                            var selectedAppointement = sfSchedule.SelectedAppointment;                            
                             if (selectedAppointement != null)
                             {
                                 SelectedRdv = (RendezVous)selectedAppointement;
@@ -523,10 +528,16 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _deleteAppointementCommand
-                    ?? (_deleteAppointementCommand = new RelayCommand(
-                    () =>
+                    ?? (_deleteAppointementCommand = new RelayCommand(async () =>
                     {
-                        //To Be Implemented
+                        if (SelectedRdv != null)
+                        {
+                            _dbContext.RendezVouses.Remove(SelectedRdv);
+                        }
+                        _dbContext.SaveChanges();
+                        _addAppointementView.Close();
+                        await LoadRendezVous();                        
+
                     }));
             }
         }
@@ -540,10 +551,10 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         if (SelectedRdv.RendezVousId == Guid.Empty)
                         {
-                            AddNewAppointement();                            
+                            AddNewAppointement();
                         }
                         else
-                        {                            
+                        {
                             //Notification insertion
                         }
                         _dbContext.SaveChanges();
