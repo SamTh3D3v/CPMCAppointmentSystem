@@ -82,15 +82,16 @@
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="6" Text="Medecin" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit Name="TxtEditMedecin" Grid.Column="1" Text="{Binding SelectedAppointement.Medecin.User.UserNom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
-                                     Watermark="Nom du medecin"  
+                <syncfusion:SfMaskedEdit IsEnabled="False" Name="TxtEditMedecin" Grid.Column="1" Text="{Binding SelectedAppointement.Medecin.User.UserNom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+                                     Watermark="selectionnez un medecin"  
                                      />
 
-                <Expander MaxHeight="150" Header="Sélectionner un medecin" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Expander MaxHeight="150" Name="ExpMed" Header="Sélectionner un medecin" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-                        <syncfusion:SfDataGrid Height="250" SelectionMode="Single" ColumnSizer="Star" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                        <syncfusion:SfDataGrid Width="{Binding ElementName=ExpMed,Path=ActualWidth}" Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke"
                                        AllowDraggingColumns="True"
-                                       AllowEditing="False"
+                                               ColumnSizer="Star"
+                                       AllowEditing="False"                                               
                                        AllowFiltering="True"
                                        AllowGrouping="True"                                   
                                        ItemsSource="{Binding DoctorsList}"
@@ -103,10 +104,7 @@
                                 <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
                                 <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
                             </syncfusion:SfDataGrid.Columns>
-                        </syncfusion:SfDataGrid>
-
-                        <!--The Grid Needs To Be More Adavnced And Show Double Filtering Using The Specialities and The Pathologie List-->
-
+                        </syncfusion:SfDataGrid>                        
                     </Grid>
                 </Expander>                
             </Grid>
@@ -132,7 +130,18 @@
                                 <MultiDataTrigger.Conditions>
                                     <Condition Binding="{Binding ElementName=TxtEditDateRdv, Path=(Validation.HasError)}" Value="false" />
                                     <Condition Binding="{Binding ElementName=TxtEditLieuRdv, Path=(Validation.HasError)}" Value="false" />
-                                    <Condition Binding="{Binding ElementName=TxtEditMedecin, Path=(Validation.HasError)}" Value="false" />                                   
+                                    <Condition>
+                                        <Condition.Binding>
+                                            <Binding Path="SelectedAppointement.Medecin" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                <Binding.ConverterParameter>
+                                                    <x:Null/>
+                                                </Binding.ConverterParameter>
+                                            </Binding>
+                                        </Condition.Binding>
+                                        <Condition.Value>
+                                            <system:Boolean>False</system:Boolean>
+                                        </Condition.Value>
+                                    </Condition>
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="IsEnabled" Value="true" />
                             </MultiDataTrigger>
@@ -141,12 +150,23 @@
                 </Button.Style>
             </Button>
             <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteAppointementCommand}">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedAppointement}" Value="{x:Static system:Guid.Empty}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
                         <TextBlock Text="Delete" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button.Content>
+               
             </Button>
             <Button Grid.Column="2"  Margin="2" Command="{Binding CancelAppointementChangesCommand}">
                 <Button.Content>

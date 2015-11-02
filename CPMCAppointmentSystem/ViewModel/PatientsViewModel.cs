@@ -589,9 +589,11 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (SelectedPatient.PatientId == Guid.Empty)
                         {
                             AddNewPatient();
-                        }
-                        //If a new Appointement                       
-                        SelectedAppointement = new RendezVous();
+                        }                                           
+                        SelectedAppointement = new RendezVous()
+                        {
+                            Patient = SelectedPatient
+                        };
                         _addAppointementWindow = new AddPatientAppointment();
                         _addAppointementWindow.ShowDialog();
 
@@ -703,14 +705,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _appointementDoubleClickCommand
                     ?? (_appointementDoubleClickCommand = new RelayCommand(
                     () =>
-                    {
-                        //If a New Patient, First add him
-                        if (SelectedPatient.PatientId == Guid.Empty)
-                        {
-                            AddNewPatient();
-                        }
-                        //If a new Appointement 
-                        SelectedAppointement = new RendezVous();
+                    {                      
                         _addAppointementWindow = new AddPatientAppointment();
                         _addAppointementWindow.ShowDialog();
                     }));

@@ -501,7 +501,7 @@
                                 <Syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                                        AutoGenerateColumns="False"
                                        AllowDraggingColumns="True"
-                                       AllowEditing="True"
+                                       AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
                                        ItemsSource="{Binding DataContext.SelectedPatient.RendezVouses,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"

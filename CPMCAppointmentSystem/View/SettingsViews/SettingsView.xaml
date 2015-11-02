@@ -91,13 +91,13 @@
                                                                 <DataTrigger Binding="{Binding ElementName=FilterButton,Path=IsChecked}" Value="True">
                                                                     <Setter Property="Fill" Value="White"/>
                                                                 </DataTrigger>
-                                                                <DataTrigger Binding="{Binding UserTypeName}" Value="Medecin">
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeName}" Value="Medecin">
                                                                     <Setter Property="Data" Value="{StaticResource DoctorPath}"/>
                                                                 </DataTrigger>
-                                                                <DataTrigger Binding="{Binding UserTypeName}" Value="Admin">
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeName}" Value="Admin">
                                                                     <Setter Property="Data" Value="{StaticResource AdminPath}"/>
                                                                 </DataTrigger>
-                                                                <DataTrigger Binding="{Binding UserTypeName}" Value="Agent">
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeName}" Value="Agent">
                                                                     <Setter Property="Data" Value="{StaticResource AgentPath}"/>
                                                                 </DataTrigger>
                                                             </Style.Triggers>
@@ -105,7 +105,7 @@
                                                     </Path.Style>
                                                 </Path>
                                             </ToggleButton>
-                                            <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextBlockStyle}"  FontSize="12" Margin="10"  Text="{Binding UserTypeName}"></TextBlock>
+                                            <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextBlockStyle}"  FontSize="12" Margin="10"  Text="{Binding Entity.UserTypeName}"></TextBlock>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -175,7 +175,7 @@
 
 
                                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Type" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <ComboBox x:Name="CbxUserType" Margin="10 5" ItemsSource="{Binding UserTypeCollection}" DisplayMemberPath="UserTypeName" SelectedItem="{Binding SelectedUser.UserType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    <ComboBox x:Name="CbxUserType" Margin="10 5" ItemsSource="{Binding UserTypeCollection}" DisplayMemberPath="Entity.UserTypeName" SelectedItem="{Binding SelectedUser.UserType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                     <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="3"  Text="Type d'utilisateur" VerticalAlignment="Center">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
