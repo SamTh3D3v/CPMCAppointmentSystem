@@ -13,7 +13,7 @@ using Syncfusion.UI.Xaml.Schedule;
 namespace DataLayer.Model
 {
     [Table("RendezVous")]
-    public class RendezVous : ScheduleAppointment, INotifyPropertyChanged,IDataErrorInfo
+    public class RendezVous : ScheduleAppointment, INotifyPropertyChanged,IDataErrorInfo, IAuditable
     {
         #region Fileds
         private DateTime _dateTimeRdv=DateTime.Now;
@@ -189,5 +189,29 @@ namespace DataLayer.Model
         }
         
         #endregion       
+    
+        public DateTime CreatedOn
+        {
+            get;
+            set;
+        }
+
+        public DateTime ModifiedOn
+        {
+            get;
+            set;
+        }
+
+        public Guid ModifiedBy
+        {
+            get;
+            set;
+        }
+
+        public Guid CreatedBy
+        {
+            get;
+            set;
+        }
     }
 }

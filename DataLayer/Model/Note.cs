@@ -12,7 +12,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Note")]
-    public class Note : INotifyPropertyChanged,IDataErrorInfo
+    public class Note :Auditable, INotifyPropertyChanged,IDataErrorInfo
     {
         #region Fields
         private string _title;

@@ -372,7 +372,10 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         if (SelectedNote.NoteId == Guid.Empty)
-                        {                            
+                        {
+                            //Added by Farouk for Audit purpose
+                            SelectedNote.NoteId = Guid.NewGuid();
+
                             if (SelectedPatient.Notes == null)
                                 SelectedPatient.Notes = new ObservableCollection<Note>();
                             SelectedPatient.Notes.Add(SelectedNote);
@@ -814,8 +817,6 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             //Added by Farouk for Audit purpose
                             SelectedPieceJointe.PieceJointeId = Guid.NewGuid();
-                            //SelectedPieceJointe.CreatedBy = ConnectedUserId;
-                            //SelectedPieceJointe.ModifiedBy = ConnectedUserId;
                             
                             //This is a new PieceJointe
                             if (SelectedPatient.PieceJointes == null)

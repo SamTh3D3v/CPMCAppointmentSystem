@@ -59,7 +59,7 @@ namespace DataLayer.Model
             modelBuilder.Entity<RendezVous>().Ignore(r => r.ReadOnly);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.ReadOnlyVisibility);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceID);
-            //modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceProperites );
+            modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceProperites );
             modelBuilder.Entity<RendezVous>().Ignore(r => r.RecurrenceRule);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.ReminderTime);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.ResourceCollection);
@@ -67,7 +67,7 @@ namespace DataLayer.Model
             modelBuilder.Entity<RendezVous>().Ignore(r => r.StartTimeZone);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.Status);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.Subject);
-
+            
             base.OnModelCreating(modelBuilder);
         }
 

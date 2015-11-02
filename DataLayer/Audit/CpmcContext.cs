@@ -88,18 +88,20 @@ namespace DataLayer.Model
             Trace trace = new Trace();
             // set properties independent from entity information.
             trace.Id = Guid.NewGuid();
-            trace.Date = now;    
+            trace.Date = now;
             trace.Machine = this.Machine;
             trace.UserId = this.UserId;
 
             if (entry.State == EntityState.Added)
             {
                 entity.CreatedOn = now;
-                entity.ModifiedOn =now;
+                entity.ModifiedOn = now;
                 entity.CreatedBy = UserId;
                 entity.ModifiedBy = UserId;
                 entityId = (Guid)entry.Property(entry.GetEntityKeyPropertyName()).CurrentValue;
                 trace.Action = AuditAction.Insert;
+
+                trace.ActionName = string.Format("Insertion d'un(e) {0}", entitySet);
 
             }
             else if (entry.State == EntityState.Modified)
@@ -108,12 +110,17 @@ namespace DataLayer.Model
                 entity.ModifiedOn = now;
                 entityId = (Guid)entry.Property(entry.GetEntityKeyPropertyName()).CurrentValue;
                 trace.Action = AuditAction.Update;
+
+                trace.ActionName = string.Format("Modification des informations d'un(e) {0}", entitySet);
             }
             else if (entry.State == EntityState.Deleted)
             {
                 entityId = (Guid)entry.Property(entry.GetEntityKeyPropertyName()).OriginalValue;
                 trace.Action = AuditAction.Delete;
+
+                trace.ActionName = string.Format("Suppresion d'un(e) {0}", entitySet);
             }
+
 
             if (entityId == Guid.Empty)
                 throw new ArgumentException("Auditable entity must have valid Id !");
@@ -124,7 +131,8 @@ namespace DataLayer.Model
 
             trace.Message = message;
             trace.ParentEntitySet = parentEntitySet;
-            trace.ParentEntityId = parentEntitySet == null ? null : (Guid?)parentEntityId;
+            trace.ParentEntityId = parentEntitySet == null ? null : (Guid?)parentEntityId;         
+
             return trace;
         }
 
@@ -210,6 +218,10 @@ namespace DataLayer.Model
 
             Type entityType = entry.Entity.GetType();
 
+            string[] ignoredProperties = new string[] { "AppointmentBackground", "AllDay", "EndTime", "EndTimeZone", "IsRecursive", "IsSelected", "Location",
+            "Notes","ObjectID","ReadOnly", "ReadOnlyVisibility", "RecurrenceID","RecurrenceProperites", "RecurrenceRule","ReminderTime", "ResourceCollection", 
+            "StartTime", "StartTimeZone","Status", "Subject", "DependencyObjectType","Dispatcher","IsSealed"};
+
             parentEntitySet = null;
             parentEntityId = null;
 
@@ -218,7 +230,7 @@ namespace DataLayer.Model
 
             foreach (var property in properties)
             {
-                if (property.Name == "Error")
+                if (property.Name == "Error" || ignoredProperties.Contains(property.Name))
                     continue;
                 try
                 {
