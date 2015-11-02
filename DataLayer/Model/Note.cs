@@ -12,7 +12,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Note")]
-    public class Note : Auditable, INotifyPropertyChanged,IDataErrorInfo
+    public class Note : INotifyPropertyChanged,IDataErrorInfo
     {
         #region Fields
         private string _title;
@@ -75,6 +75,11 @@ namespace DataLayer.Model
                 {
                     if (String.IsNullOrEmpty(Title))
                         result = "Spesifier le titre du note";
+                }
+                if (columnName == "Content")
+                {
+                    if (String.IsNullOrEmpty(Content))
+                        result = "Spesifier le contenu du note";
                 }
                 return result;
             }

@@ -819,16 +819,26 @@
                                             <RowDefinition Height="100"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <Syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Title,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Titre du note" />
-                                        <Syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Content,Mode=TwoWay}"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                        <Syncfusion:SfMaskedEdit  Name="TxtEditTitre" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Titre du note"  />
+                                        <Syncfusion:SfMaskedEdit AcceptsReturn="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Name="TxtEditContenu" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Content,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Contenu du note" />
                                         <Grid Grid.Row="2">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Button Grid.Column="0"  Margin="10 5">
+                                            <Button Grid.Column="0"  Margin="10 5" Command="{Binding ElementName=RootGrid,Path=DataContext.DeleteNoteCommand}">
+                                                <Button.Style>
+                                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.NoteId}" Value="{x:Static sys:Guid.Empty}">
+                                                                <Setter Property="IsEnabled" Value="False"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
                                                 <Button.Content>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
@@ -843,13 +853,44 @@
                                                         <TextBlock Text="save" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button.Content>
+                                                <Button.Style>
+                                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                                        <Setter Property="IsEnabled" Value="false" />
+                                                        <Style.Triggers>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding ElementName=TxtEditTitre, Path=(Validation.HasError)}" Value="false" />
+                                                                    <Condition Binding="{Binding ElementName=TxtEditContenu, Path=(Validation.HasError)}" Value="false" />
+                                                                    <Condition>
+                                                                        <Condition.Binding>
+                                                                            <Binding Path="DataContext.SelectedNote" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                                                <Binding.ConverterParameter>
+                                                                                    <x:Null/>
+                                                                                </Binding.ConverterParameter>
+                                                                            </Binding>
+                                                                        </Condition.Binding>
+                                                                        <Condition.Value>
+                                                                            <sys:Boolean>False</sys:Boolean>
+                                                                        </Condition.Value>
+                                                                    </Condition>
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="IsEnabled" Value="true" />
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
                                             </Button>
                                         </Grid>
                                     </Grid>
                                 </GroupBox>
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
                                 <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Header="List des notes">
-                                    <ListView ItemsSource="{Binding DataContext.NotesFakeCollection,ElementName=RootGrid}" SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote}">
+                                    <ListView ItemsSource="{Binding Path=DataContext.SelectedPatient.Notes,ElementName=RootGrid}" SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote}">
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Border BorderBrush="Black" BorderThickness="1" Margin="5">
