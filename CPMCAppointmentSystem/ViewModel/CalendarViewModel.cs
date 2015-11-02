@@ -41,9 +41,9 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _filterByPatientIsChecked;
         private bool _filterByMedecinIsChecked;
         private ListMedecinToAddView _listMedecinToAddView;
-        private AddAppointementView _addAppointementView;
+        private AddAppointementView _addAppointementView;                
         #endregion
-        #region Properties
+        #region Properties    
         public bool IsProgressRingActive
         {
             get
@@ -359,37 +359,21 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _listMedecinToAddViewLoadedCommand
                     ?? (_listMedecinToAddViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        //await LoadDoctorsToAddList();
+                        await LoadDoctorsToAddList();
 
                     }));
             }
         }
 
-        //private async Task LoadDoctorsToAddList()
-        //{
-        //    await Task.Run(() =>
-        //    {
-        //        var doctorsList = _dbContext.Medecins;
-        //        AddDoctorsToFilterList = new ObservableCollection<MedecinToAdd>();
-        //        foreach (var medecin in doctorsList)
-        //        {
-        //            AddDoctorsToFilterList.Add(new MedecinToAdd()
-        //            {
-        //                MedecinId = medecin.MedecinId,
-        //                DateDeNaissance = medecin.DateDeNaissance,
-        //                TelephoneFixe = medecin.TelephoneFixe,
-        //                TelephoneMobile = medecin.TelephoneMobile,
-        //                //SpecialitePrincipaleId = medecin.SpecialitePrincipaleId,
-        //                UserId = medecin.UserId,
-        //                //SpecialitePrincipale = medecin.SpecialitePrincipale,
-        //                User = medecin.User,
-        //                Pathologies = medecin.Pathologies,
-        //                Patients = medecin.Patients,
-        //                IsAdded = DoctorsInFilter.FirstOrDefault(x => x.MedecinId == medecin.MedecinId) != null
-        //            });
-        //        }
-        //    });
-        //}
+        private async Task LoadDoctorsToAddList()
+        {
+            AddDoctorsToFilterList = new ObservableCollection<EntityToAdd<Medecin>>(await Task.Run(() => _dbContext.Medecins.Select(s => new EntityToAdd<Medecin>()
+            {
+                Entity = s,
+                IsAdded = true
+            })));             
+           
+        }
 
         private async Task LoadAllDoctorsList()
         {

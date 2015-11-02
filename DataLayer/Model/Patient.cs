@@ -13,7 +13,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Patient")]
-    public class Patient : INotifyPropertyChanged, IDataErrorInfo
+    public class Patient :Auditable, INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
         private Guid _patientId;

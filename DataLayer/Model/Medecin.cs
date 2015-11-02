@@ -25,7 +25,7 @@ namespace DataLayer.Model
         Friday = 64       
     }
     [Table("Medecin")]
-    public class Medecin : INotifyPropertyChanged, IDataErrorInfo
+    public class Medecin : Auditable,INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
         private Days _joursDeTravail;
