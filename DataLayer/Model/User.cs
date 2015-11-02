@@ -12,7 +12,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("User")]
-    public class User : INotifyPropertyChanged, IDataErrorInfo
+    public class User :Auditable, INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
         private Guid _userId;
@@ -28,7 +28,7 @@ namespace DataLayer.Model
         #endregion
         #region Properties
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid UserId
         {
             get

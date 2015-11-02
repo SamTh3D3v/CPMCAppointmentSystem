@@ -669,6 +669,8 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private void AddNewAppointement()
         {
+            //Added by Farouk for Audit purpose
+            SelectedAppointement.RendezVousId = Guid.NewGuid();
             _dbContext.RendezVouses.Add(SelectedAppointement);
         }
 
@@ -831,6 +833,11 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         if (SelectedPieceJointe.PieceJointeId == Guid.Empty)
                         {
+                            //Added by Farouk for Audit purpose
+                            SelectedPieceJointe.PieceJointeId = Guid.NewGuid();
+                            //SelectedPieceJointe.CreatedBy = ConnectedUserId;
+                            //SelectedPieceJointe.ModifiedBy = ConnectedUserId;
+                            
                             //This is a new PieceJointe
                             if (SelectedPatient.PieceJointes == null)
                                 SelectedPatient.PieceJointes = new ObservableCollection<PieceJointe>();
@@ -898,6 +905,9 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private void AddNewPatient()
         {
+            //Added by Farouk for Audit purpose
+            SelectedPatient.PatientId = Guid.NewGuid();
+
             _dbContext.Patients.Add(SelectedPatient);            
             IsFormEnabled = false;
         }

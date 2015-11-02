@@ -205,6 +205,8 @@
     <Compile Include="Helpers\ApplicationSettings.cs" />
     <Compile Include="Helpers\AsyncWindowExtension.cs" />
     <Compile Include="Helpers\ChartTile.cs" />
+    <Compile Include="Helpers\CustomIdentity.cs" />
+    <Compile Include="Helpers\CustomPrincipal.cs" />
     <Compile Include="Helpers\FrameNavigationService.cs" />
     <Compile Include="Helpers\GsmHelper.cs" />
     <Compile Include="Helpers\IFrameNavigationService.cs" />

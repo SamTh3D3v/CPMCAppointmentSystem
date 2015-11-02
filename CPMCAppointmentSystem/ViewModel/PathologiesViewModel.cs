@@ -351,6 +351,9 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private void AddNewPathology()
         {
+            //Added by Farouk for Audit purpose
+            SelectedPathology.PathologyId = Guid.NewGuid();
+
             _dbContext.Pathologies.Add(SelectedPathology);
         }
         #endregion

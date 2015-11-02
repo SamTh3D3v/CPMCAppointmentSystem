@@ -26,7 +26,7 @@ namespace DataLayer.Model
         #endregion
         #region Properties
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid PieceJointeId
         {
             get { return _pieceJointeId; }

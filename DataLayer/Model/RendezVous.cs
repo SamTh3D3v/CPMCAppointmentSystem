@@ -50,7 +50,7 @@ namespace DataLayer.Model
         }        
       
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid RendezVousId { get; set; }
 
         [Required]

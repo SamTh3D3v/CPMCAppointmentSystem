@@ -13,7 +13,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Pathology")]
-    public class Pathology : INotifyPropertyChanged, IDataErrorInfo
+    public class Pathology :Auditable, INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
         private Guid _pathologyId;
@@ -25,7 +25,7 @@ namespace DataLayer.Model
         #endregion
         #region Properties
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid PathologyId
         {
             get { return _pathologyId; }

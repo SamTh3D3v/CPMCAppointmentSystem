@@ -17,6 +17,18 @@ namespace DataLayer.Model
                 return Environment.MachineName;
             }
         }
+
+        public Guid UserId
+        {
+            get
+            {
+                string userName = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+                User connectedUser = this.Users.SingleOrDefault(u => u.UserName == userName);
+                if (connectedUser == null)
+                    throw new System.Security.Authentication.AuthenticationException("You must be authenticated");
+                return connectedUser.UserId;
+            }
+        }
         public override int SaveChanges()
         {
             List<Trace> traceList = new List<Trace>();
@@ -64,33 +76,36 @@ namespace DataLayer.Model
                 return null;
 
             #region Local Variables
-            var entityId = Guid.NewGuid();
+            Guid entityId = Guid.Empty;
             string message = string.Empty;
             string entityKeyName = entry.GetEntityKeyPropertyName();
             string entitySet = entry.Entity.GetType().GetEntityTypeName();
             string parentEntitySet = null;
             object parentEntityId = null;
-
+            DateTime now = DateTime.Now;
             #endregion
 
             Trace trace = new Trace();
             // set properties independent from entity information.
             trace.Id = Guid.NewGuid();
-            trace.Date = DateTime.Now;
-            // trace.UserId = UserId;            
+            trace.Date = now;    
             trace.Machine = this.Machine;
+            trace.UserId = this.UserId;
 
             if (entry.State == EntityState.Added)
             {
-                entity.CreatedOn = DateTime.Now;
-                entity.ModifiedOn = DateTime.Now;
-                entry.Property(entry.GetEntityKeyPropertyName()).CurrentValue = entityId;
+                entity.CreatedOn = now;
+                entity.ModifiedOn =now;
+                entity.CreatedBy = UserId;
+                entity.ModifiedBy = UserId;
+                entityId = (Guid)entry.Property(entry.GetEntityKeyPropertyName()).CurrentValue;
                 trace.Action = AuditAction.Insert;
 
             }
             else if (entry.State == EntityState.Modified)
             {
-                ((IAuditable)entry.Entity).ModifiedOn = DateTime.Now;
+                entity.ModifiedBy = UserId;
+                entity.ModifiedOn = now;
                 entityId = (Guid)entry.Property(entry.GetEntityKeyPropertyName()).CurrentValue;
                 trace.Action = AuditAction.Update;
             }
@@ -100,15 +115,16 @@ namespace DataLayer.Model
                 trace.Action = AuditAction.Delete;
             }
 
+            if (entityId == Guid.Empty)
+                throw new ArgumentException("Auditable entity must have valid Id !");
+
             trace.EntityId = entityId;
             trace.EntitySet = entitySet;
-            //trace.Message = entry.ToAuditString();
-            // get other Audit Details
             entry.GetAuditDetail(out message, out parentEntitySet, out parentEntityId);
 
             trace.Message = message;
             trace.ParentEntitySet = parentEntitySet;
-            trace.ParentEntityId = parentEntitySet==null?null:(Guid?)parentEntityId;
+            trace.ParentEntityId = parentEntitySet == null ? null : (Guid?)parentEntityId;
             return trace;
         }
 
@@ -137,7 +153,7 @@ namespace DataLayer.Model
         }
 
         public static string GetEntityKeyPropertyName(this Type entityType)
-        {            
+        {
             // Use reflection to get properties.
             var properties = entityType.GetProperties();
 
@@ -202,6 +218,8 @@ namespace DataLayer.Model
 
             foreach (var property in properties)
             {
+                if (property.Name == "Error")
+                    continue;
                 try
                 {
                     var propertyEntry = entry.Property(property.Name); // Get Property info for Primitive properties non primistive throw ArgumentException.
@@ -225,7 +243,7 @@ namespace DataLayer.Model
                     if (referenceEntry != null && referenceEntry.CurrentValue is IAuditable)
                     {
                         var parentType = referenceEntry.CurrentValue.GetType();
-                        parentEntitySet =parentType.GetEntityTypeName();
+                        parentEntitySet = parentType.GetEntityTypeName();
                         parentEntityId = parentType.GetProperty(parentType.GetEntityKeyPropertyName()).GetValue(referenceEntry.CurrentValue);
                     }
                     continue;

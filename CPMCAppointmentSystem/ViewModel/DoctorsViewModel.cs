@@ -457,6 +457,9 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             User = new User()
                             {
+                                 //Added by Farouk for Audit purpose
+                                UserId = Guid.NewGuid(),
+
                                 RolesCollection = new RolesCollection()
                                 {
                                     //get the default medecin rolls from the xml settings file
@@ -690,6 +693,9 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private async Task AddNewDoctor()
         {
+            //Added by Farouk for Audit purpose
+            SelectedDoctor.MedecinId = Guid.NewGuid();
+
             await Task.Run(() =>
             {
                 _dbContext.Medecins.Add(SelectedDoctor);

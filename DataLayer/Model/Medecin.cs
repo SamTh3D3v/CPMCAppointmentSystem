@@ -25,7 +25,7 @@ namespace DataLayer.Model
         Friday = 64       
     }
     [Table("Medecin")]
-    public class Medecin : INotifyPropertyChanged, IDataErrorInfo
+    public class Medecin :Auditable, INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
         private Days _joursDeTravail;
@@ -44,7 +44,7 @@ namespace DataLayer.Model
         #region Properties
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid MedecinId { get; set; }
         public DateTime DateDeNaissance
         {

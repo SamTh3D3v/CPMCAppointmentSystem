@@ -15,7 +15,7 @@ namespace DataLayer.Model
     public class Note : Auditable, INotifyPropertyChanged
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid NoteId { get; set; }
         public String Title { get; set; }
         public String Content { get; set; }
