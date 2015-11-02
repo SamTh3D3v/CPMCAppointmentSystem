@@ -21,13 +21,14 @@ namespace CPMCAppointmentSystem.ViewModel
     public class SettingsViewModel : NavigableViewModelBase
     {
         #region Fields
+        private ObservableCollection<UserType> _userTypeCollection;
         private ObservableCollection<JourFerie> _listDesJoursFerieFix;
         private JourFerie _selectedJourFerieFix;
         private readonly CpmcContext _dbContext = new CpmcContext();
         private ObservableCollection<User> _usersList;
         private User _selectedUser;
         private ObservableCollection<TreeViewModel> _treeViewRollCollection = new ObservableCollection<TreeViewModel>();
-        private ObservableCollection<EntityToAdd<UserType>> _userTypeCollection;
+        private ObservableCollection<EntityToAdd<UserType>> _userTypeToAddCollection;
         private ObservableCollection<PieceJointeType> _typePieceJointeCollection;
         private PieceJointeType _selectedTypePieceJointe;
         private ObservableCollection<JourFerie> _listDesJourFeriesOccasionnelle;
@@ -37,7 +38,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<string> _monthList ;
         private SettingsCollection _settingsCollection;
         #endregion
-        #region Properties
+        #region Properties        
+        public ObservableCollection<UserType> UserTypeCollection
+        {
+            get
+            {
+                return _userTypeCollection;
+            }
+
+            set
+            {
+                if (_userTypeCollection == value)
+                {
+                    return;
+                }
+
+                _userTypeCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<string> MonthsList
         {
             get
@@ -146,21 +165,21 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<EntityToAdd<UserType>> UserTypeCollection
+        public ObservableCollection<EntityToAdd<UserType>> UserTypeToAddCollection
         {
             get
             {
-                return _userTypeCollection;
+                return _userTypeToAddCollection;
             }
 
             set
             {
-                if (_userTypeCollection == value)
+                if (_userTypeToAddCollection == value)
                 {
                     return;
                 }
 
-                _userTypeCollection = value;
+                _userTypeToAddCollection = value;
                 RaisePropertyChanged();
             }
         }
@@ -177,11 +196,10 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     return;
                 }
-
-                _selectedUser = value;
                 IsFormEnabled = value != null;
-                RaisePropertyChanged();
-                LoadRollCollectionForSelectedUser();
+
+                _selectedUser = value;                
+                RaisePropertyChanged();                
             }
         }
         public ObservableCollection<User> UsersList
@@ -545,11 +563,55 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addNewUserCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedUser=new User();                        
+                        SelectedUser = new User();
                     }));
             }
         }
 
+        private RelayCommand _deleteUserCommand;
+        public RelayCommand DeleteUserCommand
+        {
+            get
+            {
+                return _deleteUserCommand
+                    ?? (_deleteUserCommand = new RelayCommand(
+                    () =>
+                    {
+                        //todo Logical suppression 
+                        if (SelectedUser != null)
+                        {
+                            if (SelectedUser.UserId != Guid.Empty)
+                            {
+                                _dbContext.RolesCollections.Remove(SelectedUser.RolesCollection);
+                                _dbContext.Users.Remove(SelectedUser);                                
+                                _dbContext.SaveChanges();
+                                UsersList.Remove(SelectedUser);
+                                SelectedUser = null;
+                            }
+                        }
+                        
+                    }));
+            }
+        }
+        private RelayCommand _cancelAddUserCommand;
+        public RelayCommand CancelAddUserCommand
+        {
+            get
+            {
+                return _cancelAddUserCommand
+                    ?? (_cancelAddUserCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedUser != null)
+                        {
+                            if (SelectedUser.UserId != Guid.Empty)
+                                _dbContext.Entry(SelectedUser).Reload();
+                        }
+                        SelectedUser = null;
+                        
+                    }));
+            }
+        }
         private RelayCommand<object> _userTypeCheckedCommand;
 
         public RelayCommand<object> UserTypeCheckedCommand
@@ -559,9 +621,30 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _userTypeCheckedCommand
                     ?? (_userTypeCheckedCommand = new RelayCommand<object>(async (obj) =>
                     {                        
-                        var search=UserTypeCollection.Where(ut => ut.IsAdded).Select(x=>x.Entity.UserTypeId);
+                        var search=UserTypeToAddCollection.Where(ut => ut.IsAdded).Select(x=>x.Entity.UserTypeId);
                         UsersList=new ObservableCollection<User>(await  Task.Run(()=>_dbContext.Users.Where(u=>search.Contains(u.UserTypeId))));
 
+                    }));
+            }
+        }
+        private RelayCommand _userTypeChangedCommand;
+        public RelayCommand UserTypeChangedCommand
+        {
+            get
+            {
+                return _userTypeChangedCommand
+                    ?? (_userTypeChangedCommand = new RelayCommand(async () =>
+                    {
+                        if (SelectedUser!=null)
+                        {
+                            if (SelectedUser.UserType!=null)
+                            {
+                                SelectedUser.RolesCollection =
+                                                        RollsManager.GetDefaultUserRolls(SelectedUser.UserType.UserTypeName);
+                                await LoadRollCollectionForSelectedUser(); 
+                            }
+                        }
+                        
                     }));
             }
         }
@@ -581,12 +664,14 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadUserTypeCollection()
         {
-            UserTypeCollection = new ObservableCollection<EntityToAdd<UserType>>(await Task.Run(() => _dbContext.UserTypes.Select(x => new EntityToAdd<UserType>()
+            UserTypeToAddCollection = new ObservableCollection<EntityToAdd<UserType>>(await Task.Run(() => _dbContext.UserTypes.Select(x => new EntityToAdd<UserType>()
             {
                 Entity = x,               
                 IsAdded = true
             })));
-        }
+            UserTypeCollection=new ObservableCollection<UserType>(await Task.Run(()=>_dbContext.UserTypes));
+
+        }            
 
         private async Task LoadRollCollectionForSelectedUser()
         {

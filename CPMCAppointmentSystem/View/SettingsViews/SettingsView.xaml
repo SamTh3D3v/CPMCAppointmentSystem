@@ -64,7 +64,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <ListView Background="Transparent" ItemsSource="{Binding UserTypeCollection}" Grid.Column="0"  Margin="5" BorderThickness="0">
+                            <ListView Background="Transparent" ItemsSource="{Binding UserTypeToAddCollection}" Grid.Column="0"  Margin="5" BorderThickness="0">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="Focusable" Value="False"></Setter>
@@ -137,7 +137,7 @@
                             </syncfusion:SfDataGrid>
                         </Grid>
                         <GridSplitter Grid.Row="0" Grid.RowSpan="2" Background="Gray" Width="1" Margin="1" Grid.Column="1" VerticalAlignment="Stretch"/>
-                        <Grid Grid.Row="0" Grid.Column="2" IsEnabled="{Binding IsFormEnabled}" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+                        <Grid Grid.Row="0" Grid.Column="2" IsEnabled="{Binding IsFormEnabled,Mode=TwoWay}" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -159,23 +159,31 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="0"                                       
+                                    <syncfusion:SfMaskedEdit Name="TxtEditNom" Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay,
+                                        UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="0"                                       
                                      Watermark="Nom de l'utilisateur"  
                                      />
 
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1"                                      
+                                    <syncfusion:SfMaskedEdit Name="TxtEditPrenom" Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1"                                      
                                      Watermark="Prenom de l'utilisateur" 
                                      />
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="UserName" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <syncfusion:SfMaskedEdit Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2"                                   
+                                    <syncfusion:SfMaskedEdit Name="TxtEditUserName" Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2"                                   
                                      Watermark="Prenom de l'utilisateur" 
                                      />
 
 
                                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Type" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <ComboBox x:Name="CbxUserType" Margin="10 5" ItemsSource="{Binding UserTypeCollection}" DisplayMemberPath="Entity.UserTypeName" SelectedItem="{Binding SelectedUser.UserType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    <ComboBox x:Name="CbxUserType" Margin="10 5" ItemsSource="{Binding UserTypeCollection}" DisplayMemberPath="UserTypeName" SelectedItem="{Binding SelectedUser.UserType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <command:EventToCommand Command="{Binding Mode=OneWay, Path=UserTypeChangedCommand}"
+                            PassEventArgsToCommand="True" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
                                     <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="3"  Text="Type d'utilisateur" VerticalAlignment="Center">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -192,7 +200,23 @@
                             </GroupBox>
                             <GroupBox Grid.Row="1" Grid.Column="0">
                                 <GroupBox.Header>
-                                    <CheckBox Content="Changer le password" x:Name="PassCheckBox" IsChecked="False"></CheckBox>
+                                    <CheckBox  x:Name="PassCheckBox" Foreground="White">
+                                        <CheckBox.Style >                                            
+                                            <Style TargetType="CheckBox">
+                                                <Setter Property="IsChecked" Value="False"/>
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Setter Property="Content" Value="Changer le mot de passe"></Setter>
+                                                <Style.Triggers>                                                    
+                                                    <DataTrigger Binding="{Binding SelectedUser.UserId}" Value="{x:Static system:Guid.Empty}">
+                                                        <Setter Property="IsChecked" Value="True"/>
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                        <Setter Property="Content" Value="Mot de passe"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </CheckBox.Style>
+
+                                    </CheckBox>
                                 </GroupBox.Header>
                                 <Grid IsEnabled="{Binding ElementName=PassCheckBox,Path=IsChecked}">
                                     <Grid.ColumnDefinitions>
@@ -228,21 +252,62 @@
                                             AllowDragDrop="False">
                                 </syncfusion:TreeViewAdv>
                             </Expander>
-                            <Grid Grid.Row="4" Grid.Column="0"  VerticalAlignment="Bottom">
+                            <Grid Grid.Row="3" Grid.Column="0"  VerticalAlignment="Bottom">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0"  Margin="2" Command="{Binding SaveSpecialityCommand}">
+                                <Button Grid.Column="0"  Margin="2" Command="{Binding AddNewUserCommand}">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
                                             <TextBlock Text="Save" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button.Content>
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="IsEnabled" Value="false" />
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=TxtEditNom, Path=(Validation.HasError)}" Value="false" />
+                                                        <Condition Binding="{Binding ElementName=TxtEditPrenom, Path=(Validation.HasError)}" Value="false" />
+                                                        <Condition Binding="{Binding ElementName=TxtEditUserName, Path=(Validation.HasError)}" Value="false" />
+                                                        <Condition Binding="{Binding ElementName=CbxUserType, Path=(Validation.HasError)}" Value="false" />
+                                                        <Condition Binding="{Binding ElementName=UserPass, Path=(Validation.HasError)}" Value="false" />                                                        
+                                                        <Condition>
+                                                            <Condition.Binding>
+                                                                <Binding Path="SelectedUser" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                                    <Binding.ConverterParameter>
+                                                                        <x:Null/>
+                                                                    </Binding.ConverterParameter>
+                                                                </Binding>
+                                                            </Condition.Binding>
+                                                            <Condition.Value>
+                                                                <system:Boolean>False</system:Boolean>
+                                                            </Condition.Value>
+                                                        </Condition>
+                                                        <Condition>
+                                                            <Condition.Binding>
+                                                                <Binding Path="SelectedUser.UserType" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                                    <Binding.ConverterParameter>
+                                                                        <x:Null/>
+                                                                    </Binding.ConverterParameter>
+                                                                </Binding>
+                                                            </Condition.Binding>
+                                                            <Condition.Value>
+                                                                <system:Boolean>False</system:Boolean>
+                                                            </Condition.Value>
+                                                        </Condition>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="IsEnabled" Value="true" />
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
                                 </Button>
-                                <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteSpecialityCommand}">
+                                <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteUserCommand}">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
@@ -250,7 +315,7 @@
                                         </StackPanel>
                                     </Button.Content>
                                 </Button>
-                                <Button Grid.Column="2"  Margin="2" Command="{Binding CancelSpecialityChangesCommand}">
+                                <Button Grid.Column="2"  Margin="2" Command="{Binding CancelAddUserCommand}">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />

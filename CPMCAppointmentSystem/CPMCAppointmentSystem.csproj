@@ -243,6 +243,7 @@
     <Compile Include="SampleData\DataService.cs" />
     <Compile Include="SampleData\IDataService.cs" />
     <Compile Include="SubModel\EntityToAdd.cs" />
+    <Compile Include="SubModel\RollsManager.cs" />
     <Compile Include="SubModel\SettingsCollection.cs" />
     <Compile Include="UserControls\NotificationTile.xaml.cs">
       <DependentUpon>NotificationTile.xaml</DependentUpon>

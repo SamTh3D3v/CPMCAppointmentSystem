@@ -105,8 +105,6 @@ namespace DataLayer.Model
             }
         }
 
-
-
         public virtual Guid? RolesCollectionId
         {
             get { return _rolesCollectionId; }

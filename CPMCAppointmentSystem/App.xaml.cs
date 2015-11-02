@@ -27,7 +27,12 @@ namespace CPMCAppointmentSystem
         public static String NotificationViewKey = "NotificationView";
         public static String LogViewKey = "LogView";
         public static String RecuDeDepotReport = "Reports/RecuDeDepot.rdlc";
-        public static String RendezVousReport = "Reports/Rendez_Vous.rdlc";        
+        public static String RendezVousReport = "Reports/Rendez_Vous.rdlc";
+
+        public static String Admin = "Admin";
+        public static String Medecin = "Medecin";
+        public static String Agent = "Agent";
+  
 
         #endregion
         public App():base()
