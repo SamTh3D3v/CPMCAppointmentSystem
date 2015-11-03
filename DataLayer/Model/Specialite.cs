@@ -13,7 +13,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("Specialite")]
-    public class Specialite : INotifyPropertyChanged, IDataErrorInfo
+    public class Specialite :Auditable, INotifyPropertyChanged, IDataErrorInfo
     {      
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -230,6 +230,7 @@ namespace DataLayer.Model
             }
         }
 
+        [Parent]
         [ForeignKey("PathologyId")]
         public virtual Pathology Pathology
         {

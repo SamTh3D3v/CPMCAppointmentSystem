@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audit\CpmcContext.cs" />
+    <Compile Include="Audit\ParentAttribute.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Adresse.cs" />
     <Compile Include="Model\Auditable.cs" />

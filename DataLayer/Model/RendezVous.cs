@@ -87,6 +87,7 @@ namespace DataLayer.Model
             }
         }
 
+        [Parent]
         [ForeignKey("PatientId")]
         public virtual Patient Patient
         {

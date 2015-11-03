@@ -115,7 +115,7 @@ namespace DataLayer.Model
         //        OnPropertyChanged();
         //    }
         //}
-
+        [Parent]
         [ForeignKey("UserId")]
         public virtual User User
         {

@@ -250,6 +250,9 @@ namespace DataLayer.Model
 
                 try
                 {
+                    if (property.GetCustomAttributes(typeof(ParentAttribute), false).Count() <= 0)
+                        continue;
+
                     var referenceEntry = entry.Reference(property.Name);
 
                     if (referenceEntry != null && referenceEntry.CurrentValue is IAuditable)
