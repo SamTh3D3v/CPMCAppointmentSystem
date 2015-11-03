@@ -127,6 +127,7 @@
                                        ItemsSource="{Binding UsersList,Mode=TwoWay}"                                                   
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedUser,Mode=TwoWay}"
+                                                   SelectionChanged="SfDataGrid_OnSelectionChanged"
                                        ShowGroupDropArea="True" >
                                 <syncfusion:SfDataGrid.Columns>
                                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="UserNom" />
@@ -195,12 +196,11 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
-
                                 </Grid>
                             </GroupBox>
                             <GroupBox Grid.Row="1" Grid.Column="0">
                                 <GroupBox.Header>
-                                    <CheckBox  x:Name="PassCheckBox" Foreground="White">
+                                    <CheckBox  x:Name="PassCheckBox" Foreground="White" Unchecked="PassCheckBox_OnUnChecked" Checked="PassCheckBox_OnChecked">
                                         <CheckBox.Style >
                                             <Style TargetType="CheckBox">
                                                 <Setter Property="IsChecked" Value="False"/>
@@ -258,7 +258,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Tag="no"  Margin="2" Command="{Binding SaveAddNewUserCommand}" CommandParameter="{Binding ElementName=UserPass}" x:Name="BtnSave">
+                                <Button Grid.Column="0" Tag="no"  Margin="2" Command="{Binding SaveAddNewUserCommand}" x:Name="BtnSave">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -268,6 +268,7 @@
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                             <Setter Property="IsEnabled" Value="false" />
+                                            <Setter Property="CommandParameter" Value="{x:Null}"></Setter>
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
@@ -309,6 +310,9 @@
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter Property="IsEnabled" Value="true" />
                                                 </MultiDataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=PassCheckBox,Path=IsChecked}" Value="True">
+                                                    <Setter Property="CommandParameter" Value="{Binding ElementName=UserPass}"/>
+                                                </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
