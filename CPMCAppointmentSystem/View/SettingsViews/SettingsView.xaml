@@ -244,12 +244,198 @@
                             </GroupBox>
 
                             <Expander IsExpanded="True" Grid.Row="2" Grid.Column="0"  Header="Rolls">
-                                <syncfusion:TreeViewAdv ItemsSource="{Binding TreeViewRollCollection}" ItemTemplate="{StaticResource TvItemTemplate}" Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
+                                <Expander.Style>                                    
+                                    <Style TargetType="Expander">
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=CbxUserType,Path=SelectedItem}" Value="{x:Null}">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Expander.Style>
+                                <syncfusion:TreeViewAdv  Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
                                             AnimationType="Fade"
                                             ItemContainerStyle="{StaticResource TreeViewItemConStyle}" 
                                             ShowRootLines="True" 
                                             AllowMultiSelect="False" 
                                             AllowDragDrop="False">
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <CheckBox Content="CalendarView"/>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="AppointementViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.AppointementViewAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="AppointementEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.AppointementEditAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+                                    
+                                    
+                                     <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <CheckBox Content="DoctorsView"/>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="DoctorsViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.DoctorsViewAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="DoctorsEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.DoctorsAddAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <CheckBox Content="PatientView" />
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="PatientsViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.PatientsViewAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="PatientsEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.PatientsEditAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="PatientsEditAppointementAllow" IsChecked="{Binding SelectedUser.RolesCollection.PatientsEditAppointementAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <CheckBox Content="SpecialitePrincipaleView" />
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SpecialitiesViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.SpecialitiesViewAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SpecialitiesEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.SpecialitiesEditAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <CheckBox Content="PathologyView" />
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="PathologiesViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.PathologiesViewAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="PathologiesEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.PathologiesEditAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <CheckBox Content="MyPatientsView"/>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="MyPatientsViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.MyPatientsViewAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="MyPatientsEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.MyPatientsEditAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv> 
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="MyPatientsEditAppointementAllow" IsChecked="{Binding SelectedUser.RolesCollection.MyPatientsEditAppointementAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <CheckBox Content="Sms Notifications View"/>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SmsNotificationViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.SmsNotificationViewAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SmsNotificationEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.SmsNotificationEditAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+                                    
+                                    
+                                    
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <CheckBox Content="Settings View" IsChecked="{Binding SelectedUser.RolesCollection.AppointementViewAllow}"/>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SettingsViewUsersAllow" IsChecked="{Binding SelectedUser.RolesCollection.SettingsViewUsersAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SettingsEditUsersAllow" IsChecked="{Binding SelectedUser.RolesCollection.SettingsEditUsersAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv> 
+                                            <syncfusion:TreeViewItemAdv  >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SettingsMangeThemeAllow" IsChecked="{Binding SelectedUser.RolesCollection.SettingsMangeThemeAllow}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+
+
+
                                 </syncfusion:TreeViewAdv>
                             </Expander>
                             <Grid Grid.Row="3" Grid.Column="0"  VerticalAlignment="Bottom">
@@ -511,7 +697,7 @@
                                 <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>                                        
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Button Grid.Column="0"  Width="180"  Margin="2" Command="{Binding SavePatientStatusCommand}">
                                         <Button.Content>
@@ -528,8 +714,8 @@
                                                 <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                         </Button.Content>
-                                    </Button> 
-                                   
+                                    </Button>
+
                                 </Grid>
                             </Grid>
                         </TabItem>

@@ -18,7 +18,7 @@ using Xceed.Wpf.Toolkit;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
-    
+
     public class SettingsViewModel : NavigableViewModelBase
     {
         #region Fields
@@ -36,10 +36,10 @@ namespace CPMCAppointmentSystem.ViewModel
         private JourFerie _selectedJourFerie;
         private string _reportPath;
         private bool _isFormEnabled;
-        private ObservableCollection<string> _monthList ;
+        private ObservableCollection<string> _monthList;
         private SettingsCollection _settingsCollection;
         #endregion
-        #region Properties        
+        #region Properties
         public ObservableCollection<UserType> UserTypeCollection
         {
             get
@@ -76,7 +76,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public  ObservableCollection<JourFerie> ListDesJoursFerieFix
+        public ObservableCollection<JourFerie> ListDesJoursFerieFix
         {
             get
             {
@@ -199,8 +199,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
                 IsFormEnabled = value != null;
 
-                _selectedUser = value;                
-                RaisePropertyChanged();                
+                _selectedUser = value;
+                RaisePropertyChanged();
             }
         }
         public ObservableCollection<User> UsersList
@@ -274,7 +274,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _selectedTypePieceJointe = value;
                 RaisePropertyChanged();
             }
-        }                        
+        }
         public ObservableCollection<JourFerie> ListDesJourFeriesOccasionnelle
         {
             get
@@ -292,7 +292,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _listDesJourFeriesOccasionnelle = value;
                 RaisePropertyChanged();
             }
-        }               
+        }
         public JourFerie SelectedJourFerie
         {
             get
@@ -318,8 +318,8 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             get
             {
-                return  _savePatientStatusCommand
-                    ?? ( _savePatientStatusCommand = new RelayCommand(
+                return _savePatientStatusCommand
+                    ?? (_savePatientStatusCommand = new RelayCommand(
                     () =>
                     {
                         SettingsCollection.SaveScheduleSettingsToDataBase();   //this a temporary hack to be updated //todo
@@ -350,7 +350,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_resetPatientStatusCommand = new RelayCommand(
                     () =>
                     {
-                      //Todo   
+                        //Todo   
                     }));
             }
         }
@@ -362,7 +362,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _statusDesPatientsSettingsLoadedCommand
                     ?? (_statusDesPatientsSettingsLoadedCommand = new RelayCommand(async () =>
                     {
-                        SettingsCollection=new SettingsCollection();
+                        SettingsCollection = new SettingsCollection();
                         await SettingsCollection.LoadSchedulerSettings();
                         RaisePropertyChanged("SettingsCollection");
                     }));
@@ -376,7 +376,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _settingsViewLoadedCommand
                     ?? (_settingsViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        
+
                     }));
             }
         }
@@ -415,18 +415,18 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _jourFerieDataGridLoadedCommand
                     ?? (_jourFerieDataGridLoadedCommand = new RelayCommand(async () =>
                     {
-                        
+
                         await LoadJourFerieOcasion();
-                        await LoadJourFerieFix();                        
+                        await LoadJourFerieFix();
                     }));
             }
         }
 
-       
+
 
         private async Task LoadJourFerieOcasion()
         {
-            ListDesJourFeriesOccasionnelle=new ObservableCollection<JourFerie>(await Task.Run(()=>_dbContext.JourFeries.Where(x=>x.TypeJourFerie==TypeJourFerie.Ocas)));
+            ListDesJourFeriesOccasionnelle = new ObservableCollection<JourFerie>(await Task.Run(() => _dbContext.JourFeries.Where(x => x.TypeJourFerie == TypeJourFerie.Ocas)));
         }
         private async Task LoadJourFerieFix()
         {
@@ -479,19 +479,19 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _saveJourFerieOcasCommand
                     ?? (_saveJourFerieOcasCommand = new RelayCommand(async () =>
                         {
-                           await Task.Run(() => ListDesJourFeriesOccasionnelle.ForEach((jf) =>
-                           {
-                               if (jf.JourFerieId == Guid.Empty)
-                               {
-                                   _dbContext.JourFeries.Add(new JourFerie()
-                                   {
-                                       DateJourFerie = jf.DateJourFerie,
-                                       TitreJourFerie = jf.TitreJourFerie,
-                                       DescriptionJourFerie = jf.DescriptionJourFerie,
-                                       TypeJourFerie = TypeJourFerie.Ocas
-                                   });
-                               }
-                           }));                          
+                            await Task.Run(() => ListDesJourFeriesOccasionnelle.ForEach((jf) =>
+                            {
+                                if (jf.JourFerieId == Guid.Empty)
+                                {
+                                    _dbContext.JourFeries.Add(new JourFerie()
+                                    {
+                                        DateJourFerie = jf.DateJourFerie,
+                                        TitreJourFerie = jf.TitreJourFerie,
+                                        DescriptionJourFerie = jf.DescriptionJourFerie,
+                                        TypeJourFerie = TypeJourFerie.Ocas
+                                    });
+                                }
+                            }));
                             _dbContext.SaveChanges();
                             await LoadJourFerieOcasion();
                         }));
@@ -505,19 +505,19 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _saveJourFerieFixCommand
                     ?? (_saveJourFerieFixCommand = new RelayCommand(async () =>
                         {
-                           await Task.Run(() => ListDesJoursFerieFix.ForEach((jf) =>
-                           {
-                               if (jf.JourFerieId == Guid.Empty)
-                               {
-                                   _dbContext.JourFeries.Add(new JourFerie()
-                                   {
-                                       DateJourFerie = jf.DateJourFerie,
-                                       TitreJourFerie = jf.TitreJourFerie,
-                                       DescriptionJourFerie = jf.DescriptionJourFerie,
-                                       TypeJourFerie = TypeJourFerie.Fix
-                                   });
-                               }
-                           }));                          
+                            await Task.Run(() => ListDesJoursFerieFix.ForEach((jf) =>
+                            {
+                                if (jf.JourFerieId == Guid.Empty)
+                                {
+                                    _dbContext.JourFeries.Add(new JourFerie()
+                                    {
+                                        DateJourFerie = jf.DateJourFerie,
+                                        TitreJourFerie = jf.TitreJourFerie,
+                                        DescriptionJourFerie = jf.DescriptionJourFerie,
+                                        TypeJourFerie = TypeJourFerie.Fix
+                                    });
+                                }
+                            }));
                             _dbContext.SaveChanges();
                             await LoadJourFerieFix();
                         }));
@@ -610,7 +610,7 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
         private RelayCommand<object> _SaveAddNewUserCommand;
-     
+
         public RelayCommand<object> SaveAddNewUserCommand
         {
             get
@@ -627,10 +627,10 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             await AddNewUser();
                         }
-                        _dbContext.SaveChanges();                        
-                        await  LoadUsersList();
+                        _dbContext.SaveChanges();
+                        await LoadUsersList();
                         SelectedUser = null;
-                        
+
                     }));
             }
         }
@@ -659,17 +659,17 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (SelectedUser != null)
                         {
                             //You can't delete a doc from the users view, only from the Doctors View
-                            if (SelectedUser.UserId != Guid.Empty && SelectedUser.UserType.UserTypeName!=App.Medecin)
+                            if (SelectedUser.UserId != Guid.Empty && SelectedUser.UserType.UserTypeName != App.Medecin)
                             {
                                 _dbContext.RolesCollections.Remove(SelectedUser.RolesCollection);
-                                _dbContext.Users.Remove(SelectedUser);                                
+                                _dbContext.Users.Remove(SelectedUser);
                                 _dbContext.SaveChanges();
                                 UsersList.Remove(SelectedUser);
                                 SelectedUser = null;
                                 TreeViewRollCollection = null;
                             }
                         }
-                        
+
                     }));
             }
         }
@@ -688,7 +688,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 _dbContext.Entry(SelectedUser).Reload();
                         }
                         SelectedUser = null;
-                        
+
                     }));
             }
         }
@@ -700,9 +700,9 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _userTypeCheckedCommand
                     ?? (_userTypeCheckedCommand = new RelayCommand<object>(async (obj) =>
-                    {                        
-                        var search=UserTypeToAddCollection.Where(ut => ut.IsAdded).Select(x=>x.Entity.UserTypeId);
-                        UsersList=new ObservableCollection<User>(await  Task.Run(()=>_dbContext.Users.Where(u=>search.Contains(u.UserTypeId))));
+                    {
+                        var search = UserTypeToAddCollection.Where(ut => ut.IsAdded).Select(x => x.Entity.UserTypeId);
+                        UsersList = new ObservableCollection<User>(await Task.Run(() => _dbContext.Users.Where(u => search.Contains(u.UserTypeId))));
 
                     }));
             }
@@ -715,16 +715,15 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _userTypeChangedCommand
                     ?? (_userTypeChangedCommand = new RelayCommand(async () =>
                     {
-                        if (SelectedUser!=null)
+                        if (SelectedUser != null)
                         {
-                            if (SelectedUser.UserType!=null)
+                            if (SelectedUser.UserType != null)
                             {
                                 SelectedUser.RolesCollection =
-                                                        RollsManager.GetDefaultUserRolls(SelectedUser.UserType.UserTypeName);
-                                await LoadRollCollectionForSelectedUser(); 
+                                                   RollsManager.GetDefaultUserRolls(SelectedUser.UserType.UserTypeName);                                                               
                             }
                         }
-                        
+
                     }));
             }
         }
@@ -746,184 +745,180 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             UserTypeToAddCollection = new ObservableCollection<EntityToAdd<UserType>>(await Task.Run(() => _dbContext.UserTypes.Select(x => new EntityToAdd<UserType>()
             {
-                Entity = x,               
+                Entity = x,
                 IsAdded = true
             })));
-            UserTypeCollection=new ObservableCollection<UserType>(await Task.Run(()=>_dbContext.UserTypes));
+            UserTypeCollection = new ObservableCollection<UserType>(await Task.Run(() => _dbContext.UserTypes));
 
-        }            
-
-        private async Task LoadRollCollectionForSelectedUser()
-        {
-
-            await Task.Run(() =>
-            {           
-                if (SelectedUser != null)
-                {
-
-                    if (SelectedUser.RolesCollection == null)
-                    {
-                        SelectedUser.RolesCollection = new RolesCollection();
-                    }
-                    TreeViewRollCollection = new ObservableCollection<TreeViewModel>()
-                {
-                    new TreeViewModel()
-                    {
-                        Content = "CalendarView",
-                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                        {
-                            new TreeViewModel()
-                            {
-                                Content = "AppointementViewAllow",
-                                IsChecked = SelectedUser.RolesCollection.AppointementViewAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "AppointementEditAllow",
-                                IsChecked = SelectedUser.RolesCollection.AppointementEditAllow
-                            }
-                        }
-                    },
-                    new TreeViewModel()
-                    {
-                        Content = "Doctors View",
-                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                        {
-                            new TreeViewModel()
-                            {
-                                Content = "DoctorsViewAllow",
-                                IsChecked = SelectedUser.RolesCollection.DoctorsViewAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "DoctorsAddAllow",
-                                IsChecked = SelectedUser.RolesCollection.DoctorsAddAllow
-                            }
-                        }
-                    },
-                    new TreeViewModel()
-                    {
-                        Content = "Patient View",
-                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                        {
-                            new TreeViewModel()
-                            {
-                                Content = "PatientsViewAllow",
-                                IsChecked = SelectedUser.RolesCollection.PatientsViewAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "PatientsEditAllow",
-                                IsChecked = SelectedUser.RolesCollection.PatientsEditAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "PatientsEditAppointementAllow",
-                                IsChecked = SelectedUser.RolesCollection.PatientsEditAppointementAllow
-                            }
-                        }
-                    },
-                    new TreeViewModel()
-                    {
-                        Content = "SpecialitePrincipale View",
-                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                        {
-                            new TreeViewModel()
-                            {
-                                Content = "SpecialitiesViewAllow",
-                                IsChecked = SelectedUser.RolesCollection.SpecialitiesViewAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "SpecialitiesEditAllow",
-                                IsChecked = SelectedUser.RolesCollection.SpecialitiesEditAllow
-                            }
-                        }
-                    },
-                    new TreeViewModel()
-                    {
-                        Content = "Pathology View",
-                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                        {
-                            new TreeViewModel()
-                            {
-                                Content = "PathologiesViewAllow",
-                                IsChecked = SelectedUser.RolesCollection.PathologiesViewAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "PathologiesEditAllow",
-                                IsChecked = SelectedUser.RolesCollection.PathologiesEditAllow
-                            }
-                        }
-                    },
-                    new TreeViewModel()
-                    {
-                        Content = "MyPatients View",
-                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                        {
-                            new TreeViewModel()
-                            {
-                                Content = "MyPatientsViewAllow",
-                                IsChecked = SelectedUser.RolesCollection.MyPatientsViewAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "MyPatientsEditAllow",
-                                IsChecked = SelectedUser.RolesCollection.MyPatientsEditAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "MyPatientsEditAppointementAllow",
-                                IsChecked = SelectedUser.RolesCollection.MyPatientsEditAppointementAllow
-                            }
-                        }
-                    },
-                    new TreeViewModel()
-                    {
-                        Content = "Sms Notifications View",
-                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                        {
-                            new TreeViewModel()
-                            {
-                                Content = "SmsNotificationViewAllow",
-                                IsChecked = SelectedUser.RolesCollection.SmsNotificationViewAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "SmsNotificationEditAllow",
-                                IsChecked = SelectedUser.RolesCollection.SmsNotificationEditAllow
-                            }
-
-                        }
-                    },
-                    new TreeViewModel()
-                    {
-                        Content = "Settings View",
-                        TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
-                        {
-                            new TreeViewModel()
-                            {
-                                Content = "SettingsViewUsersAllow",
-                                IsChecked = SelectedUser.RolesCollection.SettingsViewUsersAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "SettingsEditUsersAllow",
-                                IsChecked = SelectedUser.RolesCollection.SettingsEditUsersAllow
-                            },
-                            new TreeViewModel()
-                            {
-                                Content = "SettingsMangeThemeAllow",
-                                IsChecked = SelectedUser.RolesCollection.SettingsMangeThemeAllow
-                            }
-                        }
-                    }
-
-                };
-                }
-            });
         }
+
+        //private async Task LoadRollCollectionForSelectedUser()
+        //{
+
+        //    await Task.Run(() =>
+        //    {
+        //        if (SelectedUser != null)
+        //        {
+
+        //            TreeViewRollCollection = new ObservableCollection<TreeViewModel>()
+        //        {
+        //            new TreeViewModel()
+        //            {
+        //                Content = "CalendarView",
+        //                TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+        //                {
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "AppointementViewAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.AppointementViewAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "AppointementEditAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.AppointementEditAllow
+        //                    }
+        //                }
+        //            },
+        //            new TreeViewModel()
+        //            {
+        //                Content = "DoctorsView",
+        //                TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+        //                {
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "DoctorsViewAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.DoctorsViewAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "DoctorsAddAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.DoctorsAddAllow
+        //                    }
+        //                }
+        //            },
+        //            new TreeViewModel()
+        //            {
+        //                Content = "PatientView",
+        //                TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+        //                {
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "PatientsViewAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.PatientsViewAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "PatientsEditAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.PatientsEditAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "PatientsEditAppointementAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.PatientsEditAppointementAllow
+        //                    }
+        //                }
+        //            },
+        //            new TreeViewModel()
+        //            {
+        //                Content = "SpecialitePrincipaleView",
+        //                TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+        //                {
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "SpecialitiesViewAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.SpecialitiesViewAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "SpecialitiesEditAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.SpecialitiesEditAllow
+        //                    }
+        //                }
+        //            },
+        //            new TreeViewModel()
+        //            {
+        //                Content = "PathologyView",
+        //                TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+        //                {
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "PathologiesViewAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.PathologiesViewAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "PathologiesEditAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.PathologiesEditAllow
+        //                    }
+        //                }
+        //            },
+        //            new TreeViewModel()
+        //            {
+        //                Content = "MyPatientsView",
+        //                TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+        //                {
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "MyPatientsViewAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.MyPatientsViewAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "MyPatientsEditAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.MyPatientsEditAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "MyPatientsEditAppointementAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.MyPatientsEditAppointementAllow
+        //                    }
+        //                }
+        //            },
+        //            new TreeViewModel()
+        //            {
+        //                Content = "Sms Notifications View",
+        //                TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+        //                {
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "SmsNotificationViewAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.SmsNotificationViewAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "SmsNotificationEditAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.SmsNotificationEditAllow
+        //                    }
+
+        //                }
+        //            },
+        //            new TreeViewModel()
+        //            {
+        //                Content = "Settings View",
+        //                TreeViewModelCollection = new ObservableCollection<TreeViewModel>()
+        //                {
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "SettingsViewUsersAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.SettingsViewUsersAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "SettingsEditUsersAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.SettingsEditUsersAllow
+        //                    },
+        //                    new TreeViewModel()
+        //                    {
+        //                        Content = "SettingsMangeThemeAllow",
+        //                        IsChecked = SelectedUser.RolesCollection.SettingsMangeThemeAllow
+        //                    }
+        //                }
+        //            }
+
+        //        };
+        //        }
+        //    });
+        //}
         #endregion
     }
 }

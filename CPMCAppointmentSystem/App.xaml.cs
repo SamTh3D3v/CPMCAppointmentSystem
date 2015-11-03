@@ -49,6 +49,7 @@ namespace CPMCAppointmentSystem
             var errorMessage = string.Format("An exception occurred: {0}", e.Exception.Message);
             var controller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Opération non permise, Details :", errorMessage));
             e.Handled = true;
+            
         }
 
         public async void DomainUnhandlerEceptionHandler(object sender, UnhandledExceptionEventArgs args)

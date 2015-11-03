@@ -44,6 +44,7 @@ namespace CPMCAppointmentSystem.View.SettingsViews
             BtnSave.Tag = "yes";
             UserPass.Clear();
             UserConfirmPass.Clear();
+            
         }
 
         private void PassCheckBox_OnUnChecked(object sender, RoutedEventArgs e)

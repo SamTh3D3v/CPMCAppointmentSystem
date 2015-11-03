@@ -90,7 +90,7 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _notificationViewLoadedCommand
                     ?? (_notificationViewLoadedCommand = new RelayCommand(async () =>
-                    {
+                    {                        
                         _dbContext = new CpmcContext();
                         await LoadRdvs();
                         try
