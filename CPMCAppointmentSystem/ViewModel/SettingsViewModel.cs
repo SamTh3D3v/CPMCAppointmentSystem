@@ -327,6 +327,33 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand _cancelPatientStatusCommand;
+        public RelayCommand CancelPatientStatusCommand
+        {
+            get
+            {
+                return _cancelPatientStatusCommand
+                    ?? (_cancelPatientStatusCommand = new RelayCommand(async () =>
+                    {
+                        SettingsCollection = new SettingsCollection();
+                        await SettingsCollection.LoadSchedulerSettings();
+                        RaisePropertyChanged("SettingsCollection");
+                    }));
+            }
+        }
+        private RelayCommand _resetPatientStatusCommand;
+        public RelayCommand ResetPatientStatusCommand
+        {
+            get
+            {
+                return _resetPatientStatusCommand
+                    ?? (_resetPatientStatusCommand = new RelayCommand(
+                    () =>
+                    {
+                      //Todo   
+                    }));
+            }
+        }
         private RelayCommand _statusDesPatientsSettingsLoadedCommand;
         public RelayCommand StatusDesPatientsSettingsLoadedCommand
         {

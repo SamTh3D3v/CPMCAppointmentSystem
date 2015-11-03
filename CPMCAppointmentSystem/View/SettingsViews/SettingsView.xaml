@@ -504,12 +504,12 @@
                                         </GroupBox>
                                     </Expander>
                                 </Grid>
-                                <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom">
+                                <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>                                        
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SavePatientStatusCommand}">
+                                    <Button Grid.Column="0"  Width="180"  Margin="2" Command="{Binding SavePatientStatusCommand}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -517,14 +517,15 @@
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-                                    <Button Grid.Column="1" HorizontalAlignment="Left" Width="200"  Margin="2" Command="{Binding CancelPatientStatusCommand}">
+                                    <Button Grid.Column="1" Width="180"  Margin="2" Command="{Binding CancelPatientStatusCommand}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
                                                 <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                         </Button.Content>
-                                    </Button>
+                                    </Button> 
+                                   
                                 </Grid>
                             </Grid>
                         </TabItem>
