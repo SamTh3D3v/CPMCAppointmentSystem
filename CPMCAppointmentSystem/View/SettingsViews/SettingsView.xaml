@@ -201,12 +201,12 @@
                             <GroupBox Grid.Row="1" Grid.Column="0">
                                 <GroupBox.Header>
                                     <CheckBox  x:Name="PassCheckBox" Foreground="White">
-                                        <CheckBox.Style >                                            
+                                        <CheckBox.Style >
                                             <Style TargetType="CheckBox">
                                                 <Setter Property="IsChecked" Value="False"/>
                                                 <Setter Property="IsEnabled" Value="True"/>
                                                 <Setter Property="Content" Value="Changer le mot de passe"></Setter>
-                                                <Style.Triggers>                                                    
+                                                <Style.Triggers>
                                                     <DataTrigger Binding="{Binding SelectedUser.UserId}" Value="{x:Static system:Guid.Empty}">
                                                         <Setter Property="IsChecked" Value="True"/>
                                                         <Setter Property="IsEnabled" Value="False"/>
@@ -258,7 +258,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Tag="no"  Margin="2" Command="{Binding SaveAddNewUserCommand}" x:Name="BtnSave">
+                                <Button Grid.Column="0" Tag="no"  Margin="2" Command="{Binding SaveAddNewUserCommand}" CommandParameter="{Binding ElementName=UserPass}" x:Name="BtnSave">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -274,7 +274,7 @@
                                                         <Condition Binding="{Binding ElementName=TxtEditNom, Path=(Validation.HasError)}" Value="false" />
                                                         <Condition Binding="{Binding ElementName=TxtEditPrenom, Path=(Validation.HasError)}" Value="false" />
                                                         <Condition Binding="{Binding ElementName=TxtEditUserName, Path=(Validation.HasError)}" Value="false" />
-                                                        <Condition Binding="{Binding ElementName=CbxUserType, Path=(Validation.HasError)}" Value="false" />                                                                                                              
+                                                        <Condition Binding="{Binding ElementName=CbxUserType, Path=(Validation.HasError)}" Value="false" />
                                                         <Condition>
                                                             <Condition.Binding>
                                                                 <Binding Path="SelectedUser" Converter="{StaticResource IsValueEqualToParameterConverter}">
@@ -286,7 +286,7 @@
                                                             <Condition.Value>
                                                                 <system:Boolean>False</system:Boolean>
                                                             </Condition.Value>
-                                                        </Condition>                                                       
+                                                        </Condition>
                                                         <Condition>
                                                             <Condition.Binding>
                                                                 <Binding Path="SelectedUser.UserType" Converter="{StaticResource IsValueEqualToParameterConverter}">
@@ -299,7 +299,8 @@
                                                                 <system:Boolean>False</system:Boolean>
                                                             </Condition.Value>
                                                         </Condition>
-                                                        <Condition Binding="{Binding ElementName=BtnSave, Path=Tag}" >   <!--pass==confirmpass-->
+                                                        <Condition Binding="{Binding ElementName=BtnSave, Path=Tag}" >
+                                                            <!--pass==confirmpass-->
                                                             <Condition.Value>
                                                                 <system:String>yes</system:String>
                                                             </Condition.Value>
@@ -321,45 +322,17 @@
                                     </Button.Content>
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                                            <Setter Property="IsEnabled" Value="false" />
+                                            <Setter Property="IsEnabled" Value="True" />
                                             <Style.Triggers>
-                                                <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                         <Condition>
-                                                            <Condition.Binding>
-                                                                <Binding Path="SelectedUser" Converter="{StaticResource IsValueEqualToParameterConverter}">
-                                                                    <Binding.ConverterParameter>
-                                                                        <x:Null/>
-                                                                    </Binding.ConverterParameter>
-                                                                </Binding>
-                                                            </Condition.Binding>
-                                                            <Condition.Value>
-                                                                <system:Boolean>False</system:Boolean>
-                                                            </Condition.Value>
-                                                        </Condition> 
-                                                        <Condition>
-                                                            <Condition.Binding>
-                                                                <Binding Path="SelectedUser.UserId" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:Guid.Empty}"/>
-                                                            </Condition.Binding>
-                                                            <Condition.Value>
-                                                                <system:Boolean>False</system:Boolean>
-                                                            </Condition.Value>
-                                                        </Condition>
-                                                        <Condition>
-                                                            <Condition.Binding>
-                                                                <Binding Path="SelectedUser.UserType.UserTypeName" Converter="{StaticResource IsValueEqualToParameterConverter}" >
-                                                                    <Binding.ConverterParameter>
-                                                                        <system:String>Medecin</system:String>
-                                                                    </Binding.ConverterParameter>
-                                                                </Binding>
-                                                            </Condition.Binding>
-                                                            <Condition.Value>
-                                                                <system:Boolean>False</system:Boolean>
-                                                            </Condition.Value>
-                                                        </Condition>
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter Property="IsEnabled" Value="true" />
-                                                </MultiDataTrigger>
+                                                <DataTrigger Binding="{Binding SelectedUser.UserId}" Value="{x:Static system:Guid.Empty}">
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                </DataTrigger>  
+                                                <DataTrigger Binding="{Binding SelectedUser.UserType.UserTypeName}" >
+                                                    <DataTrigger.Value>
+                                                        <system:String>Medecin</system:String>
+                                                    </DataTrigger.Value>
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
@@ -410,7 +383,7 @@
                             </TabItem.Header>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>                                    
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -481,7 +454,7 @@
                                                 <ToggleButton Grid.Column="2" Grid.Row="0" Margin="5" IsChecked="{Binding SettingsCollection[FemmeSetting].Blink}" Background="{StaticResource AccentColorBrush}" Content="Clignoter" Foreground="WhiteSmoke"/>
                                             </Grid>
                                         </GroupBox>
-                                    </Grid>                                    
+                                    </Grid>
                                 </Expander>
                                 <Expander Header="Professionel" Grid.Row="1">
                                     <GroupBox Header="Carte proffesionel" Grid.Row="0" Grid.Column="0">
@@ -524,7 +497,7 @@
                                             <TextBlock Text="Jour" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                                         </Grid>
                                     </GroupBox>
-                                </Expander>                                                                
+                                </Expander>
                             </Grid>
                         </TabItem>
                         <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">

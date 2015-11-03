@@ -27,7 +27,6 @@ namespace CPMCAppointmentSystem.View.SettingsViews
                         
         }
 
-
         private void UserPass_OnPasswordChanged(object sender, RoutedEventArgs e)
         {
             if (!String.IsNullOrEmpty(UserPass.Password) && UserPass.Password.Equals(UserConfirmPass.Password))

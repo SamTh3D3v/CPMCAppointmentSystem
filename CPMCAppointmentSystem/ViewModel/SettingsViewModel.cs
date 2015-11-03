@@ -625,6 +625,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 _dbContext.SaveChanges();
                                 UsersList.Remove(SelectedUser);
                                 SelectedUser = null;
+                                TreeViewRollCollection = null;
                             }
                         }
                         
