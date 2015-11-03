@@ -16,34 +16,16 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         public CalendarView()
         {
             InitializeComponent();
-
-
-        }
-
-  
-        private void addButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void editButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void copyButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void pasteButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
+            Messenger.Default.Register<NotificationMessage>(this, (m) =>
+            {
+                switch (m.Notification)
+                {
+                    case "Refresh":                        
+                        Schedule.Refresh();                                         
+                        break;
+                }
+                
+            });            
         }
 
         private void Schedule_OnAppointmentEditorOpening(object sender, AppointmentEditorOpeningEventArgs e)
@@ -56,6 +38,10 @@ namespace CPMCAppointmentSystem.View.AppointementViews
             Messenger.Default.Send<DateTime>((DateTime) e.SelectedDate);
         }
 
-       
+
+        private void Schedule_OnAppointmentEndDragging(object sender, AppointmentEndDraggingEventArgs e)
+        {
+            
+        }
     }
 }
