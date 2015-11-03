@@ -13,6 +13,8 @@ using CPMCAppointmentSystem.View.AppointementViews;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Syncfusion.Data.Extensions;
 using Syncfusion.UI.Xaml.Schedule;
 using Syncfusion.Windows.Shared;
@@ -429,6 +431,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 };
                 PatientsScheduleAppointmentCollection.Add(rdv);
             });
+            RaisePropertyChanged("PatientsScheduleAppointmentCollection");
         }
 
         private async Task LoadScheduleSettings()
@@ -536,7 +539,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         _dbContext.SaveChanges();
                         _addAppointementView.Close();
-                        await LoadRendezVous();                        
+                        await LoadRendezVous();
+                        
 
                     }));
             }
@@ -645,6 +649,30 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         SelectedScheduleType = ScheduleType.TimeLine;
                         await LoadRendezVous();
+                    }));
+            }
+        }
+        private RelayCommand<AppointmentEndDraggingEventArgs> _appointmentEndDraggingCommand;
+        public RelayCommand<AppointmentEndDraggingEventArgs> AppointmentEndDraggingCommand
+        {
+            get
+            {
+                return _appointmentEndDraggingCommand
+                    ?? (_appointmentEndDraggingCommand = new RelayCommand<AppointmentEndDraggingEventArgs>(async (args) =>
+                    {
+                        var result=await((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Confirmation", "etes vous sure de vouloire faire deplacer ce rendez-vous",MessageDialogStyle.AffirmativeAndNegative));
+                        if (result == MessageDialogResult.Affirmative)
+                        {
+                            var rdv = args.Appointment as RendezVous;
+                            _dbContext.RendezVouses.Find(rdv.RendezVousId).DateTimeRdv = args.To;
+                            _dbContext.SaveChanges(); 
+                        }
+                        else
+                        {
+                            args.Cancel = true;
+                            //await LoadRendezVous();
+                            Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Refresh"));
+                        }                                                                      
                     }));
             }
         }

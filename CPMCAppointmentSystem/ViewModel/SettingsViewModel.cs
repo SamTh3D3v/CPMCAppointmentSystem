@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View.SettingsViews;
@@ -312,6 +313,47 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _savePatientStatusCommand;
+        public RelayCommand SavePatientStatusCommand
+        {
+            get
+            {
+                return  _savePatientStatusCommand
+                    ?? ( _savePatientStatusCommand = new RelayCommand(
+                    () =>
+                    {
+                        SettingsCollection.SaveScheduleSettingsToDataBase();   //this a temporary hack to be updated //todo
+
+                    }));
+            }
+        }
+        private RelayCommand _cancelPatientStatusCommand;
+        public RelayCommand CancelPatientStatusCommand
+        {
+            get
+            {
+                return _cancelPatientStatusCommand
+                    ?? (_cancelPatientStatusCommand = new RelayCommand(async () =>
+                    {
+                        SettingsCollection = new SettingsCollection();
+                        await SettingsCollection.LoadSchedulerSettings();
+                        RaisePropertyChanged("SettingsCollection");
+                    }));
+            }
+        }
+        private RelayCommand _resetPatientStatusCommand;
+        public RelayCommand ResetPatientStatusCommand
+        {
+            get
+            {
+                return _resetPatientStatusCommand
+                    ?? (_resetPatientStatusCommand = new RelayCommand(
+                    () =>
+                    {
+                      //Todo   
+                    }));
+            }
+        }
         private RelayCommand _statusDesPatientsSettingsLoadedCommand;
         public RelayCommand StatusDesPatientsSettingsLoadedCommand
         {
@@ -567,6 +609,42 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand<object> _SaveAddNewUserCommand;
+     
+        public RelayCommand<object> SaveAddNewUserCommand
+        {
+            get
+            {
+                return _SaveAddNewUserCommand
+                    ?? (_SaveAddNewUserCommand = new RelayCommand<object>(async (obj) =>
+                    {
+                        var passwordBox = obj as PasswordBox;
+                        if (passwordBox != null)
+                        {
+                            SelectedUser.UserPass = passwordBox.Password;  //to be hashed
+                        }
+                        if (SelectedUser.UserId == Guid.Empty)
+                        {
+                            await AddNewUser();
+                        }
+                        _dbContext.SaveChanges();                        
+                        await  LoadUsersList();
+                        SelectedUser = null;
+                        
+                    }));
+            }
+        }
+
+        private async Task AddNewUser()
+        {
+            //Added by Farouk for Audit purpose
+            SelectedUser.UserId = Guid.NewGuid();
+
+            await Task.Run(() =>
+            {
+                _dbContext.Users.Add(SelectedUser);
+            });
+        }
 
         private RelayCommand _deleteUserCommand;
         public RelayCommand DeleteUserCommand
@@ -580,13 +658,15 @@ namespace CPMCAppointmentSystem.ViewModel
                         //todo Logical suppression 
                         if (SelectedUser != null)
                         {
-                            if (SelectedUser.UserId != Guid.Empty)
+                            //You can't delete a doc from the users view, only from the Doctors View
+                            if (SelectedUser.UserId != Guid.Empty && SelectedUser.UserType.UserTypeName!=App.Medecin)
                             {
                                 _dbContext.RolesCollections.Remove(SelectedUser.RolesCollection);
                                 _dbContext.Users.Remove(SelectedUser);                                
                                 _dbContext.SaveChanges();
                                 UsersList.Remove(SelectedUser);
                                 SelectedUser = null;
+                                TreeViewRollCollection = null;
                             }
                         }
                         
