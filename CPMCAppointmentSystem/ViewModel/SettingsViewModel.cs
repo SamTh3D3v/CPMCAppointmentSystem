@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View.SettingsViews;
@@ -567,6 +568,42 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand<object> _SaveAddNewUserCommand;
+     
+        public RelayCommand<object> SaveAddNewUserCommand
+        {
+            get
+            {
+                return _SaveAddNewUserCommand
+                    ?? (_SaveAddNewUserCommand = new RelayCommand<object>(async (obj) =>
+                    {
+                        var passwordBox = obj as PasswordBox;
+                        if (passwordBox != null)
+                        {
+                            SelectedUser.UserPass = passwordBox.Password;  //to be hashed
+                        }
+                        if (SelectedUser.UserId == Guid.Empty)
+                        {
+                            await AddNewUser();
+                        }
+                        _dbContext.SaveChanges();                        
+                        await  LoadUsersList();
+                        SelectedUser = null;
+                        
+                    }));
+            }
+        }
+
+        private async Task AddNewUser()
+        {
+            //Added by Farouk for Audit purpose
+            SelectedUser.UserId = Guid.NewGuid();
+
+            await Task.Run(() =>
+            {
+                _dbContext.Users.Add(SelectedUser);
+            });
+        }
 
         private RelayCommand _deleteUserCommand;
         public RelayCommand DeleteUserCommand
@@ -580,7 +617,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         //todo Logical suppression 
                         if (SelectedUser != null)
                         {
-                            if (SelectedUser.UserId != Guid.Empty)
+                            //You can't delete a doc from the users view, only from the Doctors View
+                            if (SelectedUser.UserId != Guid.Empty && SelectedUser.UserType.UserTypeName!=App.Medecin)
                             {
                                 _dbContext.RolesCollections.Remove(SelectedUser.RolesCollection);
                                 _dbContext.Users.Remove(SelectedUser);                                

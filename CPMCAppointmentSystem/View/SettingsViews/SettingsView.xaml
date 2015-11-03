@@ -228,14 +228,14 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <PasswordBox Margin="10 5"  x:Name="UserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <PasswordBox Margin="10 5"  x:Name="UserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" PasswordChanged="UserPass_OnPasswordChanged">
                                         <PasswordBox.Resources>
                                             <system:String x:Key="WaterMarkText">Enter password</system:String>
                                         </PasswordBox.Resources>
                                     </PasswordBox>
 
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Confirmer Password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <PasswordBox Margin="10 5" x:Name="UserConfirmPass" Style="{StaticResource WaterMarkPasswordBoxStyle}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <PasswordBox Margin="10 5" x:Name="UserConfirmPass" Style="{StaticResource WaterMarkPasswordBoxStyle}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" PasswordChanged="UserPass_OnPasswordChanged">
                                         <PasswordBox.Resources>
                                             <system:String x:Key="WaterMarkText">Confirme password</system:String>
                                         </PasswordBox.Resources>
@@ -258,7 +258,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0"  Margin="2" Command="{Binding AddNewUserCommand}">
+                                <Button Grid.Column="0" Tag="no"  Margin="2" Command="{Binding SaveAddNewUserCommand}" x:Name="BtnSave">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -274,8 +274,7 @@
                                                         <Condition Binding="{Binding ElementName=TxtEditNom, Path=(Validation.HasError)}" Value="false" />
                                                         <Condition Binding="{Binding ElementName=TxtEditPrenom, Path=(Validation.HasError)}" Value="false" />
                                                         <Condition Binding="{Binding ElementName=TxtEditUserName, Path=(Validation.HasError)}" Value="false" />
-                                                        <Condition Binding="{Binding ElementName=CbxUserType, Path=(Validation.HasError)}" Value="false" />
-                                                        <Condition Binding="{Binding ElementName=UserPass, Path=(Validation.HasError)}" Value="false" />                                                        
+                                                        <Condition Binding="{Binding ElementName=CbxUserType, Path=(Validation.HasError)}" Value="false" />                                                                                                              
                                                         <Condition>
                                                             <Condition.Binding>
                                                                 <Binding Path="SelectedUser" Converter="{StaticResource IsValueEqualToParameterConverter}">
@@ -287,7 +286,7 @@
                                                             <Condition.Value>
                                                                 <system:Boolean>False</system:Boolean>
                                                             </Condition.Value>
-                                                        </Condition>
+                                                        </Condition>                                                       
                                                         <Condition>
                                                             <Condition.Binding>
                                                                 <Binding Path="SelectedUser.UserType" Converter="{StaticResource IsValueEqualToParameterConverter}">
@@ -300,6 +299,12 @@
                                                                 <system:Boolean>False</system:Boolean>
                                                             </Condition.Value>
                                                         </Condition>
+                                                        <Condition Binding="{Binding ElementName=BtnSave, Path=Tag}" >   <!--pass==confirmpass-->
+                                                            <Condition.Value>
+                                                                <system:String>yes</system:String>
+                                                            </Condition.Value>
+                                                        </Condition>
+
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter Property="IsEnabled" Value="true" />
                                                 </MultiDataTrigger>
@@ -314,6 +319,51 @@
                                             <TextBlock Text="Delete" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button.Content>
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="IsEnabled" Value="false" />
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                         <Condition>
+                                                            <Condition.Binding>
+                                                                <Binding Path="SelectedUser" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                                    <Binding.ConverterParameter>
+                                                                        <x:Null/>
+                                                                    </Binding.ConverterParameter>
+                                                                </Binding>
+                                                            </Condition.Binding>
+                                                            <Condition.Value>
+                                                                <system:Boolean>False</system:Boolean>
+                                                            </Condition.Value>
+                                                        </Condition> 
+                                                        <Condition>
+                                                            <Condition.Binding>
+                                                                <Binding Path="SelectedUser.UserId" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:Guid.Empty}"/>
+                                                            </Condition.Binding>
+                                                            <Condition.Value>
+                                                                <system:Boolean>False</system:Boolean>
+                                                            </Condition.Value>
+                                                        </Condition>
+                                                        <Condition>
+                                                            <Condition.Binding>
+                                                                <Binding Path="SelectedUser.UserType.UserTypeName" Converter="{StaticResource IsValueEqualToParameterConverter}" >
+                                                                    <Binding.ConverterParameter>
+                                                                        <system:String>Medecin</system:String>
+                                                                    </Binding.ConverterParameter>
+                                                                </Binding>
+                                                            </Condition.Binding>
+                                                            <Condition.Value>
+                                                                <system:Boolean>False</system:Boolean>
+                                                            </Condition.Value>
+                                                        </Condition>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="IsEnabled" Value="true" />
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+
                                 </Button>
                                 <Button Grid.Column="2"  Margin="2" Command="{Binding CancelAddUserCommand}">
                                     <Button.Content>
