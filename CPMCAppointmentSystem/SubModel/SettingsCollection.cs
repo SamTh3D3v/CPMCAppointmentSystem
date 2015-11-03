@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Model;
 using JetBrains.Annotations;
+using Syncfusion.Data.Extensions;
 
 namespace CPMCAppointmentSystem.SubModel
 {
@@ -33,7 +34,7 @@ namespace CPMCAppointmentSystem.SubModel
         }
 
         #endregion
-        #region Indexers
+        #region Indexers        
         public SchedulerSetting this[String settingName]
         {
             get
@@ -55,6 +56,7 @@ namespace CPMCAppointmentSystem.SubModel
                     }
                    
                 }
+                OnPropertyChanged();
                 
             }
 
@@ -69,12 +71,7 @@ namespace CPMCAppointmentSystem.SubModel
         }
         public async Task LoadSchedulerSettings()
         {
-            ScheduleSettingsCollection=new ObservableCollection<SchedulerSetting>(await Task.Run(() => _dbContext.SchedulerSettings));
-            ScheduleSettingsCollection.CollectionChanged += (s, e) =>
-            {
-                if (CollectionChanged != null)
-                    CollectionChanged(s, e);
-            };
+            ScheduleSettingsCollection=new ObservableCollection<SchedulerSetting>(await Task.Run(() => _dbContext.SchedulerSettings));           
             if (!ScheduleSettingsCollection.Any())
             {
                 //Get the schedule settings from the settings Xml file then save them to the database  //todo
@@ -108,8 +105,28 @@ namespace CPMCAppointmentSystem.SubModel
                 });
                 _dbContext.SaveChanges();
                 ScheduleSettingsCollection = new ObservableCollection<SchedulerSetting>(await Task.Run(() => _dbContext.SchedulerSettings));
+                ScheduleSettingsCollection.CollectionChanged += (s, e) =>
+                {
+                    if (CollectionChanged != null)
+                        CollectionChanged(s, e);
+                };
 
             }
+        }
+
+        public void SaveScheduleSettingsToDataBase()
+        {
+            ScheduleSettingsCollection.ForEach(s =>
+            {
+                var setting=_dbContext.SchedulerSettings.Find(s.SchedulerSettingsId);
+                if (setting!=null)
+                {
+                    setting.Color = s.Color;
+                    setting.Information = s.Information;
+                    setting.Blink = s.Blink;
+                }
+            });
+            _dbContext.SaveChanges();
         }
         #endregion
 

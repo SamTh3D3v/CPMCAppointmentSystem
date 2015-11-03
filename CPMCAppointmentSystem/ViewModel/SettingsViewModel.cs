@@ -313,6 +313,20 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _savePatientStatusCommand;
+        public RelayCommand SavePatientStatusCommand
+        {
+            get
+            {
+                return  _savePatientStatusCommand
+                    ?? ( _savePatientStatusCommand = new RelayCommand(
+                    () =>
+                    {
+                        SettingsCollection.SaveScheduleSettingsToDataBase();   //this a temporary hack to be updated //todo
+
+                    }));
+            }
+        }
         private RelayCommand _statusDesPatientsSettingsLoadedCommand;
         public RelayCommand StatusDesPatientsSettingsLoadedCommand
         {

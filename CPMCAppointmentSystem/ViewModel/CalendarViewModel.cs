@@ -536,7 +536,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         _dbContext.SaveChanges();
                         _addAppointementView.Close();
-                        await LoadRendezVous();                        
+                        await LoadRendezVous();
+                        
 
                     }));
             }
