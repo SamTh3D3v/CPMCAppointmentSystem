@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Media;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Messaging;
@@ -55,6 +56,24 @@ namespace CPMCAppointmentSystem.View.SettingsViews
         private void PassCheckBox_OnChecked(object sender, RoutedEventArgs e)
         {
             BtnSave.Tag = "no";
+        }
+        private void HandleOnTreeViewAfterCheck(Object sender,
+      TreeViewEventArgs e)
+        {
+            CheckTreeViewNode(e.Node, e.Node.Checked);
+        }
+
+        private void CheckTreeViewNode(TreeNode node, Boolean isChecked)
+        {
+            foreach (TreeNode item in node.Nodes)
+            {
+                item.Checked = isChecked;
+
+                if (item.Nodes.Count > 0)
+                {
+                    this.CheckTreeViewNode(item, isChecked);
+                }
+            }
         }
     }
 }

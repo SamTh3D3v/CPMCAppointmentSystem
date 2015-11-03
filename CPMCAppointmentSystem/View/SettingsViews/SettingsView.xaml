@@ -255,14 +255,17 @@
                                     </Style>
                                 </Expander.Style>
                                 <syncfusion:TreeViewAdv  Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
-                                            AnimationType="Fade"
+                                            AnimationType="Fade"                                                         
                                             ItemContainerStyle="{StaticResource TreeViewItemConStyle}" 
                                             ShowRootLines="True" 
                                             AllowMultiSelect="False" 
                                             AllowDragDrop="False">
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>
-                                            <CheckBox Content="CalendarView"/>
+                                        <syncfusion:TreeViewItemAdv.Header >
+                                            <StackPanel Orientation="Horizontal">                                                
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource CalendarPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="CalendarView" VerticalAlignment="Center"/>
+                                            </StackPanel>                                            
                                         </syncfusion:TreeViewItemAdv.Header>
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  >
@@ -270,7 +273,7 @@
                                                     <CheckBox Content="AppointementViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.AppointementViewAllow}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
-                                            <syncfusion:TreeViewItemAdv  >
+                                            <syncfusion:TreeViewItemAdv >
                                                 <syncfusion:TreeViewItemAdv.Header>
                                                     <CheckBox Content="AppointementEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.AppointementEditAllow}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
@@ -280,8 +283,11 @@
                                     
                                     
                                      <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>
-                                            <CheckBox Content="DoctorsView"/>
+                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource DoctorPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="DoctorsView" VerticalAlignment="Center"/>
+                                            </StackPanel>
                                         </syncfusion:TreeViewItemAdv.Header>
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  >
@@ -299,8 +305,11 @@
 
 
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>
-                                            <CheckBox Content="PatientView" />
+                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PatientPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="PatientView" VerticalAlignment="Center"/>
+                                            </StackPanel>
                                         </syncfusion:TreeViewItemAdv.Header>
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  >
@@ -322,10 +331,12 @@
                                     </syncfusion:TreeViewItemAdv>
 
 
-
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>
-                                            <CheckBox Content="SpecialitePrincipaleView" />
+                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SpecialityPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="SpecialitePrincipaleView" VerticalAlignment="Center"/>
+                                            </StackPanel>
                                         </syncfusion:TreeViewItemAdv.Header>
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  >
@@ -342,10 +353,12 @@
                                     </syncfusion:TreeViewItemAdv>
 
 
-
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>
-                                            <CheckBox Content="PathologyView" />
+                                        <syncfusion:TreeViewItemAdv.Header>                                           
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PathologyPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="PathologyView" VerticalAlignment="Center"/>
+                                            </StackPanel>
                                         </syncfusion:TreeViewItemAdv.Header>
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  >
@@ -362,11 +375,12 @@
                                     </syncfusion:TreeViewItemAdv>
 
 
-
-
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>
-                                            <CheckBox Content="MyPatientsView"/>
+                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PatientPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="MyPatientsView" VerticalAlignment="Center"/>
+                                            </StackPanel>
                                         </syncfusion:TreeViewItemAdv.Header>
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  >
@@ -388,10 +402,12 @@
                                     </syncfusion:TreeViewItemAdv>
 
 
-
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>
-                                            <CheckBox Content="Sms Notifications View"/>
+                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SmsMobilePath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="Sms Notifications View" VerticalAlignment="Center"/>
+                                            </StackPanel>
                                         </syncfusion:TreeViewItemAdv.Header>
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  >
@@ -406,12 +422,14 @@
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
                                     </syncfusion:TreeViewItemAdv>
-                                    
-                                    
+                                                                        
                                     
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>
-                                            <CheckBox Content="Settings View" IsChecked="{Binding SelectedUser.RolesCollection.AppointementViewAllow}"/>
+                                        <syncfusion:TreeViewItemAdv.Header>                                           
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SettingsPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="Settings View" VerticalAlignment="Center"/>
+                                            </StackPanel>
                                         </syncfusion:TreeViewItemAdv.Header>
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  >
@@ -431,9 +449,6 @@
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
                                     </syncfusion:TreeViewItemAdv>
-
-
-
 
 
                                 </syncfusion:TreeViewAdv>
