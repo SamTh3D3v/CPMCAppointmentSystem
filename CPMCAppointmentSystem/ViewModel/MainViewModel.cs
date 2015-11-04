@@ -47,6 +47,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_mainViewLoadedCommand = new RelayCommand(
                         () =>
                         {
+                            _dbContext = new CpmcContext();
                             var user = MainFrameNavigationService.Parameter as User;
                             if (user != null)
                                 ConnectedUser = _dbContext.Users.Find(user.UserId);

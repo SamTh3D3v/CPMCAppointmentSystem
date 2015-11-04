@@ -36,6 +36,8 @@ namespace DataLayer.Model
         private bool _smsNotificationViewAllow;
         private bool _smsNotificationEditAllow;
         private bool _statisticsViewAllow;
+        private bool _logViewAllow;
+        private bool _logEditAllow;
 
         #endregion
         #region Properties
@@ -296,6 +298,37 @@ namespace DataLayer.Model
             {
                 if (value.Equals(_statisticsViewAllow)) return;
                 _statisticsViewAllow = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+        #region Log View
+        public bool LogViewAllow
+        {
+            get
+            {
+                return _logViewAllow;
+            }
+
+            set
+            {
+                if (_logViewAllow == value)
+                {
+                    return;
+                }
+
+                _logViewAllow = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool LogEditAllow    
+        {
+            get { return _logEditAllow; }
+            set
+            {
+                if (value == _logEditAllow) return;
+                _logEditAllow = value;
                 OnPropertyChanged();
             }
         }

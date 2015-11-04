@@ -451,6 +451,28 @@
                                     </syncfusion:TreeViewItemAdv>
 
 
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource LogPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="Log View" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="LogViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.LogViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="LogEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.LogEditAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>                                            
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
                                 </syncfusion:TreeViewAdv>
                             </Expander>
                             <Grid Grid.Row="3" Grid.Column="0"  VerticalAlignment="Bottom">
