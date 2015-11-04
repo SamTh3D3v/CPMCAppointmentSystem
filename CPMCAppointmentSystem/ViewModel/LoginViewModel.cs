@@ -13,7 +13,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class LoginViewModel:NavigableViewModelBase
     {
         #region Fields
-        private readonly CpmcContext _dbContext=new CpmcContext();        
+        private readonly CpmcContext _dbContext=new CpmcContext();              
         #endregion
         #region Properties        
         

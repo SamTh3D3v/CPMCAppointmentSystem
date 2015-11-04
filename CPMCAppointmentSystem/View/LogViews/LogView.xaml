@@ -15,14 +15,18 @@
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=LogViewLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=LogViewUnloadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <Grid>
         <Button VerticalAlignment="Top" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}">
             
         </Button>
-        <syncfusion:LayoutControl HeaderDescriptionText="Histroire de log d'utilisation" 
-                        HeaderText="Historique du log "
+        <syncfusion:LayoutControl HeaderDescriptionText="log des utilisateurs" 
+                        HeaderText="LOG "
                         LayoutMode="Metro"
                         UserOptionsVisibility="Collapsed">
             <syncfusion:LayoutControl.GridView>
@@ -31,16 +35,16 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <syncfusion:SfDataGrid AllowEditing="False" x:Name="LogDataGrid"
+                    <syncfusion:SfDataGrid AllowEditing="False" x:Name="LogDataGrid" Background="WhiteSmoke"
                                        AllowFiltering="True"
-                                       AutoGenerateColumns="False"                                     
-                                       ColumnSizer="Star"
+                                       AutoGenerateColumns="True"                                     
+                                       ColumnSizer="AutoWithLastColumnFill"
                                         SelectedItem="{Binding SelectedLog,Mode=TwoWay}"
                                        IsGroupDropAreaExpanded="True"
                                        ItemsSource="{Binding Path=PagedSource,
                                                              ElementName=LogDataPager}"
                                        RowHeight="40"
-                                       NavigationMode="Cell"
+                                       NavigationMode="Row"
                                        ShowGroupDropArea="True">
 
                     </syncfusion:SfDataGrid>
