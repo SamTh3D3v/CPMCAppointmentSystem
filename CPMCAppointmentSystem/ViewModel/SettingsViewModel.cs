@@ -605,7 +605,10 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addNewUserCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedUser = new User();
+                        SelectedUser = new User()
+                        {
+                            RolesCollection = new RolesCollection()
+                        };
                     }));
             }
         }
@@ -717,11 +720,11 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         if (SelectedUser != null)
                         {
-                            if (SelectedUser.UserType != null)
-                            {
-                                SelectedUser.RolesCollection =
-                                                   RollsManager.GetDefaultUserRolls(SelectedUser.UserType.UserTypeName);                                                               
-                            }
+                            //if (SelectedUser.UserType != null)              //todo 
+                            //{
+                            //    var rolesCollection = SelectedUser.RolesCollection;
+                            //    RollsManager.GetDefaultUserRolls(SelectedUser.UserType.UserTypeName,ref rolesCollection);
+                            //}
                         }
 
                     }));

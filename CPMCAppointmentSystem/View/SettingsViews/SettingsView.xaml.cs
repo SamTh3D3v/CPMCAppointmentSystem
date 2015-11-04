@@ -9,6 +9,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.Windows.Converters;
 using Path = System.Windows.Shapes.Path;
+using SelectionChangedEventArgs = System.Windows.Controls.SelectionChangedEventArgs;
 
 namespace CPMCAppointmentSystem.View.SettingsViews
 {
@@ -75,5 +76,7 @@ namespace CPMCAppointmentSystem.View.SettingsViews
                 }
             }
         }
+
+       
     }
 }

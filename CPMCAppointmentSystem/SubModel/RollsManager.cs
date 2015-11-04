@@ -10,33 +10,30 @@ namespace CPMCAppointmentSystem.SubModel
     public static class RollsManager
     {
         
-        public static RolesCollection GetDefaultUserRolls(String userType)
+        public static void GetDefaultUserRolls(String userType, ref RolesCollection rolls)
         {
             //the defaut rolls collection will be getted from the xml settngs file //todo
-            var rolls = new RolesCollection()
-            {
-                AppointementViewAllow = true,
-                AppointementEditAllow = true,
-                DoctorsViewAllow = true,
-                DoctorsAddAllow = true,
-                PatientsViewAllow = true,
-                PatientsEditAllow = true,
-                PatientsEditAppointementAllow = true,
-                SpecialitiesViewAllow = true,
-                SpecialitiesEditAllow = true,
-                PathologiesViewAllow = true,
-                PathologiesEditAllow = true,
-                MyPatientsViewAllow = userType==App.Medecin?true:false,
-                MyPatientsEditAllow = true,
-                MyPatientsEditAppointementAllow = true,
-                SettingsViewUsersAllow = true,
-                SettingsEditUsersAllow = true,
-                SettingsMangeThemeAllow = true,
-                SmsNotificationViewAllow = true,
-                SmsNotificationEditAllow = true,
-                StatisticsViewAllow = true
-            };
-            return rolls;
+
+            rolls.AppointementViewAllow = true;
+            rolls.AppointementEditAllow = true;
+            rolls.DoctorsViewAllow = true;
+            rolls.DoctorsAddAllow = true;
+            rolls.PatientsViewAllow = true;
+            rolls.PatientsEditAllow = true;
+            rolls.PatientsEditAppointementAllow = true;
+            rolls.SpecialitiesViewAllow = true;
+            rolls.SpecialitiesEditAllow = true;
+            rolls.PathologiesViewAllow = true;
+            rolls.PathologiesEditAllow = true;
+            rolls.MyPatientsViewAllow = userType == App.Medecin ? true : false;
+            rolls.MyPatientsEditAllow = true;
+            rolls.MyPatientsEditAppointementAllow = true;
+            rolls.SettingsViewUsersAllow = true;
+            rolls.SettingsEditUsersAllow = true;
+            rolls.SettingsMangeThemeAllow = true;
+            rolls.SmsNotificationViewAllow = true;
+            rolls.SmsNotificationEditAllow = true;
+            rolls.StatisticsViewAllow = true;                                   
         }
     }
 }
