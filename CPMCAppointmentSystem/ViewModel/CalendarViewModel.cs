@@ -34,7 +34,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _isProgressRingActive;
         private CpmcContext _dbContext = new CpmcContext();
         private ScheduleType _scheduleType = ScheduleType.Month;
-        private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
+        private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection ;
         private RendezVous _selectedRdv;
         private ObservableCollection<Patient> _allPatientsCollection;
         private ObservableCollection<Medecin> _allDoctorsCollection;
@@ -417,6 +417,7 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             await LoadScheduleSettings();
             RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
+            _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
             RdvousCollection.ForEach((rdv) =>
             {
                 //Update the rdv status based on rdv date

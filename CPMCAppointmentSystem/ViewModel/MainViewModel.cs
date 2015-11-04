@@ -13,7 +13,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class MainViewModel : NavigableViewModelBase
     {
         #region Fields
-        private readonly CpmcContext _dbContext=new CpmcContext();
+        private  CpmcContext _dbContext=new CpmcContext();
         private User _connectedUser;
         #endregion
         #region Properties   
@@ -47,9 +47,39 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_mainViewLoadedCommand = new RelayCommand(
                         () =>
                         {
-                            ConnectedUser = MainFrameNavigationService.Parameter as User;
-                            InnerFrameNavigationService.NavigateTo(App.PatientsViewKey);
+                            _dbContext = new CpmcContext();
+                            var user = MainFrameNavigationService.Parameter as User;
+                            if (user != null)                           //todo 
+                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+                            NavigateToAnAllowedView();
                         }));
+            }
+        }
+
+        private void NavigateToAnAllowedView()
+        {
+            if (ConnectedUser.RolesCollection.PatientsViewAllow) InnerFrameNavigationService.NavigateTo(App.PatientsViewKey);
+            else if (ConnectedUser.RolesCollection.AppointementViewAllow) InnerFrameNavigationService.NavigateTo(App.CalendarViewKey);
+            else if (ConnectedUser.RolesCollection.DoctorsViewAllow) InnerFrameNavigationService.NavigateTo(App.DoctorsViewKey);
+            else if (ConnectedUser.RolesCollection.PathologiesViewAllow) InnerFrameNavigationService.NavigateTo(App.PathologiesViewKey);
+            else if (ConnectedUser.RolesCollection.SpecialitiesViewAllow) InnerFrameNavigationService.NavigateTo(App.SpecialityViewKey);
+            else if (ConnectedUser.RolesCollection.SmsNotificationViewAllow) InnerFrameNavigationService.NavigateTo(App.NotificationViewKey);
+            else if (ConnectedUser.RolesCollection.StatisticsViewAllow) InnerFrameNavigationService.NavigateTo(App.StatisticsViewKey);
+            else if (ConnectedUser.RolesCollection.LogViewAllow) InnerFrameNavigationService.NavigateTo(App.LogViewKey);
+            else if (ConnectedUser.RolesCollection.SettingsViewUsersAllow) InnerFrameNavigationService.NavigateTo(App.SettingsViewKey);
+
+        }
+        private RelayCommand _mainViewUnloadedCommand;
+        public RelayCommand MainViewUnloadedCommand
+        {
+            get
+            {
+                return _mainViewUnloadedCommand
+                    ?? (_mainViewUnloadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
             }
         }
         private RelayCommand _calendarCommand;
@@ -177,7 +207,7 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Ctors and Methods
         public MainViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
-        {           
+        {            
         }
         #endregion
     }

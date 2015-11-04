@@ -11,7 +11,7 @@ using CPMCAppointmentSystem.Model;
 namespace CPMCAppointmentSystem.ViewModel
 {
 
-    public class ViewModelLocator
+    public  class ViewModelLocator
     {
         public static FrameNavigationService MainNavigationService;
         public static InnerFrameNavigationService InnerFrameNavigationService;

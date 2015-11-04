@@ -7,12 +7,13 @@
       xmlns:command="http://www.galasoft.ch/mvvmlight"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
      d:DesignHeight="700" d:DesignWidth="800" DataContext="{Binding Source={StaticResource Locator},Path=PatientsViewModel}"
 	Title="MyPatientsView">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientsViewLoadedCommand}"
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=LoadConnectedDoctorPatientsCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -31,7 +32,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="72"/>
                 <RowDefinition Height="10"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -40,11 +41,11 @@
             <ToggleButton x:Name="FilterTb" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"  Width="25" Height="25" Padding="0" Margin="5,0,0,0">
                 <Image Source="{StaticResource FilterDark}"></Image>
             </ToggleButton>
-            <Button Grid.Row="0" IsEnabled="False" Grid.Column="2"  Margin="10" Command="{Binding AddPatientCommand}" ToolTip="Show filter">
+            <!--<Button Grid.Row="0" IsEnabled="False" Grid.Column="2"  Margin="10" Command="{Binding AddPatientCommand}" ToolTip="Show filter">
                 <Button.Content>
                     <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
                 </Button.Content>
-            </Button>
+            </Button>-->
             <Rectangle Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
             <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                 <Grid.Style>
@@ -134,7 +135,7 @@
                 </Grid>
 
             </Grid>
-            <syncfusion:SfDataGrid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
+            <syncfusion:SfDataGrid Grid.Column="0"  Grid.ColumnSpan="3"  Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
@@ -149,7 +150,7 @@
                     <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
                     <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
                                                                             StringFormat=d}"/>
-                    <syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>
+                    <syncfusion:GridTextColumn HeaderText="Télephone fixe" MappingName="TelephoneFixe"/>
                     <syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
                     <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneDaccompagnant"/>
                     <syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
@@ -163,11 +164,11 @@
         <Grid Grid.Column="2" Background="{StaticResource BodyBackgroundBrush}" DataContext="{Binding SelectedPatient,Mode=TwoWay}" IsEnabled="{Binding DataContext.IsFormEnabled,RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
             <!--the patients details Grid-->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" MinWidth="100"/>
                 <ColumnDefinition Width="3"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" MinWidth="100"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Margin="5,20" >
+            <Grid Grid.Column="0" Margin="5,10,5,2" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -186,11 +187,14 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Image x:Name="WebCamPic" Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
-                <Image  Source="{Binding DataContext.FaceBitMap,ElementName=RootGrid}" Grid.Column="0" Grid.Row="0" Width="75"/>
-                <Border x:Name="WebCamBorder"  Background="WhiteSmoke" Grid.Column="0" Grid.Row="0" Width="60" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Border Grid.Column="0" Grid.Row="0" Width="80" Height="80" Padding="2" BorderBrush="Gray" BorderThickness="2">
+                    <Image Stretch="UniformToFill" x:Name="ProfileImage"  Source="{Binding ProfilePicture}"  Width="75" Height="75" />
+                </Border>
+                <Border x:Name="WebCamBorder" Background="Transparent" Grid.Column="0" Grid.Row="0" Width="60" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Setter Property="Opacity" Value=".01"></Setter>
@@ -203,41 +207,79 @@
                     </Border.Style>
                     <Grid >
                         <Button ToolTip="Ajouter image" Background="WhiteSmoke" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding DataContext.LoadPatientImageCommand,ElementName=RootGrid}">
-
-                            <Path Data="M31.478432,15.239C36.687607,15.239 40.906941,19.457997 40.906941,24.661992 40.906941,29.865988 36.687607,34.085986 31.478432,34.085986 26.279251,34.085986 22.059918,29.865988 22.059918,24.661992 22.059918,19.457997 26.279251,15.239 31.478432,15.239z M31.425879,9.8389888C23.416933,9.8389888 16.88777,16.362975 16.88777,24.379973 16.88777,32.394988 23.416933,38.916991 31.425879,38.916991 39.444832,38.916991 45.963986,32.394988 45.963986,24.379973 45.963986,16.362975 39.444832,9.8389888 31.425879,9.8389888z M43.904202,0C45.124008,-2.9131115E-08,46.113869,0.98797598,46.113869,2.205993L46.113869,4.8519898C46.113869,4.9059749,46.103981,4.9589839,46.103981,5.013L49.523449,5.013C51.613137,5.013,53.333,6.7279964,53.333,8.8219905L53.333,39.297972C53.333,41.392973,51.613137,43.108,49.523449,43.108L3.8095522,43.108C1.7198642,43.108,0,41.392973,0,39.297972L0,8.8219905C0,6.7279964,1.7198642,5.013,3.8095522,5.013L5.6292574,5.013C5.6192486,4.9459834,5.6192486,4.8799739,5.6192486,4.8109741L5.6192486,3.6089783C5.6192486,1.836975,7.0491121,0.40100091,8.8188965,0.40100085L22.057127,0.40100085C23.826912,0.40100091,25.266663,1.836975,25.266663,3.6089783L25.266663,4.8109741C25.266663,4.8799739,25.256653,4.9459834,25.246645,5.013L41.71455,5.013C41.70454,4.9589839,41.70454,4.9059749,41.70454,4.8519898L41.70454,2.205993C41.70454,1.8799743,41.774479,1.5699767,41.904465,1.2909849L41.904465,1.2019956 41.9445,1.2019956C42.314446,0.48999017,43.054337,-2.9131115E-08,43.904202,0z" Stretch="Uniform" Fill="#FF000000" Width="30" Height="30" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
-                                <Path.RenderTransform>
-                                    <TransformGroup>
-                                        <TransformGroup.Children>
-                                            <RotateTransform Angle="0" />
-                                            <ScaleTransform ScaleX="1" ScaleY="1" />
-                                        </TransformGroup.Children>
-                                    </TransformGroup>
-                                </Path.RenderTransform>
-                            </Path>
+                            <Path Data="M31.478432,15.239C36.687607,15.239 40.906941,19.457997 40.906941,24.661992 40.906941,29.865988 36.687607,34.085986 31.478432,34.085986 26.279251,34.085986 22.059918,29.865988 22.059918,24.661992 22.059918,19.457997 26.279251,15.239 31.478432,15.239z M31.425879,9.8389888C23.416933,9.8389888 16.88777,16.362975 16.88777,24.379973 16.88777,32.394988 23.416933,38.916991 31.425879,38.916991 39.444832,38.916991 45.963986,32.394988 45.963986,24.379973 45.963986,16.362975 39.444832,9.8389888 31.425879,9.8389888z M43.904202,0C45.124008,-2.9131115E-08,46.113869,0.98797598,46.113869,2.205993L46.113869,4.8519898C46.113869,4.9059749,46.103981,4.9589839,46.103981,5.013L49.523449,5.013C51.613137,5.013,53.333,6.7279964,53.333,8.8219905L53.333,39.297972C53.333,41.392973,51.613137,43.108,49.523449,43.108L3.8095522,43.108C1.7198642,43.108,0,41.392973,0,39.297972L0,8.8219905C0,6.7279964,1.7198642,5.013,3.8095522,5.013L5.6292574,5.013C5.6192486,4.9459834,5.6192486,4.8799739,5.6192486,4.8109741L5.6192486,3.6089783C5.6192486,1.836975,7.0491121,0.40100091,8.8188965,0.40100085L22.057127,0.40100085C23.826912,0.40100091,25.266663,1.836975,25.266663,3.6089783L25.266663,4.8109741C25.266663,4.8799739,25.256653,4.9459834,25.246645,5.013L41.71455,5.013C41.70454,4.9589839,41.70454,4.9059749,41.70454,4.8519898L41.70454,2.205993C41.70454,1.8799743,41.774479,1.5699767,41.904465,1.2909849L41.904465,1.2019956 41.9445,1.2019956C42.314446,0.48999017,43.054337,-2.9131115E-08,43.904202,0z" Stretch="Uniform" Fill="#FF000000" Width="30" Height="30" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5"/>
                         </Button>
                     </Grid>
                 </Border>
 
-                <controls:ToggleSwitch  Header="Carte professionel" OnLabel="Oui" OffLabel="Non" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"/>
 
+                <Grid Grid.Row="0" Grid.Column="1" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button  ToolTip="Supprimer Image" VerticalAlignment="Top" Background="WhiteSmoke"  Command="{Binding DataContext.DeletePatientImageCommand,ElementName=RootGrid}" Grid.Column="0" Width="30" Height="30">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MetroCircleButtonStyle}">
+                                <Setter Property="IsEnabled" Value="True"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=ProfileImage,Path=Source}" Value="{x:Null}">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Path Data="{StaticResource DeletePath}" Stretch="Uniform" Fill="#FF000000" Width="10" Height="10" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5"/>
+                    </Button>
+                    <!--<ToggleButton x:Name="SettingsButton" Width="60" Height="60" ToolTip="Parametres" Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right">
+                        <Path Data="F1M-515.802,331.242C-515.789,329.857,-515.923,328.495,-516.128,327.172L-510.578,322.745C-512.008,317.424,-514.756,312.655,-518.482,308.812L-525.111,311.322C-527.209,309.586,-529.594,308.195,-532.179,307.198L-533.233,300.195C-535.788,299.515 -538.464,299.107 -541.237,299.086 -544.006,299.07 -546.686,299.44 -549.259,300.088L-550.396,307.078C-552.989,308.052,-555.398,309.403,-557.514,311.117L-564.117,308.526C-567.886,312.318,-570.696,317.047,-572.198,322.354L-566.702,326.846C-566.924,328.172 -567.071,329.531 -567.083,330.919 -567.093,332.318 -566.962,333.672 -566.752,335.005L-572.311,339.427C-570.872,344.742,-568.124,349.518,-564.398,353.354L-557.769,350.851C-555.674,352.581,-553.284,353.971,-550.698,354.976L-549.656,361.976C-547.092,362.659 -544.416,363.065 -541.647,363.086 -538.875,363.096 -536.198,362.729 -533.63,362.086L-532.482,355.088C-529.891,354.114,-527.484,352.763,-525.362,351.062L-518.771,353.651C-514.998,349.851,-512.192,345.12,-510.687,339.82L-516.182,335.333C-515.959,333.997,-515.814,332.643,-515.802,331.242z M-541.53,344.336C-548.84,344.292 -554.737,338.318 -554.689,331 -554.641,323.68 -548.673,317.784 -541.354,317.833 -534.035,317.88 -528.139,323.851 -528.187,331.172 -528.235,338.495 -534.205,344.385 -541.53,344.336z" Stretch="Uniform"  Width="30" Height="30" Margin="0,0,0,0" >
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Setter Property="Fill" Value="LightGray"></Setter>
+                                    <Style.Triggers>                                        
+                                        <DataTrigger Binding="{Binding ElementName=CardProButton,Path=IsChecked}" Value="True">
+                                            <Setter Property="Fill" Value="White"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </ToggleButton>-->
+                    <ToggleButton IsChecked="{Binding CarteProfessionel,Mode=TwoWay}" x:Name="CardProButton" Width="60" Height="60" ToolTip="Ajouter image" Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right">
+                        <Path Data="M11.961001,32.591001L27.961,32.591001 27.961,38.352 11.961001,38.352z M41.431141,29.375001L46.286661,29.375001C51.203279,29.375001,55.316496,33.104243,56.395998,38.112L31.323,38.112C32.403814,33.104243,36.513142,29.375001,41.431141,29.375001z M11.961001,22.992001L27.961,22.992001 27.961,28.751 11.961001,28.751z M43.85944,14.016001C47.470053,14.016001 50.393,16.945526 50.393,20.549741 50.393,24.159045 47.470053,27.086 43.85944,27.086 40.250229,27.086 37.326,24.159045 37.326,20.549741 37.326,16.945526 40.250229,14.016001 43.85944,14.016001z M11.961001,13.39L27.961,13.39 27.961,19.151 11.961001,19.151z M6.4470005,6.6650009L6.4470005,45.109001 57.779001,45.109001 57.779001,6.6650009z M0,0L64.000002,0 64.000002,51.331001 0,51.331001z" Stretch="Uniform"  Width="30" Height="30" Margin="0,0,0,0" >
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Setter Property="Fill" Value="LightGray"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CardProButton,Path=IsChecked}" Value="True">
+                                            <Setter Property="Fill" Value="White"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </ToggleButton>
+                </Grid>
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding NumeroDordre,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                <syncfusion:SfMaskedEdit Name="TxtEditNumOrdre" Grid.Column="1" Text="{Binding NumeroDordre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Numero d'ordre"  
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding Nom,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                <syncfusion:SfMaskedEdit Name="TxtEditNom" Grid.Column="1" Text="{Binding Nom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Nom"  
                                      />
 
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding Prenom,Mode=TwoWay}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                <syncfusion:SfMaskedEdit Name="TxtEditPrenom" Grid.Column="1" Text="{Binding Prenom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Prenom"  
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de naiss" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:DateTimeEdit  Margin="10 5"  Text="{Binding DateDeNaissance,Mode=TwoWay,StringFormat=d}"   x:Name="BirthDateBox" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <DatePicker Name="DateTimeNaiss" Margin="10 5"  SelectedDate="{Binding DateDeNaissance,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}',UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="4"  Text="Date de naissance" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -251,12 +293,12 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Sexe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:ComboBoxAdv Margin="10 5" ItemsSource="{Binding DataContext.SexeList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Sexe}" DisplayMemberPath="Designation"  x:Name="SexeBox" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <syncfusion:ComboBoxAdv syncfusion:SkinStorage.VisualStyle="Metro" Name="CbxSexe" Margin="10 5" ItemsSource="{Binding DataContext.SexeList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Sexe,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" DisplayMemberPath="Designation" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="5"  Text="Sexe" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItem, ElementName=SexeBox}" Value="{x:Null}">
+                                <DataTrigger Binding="{Binding SelectedItem, ElementName=CbxSexe}" Value="{x:Null}">
                                     <Setter Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -264,54 +306,58 @@
                     </TextBlock.Style>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="6" Text="TelephoneFixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding TelephoneFixe,Mode=TwoWay}" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Telephone Fixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <syncfusion:SfMaskedEdit Name="TxtEditTelFix" Grid.Column="1" Text="{Binding TelephoneFixe,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Telephone fixe"  
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="7" Text="Mobile 1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding TelephoneMobile1,Mode=TwoWay}" Grid.Row="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                <syncfusion:SfMaskedEdit Name="TxtEditMobile" Grid.Column="1" Text="{Binding TelephoneMobile1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Telephone mobile 1"  
                                      />
 
-                <TextBlock Grid.Column="0" Grid.Row="8" Text="Mobile 2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding TelephoneDaccompagnant,Mode=TwoWay}" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Telephone mobile 2"  
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="Mobile d'accomp" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <syncfusion:SfMaskedEdit Name="TxtEditMobileAcc" Grid.Column="1" Text="{Binding TelephoneDaccompagnant,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Telephone mobile d'accompagnant"  
+                                     />
+                <TextBlock Grid.Column="0" Grid.Row="9" Text="Nom d'accomp" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <syncfusion:SfMaskedEdit Name="TxtEditNomAcc" Grid.Column="1" Text="{Binding NomPrenomDaccompagnant,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Nom et prenom d'accompagnant"  
                                      />
 
-                <TextBlock Grid.Column="0" Grid.Row="9" Text="Adress" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfMaskedEdit  Grid.Column="1" Text="{Binding Adresse.AddressDesignation,Mode=TwoWay}" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                <TextBlock Grid.Column="0" Grid.Row="10" Text="Adresse" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <syncfusion:SfMaskedEdit Name="TxtEditAdress" Grid.Column="1" Text="{Binding Adresse.AddressDesignation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Adresse"  
                                      />
 
-                <Grid Grid.Column="1" Grid.Row="10" >
+                <Grid Grid.Column="1" Grid.Row="11" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <syncfusion:SfMaskedEdit  Grid.Column="0" Text="{Binding Adresse.City,Mode=TwoWay}"  Margin="2 5"                                      
+                    <syncfusion:SfMaskedEdit Name="TxtEditCity" Grid.Column="0" Text="{Binding Adresse.City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5"                                      
                                      Watermark="City"  
                                      />
-                    <ComboBox x:Name="WillayaBox" Margin="2 5" ItemsSource="{Binding DataContext.WillayasList,RelativeSource={RelativeSource AncestorType={x:Type Page}}}" IsEditable="True" DisplayMemberPath="Designation" SelectedItem="{Binding Adresse.Willaya,Mode=TwoWay}" Grid.Column="1"/>
+                    <ComboBox x:Name="CbxWillaya" Margin="2 5" ItemsSource="{Binding DataContext.WillayasList,RelativeSource={RelativeSource AncestorType={x:Type Page}},UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" IsEditable="True" DisplayMemberPath="Designation" SelectedItem="{Binding Adresse.Willaya,Mode=TwoWay}" Grid.Column="1"/>
                     <TextBlock Grid.Column="1"   Text="Willaya">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=WillayaBox}" Value="">
+                                    <DataTrigger Binding="{Binding Text, ElementName=CbxWillaya}" Value="">
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <syncfusion:SfMaskedEdit  Grid.Column="2" Text="{Binding Adresse.CodePosatal,Mode=TwoWay}"  Margin="2 5"                                      
+                    <syncfusion:SfMaskedEdit Name="TxtEditCodeP" Grid.Column="2" Text="{Binding Adresse.CodePosatal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5"                                      
                                      Watermark="code postal"  
                                      />
                 </Grid>
-                <TextBlock Grid.Column="0" Grid.Row="11" Text="Date depot" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:DateTimeEdit Margin="10 5"  Text="{Binding DateDeDepot,Mode=TwoWay,StringFormat=d}"   x:Name="DepotDateBox" Grid.Column="1" Grid.Row="11" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="11"  Text="Date de dépot" >
+                <TextBlock Grid.Column="0" Grid.Row="12" Text="Date depot" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <DatePicker  Margin="10 5"  SelectedDate="{Binding DateDeDepot,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}'}"    Grid.Column="1" Grid.Row="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="1" Grid.Row="12"  Text="Date de dépot" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -322,20 +368,20 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <GroupBox Header="select pathology" Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
+                <GroupBox Header="Affecte une pathologie" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2">
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock  Text="Pathology" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <syncfusion:ComboBoxAdv Margin="10 5" ItemsSource="{Binding DataContext.PathologiesList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Pathology}" DisplayMemberPath="NomPathology"
-                                                x:Name="PathologyBox" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Column="1"   Text="Pathology" >
+                        <TextBlock  Text="Pathologie" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                        <syncfusion:ComboBoxAdv syncfusion:SkinStorage.VisualStyle="Metro" Name="CbxPath" Margin="10 5" ItemsSource="{Binding DataContext.PathologiesList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Pathology}" DisplayMemberPath="NomPathology"
+                                                 Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Column="1"   Text="Sélectionner" >
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=PathologyBox}" Value="{x:Null}">
+                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=CbxPath}" Value="{x:Null}">
                                             <Setter Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -344,21 +390,57 @@
                         </TextBlock>
                     </Grid>
                 </GroupBox>
-
-
-                <Grid Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                <Grid Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding DataContext.SavePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                    <Button Grid.Column="0" Margin="2" Command="{Binding DataContext.SavePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
                                 <TextBlock Text="Save" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                <Setter Property="IsEnabled" Value="false" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=TxtEditNumOrdre, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditNom, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditPrenom, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditNomAcc, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=DateTimeNaiss, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditTelFix, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditMobile, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditMobileAcc, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=CbxSexe, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditAdress, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditCity, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditCodeP, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=CbxWillaya, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=CbxPath, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition>
+                                                <Condition.Binding>
+                                                    <Binding Path="DataContext.SelectedPatient" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                        <Binding.ConverterParameter>
+                                                            <x:Null/>
+                                                        </Binding.ConverterParameter>
+                                                    </Binding>
+                                                </Condition.Binding>
+                                                <Condition.Value>
+                                                    <system:Boolean>False</system:Boolean>
+                                                </Condition.Value>
+                                            </Condition>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="true" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
                     <Button Grid.Column="1"  Margin="2" Command="{Binding DataContext.DeletePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
                         <Button.Content>
@@ -378,7 +460,7 @@
                     </Button>
                 </Grid>
             </Grid>
-            <GridSplitter Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1" VerticalAlignment="Stretch"/>
+            <GridSplitter Background="Gray" Width="1" Margin="1,20,1,20" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
             <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <syncfusion:TabControlExt  EnableLabelEdit="False" syncfusion:SkinStorage.VisualStyle="Metro" Margin="5,30,5,5"
                                   CloseButtonType="Hide" ShowTabItemContextMenu="False"
@@ -393,7 +475,7 @@
                                         <RowDefinition Height="2"/>
                                     </Grid.RowDefinitions>
                                     <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
-                                    <TextBlock Grid.Row="0" Text="Appointements"></TextBlock>
+                                    <TextBlock Grid.Row="0" Text="Rendez-vous"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </syncfusion:TabItemExt.HeaderTemplate>
@@ -413,13 +495,13 @@
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
                                 </Button>
-                                <TextBlock Margin="20,0,0,0" Text="Appointements" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                                <TextBlock Margin="20,0,0,0" Text="Rendez-vous" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
 
                                 <syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                                        AutoGenerateColumns="False"
                                        AllowDraggingColumns="True"
-                                       AllowEditing="True"
+                                       AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
                                        ItemsSource="{Binding DataContext.SelectedPatient.RendezVouses,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
@@ -432,7 +514,7 @@
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                     <syncfusion:SfDataGrid.Columns>
-                                        <syncfusion:GridTextColumn HeaderText="Date" MappingName="DateTimeRdv" />
+                                        <syncfusion:GridTextColumn HeaderText="Date" ValueBinding="{Binding DateTimeRdv,StringFormat='{}{0:dd/MM/yyyy}'}"/>
                                         <syncfusion:GridTextColumn HeaderText="Lieu" MappingName="LieuRdv" />
                                         <syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserNom"/>
                                         <syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserPrenom"/>
@@ -473,8 +555,19 @@
                                     </Button.Content>
                                 </Button>
                                 <TextBlock Margin="20,0,0,0" Text="Piece Jointe" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
-                                <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Header="Nouveau">
-                                    <Grid  >
+                                <GroupBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Header="Nouveau">
+
+                                    <Grid >
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe}" Value="{x:Null}">
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
@@ -482,12 +575,13 @@
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <ComboBox x:Name="TypeCbx" Grid.Row="0" ItemsSource="{Binding DataContext.TypePieceJointeList,ElementName=RootGrid,Mode=TwoWay}" SelectedItem="{Binding Path=DataContext.SelectedPieceJointe.TypePieceJointe,ElementName=RootGrid}" DisplayMemberPath="PieceJointeTitle" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
-                                        <TextBlock Grid.Row="0"  Text="Type Piece Jointe" >
+                                        <ComboBox x:Name="CbTypePj" Grid.Row="0" ItemsSource="{Binding DataContext.TypePieceJointeList,ElementName=RootGrid,Mode=TwoWay}" SelectedItem="{Binding Path=DataContext.SelectedPieceJointe.TypePieceJointe,ElementName=RootGrid,
+                                            UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" DisplayMemberPath="PieceJointeTitle" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
+                                        <TextBlock Grid.Row="0"  Text="Type de Piece Jointe" >
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=TypeCbx}" Value="{x:Null}">
+                                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=CbTypePj}" Value="{x:Null}">
                                                             <Setter Property="Visibility" Value="Visible"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
@@ -495,9 +589,11 @@
                                             </TextBlock.Style>
                                         </TextBlock>
 
-                                        <syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.IdPieceJointe,Mode=TwoWay}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
-                                     Watermark="Id Piece Jointe"/>
-                                        <syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.Description,Mode=TwoWay}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
+                                        <syncfusion:SfMaskedEdit Name="TxtEditIde" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.IdPieceJointe,Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
+                                     Watermark="Identifiant"/>
+                                        <syncfusion:SfMaskedEdit Name="TxtEditDesc" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.Description,Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Description"/>
                                         <Grid Grid.Row="3">
                                             <Grid.ColumnDefinitions>
@@ -505,28 +601,96 @@
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Button Content="Upload" Command="{Binding DataContext.UploadPieceJointeCommand,ElementName=RootGrid}" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
-                                            <Button Content="Preview" Command="{Binding DataContext.PreviewPieceJointeCommand,ElementName=RootGrid}" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
-                                            <Button Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
+                                            <Button Content="Upload" Style="{StaticResource {x:Type Button}}" Command="{Binding DataContext.UploadPieceJointeCommand,ElementName=RootGrid}" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"/>
+                                            <Button Content="Preview" Command="{Binding DataContext.PreviewPieceJointeCommand,ElementName=RootGrid}" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5" >
+                                                <Button.Style>
+                                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.PieceJointeImage}" Value="{x:Null}">
+                                                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                            <Button ToolTip="Enregistrer la piece jointe"  Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5">
+                                                <Button.Style>
+                                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                                        <Setter Property="IsEnabled" Value="false" />
+                                                        <Style.Triggers>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding ElementName=TxtEditIde, Path=(Validation.HasError)}" Value="false" />
+                                                                    <Condition Binding="{Binding ElementName=TxtEditDesc, Path=(Validation.HasError)}" Value="false" />
+                                                                    <Condition>
+                                                                        <Condition.Binding>
+                                                                            <Binding Path="DataContext.SelectedPieceJointe.TypePieceJointe" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                                                <Binding.ConverterParameter>
+                                                                                    <x:Null/>
+                                                                                </Binding.ConverterParameter>
+                                                                            </Binding>
+                                                                        </Condition.Binding>
+                                                                        <Condition.Value>
+                                                                            <system:Boolean>False</system:Boolean>
+                                                                        </Condition.Value>
+                                                                    </Condition>
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="IsEnabled" Value="true" />
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+
                                         </Grid>
 
                                     </Grid>
                                 </GroupBox>
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
                                 <GroupBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  Header="Liste de pieces">
-                                    <ListView ItemsSource="{Binding DataContext.ListPieceJointes,ElementName=RootGrid}"  SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe}">
+                                    <ListView ItemsSource="{Binding DataContext.SelectedPatient.PieceJointes,ElementName=RootGrid}"  SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe}">
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
                                                         <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
                                                     <CheckBox Margin="5" VerticalAlignment="Center" />
                                                     <TextBlock Grid.Column="1" Margin="10,5,5,5" VerticalAlignment="Center" Text="{Binding TypePieceJointe.PieceJointeTitle}"/>
+                                                    <Button Style="{StaticResource MetroCircleButtonStyle}" BorderThickness="0" Grid.Column="2" Width="20" Height="20"  Command="{Binding ElementName=RootGrid,Path=DataContext.DeletePieceJointeCommand}" >
+                                                        <Path Data="{StaticResource DeletePath}" Width="10" Height="10" Fill="Black" Stretch="Uniform"/>
+                                                    </Button>
                                                 </Grid>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
+                                        <ListView.ContextMenu>
+                                            <ContextMenu DataContext="{Binding Path=DataContext,  ElementName=RootGrid}">
+                                                <MenuItem  Header="Supprimer piece jointe" Command="{Binding DeletePieceJointeCommand}" >
+                                                    <MenuItem.Icon>
+                                                        <Path Data="{StaticResource DeletePath}" Width="7" Height="7" Fill="Black" Stretch="Uniform"/>
+                                                    </MenuItem.Icon>
+                                                </MenuItem>
+                                                <MenuItem IsEnabled="False" Header="Supprimer les pieces selectionner">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <command:EventToCommand Command="{Binding DataContext.DeletePieceJointeCommand,ElementName=RootGrid}"
+                                                             PassEventArgsToCommand="True" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <MenuItem.Icon>
+                                                        <Path Data="{StaticResource DeleteAllPath}" Width="7" Height="7" Fill="Black" Stretch="Uniform"/>
+                                                    </MenuItem.Icon>
+                                                </MenuItem>
+                                            </ContextMenu>
+                                        </ListView.ContextMenu>
                                     </ListView>
                                 </GroupBox>
                             </Grid>
@@ -560,9 +724,9 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Image Source="{StaticResource PrinterDark}" Width="35" Height="35" ></Image>
-                                <TextBlock Margin="20,0,0,0" Text="Piece Jointe" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                                <TextBlock Margin="20,0,0,0" Text="Imprimer" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
-                                <GroupBox Header="Recu de depot" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                                <GroupBox Header="Reçu de dépôt" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions >
                                             <ColumnDefinition Width="*"/>
@@ -655,16 +819,29 @@
                                             <RowDefinition Height="100"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Title,Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Titre du remarque" />
-                                        <syncfusion:SfMaskedEdit Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Content,Mode=TwoWay}"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Contenu du remarque" />
+                                        <syncfusion:SfMaskedEdit  Name="TxtEditTitre" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Titre du note"  />
+                                        <syncfusion:SfMaskedEdit AcceptsReturn="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Name="TxtEditContenu" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Content,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                     Watermark="Contenu du note" />
                                         <Grid Grid.Row="2">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Button Grid.Column="0"  Margin="10 5">
+                                            <Button Grid.Column="0"  Margin="10 5" Command="{Binding ElementName=RootGrid,Path=DataContext.DeleteNoteCommand}">
+                                                <Button.Style>
+                                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.NoteId}" Value="{x:Static system:Guid.Empty}">
+                                                                <Setter Property="IsEnabled" Value="False"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote}" Value="{x:Null}">
+                                                                <Setter Property="IsEnabled" Value="False"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
                                                 <Button.Content>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
@@ -679,13 +856,44 @@
                                                         <TextBlock Text="save" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button.Content>
+                                                <Button.Style>
+                                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                                        <Setter Property="IsEnabled" Value="false" />
+                                                        <Style.Triggers>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding ElementName=TxtEditTitre, Path=(Validation.HasError)}" Value="false" />
+                                                                    <Condition Binding="{Binding ElementName=TxtEditContenu, Path=(Validation.HasError)}" Value="false" />
+                                                                    <Condition>
+                                                                        <Condition.Binding>
+                                                                            <Binding Path="DataContext.SelectedNote" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                                                <Binding.ConverterParameter>
+                                                                                    <x:Null/>
+                                                                                </Binding.ConverterParameter>
+                                                                            </Binding>
+                                                                        </Condition.Binding>
+                                                                        <Condition.Value>
+                                                                            <system:Boolean>False</system:Boolean>
+                                                                        </Condition.Value>
+                                                                    </Condition>
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="IsEnabled" Value="true" />
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
                                             </Button>
                                         </Grid>
                                     </Grid>
                                 </GroupBox>
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
                                 <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Header="List des notes">
-                                    <ListView ItemsSource="{Binding DataContext.NotesFakeCollection,ElementName=RootGrid}" SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote}">
+                                    <ListView ItemsSource="{Binding Path=DataContext.SelectedPatient.Notes,ElementName=RootGrid}" SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote}">
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Border BorderBrush="Black" BorderThickness="1" Margin="5">

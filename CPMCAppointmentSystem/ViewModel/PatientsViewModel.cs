@@ -22,13 +22,13 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel : NavigableViewModelBase
     {
         #region Fields
-        
+
         private Note _selectedNote;
         private AddPatientAppointment _addAppointementWindow;
         private ObservableCollection<Patient> _patientList;
         private Patient _selectedPatient;
         private ObservableCollection<Sexe> _sexeList;
-        private readonly CpmcContext _dbContext = new CpmcContext();
+        private CpmcContext _dbContext = new CpmcContext();
         private ObservableCollection<Medecin> _doctorsList;
         private Medecin _selectedDoctor;
         private RendezVous _selectedAppointement;
@@ -47,7 +47,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _reportPath;
         private PreviewReportView _previewReportView;
         #endregion
-        #region Properties       
+        #region Properties
         public ObservableCollection<Pathology> PathologiesList
         {
             get
@@ -383,7 +383,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             SelectedNote = null;
                         }
                         else
-                        {                                                        
+                        {
                             _dbContext.SaveChanges();
                             SelectedNote = null;
                         }
@@ -471,6 +471,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _patientsViewLoadedCommand
                     ?? (_patientsViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        _dbContext = new CpmcContext();
                         SexeList = new ObservableCollection<Sexe>(await Task.Run(() => _dbContext.Sexes));
                         WillayasList = new ObservableCollection<Willaya>(await Task.Run(() => _dbContext.Willayas));
                         await LoadPieceJointeTypeList();
@@ -479,7 +480,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         await LoadDoctorsList();
                     }));
             }
-        }
+        }       
 
         private RelayCommand _addPatientCommand;
         public RelayCommand AddPatientCommand
@@ -592,7 +593,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (SelectedPatient.PatientId == Guid.Empty)
                         {
                             AddNewPatient();
-                        }                                           
+                        }
                         SelectedAppointement = new RendezVous()
                         {
                             Patient = SelectedPatient
@@ -708,7 +709,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _appointementDoubleClickCommand
                     ?? (_appointementDoubleClickCommand = new RelayCommand(
                     () =>
-                    {                      
+                    {
                         _addAppointementWindow = new AddPatientAppointment();
                         _addAppointementWindow.ShowDialog();
                     }));
@@ -817,7 +818,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             //Added by Farouk for Audit purpose
                             SelectedPieceJointe.PieceJointeId = Guid.NewGuid();
-                            
+
                             //This is a new PieceJointe
                             if (SelectedPatient.PieceJointes == null)
                                 SelectedPatient.PieceJointes = new ObservableCollection<PieceJointe>();
@@ -870,13 +871,13 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deletePieceJointeCommand = new RelayCommand(
                     () =>
                     {
-                        if (SelectedPieceJointe!=null)
+                        if (SelectedPieceJointe != null)
                         {
                             _dbContext.PieceJointes.Remove(SelectedPieceJointe);
                             SelectedPatient.PieceJointes.Remove(SelectedPieceJointe);
                             _dbContext.SaveChanges();
                         }
-                        
+
                     }));
             }
         }
@@ -895,7 +896,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             SelectedPatient.Notes.Remove(SelectedNote);
                             _dbContext.SaveChanges();
                         }
-                        
+
                     }));
             }
         }
@@ -908,8 +909,36 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deleteSelectedPieceJointsCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
+            }
+        }
+        private RelayCommand _loadConnectedDoctorPatientsCommand;
+        public RelayCommand LoadConnectedDoctorPatientsCommand
+        {
+            get
+            {
+                return _loadConnectedDoctorPatientsCommand
+                    ?? (_loadConnectedDoctorPatientsCommand = new RelayCommand(async () =>
+                    {
+                        _dbContext = new CpmcContext();
+                        SexeList = new ObservableCollection<Sexe>(await Task.Run(() => _dbContext.Sexes));
+                        WillayasList = new ObservableCollection<Willaya>(await Task.Run(() => _dbContext.Willayas));
+                        await LoadPieceJointeTypeList();
+                        await LoadDotorPatienstList();
+                        await LoadPathologiseList();
+                        await LoadDoctorsList();
+
+                    }));
+            }
+        }
+        private async Task LoadDotorPatienstList()
+        {
+            var currnetUser = (MainFrameNavigationService.Parameter as User);
+            if (currnetUser != null)
+            {
+                var med = _dbContext.Medecins.First(m => m.UserId == currnetUser.UserId);
+                if (med != null) PatientList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.RendezVouses.Where(rdv => rdv.MedecinId == med.MedecinId).Select(x => x.Patient)));
             }
         }
         #endregion
@@ -939,7 +968,7 @@ namespace CPMCAppointmentSystem.ViewModel
             //Added by Farouk for Audit purpose
             SelectedPatient.PatientId = Guid.NewGuid();
 
-            _dbContext.Patients.Add(SelectedPatient);            
+            _dbContext.Patients.Add(SelectedPatient);
             IsFormEnabled = false;
         }
         private async Task LoadPatientAppointementList()

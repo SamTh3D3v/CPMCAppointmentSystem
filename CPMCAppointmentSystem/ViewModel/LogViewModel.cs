@@ -5,15 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
+using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
+using System.Collections.ObjectModel;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
     public class LogViewModel : NavigableViewModelBase
     {
         #region Fileds
+
+        private CpmcContext _dbContext=new CpmcContext();
         private string _selectedLog;
-        private ObservableCollection<string> _logCollectionList; 
+        private ObservableCollection<Trace> _logCollectionList; 
         #endregion
         #region Properties
         public string SelectedLog
@@ -34,7 +38,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }               
-        public ObservableCollection<string> LogCollectionList
+        public ObservableCollection<Trace> LogCollectionList
         {
             get
             {
@@ -61,7 +65,20 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _logViewLoadedCommand
-                    ?? (_logViewLoadedCommand = new RelayCommand(
+                    ?? (_logViewLoadedCommand = new RelayCommand(async () =>
+                    {
+                        _dbContext = new CpmcContext();
+                        LogCollectionList=new ObservableCollection<Trace>(await Task.Run(()=>_dbContext.Traces));
+                    }));
+            }
+        }
+        private RelayCommand _logViewUnloadedCommand;
+        public RelayCommand LogViewUnloadedCommand
+        {
+            get
+            {
+                return _logViewUnloadedCommand
+                    ?? (_logViewUnloadedCommand = new RelayCommand(
                     () =>
                     {
                         

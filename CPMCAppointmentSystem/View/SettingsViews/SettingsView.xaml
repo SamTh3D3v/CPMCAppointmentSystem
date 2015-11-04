@@ -127,6 +127,7 @@
                                        ItemsSource="{Binding UsersList,Mode=TwoWay}"                                                   
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedUser,Mode=TwoWay}"
+                                                   SelectionChanged="SfDataGrid_OnSelectionChanged"
                                        ShowGroupDropArea="True" >
                                 <syncfusion:SfDataGrid.Columns>
                                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="UserNom" />
@@ -195,12 +196,11 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
-
                                 </Grid>
                             </GroupBox>
                             <GroupBox Grid.Row="1" Grid.Column="0">
                                 <GroupBox.Header>
-                                    <CheckBox  x:Name="PassCheckBox" Foreground="White">
+                                    <CheckBox  x:Name="PassCheckBox" Foreground="White" Unchecked="PassCheckBox_OnUnChecked" Checked="PassCheckBox_OnChecked">
                                         <CheckBox.Style >
                                             <Style TargetType="CheckBox">
                                                 <Setter Property="IsChecked" Value="False"/>
@@ -244,12 +244,235 @@
                             </GroupBox>
 
                             <Expander IsExpanded="True" Grid.Row="2" Grid.Column="0"  Header="Rolls">
-                                <syncfusion:TreeViewAdv ItemsSource="{Binding TreeViewRollCollection}" ItemTemplate="{StaticResource TvItemTemplate}" Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
-                                            AnimationType="Fade"
+                                <Expander.Style>                                    
+                                    <Style TargetType="Expander">
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=CbxUserType,Path=SelectedItem}" Value="{x:Null}">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Expander.Style>
+                                <syncfusion:TreeViewAdv  Background="Transparent" BorderThickness="0"  HorizontalAlignment="Stretch"
+                                            AnimationType="Fade"                                                         
                                             ItemContainerStyle="{StaticResource TreeViewItemConStyle}" 
                                             ShowRootLines="True" 
                                             AllowMultiSelect="False" 
                                             AllowDragDrop="False">
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header >
+                                            <StackPanel Orientation="Horizontal">                                                
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource CalendarPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="CalendarView" VerticalAlignment="Center"/>
+                                            </StackPanel>                                            
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="AppointementViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.AppointementViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="AppointementEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.AppointementEditAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+                                    
+                                    
+                                     <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource DoctorPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="DoctorsView" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="DoctorsViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.DoctorsViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="DoctorsEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.DoctorsAddAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PatientPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="PatientView" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="PatientsViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.PatientsViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="PatientsEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.PatientsEditAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="PatientsEditAppointementAllow" IsChecked="{Binding SelectedUser.RolesCollection.PatientsEditAppointementAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SpecialityPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="SpecialitePrincipaleView" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SpecialitiesViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.SpecialitiesViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SpecialitiesEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.SpecialitiesEditAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>                                           
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PathologyPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="PathologyView" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="PathologiesViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.PathologiesViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="PathologiesEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.PathologiesEditAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PatientPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="MyPatientsView" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="MyPatientsViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.MyPatientsViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="MyPatientsEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.MyPatientsEditAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="MyPatientsEditAppointementAllow" IsChecked="{Binding SelectedUser.RolesCollection.MyPatientsEditAppointementAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SmsMobilePath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="Sms Notifications View" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SmsNotificationViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.SmsNotificationViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SmsNotificationEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.SmsNotificationEditAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+                                                                        
+                                    
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>                                           
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SettingsPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="Settings View" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SettingsViewUsersAllow" IsChecked="{Binding SelectedUser.RolesCollection.SettingsViewUsersAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SettingsEditUsersAllow" IsChecked="{Binding SelectedUser.RolesCollection.SettingsEditUsersAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="SettingsMangeThemeAllow" IsChecked="{Binding SelectedUser.RolesCollection.SettingsMangeThemeAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource LogPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="Log View" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="LogViewAllow" IsChecked="{Binding SelectedUser.RolesCollection.LogViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv  IsEditable="False">
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="LogEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.LogEditAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>                                            
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+
                                 </syncfusion:TreeViewAdv>
                             </Expander>
                             <Grid Grid.Row="3" Grid.Column="0"  VerticalAlignment="Bottom">
@@ -258,7 +481,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Tag="no"  Margin="2" Command="{Binding SaveAddNewUserCommand}" CommandParameter="{Binding ElementName=UserPass}" x:Name="BtnSave">
+                                <Button Grid.Column="0" Tag="no"  Margin="2" Command="{Binding SaveAddNewUserCommand}" x:Name="BtnSave">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -268,6 +491,7 @@
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                             <Setter Property="IsEnabled" Value="false" />
+                                            <Setter Property="CommandParameter" Value="{x:Null}"></Setter>
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
@@ -309,6 +533,9 @@
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter Property="IsEnabled" Value="true" />
                                                 </MultiDataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=PassCheckBox,Path=IsChecked}" Value="True">
+                                                    <Setter Property="CommandParameter" Value="{Binding ElementName=UserPass}"/>
+                                                </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
@@ -507,7 +734,7 @@
                                 <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>                                        
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Button Grid.Column="0"  Width="180"  Margin="2" Command="{Binding SavePatientStatusCommand}">
                                         <Button.Content>
@@ -524,8 +751,8 @@
                                                 <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                         </Button.Content>
-                                    </Button> 
-                                   
+                                    </Button>
+
                                 </Grid>
                             </Grid>
                         </TabItem>

@@ -85,10 +85,20 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         MainFrameNavigationService.NavigateTo(App.LoginViewKey);
-                        using (var context = new CpmcContext())
-                        {                            
-                            var res=context.Willayas.FirstOrDefault();
-                        }
+                        
+                    }));
+            }
+        }
+        private RelayCommand _mainViewUnloadedCommand;
+        public RelayCommand MainViewUnloadedCommand
+        {
+            get
+            {
+                return _mainViewUnloadedCommand
+                    ?? (_mainViewUnloadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        
                     }));
             }
         }

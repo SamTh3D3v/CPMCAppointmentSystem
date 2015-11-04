@@ -35,13 +35,7 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         private void Schedule_OnScheduleClick(object sender, ScheduleClickEventArgs e)
         {
             //A Dirty Trick from the deep hell of dirty coders 
-            Messenger.Default.Send<DateTime>((DateTime) e.SelectedDate);
-        }
-
-
-        private void Schedule_OnAppointmentEndDragging(object sender, AppointmentEndDraggingEventArgs e)
-        {
-            
+            if (e.SelectedDate != null) Messenger.Default.Send<DateTime>((DateTime) e.SelectedDate);
         }
     }
 }

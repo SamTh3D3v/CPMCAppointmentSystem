@@ -24,6 +24,10 @@
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=MainViewLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=MainViewUnloadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl >
