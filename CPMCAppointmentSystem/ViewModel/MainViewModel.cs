@@ -49,11 +49,25 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             _dbContext = new CpmcContext();
                             var user = MainFrameNavigationService.Parameter as User;
-                            if (user != null)
+                            if (user != null)                           //todo 
                                 ConnectedUser = _dbContext.Users.Find(user.UserId);
-                            InnerFrameNavigationService.NavigateTo(App.PatientsViewKey);
+                            NavigateToAnAllowedView();
                         }));
             }
+        }
+
+        private void NavigateToAnAllowedView()
+        {
+            if (ConnectedUser.RolesCollection.PatientsViewAllow) InnerFrameNavigationService.NavigateTo(App.PatientsViewKey);
+            if (ConnectedUser.RolesCollection.AppointementViewAllow) InnerFrameNavigationService.NavigateTo(App.CalendarViewKey);
+            if (ConnectedUser.RolesCollection.DoctorsViewAllow) InnerFrameNavigationService.NavigateTo(App.DoctorsViewKey);
+            if (ConnectedUser.RolesCollection.PathologiesViewAllow) InnerFrameNavigationService.NavigateTo(App.PathologiesViewKey);
+            if (ConnectedUser.RolesCollection.SpecialitiesViewAllow) InnerFrameNavigationService.NavigateTo(App.SpecialityViewKey);
+            if (ConnectedUser.RolesCollection.SmsNotificationViewAllow) InnerFrameNavigationService.NavigateTo(App.NotificationViewKey);
+            if (ConnectedUser.RolesCollection.StatisticsViewAllow) InnerFrameNavigationService.NavigateTo(App.StatisticsViewKey);
+            if (ConnectedUser.RolesCollection.LogViewAllow) InnerFrameNavigationService.NavigateTo(App.LogViewKey);
+            if (ConnectedUser.RolesCollection.SettingsViewUsersAllow) InnerFrameNavigationService.NavigateTo(App.SettingsViewKey);
+
         }
         private RelayCommand _mainViewUnloadedCommand;
         public RelayCommand MainViewUnloadedCommand
