@@ -28,12 +28,5 @@ namespace DataLayer.Model
         public Guid? ParentEntityId { get; set; }
 
         public string ParentEntitySet { get; set; }
-    }
-
-    public enum AuditAction
-    {
-        Insert,
-        Update,
-        Delete
-    }
+    }  
 }

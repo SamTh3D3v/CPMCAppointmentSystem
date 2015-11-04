@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.0.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -76,28 +77,34 @@
   <ItemGroup>
     <Compile Include="Audit\CpmcContext.cs" />
     <Compile Include="Audit\ParentAttribute.cs" />
+    <Compile Include="Enums\AuditAction.cs" />
+    <Compile Include="Enums\Days.cs" />
+    <Compile Include="Enums\TypeJourFerie.cs" />
+    <Compile Include="Enums\TypeNotification.cs" />
+    <Compile Include="Enums\TypeUser.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Adresse.cs" />
-    <Compile Include="Model\Auditable.cs" />
-    <Compile Include="Model\IAuditable.cs" />
+    <Compile Include="Entities\Adresse.cs" />
+    <Compile Include="Audit\Auditable.cs" />
+    <Compile Include="Audit\IAuditable.cs" />
     <Compile Include="Model\CpmcContext.cs" />
-    <Compile Include="Model\JourFerie.cs" />
-    <Compile Include="Model\Trace.cs" />
-    <Compile Include="Model\Medecin.cs" />
-    <Compile Include="Model\Note.cs" />
-    <Compile Include="Model\Notification.cs" />
-    <Compile Include="Model\Pathology.cs" />
-    <Compile Include="Model\Patient.cs" />
-    <Compile Include="Model\PieceJointe.cs" />
-    <Compile Include="Model\PieceJointeType.cs" />
-    <Compile Include="Model\RendezVous.cs" />
-    <Compile Include="Model\RolesCollection.cs" />
-    <Compile Include="Model\SchedulerSetting.cs" />
-    <Compile Include="Model\Sexe.cs" />
-    <Compile Include="Model\Specialite.cs" />
-    <Compile Include="Model\User.cs" />
-    <Compile Include="Model\UserType.cs" />
-    <Compile Include="Model\Willaya.cs" />
+    <Compile Include="Entities\JourFerie.cs" />
+    <Compile Include="Entities\Trace.cs" />
+    <Compile Include="Entities\Medecin.cs" />
+    <Compile Include="Entities\Note.cs" />
+    <Compile Include="Entities\Notification.cs" />
+    <Compile Include="Entities\Pathology.cs" />
+    <Compile Include="Entities\Patient.cs" />
+    <Compile Include="Entities\PieceJointe.cs" />
+    <Compile Include="Entities\PieceJointeType.cs" />
+    <Compile Include="Entities\RendezVous.cs" />
+    <Compile Include="Entities\RolesCollection.cs" />
+    <Compile Include="Entities\SchedulerSetting.cs" />
+    <Compile Include="Entities\Sexe.cs" />
+    <Compile Include="Entities\Specialite.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserType.cs" />
+    <Compile Include="Entities\Willaya.cs" />
+    <Compile Include="Notifications\SqlHelper.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -11,11 +11,7 @@ using DataLayer.Annotations;
 
 namespace DataLayer.Model
 {
-    public enum TypeJourFerie
-    {
-        Fix=1,
-        Ocas=2
-    }
+    
     [Table("JourFerie")]
     public class JourFerie:INotifyPropertyChanged,IDataErrorInfo
     {

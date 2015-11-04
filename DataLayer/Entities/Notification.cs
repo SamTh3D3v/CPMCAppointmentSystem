@@ -21,25 +21,24 @@ namespace DataLayer.Model
      *          
      */
 
-    public enum TypeNotification
-    {
-        Information=1,
-        Warnning=2,
-        Reminder=3,
-        Critical=4
-    }
+   
     public class Notification:INotifyPropertyChanged
     {
         #region Fields
         
         #endregion
+
         #region Properties
         public Guid NotificationId { get; set; }
         public String NotificationTitle { get; set; }
         public TypeNotification NotificationType { get; set; }
         public String NotificationMessage { get; set; }
-        
+        public Guid? NotifyUserId { get; set; }        
+        public TypeUser TypeUser { get; set; }
+        public bool IsSystem { get; set; }
+
         #endregion
+
         #region INotifyPropertyChanged Related logic                
         public event PropertyChangedEventHandler PropertyChanged;
 
