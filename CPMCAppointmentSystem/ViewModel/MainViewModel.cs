@@ -59,14 +59,14 @@ namespace CPMCAppointmentSystem.ViewModel
         private void NavigateToAnAllowedView()
         {
             if (ConnectedUser.RolesCollection.PatientsViewAllow) InnerFrameNavigationService.NavigateTo(App.PatientsViewKey);
-            if (ConnectedUser.RolesCollection.AppointementViewAllow) InnerFrameNavigationService.NavigateTo(App.CalendarViewKey);
-            if (ConnectedUser.RolesCollection.DoctorsViewAllow) InnerFrameNavigationService.NavigateTo(App.DoctorsViewKey);
-            if (ConnectedUser.RolesCollection.PathologiesViewAllow) InnerFrameNavigationService.NavigateTo(App.PathologiesViewKey);
-            if (ConnectedUser.RolesCollection.SpecialitiesViewAllow) InnerFrameNavigationService.NavigateTo(App.SpecialityViewKey);
-            if (ConnectedUser.RolesCollection.SmsNotificationViewAllow) InnerFrameNavigationService.NavigateTo(App.NotificationViewKey);
-            if (ConnectedUser.RolesCollection.StatisticsViewAllow) InnerFrameNavigationService.NavigateTo(App.StatisticsViewKey);
-            if (ConnectedUser.RolesCollection.LogViewAllow) InnerFrameNavigationService.NavigateTo(App.LogViewKey);
-            if (ConnectedUser.RolesCollection.SettingsViewUsersAllow) InnerFrameNavigationService.NavigateTo(App.SettingsViewKey);
+            else if (ConnectedUser.RolesCollection.AppointementViewAllow) InnerFrameNavigationService.NavigateTo(App.CalendarViewKey);
+            else if (ConnectedUser.RolesCollection.DoctorsViewAllow) InnerFrameNavigationService.NavigateTo(App.DoctorsViewKey);
+            else if (ConnectedUser.RolesCollection.PathologiesViewAllow) InnerFrameNavigationService.NavigateTo(App.PathologiesViewKey);
+            else if (ConnectedUser.RolesCollection.SpecialitiesViewAllow) InnerFrameNavigationService.NavigateTo(App.SpecialityViewKey);
+            else if (ConnectedUser.RolesCollection.SmsNotificationViewAllow) InnerFrameNavigationService.NavigateTo(App.NotificationViewKey);
+            else if (ConnectedUser.RolesCollection.StatisticsViewAllow) InnerFrameNavigationService.NavigateTo(App.StatisticsViewKey);
+            else if (ConnectedUser.RolesCollection.LogViewAllow) InnerFrameNavigationService.NavigateTo(App.LogViewKey);
+            else if (ConnectedUser.RolesCollection.SettingsViewUsersAllow) InnerFrameNavigationService.NavigateTo(App.SettingsViewKey);
 
         }
         private RelayCommand _mainViewUnloadedCommand;
