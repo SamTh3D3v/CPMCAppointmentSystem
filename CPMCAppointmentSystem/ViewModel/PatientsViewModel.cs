@@ -937,8 +937,17 @@ namespace CPMCAppointmentSystem.ViewModel
             var currnetUser = (MainFrameNavigationService.Parameter as User);
             if (currnetUser != null)
             {
-                var med = _dbContext.Medecins.First(m => m.UserId == currnetUser.UserId);
-                if (med != null) PatientList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.RendezVouses.Where(rdv => rdv.MedecinId == med.MedecinId).Select(x => x.Patient)));
+                var med = _dbContext.Medecins.FirstOrDefault(m => m.UserId == currnetUser.UserId);
+                if (med != null)
+                    PatientList =
+                        new ObservableCollection<Patient>(
+                            await
+                                Task.Run(
+                                    () =>
+                                        _dbContext.RendezVouses.Where(rdv => rdv.MedecinId == med.MedecinId)
+                                            .Select(x => x.Patient)));
+                else
+                    PatientList = new ObservableCollection<Patient>();
             }
         }
         #endregion
