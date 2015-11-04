@@ -39,6 +39,31 @@ namespace CPMCAppointmentSystem.ViewModel
         
         #endregion
         #region Commands
+        private RelayCommand _loginViewLoadedCommand;
+        public RelayCommand LoginViewLoadedCommand
+        {
+            get
+            {
+                return _loginViewLoadedCommand
+                    ?? (_loginViewLoadedCommand = new RelayCommand(
+                    () =>
+                    {                        
+                    }));
+            }
+        }
+        private RelayCommand _loginViewUnLoadedCommand;
+        public RelayCommand LoginViewUnLoadedCommand
+        {
+            get
+            {
+                return _loginViewUnLoadedCommand
+                    ?? (_loginViewUnLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        //_dbContext.Dispose();                        
+                    }));
+            }
+        }
         private RelayCommand<object> _loginCommand;
         public RelayCommand<object> LoginCommand
         {
@@ -61,8 +86,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
         public LoginViewModel(IFrameNavigationService mainNavigationService, IInnerFrameNavigationService innerNavigationService)
             : base(mainNavigationService, innerNavigationService)
-        {
-            
+        {            
         }
 
         void Login(string userName,object pass)

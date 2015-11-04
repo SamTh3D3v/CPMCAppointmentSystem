@@ -13,7 +13,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class MainViewModel : NavigableViewModelBase
     {
         #region Fields
-        private readonly CpmcContext _dbContext=new CpmcContext();
+        private  CpmcContext _dbContext=new CpmcContext();
         private User _connectedUser;
         #endregion
         #region Properties   
@@ -47,9 +47,24 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_mainViewLoadedCommand = new RelayCommand(
                         () =>
                         {
-                            ConnectedUser = MainFrameNavigationService.Parameter as User;
+                            var user = MainFrameNavigationService.Parameter as User;
+                            if (user != null)
+                                ConnectedUser = _dbContext.Users.Find(user.UserId);
                             InnerFrameNavigationService.NavigateTo(App.PatientsViewKey);
                         }));
+            }
+        }
+        private RelayCommand _mainViewUnloadedCommand;
+        public RelayCommand MainViewUnloadedCommand
+        {
+            get
+            {
+                return _mainViewUnloadedCommand
+                    ?? (_mainViewUnloadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
             }
         }
         private RelayCommand _calendarCommand;
@@ -177,7 +192,7 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Ctors and Methods
         public MainViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
-        {           
+        {            
         }
         #endregion
     }

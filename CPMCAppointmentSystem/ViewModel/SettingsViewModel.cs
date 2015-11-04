@@ -752,7 +752,6 @@ namespace CPMCAppointmentSystem.ViewModel
                 IsAdded = true
             })));
             UserTypeCollection = new ObservableCollection<UserType>(await Task.Run(() => _dbContext.UserTypes));
-
         }
 
         //private async Task LoadRollCollectionForSelectedUser()

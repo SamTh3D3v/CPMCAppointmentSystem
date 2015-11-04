@@ -19,6 +19,10 @@
             <command:EventToCommand Command="{Binding MainViewLoadedCommand, Mode=OneWay}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=MainViewUnloadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>  
 
     <Grid Background="{StaticResource BodyBackgroundBrush}" HorizontalAlignment="Stretch">
