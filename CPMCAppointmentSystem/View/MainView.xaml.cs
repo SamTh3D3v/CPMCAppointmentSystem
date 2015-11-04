@@ -22,5 +22,20 @@ namespace CPMCAppointmentSystem.View
         {
             InitializeComponent();
         }
+
+        private void InnerFrame_OnSourceUpdated(object sender, NavigationEventArgs navigationEventArgs)
+        {
+            RbCalendar.IsChecked=InnerFrame.Source.ToString().Contains("CalendarView");
+            RbPatients.IsChecked = InnerFrame.Source.ToString().Contains("PatientsView");
+            RbMedecin.IsChecked = InnerFrame.Source.ToString().Contains("DoctorsView");
+            RbPathology.IsChecked = InnerFrame.Source.ToString().Contains("PathologiesView");
+            RbSpeciality.IsChecked = InnerFrame.Source.ToString().Contains("SpecialiteView");
+            RbNotification.IsChecked = InnerFrame.Source.ToString().Contains("NotificationView");
+            RbStatistique.IsChecked = InnerFrame.Source.ToString().Contains("StatisticsView");
+            RbParametre.IsChecked = InnerFrame.Source.ToString().Contains("SettingsView");
+            RbLog.IsChecked = InnerFrame.Source.ToString().Contains("LogView");
+            RbMesPatient.IsChecked = InnerFrame.Source.ToString().Contains("MyPatientsView");
+
+        }
     }
 }
