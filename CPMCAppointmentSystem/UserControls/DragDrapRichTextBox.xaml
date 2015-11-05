@@ -34,7 +34,7 @@
         </ListView>
         <Border Grid.Column="1" Grid.Row="0" BorderThickness="2" BorderBrush="Gray" Margin="5" >
             <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto" >
-                <TextBox PreviewDragEnter="UIElement_OnDragEnter"   
+                <TextBox PreviewDragEnter="UIElement_OnDragEnter"   Text="{Binding SmsTextTemplate,Mode=TwoWay}"
             PreviewDrop="UIElement_OnDrop">
                     <TextBox.Style>
                         <Style TargetType="TextBox">

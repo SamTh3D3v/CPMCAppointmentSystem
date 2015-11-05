@@ -1,8 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
+using DataLayer.Notifications;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -53,7 +56,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _currentUser = value;
                 RaisePropertyChanged();
             }
-        }              
+        }
         public bool IsCurrentUserFlayoutOpen
         {
             get
@@ -84,7 +87,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         MainFrameNavigationService.NavigateTo(App.LoginViewKey);
-                        
+
                     }));
             }
         }
@@ -97,7 +100,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_mainViewUnloadedCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
             }
         }
@@ -111,7 +114,9 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         IsCurrentUserFlayoutOpen = false;
+                        CurrentUser = null;
                         MainFrameNavigationService.NavigateTo(App.LoginViewKey);
+                        App.NotificationHelper.Stop();
                     }));
             }
         }
@@ -124,21 +129,34 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_userConnectedCommand = new RelayCommand(
                     () =>
                     {
-                        CurrentUser = MainFrameNavigationService.Parameter as User;  
+                        CurrentUser = MainFrameNavigationService.Parameter as User;
+                        if (CurrentUser != null)
+                        {
+                            App.NotificationHelper.Start();
+                            App.NotificationHelper.NotificationsChange += NotificationHelper_NotificationsChange;
+                        }
                     }));
             }
+        }
+        void NotificationHelper_NotificationsChange(object sender, DataLayer.Notifications.NotificationEventArgs<DataLayer.Model.Notification> args)
+        {
+            //Get Valide notifications
+            var notifications = args.NewResult;
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => NotificationsCollection = new ObservableCollection<Notification>(notifications)));
+
+            // MessageBox.Show(notifications.Count.ToString(), notifications.Count > 0 ? notifications[0].NotificationTitle : "");
         }
         #endregion
         #region Ctors and Methods
 
-        #endregion       
+        #endregion
         public MainWindowViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
-            : base(mainFrameNavigationService,innerFrameNavigationService)
+            : base(mainFrameNavigationService, innerFrameNavigationService)
         {
-            NotificationsCollection=new ObservableCollection<Notification>();
+            NotificationsCollection = new ObservableCollection<Notification>();
             Messenger.Default.Register<Notification>(this, "AddNotification", (notification) => NotificationsCollection.Add(notification));
             Messenger.Default.Register<Notification>(this, "RemoveNotification", (notification) => NotificationsCollection.Remove(notification));
-            
+
         }
         public override void Cleanup()
         {

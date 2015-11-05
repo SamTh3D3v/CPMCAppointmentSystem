@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 using System.Windows;
@@ -56,23 +57,30 @@ namespace CPMCAppointmentSystem
             Thread.CurrentThread.CurrentCulture = new CultureInfo("fr");
 
 
-            NotificationHelper.Start();
+            //NotificationHelper.Start();
             
-            //TODO : OUSSAMA This line to bedoneon nitification View.
-            NotificationHelper.NotificationsChange += NotificationHelper_NotificationsChange;
+            ////TODO : OUSSAMA This line to bedoneon nitification View.
+            //NotificationHelper.NotificationsChange += NotificationHelper_NotificationsChange;
         }
 
-        void NotificationHelper_NotificationsChange(object sender, DataLayer.Notifications.NotificationEventArgs<DataLayer.Model.Notification> args)
-        {
-            //Get Valide notifications
-            var notifications = args.NewResult;
-            MessageBox.Show(notifications.Count.ToString(),notifications.Count>0?notifications[0].NotificationTitle:"");
-        }
+        //void NotificationHelper_NotificationsChange(object sender, DataLayer.Notifications.NotificationEventArgs<DataLayer.Model.Notification> args)
+        //{
+        //    //Get Valide notifications
+        //    var notifications = args.NewResult;
+        //    MessageBox.Show(notifications.Count.ToString(),notifications.Count>0?notifications[0].NotificationTitle:"");
+        //}
 
         public async void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             var errorMessage = string.Format("An exception occurred: {0}", e.Exception.Message);
-            var controller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Opération non permise, Details :", errorMessage));
+            var window = (Application.Current.MainWindow as MetroWindow);
+            if (window==null)
+            {
+                Debug.WriteLine(errorMessage);
+                e.Handled = true;
+                return;
+            }
+            await (window.ShowMessageAsync("Opération non permise, Details :", errorMessage));
             e.Handled = true;
             
         }

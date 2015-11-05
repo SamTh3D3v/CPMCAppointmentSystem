@@ -45,7 +45,8 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _isFormEnabled;
         private ObservableCollection<string> _monthList;
         private SettingsCollection _settingsCollection;
-        private ObservableCollection<DragableProperty> _dragablePropertiesCollection ;      
+        private ObservableCollection<DragableProperty> _dragablePropertiesCollection ;
+        private String _smsTextTemplate;
         #endregion
         #region Properties
         public ObservableCollection<UserType> UserTypeCollection
@@ -334,6 +335,24 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _dragablePropertiesCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public String SmsTextTemplate
+        {
+            get
+            {
+                return _smsTextTemplate;
+            }
+
+            set
+            {
+                if (_smsTextTemplate == value)
+                {
+                    return;
+                }
+
+                _smsTextTemplate = value;
                 RaisePropertyChanged();
             }
         }
@@ -764,6 +783,7 @@ namespace CPMCAppointmentSystem.ViewModel
             if (DateTimeFormatInfo.CurrentInfo != null)
                 MonthsList = new ObservableCollection<string>(DateTimeFormatInfo.CurrentInfo.MonthNames);
             InitDragablePropertiesCollection();
+            GetDeFaultSmsNotificationSettings();
         }
 
         private async Task LoadUsersList()
@@ -812,6 +832,12 @@ namespace CPMCAppointmentSystem.ViewModel
             },
         };
         }
+
+        private void GetDeFaultSmsNotificationSettings()
+        {
+            //these settings must be getted from the Xml settings file   //todo
+            SmsTextTemplate = "Confirmation du rendez vous";
+        }      
 
         #endregion
 
