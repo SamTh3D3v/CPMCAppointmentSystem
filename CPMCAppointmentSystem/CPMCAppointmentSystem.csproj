@@ -222,12 +222,12 @@
     <Compile Include="Actions\TileLoadedAction.cs" />
     <Compile Include="Behavior\InitialSetupBehaviour.cs" />
     <Compile Include="Behavior\StateChangeBehavior.cs" />
-    <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Helpers\ApplicationSettings.cs" />
     <Compile Include="Helpers\AsyncWindowExtension.cs" />
     <Compile Include="Helpers\ChartTile.cs" />
     <Compile Include="Helpers\CustomIdentity.cs" />
     <Compile Include="Helpers\CustomPrincipal.cs" />
+    <Compile Include="Helpers\DragableProperty.cs" />
     <Compile Include="Helpers\FrameNavigationService.cs" />
     <Compile Include="Helpers\GsmHelper.cs" />
     <Compile Include="Helpers\IFrameNavigationService.cs" />
@@ -239,9 +239,6 @@
     <Compile Include="Helpers\SearchService.cs" />
     <Compile Include="Helpers\Security.cs" />
     <Compile Include="Helpers\TreeViewModel.cs" />
-    <Compile Include="SampleData\DataItem.cs" />
-    <Compile Include="SampleData\DataService.cs" />
-    <Compile Include="SampleData\IDataService.cs" />
     <Compile Include="SubModel\EntityToAdd.cs" />
     <Compile Include="SubModel\RollsManager.cs" />
     <Compile Include="SubModel\SettingsCollection.cs" />

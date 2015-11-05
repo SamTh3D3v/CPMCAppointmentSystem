@@ -6,7 +6,6 @@ using CPMCAppointmentSystem.ViewModel.StatisticsViewModels;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using CPMCAppointmentSystem.Model;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -18,17 +17,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
         static ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
-            }
-            else
-            {
-                SimpleIoc.Default.Register<IDataService, DataService>();
-            }
-
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);         
             SimpleIoc.Default.Register<MainWindowViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<CalendarViewModel>();
