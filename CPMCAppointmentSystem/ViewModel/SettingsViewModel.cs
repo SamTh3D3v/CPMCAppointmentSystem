@@ -18,6 +18,11 @@ using Xceed.Wpf.Toolkit;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
+    public class DragableProperty
+    {
+        public String PropertyName { get; set; }
+        public String PropertyId { get; set; }
+    }
 
     public class SettingsViewModel : NavigableViewModelBase
     {
@@ -38,6 +43,53 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _isFormEnabled;
         private ObservableCollection<string> _monthList;
         private SettingsCollection _settingsCollection;
+
+        
+        
+
+        private ObservableCollection<DragableProperty>_dragablePropertiesCollection=new ObservableCollection<DragableProperty>()
+        {
+            new DragableProperty()
+            {
+                PropertyId = "@NomPatient",
+                PropertyName = "Nom du patient"
+            }, new DragableProperty()
+            {
+                PropertyId = "@PrenomPatient",
+                PropertyName = "Prenom du patient"
+            }, new DragableProperty()
+            {
+                PropertyId = "@NomMedecin",
+                PropertyName = "Nom du medecin"
+            }, new DragableProperty()
+            {
+                PropertyId = "@PrenomMedecin",
+                PropertyName = "Prenom du patient"
+            }, new DragableProperty()
+            {
+                PropertyId = "@DateRdv",
+                PropertyName = "Date Rdv"
+            },
+        };
+
+        public ObservableCollection<DragableProperty> DragablePropertiesCollection
+        {
+            get
+            {
+                return _dragablePropertiesCollection;;
+            }
+
+            set
+            {
+                if (_dragablePropertiesCollection == value)
+                {
+                    return;
+                }
+
+                _dragablePropertiesCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
         #region Properties
         public ObservableCollection<UserType> UserTypeCollection

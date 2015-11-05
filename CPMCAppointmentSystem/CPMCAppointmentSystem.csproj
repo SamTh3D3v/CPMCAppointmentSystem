@@ -245,6 +245,9 @@
     <Compile Include="SubModel\EntityToAdd.cs" />
     <Compile Include="SubModel\RollsManager.cs" />
     <Compile Include="SubModel\SettingsCollection.cs" />
+    <Compile Include="UserControls\DragDrapRichTextBox.xaml.cs">
+      <DependentUpon>DragDrapRichTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\NotificationTile.xaml.cs">
       <DependentUpon>NotificationTile.xaml</DependentUpon>
     </Compile>
@@ -391,6 +394,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\DragDrapRichTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\NotificationTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
