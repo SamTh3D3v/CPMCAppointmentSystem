@@ -173,12 +173,19 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     switch (m.Notification)
                     {
-                        case "SendSms":
+                        case "SendSmsToPatient":
                             GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, "Confirmation du rendez vous");
                             SelectedRdv.NotificationSent = true;
                             break;
-                        case "CallPortable":
+                        case "SendSmsToAccom":
+                            GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneDaccompagnant, "Confirmation du rendez vous");
+                            SelectedRdv.NotificationSent = true;
+                            break;
+                        case "CallPatient":
                             GsmHelper.Callphone(SelectedRdv.Patient.TelephoneMobile1);
+                            break;
+                        case "CallAccompagnant":
+                            GsmHelper.Callphone(SelectedRdv.Patient.TelephoneDaccompagnant);
                             break;
                         case "CallFix":
                             GsmHelper.Callphone(SelectedRdv.Patient.TelephoneFixe);

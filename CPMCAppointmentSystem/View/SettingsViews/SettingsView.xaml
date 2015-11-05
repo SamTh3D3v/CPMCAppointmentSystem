@@ -10,6 +10,7 @@
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
+      xmlns:userControls="clr-namespace:CPMCAppointmentSystem.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="1000" DataContext="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
 	Title="SettingsView" >
@@ -1317,32 +1318,16 @@
                                     </Grid>
                                 </GroupBox>
                                 <GroupBox Header="Core sms" Grid.Row="1" Grid.Column="0">
-                                    <StackPanel>
-                                        <Grid Margin="5" Background="WhiteSmoke">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="100"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Text="Message de notification [Françcais]" TextWrapping="Wrap" Width="150" VerticalAlignment="Center" Grid.Row="0"/>
-                                            <syncfusion:SfMaskedEdit Margin="5" Text="Confirmation du rendez vous" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></syncfusion:SfMaskedEdit>
-                                        </Grid>
-                                        <Grid Margin="5" Background="WhiteSmoke">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="100"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Text="Message de notification [Arab]" TextWrapping="Wrap" Width="150" VerticalAlignment="Center" Grid.Row="0"/>
-                                            <syncfusion:SfMaskedEdit Margin="5" Text="تأكيد الموعد" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></syncfusion:SfMaskedEdit>
-                                        </Grid>
-                                    </StackPanel>
+
+                                    <Grid Margin="5" Background="WhiteSmoke">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                      
+                                        <TextBlock Text="Message de notification [Françcais]" TextWrapping="Wrap" Width="150" VerticalAlignment="Center" Grid.Row="0"/>                                       
+                                        <userControls:DragDrapRichTextBox Grid.Column="1" Grid.Row="0" Margin="5" HorizontalAlignment="Stretch"/>
+                                    </Grid>
                                 </GroupBox>
                                 <Grid Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom">
                                     <Grid.ColumnDefinitions>

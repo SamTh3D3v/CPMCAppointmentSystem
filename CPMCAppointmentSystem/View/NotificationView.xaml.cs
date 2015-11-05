@@ -16,30 +16,36 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace CPMCAppointmentSystem.View
 {
-    /// <summary>
-    /// Interaction logic for NotificationView.xaml
-    /// </summary>
     public partial class NotificationView : Page
     {
         public NotificationView()
         {
             InitializeComponent();
         }
-
-
-        private void SendSmsClick(object sender, RoutedEventArgs e)
+        #region redirect click event to Vm (due to a bug in syncfusion SfRadialMenu control)
+        private void SendSmsToPatentClick(object sender, RoutedEventArgs e)
         {
-            Messenger.Default.Send(new NotificationMessage("SendSms"));
+            Messenger.Default.Send(new NotificationMessage("SendSmsToPatient"));
         }
-
-        private void CallPortableClick(object sender, RoutedEventArgs e)
-        {
-            Messenger.Default.Send(new NotificationMessage("CallPortable"));
-        }
-
         private void CallFixClick(object sender, RoutedEventArgs e)
         {
             Messenger.Default.Send(new NotificationMessage("CallFix"));
         }
+
+        private void SendSmsToPatentAccompClick(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Send(new NotificationMessage("SendSmsToAccom"));
+        }
+
+        private void CallPatentClick(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Send(new NotificationMessage("CallPatient"));
+        }
+
+        private void CallAccompClick(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Send(new NotificationMessage("CallAccompagnant"));
+        } 
+        #endregion
     }
 }
