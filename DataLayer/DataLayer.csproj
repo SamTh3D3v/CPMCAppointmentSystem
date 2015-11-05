@@ -104,7 +104,8 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserType.cs" />
     <Compile Include="Entities\Willaya.cs" />
-    <Compile Include="Notifications\SqlHelper.cs" />
+    <Compile Include="Notifications\NotificationEventArgs.cs" />
+    <Compile Include="Notifications\NotificationHelper.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

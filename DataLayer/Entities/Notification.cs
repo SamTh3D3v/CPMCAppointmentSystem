@@ -6,6 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Annotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataLayer.Model
 {
@@ -21,25 +23,30 @@ namespace DataLayer.Model
      *          
      */
 
-   
-    public class Notification:INotifyPropertyChanged
+    [Table("Notifications")]
+    public class Notification : INotifyPropertyChanged
     {
         #region Fields
-        
+
         #endregion
 
         #region Properties
         public Guid NotificationId { get; set; }
+        [MaxLength(128)]
         public String NotificationTitle { get; set; }
         public TypeNotification NotificationType { get; set; }
+        [MaxLength(1024)]
         public String NotificationMessage { get; set; }
-        public Guid? NotifyUserId { get; set; }        
-        public TypeUser TypeUser { get; set; }
+        public Guid? NotifyUserId { get; set; }
+        public TypeUser TypeUser { get; set; }        
+        public DateTime CreatedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
         public bool IsSystem { get; set; }
+        public bool IsActive { get; set; }
 
         #endregion
 
-        #region INotifyPropertyChanged Related logic                
+        #region INotifyPropertyChanged Related logic
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

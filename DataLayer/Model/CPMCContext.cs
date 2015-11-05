@@ -43,6 +43,7 @@ namespace DataLayer.Model
         public DbSet<JourFerie> JourFeries { get; set; }
         public DbSet<Trace> Traces { get; set; }
         public DbSet<SchedulerSetting> SchedulerSettings { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

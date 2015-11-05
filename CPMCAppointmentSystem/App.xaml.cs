@@ -32,9 +32,21 @@ namespace CPMCAppointmentSystem
         public static String Admin = "Admin";
         public static String Medecin = "Medecin";
         public static String Agent = "Agent";
-  
 
+        private static DataLayer.Notifications.NotificationHelper _sqlHelper;
+
+        public static DataLayer.Notifications.NotificationHelper NotificationHelper
+        {
+            get
+            {
+                _sqlHelper = _sqlHelper ?? new DataLayer.Notifications.NotificationHelper();
+                return _sqlHelper;
+            }
+        
+        }
         #endregion
+
+        DataLayer.Notifications.NotificationHelper notifcationHelper = new DataLayer.Notifications.NotificationHelper();
         public App():base()
         {
             DispatcherHelper.Initialize();
@@ -42,6 +54,19 @@ namespace CPMCAppointmentSystem
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += new UnhandledExceptionEventHandler(DomainUnhandlerEceptionHandler);
             Thread.CurrentThread.CurrentCulture = new CultureInfo("fr");
+
+
+            NotificationHelper.Start();
+            
+            //TODO : OUSSAMA This line to bedoneon nitification View.
+            NotificationHelper.NotificationsChange += NotificationHelper_NotificationsChange;
+        }
+
+        void NotificationHelper_NotificationsChange(object sender, DataLayer.Notifications.NotificationEventArgs<DataLayer.Model.Notification> args)
+        {
+            //Get Valide notifications
+            var notifications = args.NewResult;
+            MessageBox.Show(notifications.Count.ToString(),notifications.Count>0?notifications[0].NotificationTitle:"");
         }
 
         public async void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
@@ -56,6 +81,12 @@ namespace CPMCAppointmentSystem
         {
             var errorMessage = string.Format("An exception occurred: {0}", args.ExceptionObject.ToString());
             var controller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Opération non permise, Details :", errorMessage));
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            NotificationHelper.Stop();
+            base.OnExit(e);
         }
     }
 }
