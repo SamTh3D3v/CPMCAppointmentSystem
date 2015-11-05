@@ -19,8 +19,29 @@ namespace CPMCAppointmentSystem.ViewModel
         private User _currentUser;
         private bool _isCurrentUserFlayoutOpen;
         private ObservableCollection<Notification> _notificationCollection;
+        private bool _isNotificationFlayoutOpen;
         #endregion
-        #region Properties
+        #region Properties 
+        public bool IsNotificationFlayoutOpen
+        {
+            get
+            {
+                return _isNotificationFlayoutOpen;
+            }
+
+            set
+            {
+                if (_isNotificationFlayoutOpen == value)
+                {
+                    return;
+                }
+
+                _isNotificationFlayoutOpen = value;
+                if(_isNotificationFlayoutOpen)
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Seen"));
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<Notification> NotificationsCollection
         {
             get

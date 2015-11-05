@@ -15,8 +15,27 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Fields
         private  CpmcContext _dbContext=new CpmcContext();
         private User _connectedUser;
+        private bool _unseenNotification;   
         #endregion
-        #region Properties   
+        #region Properties                   
+        public bool UnseenNotification
+        {
+            get
+            {
+                return _unseenNotification;
+            }
+
+            set
+            {
+                if (_unseenNotification == value)
+                {
+                    return;
+                }
+
+                _unseenNotification = value;
+                RaisePropertyChanged();
+            }
+        }
         public User ConnectedUser
         {
             get
@@ -52,6 +71,10 @@ namespace CPMCAppointmentSystem.ViewModel
                             if (user != null)                           //todo 
                                 ConnectedUser = _dbContext.Users.Find(user.UserId);
                             NavigateToAnAllowedView();
+                            App.NotificationHelper.NotificationsChange += (s, e) =>
+                            {
+                                UnseenNotification = true;
+                            };
                         }));
             }
         }
@@ -207,7 +230,16 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Ctors and Methods
         public MainViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
-        {            
+        {  
+            Messenger.Default.Register<NotificationMessage>(this, (m) =>
+            {
+                switch (m.Notification)
+                {
+                    case "Seen":
+                        UnseenNotification = false;
+                        break;
+                }
+            });
         }
         #endregion
     }
