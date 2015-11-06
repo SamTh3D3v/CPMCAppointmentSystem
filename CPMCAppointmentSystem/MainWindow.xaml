@@ -18,7 +18,7 @@
         WindowTransitionsEnabled="False"                      
         BorderBrush="{DynamicResource AccentColorBr}"
                       BorderThickness="1" WindowTitleBrush="Black"        
-        DataContext="{Binding MainWindow, Source={StaticResource Locator}}" MinWidth="800">
+        DataContext="{Binding MainWindow, Source={StaticResource Locator}}" MinWidth="800" MouseDown="MainWindow_OnMouseDown">
     <Window.Resources>
         <Canvas x:Key="AppbarSettings" Width="76" Height="76" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
             <Path Width="38.9239" Height="38.9239" Canvas.Left="18.538" Canvas.Top="18.5381" Stretch="Fill" Fill="{DynamicResource BlackBrush}" Data="{StaticResource DataBaseSettingsPath}"/>
@@ -100,6 +100,11 @@
                         </DataTemplate>                    
                     </ListView.ItemTemplate>                    
                 </ListView>
+            </controls:Flyout>
+            <controls:Flyout x:Name="DataBaseSettingsFlyout" Header="Notification"   Position="Right"  Theme="Dark" Width="300" MouseDown="DataBaseSettingsFlyout_OnMouseDown">
+               <Grid>
+                   
+               </Grid>
             </controls:Flyout>
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
