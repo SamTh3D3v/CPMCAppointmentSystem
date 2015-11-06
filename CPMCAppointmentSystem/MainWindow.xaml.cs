@@ -38,5 +38,10 @@ namespace CPMCAppointmentSystem
         {
             throw new NotImplementedException();
         }
+
+        private void ShowDataBaesSettingsOnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

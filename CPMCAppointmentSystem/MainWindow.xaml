@@ -19,6 +19,11 @@
         BorderBrush="{DynamicResource AccentColorBr}"
                       BorderThickness="1" WindowTitleBrush="Black"        
         DataContext="{Binding MainWindow, Source={StaticResource Locator}}" MinWidth="800">
+    <Window.Resources>
+        <Canvas x:Key="AppbarSettings" Width="76" Height="76" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+            <Path Width="38.9239" Height="38.9239" Canvas.Left="18.538" Canvas.Top="18.5381" Stretch="Fill" Fill="{DynamicResource BlackBrush}" Data="{StaticResource DataBaseSettingsPath}"/>
+        </Canvas>
+    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=MainViewLoadedCommand}"
@@ -29,7 +34,25 @@
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <controls:MetroWindow.Flyouts>
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <Button Click="ShowDataBaesSettingsOnClick">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource AppbarSettings}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="Parametres du base" />
+                </StackPanel>
+            </Button>
+            </controls:WindowCommands>
+        </controls:MetroWindow.RightWindowCommands>
+            <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl >
             <controls:Flyout x:Name="CurrentUserFlyout" IsOpen="{Binding IsCurrentUserFlayoutOpen,Mode=TwoWay}" Header="CurrentUser" Position="Right" HorizontalAlignment="Stretch"  Theme="Dark" Width="300">
                 <ScrollViewer Margin="5,40,5,5" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
@@ -75,8 +98,7 @@
                         <DataTemplate>
                             <userControls:NotificationTile/>
                         </DataTemplate>                    
-                    </ListView.ItemTemplate>
-                    
+                    </ListView.ItemTemplate>                    
                 </ListView>
             </controls:Flyout>
         </controls:FlyoutsControl>
