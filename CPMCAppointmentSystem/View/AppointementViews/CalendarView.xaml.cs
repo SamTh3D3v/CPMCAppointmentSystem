@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
+using DataLayer.Model;
 using GalaSoft.MvvmLight.Messaging;
 using Syncfusion.UI.Xaml.Schedule;
+using Syncfusion.Windows.Controls.Navigation;
 using Syncfusion.Windows.Forms.Tools.Navigation;
 
 namespace CPMCAppointmentSystem.View.AppointementViews
@@ -13,6 +16,9 @@ namespace CPMCAppointmentSystem.View.AppointementViews
     /// </summary>
     public partial class CalendarView : Page
     {
+        internal RendezVous SelectedAppointment;        
+        RendezVous copiedAppointment;
+        DateTime CurrentSelectedDate;
         public CalendarView()
         {
             InitializeComponent();
@@ -36,6 +42,93 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         {
             //A Dirty Trick from the deep hell of dirty coders 
             if (e.SelectedDate != null) Messenger.Default.Send<DateTime>((DateTime) e.SelectedDate);
+        }
+
+        #region Popup Menu Click Events
+
+        void pasteButton_Click(object sender, RoutedEventArgs e)
+        {
+            RadialPopup.IsOpen = false; 
+        }
+
+        void cutButton_Click(object sender, RoutedEventArgs e)
+        {
+            RadialPopup.IsOpen = false;
+            copiedAppointment = (RendezVous)Schedule.SelectedAppointment;
+        }
+
+        void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            RadialPopup.IsOpen = false; 
+        }
+
+        void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            RadialPopup.IsOpen = false;           
+        }
+
+        void addButton_Click(object sender, RoutedEventArgs e)
+        {
+            RadialPopup.IsOpen = false;
+        }
+
+        #endregion
+
+        private void Schedule_OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            if (!RadialPopup.IsMouseOver && RadialPopup.IsOpen)
+                RadialPopup.IsOpen = false;
+        }
+
+        private void Schedule_OnContextMenuOpening(object sender, ContextMenuOpeningEventArgs e)
+        {
+            if (e.CurrentSelectedDate != null) Messenger.Default.Send<DateTime>((DateTime)e.CurrentSelectedDate);
+            RadialPopup.IsOpen = false;
+            e.Cancel = true;
+            RadialPopup.IsOpen = true;
+            radialMenu.IsOpen = true;
+            if (e.CurrentSelectedDate != null)
+            {
+                CurrentSelectedDate = (DateTime)e.CurrentSelectedDate;
+            }            
+            if (e.Appointment != null)
+            {
+                for (int i = 0; i < radialMenu.Items.Count; i++)
+                {
+                    if (i == 3 && copiedAppointment == null)
+                    {
+                        (radialMenu.Items[i] as SfRadialMenuItem).IsEnabled = false;
+                        (radialMenu.Items[i] as SfRadialMenuItem).Opacity = 0.5;
+                    }
+                    else
+                    {
+                        (radialMenu.Items[i] as SfRadialMenuItem).IsEnabled = true;
+                        (radialMenu.Items[i] as SfRadialMenuItem).Opacity = 1;
+                    }
+                }
+
+            }
+            else
+            {
+                (radialMenu.Items[1] as SfRadialMenuItem).IsEnabled = false;
+                (radialMenu.Items[1] as SfRadialMenuItem).Opacity = 0.5;
+                (radialMenu.Items[2] as SfRadialMenuItem).IsEnabled = false;
+                (radialMenu.Items[2] as SfRadialMenuItem).Opacity = 0.5;
+                (radialMenu.Items[5] as SfRadialMenuItem).IsEnabled = false;
+                (radialMenu.Items[5] as SfRadialMenuItem).Opacity = 0.5;
+                (radialMenu.Items[0] as SfRadialMenuItem).IsEnabled = true;
+                if (copiedAppointment != null)
+                {
+                    (radialMenu.Items[3] as SfRadialMenuItem).IsEnabled = true;
+                    (radialMenu.Items[3] as SfRadialMenuItem).Opacity = 1;
+                }
+                else
+                {
+                    (radialMenu.Items[3] as SfRadialMenuItem).IsEnabled = false;
+                    (radialMenu.Items[3] as SfRadialMenuItem).Opacity = 0.5;
+                }
+
+            }
         }
     }
 }

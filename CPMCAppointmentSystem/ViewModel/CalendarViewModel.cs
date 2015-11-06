@@ -34,7 +34,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _isProgressRingActive;
         private CpmcContext _dbContext = new CpmcContext();
         private ScheduleType _scheduleType = ScheduleType.Month;
-        private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection ;
+        private ScheduleAppointmentCollection _patientsScheduleAppointmentCollection;
         private RendezVous _selectedRdv;
         private ObservableCollection<Patient> _allPatientsCollection;
         private ObservableCollection<Medecin> _allDoctorsCollection;
@@ -415,6 +415,8 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadRendezVous()
         {
+            _dbContext.Dispose();
+            _dbContext=new CpmcContext();
             await LoadScheduleSettings();
             RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
             _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
@@ -447,7 +449,7 @@ namespace CPMCAppointmentSystem.ViewModel
             var brushStatus = new BrushStatus();
             if (dateTimeRdv.Date < DateTime.Now.Date)
             {
-                brushStatus.Brush = new SolidColorBrush(Colors.LightGray); 
+                brushStatus.Brush = new SolidColorBrush(Colors.LightGray);
                 if ((DateTime.Now.Year - dateDeNaissance.Year) < 18)
                 {
                     brushStatus.Status = sexe == "Male" ? "Boy" : "Girl";
@@ -467,16 +469,16 @@ namespace CPMCAppointmentSystem.ViewModel
                         brushStatus.Status = sexe == "Male" ? "Boy" : "Girl";
                         brushStatus.Brush =
                             new SolidColorBrush(
-                                (Color) ColorConverter.ConvertFromString(SettingsCollection["EnfantSetting"].Color));
+                                (Color)ColorConverter.ConvertFromString(SettingsCollection["EnfantSetting"].Color));
                     }
                     else
                     {
                         brushStatus.Status = sexe == "Male" ? "Man" : "Woman";
                         brushStatus.Brush = sexe == "Male"
                             ? new SolidColorBrush(
-                                (Color) ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color))
+                                (Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color))
                             : new SolidColorBrush(
-                                (Color) ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
+                                (Color)ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
                     }
                 }
             }
@@ -497,7 +499,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         var sfSchedule = obj as SfSchedule;
                         if (sfSchedule != null)
                         {
-                            var selectedAppointement = sfSchedule.SelectedAppointment;                            
+                            var selectedAppointement = sfSchedule.SelectedAppointment;
                             if (selectedAppointement != null)
                             {
                                 SelectedRdv = (RendezVous)selectedAppointement;
@@ -541,7 +543,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         _dbContext.SaveChanges();
                         _addAppointementView.Close();
                         await LoadRendezVous();
-                        
+
 
                     }));
             }
@@ -661,22 +663,147 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _appointmentEndDraggingCommand
                     ?? (_appointmentEndDraggingCommand = new RelayCommand<AppointmentEndDraggingEventArgs>(async (args) =>
                     {
-                        var result=await((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Confirmation", "etes vous sure de vouloire faire deplacer ce rendez-vous",MessageDialogStyle.AffirmativeAndNegative));
+                        var result = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Confirmation", "etes vous sure de vouloire faire deplacer ce rendez-vous", MessageDialogStyle.AffirmativeAndNegative));
                         if (result == MessageDialogResult.Affirmative)
                         {
                             var rdv = args.Appointment as RendezVous;
                             _dbContext.RendezVouses.Find(rdv.RendezVousId).DateTimeRdv = args.To;
-                            _dbContext.SaveChanges(); 
+                            _dbContext.SaveChanges();
                         }
                         else
                         {
-                            args.Cancel = true;
-                            //await LoadRendezVous();
-                            Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Refresh"));
-                        }                                                                      
+                            args.Cancel = true;                           
+                        }                        
+                        await LoadRendezVous();
+                        Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Refresh"));
+
                     }));
             }
         }
+
+
+        //RadialGradientBrush menu commands
+        private RelayCommand<object> _addAppointementFromRadialMenuCommand;
+        public RelayCommand<object> AddAppointementFromRadialMenuCommand
+        {
+            get
+            {
+                return _addAppointementFromRadialMenuCommand
+                    ?? (_addAppointementFromRadialMenuCommand = new RelayCommand<object>(
+                    (obj) =>
+                    {
+                        _addAppointementView = new AddAppointementView();
+
+                        var sfSchedule = obj as SfSchedule;
+                        if (sfSchedule != null)
+                        {
+                            SelectedRdv = new RendezVous()
+                            {
+                                DateTimeRdv = SelectedDateInScedule
+                            };
+                            _addAppointementView.ShowDialog();
+                            sfSchedule.Refresh(); 
+                        }
+                    }));
+            }
+        }
+        private RelayCommand<object> _editAppointementFromRadialMenuCommand;
+        public RelayCommand<object> EditAppointementFromRadialMenuCommand
+        {
+            get
+            {
+                return _editAppointementFromRadialMenuCommand
+                    ?? (_editAppointementFromRadialMenuCommand = new RelayCommand<object>(
+                    (obj) =>
+                    {
+                        _addAppointementView = new AddAppointementView();
+                        var sfSchedule = obj as SfSchedule;
+                        if (sfSchedule != null)
+                        {
+                            var selectedAppointement = sfSchedule.SelectedAppointment;
+                            if (selectedAppointement != null)
+                            {
+                                SelectedRdv = (RendezVous)selectedAppointement;
+                                _addAppointementView.ShowDialog();
+                                sfSchedule.Refresh();  
+                            }
+                        }
+
+                    }));
+            }
+        }
+
+        private RendezVous _cutedAppointement=null;
+        private RelayCommand<object> _cutAppointementFromRadialMenuCommand;
+        public RelayCommand<object> CutAppointementFromRadialMenuCommand
+        {
+            get
+            {
+                return _cutAppointementFromRadialMenuCommand
+                    ?? (_cutAppointementFromRadialMenuCommand = new RelayCommand<object>(
+                    (obj) =>
+                    {                        
+                        var sfSchedule = obj as SfSchedule;
+                        if (sfSchedule != null)
+                        {
+                            var selectedAppointement = sfSchedule.SelectedAppointment;
+                            if (selectedAppointement != null)
+                            {
+                                _cutedAppointement = (RendezVous)selectedAppointement;                                
+                            }
+                        }
+
+                    }));
+            }
+        }
+
+        private RelayCommand<object> _pastAppointementFromRadialMenuCommand;
+        public RelayCommand<object> PastAppointementFromRadialMenuCommand
+        {
+            get
+            {
+                return _pastAppointementFromRadialMenuCommand
+                    ?? (_pastAppointementFromRadialMenuCommand = new RelayCommand<object>(async (obj) =>
+                    {
+                        var sfSchedule = obj as SfSchedule;
+                        if (sfSchedule != null && _cutedAppointement!=null && SelectedDateInScedule!=null)
+                        {
+                            _dbContext.RendezVouses.Find(_cutedAppointement.RendezVousId).DateTimeRdv = SelectedDateInScedule;
+                            _dbContext.SaveChanges();
+                            await LoadRendezVous();
+                            sfSchedule.Refresh();                            
+                        }
+                    }));
+            }
+        }
+        private RelayCommand<object> _deleteAppointementFromRadialMenuCommand;
+        public RelayCommand<object> DeleteAppointementFromRadialMenuCommand
+        {
+            get
+            {
+                return _deleteAppointementFromRadialMenuCommand
+                    ?? (_deleteAppointementFromRadialMenuCommand = new RelayCommand<object>(async (obj) =>
+                    {
+                        var sfSchedule = obj as SfSchedule;
+                        if (sfSchedule!=null)
+                        {
+                             var selectedAppointement = sfSchedule.SelectedAppointment;
+                            if (selectedAppointement != null)
+                            {
+                                var result = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Confirmation", "etes vous sure de vouloire supprimer ce rendez-vous", MessageDialogStyle.AffirmativeAndNegative));
+                                if (result == MessageDialogResult.Affirmative)
+                                {                                    
+                                    _dbContext.RendezVouses.Remove((RendezVous) selectedAppointement);
+                                    _dbContext.SaveChanges();                                    
+                                }                              
+                                await LoadRendezVous();
+                                sfSchedule.Refresh();
+                            }
+                        }                       
+                    }));
+            }
+        }
+
 
         #endregion
         #region Ctors and Methods
