@@ -680,7 +680,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-
+     
 
         //RadialGradientBrush menu commands
         private RelayCommand<object> _addAppointementFromRadialMenuCommand;
