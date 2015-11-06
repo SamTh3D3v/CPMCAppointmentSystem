@@ -16,7 +16,7 @@ namespace CPMCAppointmentSystem.View.AppointementViews
     /// </summary>
     public partial class CalendarView : Page
     {
-        internal RendezVous SelectedAppointment;        
+        internal RendezVous SelectedAppointment;
         RendezVous copiedAppointment;
         DateTime CurrentSelectedDate;
         public CalendarView()
@@ -26,29 +26,35 @@ namespace CPMCAppointmentSystem.View.AppointementViews
             {
                 switch (m.Notification)
                 {
-                    case "Refresh":                        
-                        Schedule.Refresh();                                         
+                    case "Refresh":
+                        Schedule.Refresh();
                         break;
                 }
-                
+
             });            
+        }
+
+        private void HandleEsc(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+                RadialPopup.IsOpen = false;
         }
 
         private void Schedule_OnAppointmentEditorOpening(object sender, AppointmentEditorOpeningEventArgs e)
         {
-            e.Cancel = true;                           
+            e.Cancel = true;
         }
         private void Schedule_OnScheduleClick(object sender, ScheduleClickEventArgs e)
         {
             //A Dirty Trick from the deep hell of dirty coders 
-            if (e.SelectedDate != null) Messenger.Default.Send<DateTime>((DateTime) e.SelectedDate);
+            if (e.SelectedDate != null) Messenger.Default.Send<DateTime>((DateTime)e.SelectedDate);
         }
 
         #region Popup Menu Click Events
 
         void pasteButton_Click(object sender, RoutedEventArgs e)
         {
-            RadialPopup.IsOpen = false; 
+            RadialPopup.IsOpen = false;
         }
 
         void cutButton_Click(object sender, RoutedEventArgs e)
@@ -59,12 +65,12 @@ namespace CPMCAppointmentSystem.View.AppointementViews
 
         void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            RadialPopup.IsOpen = false; 
+            RadialPopup.IsOpen = false;
         }
 
         void editButton_Click(object sender, RoutedEventArgs e)
         {
-            RadialPopup.IsOpen = false;           
+            RadialPopup.IsOpen = false;
         }
 
         void addButton_Click(object sender, RoutedEventArgs e)
@@ -90,7 +96,7 @@ namespace CPMCAppointmentSystem.View.AppointementViews
             if (e.CurrentSelectedDate != null)
             {
                 CurrentSelectedDate = (DateTime)e.CurrentSelectedDate;
-            }            
+            }
             if (e.Appointment != null)
             {
                 for (int i = 0; i < radialMenu.Items.Count; i++)
