@@ -92,8 +92,7 @@
                                             <DataTrigger.ExitActions>
                                                 <BeginStoryboard Storyboard="{StaticResource NotificationAnimationStop}"/>
                                             </DataTrigger.ExitActions>
-                                        </DataTrigger> 
-                                       
+                                        </DataTrigger>                                        
                                     </Style.Triggers>
                                 </Style>
                             </Path.Style>

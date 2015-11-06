@@ -12,12 +12,47 @@
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="1000"
 	Title="CalendarView" DataContext="{Binding Source={StaticResource Locator},Path=CalendarViewModel}">
+    <Page.Resources>
+        <Storyboard x:Key="SchedulerTypeSelectorDisapear">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" >
+                <EasingDoubleKeyFrame KeyTime="0" Value="400"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ScheduleTypeSelectorAppears">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" >
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="400">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ArrowGoDownAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-90"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ArrowGoUpAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-90"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+   
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=CalendarViewLoadedCommand}"
                             PassEventArgsToCommand="True"  />
         </i:EventTrigger>
-    </i:Interaction.Triggers>   
+    </i:Interaction.Triggers>
     <Grid x:Name="grid1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -27,10 +62,42 @@
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderThickness="1">
                 <Grid  syncfusion:DockingManager.State="Document"  
                    syncfusion:DockingManager.Header="Docking Manager" >
-                    <syncfusion:SfSchedule MouseLeave="Schedule_OnMouseLeave" ContextMenuOpening="Schedule_OnContextMenuOpening" ShowAppointmentNavigationButtons="True"  ScheduleClick="Schedule_OnScheduleClick"  
+                    <syncfusion:SfSchedule  MouseLeave="Schedule_OnMouseLeave" ContextMenuOpening="Schedule_OnContextMenuOpening" ShowAppointmentNavigationButtons="True"  ScheduleClick="Schedule_OnScheduleClick"  
                                            x:Name="Schedule"  Appointments="{Binding PatientsScheduleAppointmentCollection,Mode=TwoWay}"
                                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="True" Margin="5" ShowAllDay="True"   
                                    ScheduleType="{Binding SelectedScheduleType,Mode=TwoWay}" EnableTouch="False"   TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening">
+                        <syncfusion:SfSchedule.NextNavigationButtonTemplate>
+                            <DataTemplate>
+                                <Button ToolTip="Aller au rdv suivant">
+                                    <Path Data="M0,0L768,622.348 0,1244.7 186.312,622.348z" Stretch="Uniform" Fill="Black" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <TransformGroup.Children>
+                                                    <RotateTransform Angle="0" />
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </TransformGroup.Children>
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                </Button>
+                            </DataTemplate>
+                        </syncfusion:SfSchedule.NextNavigationButtonTemplate>
+                        <syncfusion:SfSchedule.PreviousNavigationButtonTemplate>
+                            <DataTemplate>
+                                <Button ToolTip="Aller au rdv precedant">
+                                    <Path Data="M768,0L581.68,622.32 768,1244.7 0,622.32z" Stretch="Uniform" Fill="Black" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <TransformGroup.Children>
+                                                    <RotateTransform Angle="0" />
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </TransformGroup.Children>
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                </Button>
+                            </DataTemplate>
+                        </syncfusion:SfSchedule.PreviousNavigationButtonTemplate>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="AppointmentEditorOpening">
                                 <command:EventToCommand Command="{Binding Mode=OneWay, Path=ScheduleOnAppointmentEditorOpeningCommand}" CommandParameter="{Binding ElementName=Schedule}"
@@ -39,7 +106,7 @@
                             <i:EventTrigger EventName="AppointmentEndDragging">
                                 <command:EventToCommand Command="{Binding Mode=OneWay, Path=AppointmentEndDraggingCommand}"
                             PassEventArgsToCommand="True"  />
-                            </i:EventTrigger>                           
+                            </i:EventTrigger>
                         </i:Interaction.Triggers>
 
                         <syncfusion:SfSchedule.AppointmentTemplate>
@@ -149,19 +216,84 @@
                             </syncfusion:SfRadialMenuItem>
                         </syncfusion:SfRadialMenu>
                     </Popup>
-                    
-                    <StackPanel Grid.Row="0"  Margin="20 12 80 0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
-                        <ToggleButton x:Name="FilterTb"  HorizontalAlignment="Left"  Width="25" Height="25" Padding="0" Margin="5,0,0,0">
-                            <Image Source="{StaticResource FilterDark}"></Image>
-                        </ToggleButton>
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Day" Content="Jour"  Command="{Binding DayScheduleTypeSelectedCommand}"  Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="5 0"/>
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Week" Content="Semaine"  Command="{Binding WeekScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="5 0" />
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="WorkWeek" Content="Work Week"  Command="{Binding WorkWeekScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="5 0" />
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Mois"  Command="{Binding MonthScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="5 0"/>
-                        <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Chronologie"  Command="{Binding TimeLineScheduleTypeSelectedCommand}" Width="70" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" Margin="5 0 0 0"/>
-                    </StackPanel>
 
-                   
+                    <Grid Grid.Row="0"  Margin="20 12 20 0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel x:Name="stackPanel" Grid.Row="0"  HorizontalAlignment="Right" Width="0" VerticalAlignment="Center" Orientation="Horizontal" >
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=BuShowSchTypes,Path=IsChecked}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard Storyboard="{StaticResource ScheduleTypeSelectorAppears}"/>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard Storyboard="{StaticResource SchedulerTypeSelectorDisapear}"/>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Day" Content="Jour"  Command="{Binding DayScheduleTypeSelectedCommand}"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C"/>
+                            <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Week" Content="Semaine"  Command="{Binding WeekScheduleTypeSelectedCommand}" Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C"  />
+                            <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="WorkWeek" Content="Work Week"  Command="{Binding WorkWeekScheduleTypeSelectedCommand}" Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" />
+                            <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="Month" IsChecked="True" Content="Mois"  Command="{Binding MonthScheduleTypeSelectedCommand}" Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" />
+                            <RadioButton Style="{DynamicResource TbRadioButtonStyle}" x:Name="TimeLine" Content="Chronologie"  Command="{Binding TimeLineScheduleTypeSelectedCommand}" Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C" />
+                        </StackPanel>
+                        <ToggleButton Name="BuShowSchTypes" IsChecked="False" Grid.Column="1" Grid.Row="0"   HorizontalAlignment="Right" VerticalAlignment="Top" >
+                            <Path x:Name="path" Data="M284.923988342285,0L284.923988342285,471.831008911133 0,235.926296710968z" Stretch="Uniform"  Width="25" Height="25" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                <Path.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="-90"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Path.RenderTransform>
+                                <Path.Style>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Fill" Value="{StaticResource HeaderForgound}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=BuShowSchTypes,Path=IsChecked}" Value="True">
+                                                <Setter Property="Fill" Value="White"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=BuShowSchTypes,Path=IsChecked}" Value="True">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource ArrowGoUpAnimation}"/>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource ArrowGoDownAnimation}"/>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+
+                                        </Style.Triggers>
+
+                                    </Style>
+                                </Path.Style>
+                            </Path>
+                        </ToggleButton>
+                        <ToggleButton  Grid.Column="2" x:Name="FilterTb"  HorizontalAlignment="Left" >
+                            <Path Data="M2.1299944,9.9798575L55.945994,9.9798575 35.197562,34.081179 35.197562,62.672859 23.428433,55.942383 23.428433,33.52121z M1.3001332,0L56.635813,0C57.355887,0,57.935946,0.5891428,57.935946,1.3080959L57.935946,2.8258877C57.935946,3.5448422,57.355887,4.133985,56.635813,4.133985L1.3001332,4.133985C0.58005941,4.133985,-2.3841858E-07,3.5448422,0,2.8258877L0,1.3080959C-2.3841858E-07,0.5891428,0.58005941,0,1.3001332,0z" Stretch="Uniform"  
+                                  Width="25" Height="25" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                <Path.Style>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Fill" Value="{StaticResource HeaderForgound}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=FilterTb,Path=IsChecked}" Value="True">
+                                                <Setter Property="Fill" Value="White"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Path.Style>
+                            </Path>
+                        </ToggleButton>
+                    </Grid>
+
+
                 </Grid>
             </Border>
             <Border  Grid.Column="1" Background="WhiteSmoke" Width="300">

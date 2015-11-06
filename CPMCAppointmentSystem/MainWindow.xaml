@@ -18,7 +18,7 @@
         WindowTransitionsEnabled="False"                      
         BorderBrush="{DynamicResource AccentColorBr}"
                       BorderThickness="1" WindowTitleBrush="Black"        
-        DataContext="{Binding MainWindow, Source={StaticResource Locator}}" MinWidth="500">
+        DataContext="{Binding MainWindow, Source={StaticResource Locator}}" MinWidth="800">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=MainViewLoadedCommand}"
