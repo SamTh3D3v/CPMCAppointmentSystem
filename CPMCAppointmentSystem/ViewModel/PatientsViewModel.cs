@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.IO;
@@ -22,6 +23,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel : NavigableViewModelBase
     {
         #region Fields
+        private bool _isDateDepotFilterApplied;
         private DateTime _dateDepotFilterDateTime = DateTime.Now;
         private Note _selectedNote;
         private AddPatientAppointment _addAppointementWindow;
@@ -47,7 +49,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _reportPath;
         private PreviewReportView _previewReportView;
         #endregion
-        #region Properties              
+        #region Properties
+        public bool IsDateDepotFilterApplied
+        {
+            get
+            {
+                return _isDateDepotFilterApplied;
+            }
+
+            set
+            {
+                if (_isDateDepotFilterApplied == value)
+                {
+                    return;
+                }
+
+                _isDateDepotFilterApplied = value;
+                RaisePropertyChanged();
+            }
+        }
         public DateTime DateDepotFilter
         {
             get
@@ -62,7 +82,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     return;
                 }
 
-                _dateDepotFilterDateTime = value;                
+                _dateDepotFilterDateTime = value;
                 RaisePropertyChanged();
             }
         }
@@ -380,6 +400,37 @@ namespace CPMCAppointmentSystem.ViewModel
 
         #endregion
         #region Commands
+        private RelayCommand _selectedDateFilterChangedCommand;
+        public RelayCommand SelectedDateFilterChangedCommand
+        {
+            get
+            {
+                return _selectedDateFilterChangedCommand
+                    ?? (_selectedDateFilterChangedCommand = new RelayCommand(async () =>
+                    {
+                        await LoadFilterPatientListByDate();
+                    }));
+            }
+        }
+        private RelayCommand _updateBasedOnDateDepotFilterCommand;
+        public RelayCommand UpdateBasedOnDateDepotFilterCommand
+        {
+            get
+            {
+                return _updateBasedOnDateDepotFilterCommand
+                    ?? (_updateBasedOnDateDepotFilterCommand = new RelayCommand(async () =>
+                    {
+                        await LoadFilterPatientListByDate();
+                    }));
+            }
+        }
+
+        private async Task LoadFilterPatientListByDate()
+        {
+            var date = DateDepotFilter.Date;
+            PatientList = IsDateDepotFilterApplied ? new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients.Where(p => DbFunctions.TruncateTime(p.DateDeDepot) == date))) : new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
+        }
+
         private RelayCommand _saveNewNoteCommand;
         public RelayCommand SaveNewNoteCommand
         {
@@ -498,7 +549,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         await LoadDoctorsList();
                     }));
             }
-        }       
+        }
 
         private RelayCommand _addPatientCommand;
         public RelayCommand AddPatientCommand
@@ -525,8 +576,7 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _savePatientCommand
-                    ?? (_savePatientCommand = new RelayCommand(
-                    () =>
+                    ?? (_savePatientCommand = new RelayCommand(async () =>
                     {
                         if (SelectedPatient.PatientId == Guid.Empty)
                         {
@@ -551,7 +601,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             }
                             throw;
                         }
-                        LoadPatienstList();
+                        await LoadFilterPatientListByDate();
                     }));
             }
         }
@@ -1005,6 +1055,7 @@ namespace CPMCAppointmentSystem.ViewModel
             ));
 
         }
+       
         #endregion
     }
 }
