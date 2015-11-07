@@ -8,10 +8,10 @@ namespace DataLayer.Model
 {
     public enum ParameterNames
     {
-        RemindPatientRDVBefore, // int - Days
-        SMSNotSendPatientRDVSince, // int - Days
-        PatientNotConfirmRDVSince, // int - Days
-        PatientWihoutRDVSince, // int - Days
+        NotifyPatientRDVDateBefore, // int - Days
+        NotifyWhenSMSNotSendForPatientRDVSince, // int - Days
+        NotifyWhenPatientNotConfirmRDVSince, // int - Days
+        NotifyWhenPatientWithoutRDVSince, // int - Days
         SMSCenterNumber, // string - Sync on change
         SMSBodyTemplate, // string - Sync on change
         DelayBetweenATCommand,// int - Sync on change

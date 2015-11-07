@@ -229,8 +229,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         CurrentUser = MainFrameNavigationService.Parameter as User;
                         if (CurrentUser != null)
                         {
-                            App.NotificationHelper.Start(CurrentUser.UserId);
-                            App.NotificationHelper.NotificationsChange += NotificationHelper_NotificationsChange;
+                            App.NotificationHelper.NotificationsChange += NotificationHelper_NotificationsChange; 
+                            App.NotificationHelper.Start(CurrentUser.UserId);                            
                         }
                     }));
             }

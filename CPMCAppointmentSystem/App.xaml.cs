@@ -108,7 +108,7 @@ namespace CPMCAppointmentSystem
                 var pass = passwordBox.Password;                
                 //todo farouk : use databasesettings and pass to generate the connexion string
 
-
+                
 
             }
         }

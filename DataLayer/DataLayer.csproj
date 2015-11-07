@@ -84,6 +84,7 @@
     <Compile Include="Enums\TypeJourFerie.cs" />
     <Compile Include="Enums\TypeNotification.cs" />
     <Compile Include="Enums\TypeUser.cs" />
+    <Compile Include="Helpers\ParameterManager.cs" />
     <Compile Include="Helpers\TypeUserUtility.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entities\Adresse.cs" />

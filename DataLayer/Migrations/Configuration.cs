@@ -48,6 +48,27 @@ namespace DataLayer.Migrations
                 new UserType() { UserTypeName = "Admin" },
                 new UserType() { UserTypeName = "Agent" });
 
+
+            context.Parameters.AddOrUpdate(
+                p => p.Name,
+                new Parameter { Name = ParameterNames.DelayBetweenATCommand.ToString(), Title = "Délai entre AT Commande", Value = "1000", SyncOnChange = true },
+                new Parameter { Name = ParameterNames.MaxNumberOfRetryAfterSMSSendFailure.ToString(), Title = "Nombre de nouvelles tentatives Après Échec d'envoi SMS", Value = "5", SyncOnChange = true },
+                new Parameter { Name = ParameterNames.NotifyPatientRDVDateBefore.ToString(), Title = "Notifier la Date du RDV d'un patient avant", Value = "10", SyncOnChange = false },
+                new Parameter { Name = ParameterNames.NotifyWhenPatientNotConfirmRDVSince.ToString(), Title = "Notifier si patient n'a pas confirmé RDV depuis", Value = "10", SyncOnChange = false },
+                new Parameter { Name = ParameterNames.NotifyWhenPatientWithoutRDVSince.ToString(), Title = "Notifier si patient sans RDV depuis", Value = "10", SyncOnChange = false },
+                new Parameter { Name = ParameterNames.NotifyWhenSMSNotSendForPatientRDVSince.ToString(), Title = "Notifier si SMS non envoyé pour RDV patient depuis", Value = "10", SyncOnChange = false },
+                new Parameter
+                {
+                    Name = ParameterNames.SMSBodyTemplate.ToString(),
+                    Title = "Modèle de contenu SMS",
+                    Value = @"Confirmation du RDV
+                              Patient  : [@NomPatient] [@PrenomPatient]
+                              Date RDV : [@DateRdv]",
+                    SyncOnChange = true
+                },
+                new Parameter { Name = ParameterNames.SMSCenterNumber.ToString(), Title = "Numéro Centre de messagerie", Value = "+213550001701", SyncOnChange = true }
+                );
+
             context.SaveChanges();
             context.Database.Connection.Close();
             ////Adress Table

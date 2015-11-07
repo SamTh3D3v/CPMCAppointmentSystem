@@ -38,7 +38,15 @@ namespace DataLayer.Notifications
             SqlDependency.Start(_connectionString);            
 
             // Get the Initial Notifications Result set, after which changes will be tracked.
-            GetNotifications();
+            List<Notification> initalNotificationsData = GetNotifications();
+
+            // Firing Event to be Handled in UI App.
+            if (NotificationsChange != null)
+            {
+                var args = new NotificationEventArgs<Notification>(initalNotificationsData);
+
+                NotificationsChange(typeof(NotificationHelper), args);
+            }
         }
 
         public void Start(Guid currentUserId)
@@ -55,7 +63,15 @@ namespace DataLayer.Notifications
             SqlDependency.Start(_connectionString);
 
             // Get the Initial Notifications Result set, after which changes will be tracked.
-            GetNotifications();
+            List<Notification> initalNotificationsData = GetNotifications();
+
+            // Firing Event to be Handled in UI App.
+            if (NotificationsChange != null)
+            {
+                var args = new NotificationEventArgs<Notification>(initalNotificationsData);
+
+                NotificationsChange(typeof(NotificationHelper), args);
+            }            
         }
         public void Stop()
         {
