@@ -227,6 +227,7 @@
     <Compile Include="Helpers\ChartTile.cs" />
     <Compile Include="Helpers\CustomIdentity.cs" />
     <Compile Include="Helpers\CustomPrincipal.cs" />
+    <Compile Include="Helpers\DisableNavigation.cs" />
     <Compile Include="Helpers\DragableProperty.cs" />
     <Compile Include="Helpers\FrameNavigationService.cs" />
     <Compile Include="Helpers\GsmHelper.cs" />

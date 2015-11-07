@@ -10,6 +10,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:userControls="clr-namespace:CPMCAppointmentSystem.UserControls"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:helpers="clr-namespace:CPMCAppointmentSystem.Helpers"
         mc:Ignorable="d ignore"       
         WindowState="Maximized"                                    
         WindowStartupLocation="CenterScreen"
@@ -168,7 +169,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Frame Grid.Row="0" x:Name="MainFrame" NavigationUIVisibility="Hidden" >
+        <Frame Grid.Row="0" x:Name="MainFrame" NavigationUIVisibility="Hidden" helpers:DisableNavigation.Disable="True">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="ContentRendered">
                     <command:EventToCommand Command="{Binding Mode=OneWay, Path=UserConnectedCommand}"
