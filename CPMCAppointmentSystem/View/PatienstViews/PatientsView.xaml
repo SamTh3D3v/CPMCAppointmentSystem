@@ -47,7 +47,7 @@
                 </Button.Content>
             </Button>
             <Rectangle Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
-            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Triggers>
@@ -117,7 +117,13 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Date de dépot" Grid.Column="0" VerticalAlignment="Center"/>
-                    <DatePicker  Grid.Column="1" SelectedDate="{Binding DateDepotFilter,StringFormat='{}{0:dd/MM/yyyy}',Mode=TwoWay}"  x:Name="DateDepotBoxTimeEdit"  Margin="10 5"  HorizontalAlignment="Stretch">
+                    <DatePicker  Grid.Column="1" SelectedDate="{Binding DateDepotFilter,StringFormat='{}{0:dd/MM/yyyy}',Mode=TwoWay}"  x:Name="DateDepotBoxTimeEdit"  Margin="10,5,0,4"  HorizontalAlignment="Stretch" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectedDateChanged">
+                                <command:EventToCommand Command="{Binding Mode=OneWay, Path=SelectedDateFilterChangedCommand}"
+                            PassEventArgsToCommand="True" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <DatePicker.Style>
                             <Style TargetType="DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">
                                 <Style.Triggers>
@@ -131,9 +137,19 @@
                             </Style>
                         </DatePicker.Style>
                     </DatePicker>
-                    <CheckBox Grid.Column="2" x:Name="DateDepotCb"></CheckBox>
+                    <CheckBox Grid.Column="2" x:Name="DateDepotCb" IsChecked="{Binding IsDateDepotFilterApplied,Mode=TwoWay}" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <command:EventToCommand Command="{Binding Mode=OneWay, Path=UpdateBasedOnDateDepotFilterCommand}"
+                            PassEventArgsToCommand="True" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="Unchecked">
+                                <command:EventToCommand Command="{Binding Mode=OneWay, Path=UpdateBasedOnDateDepotFilterCommand}"
+                            PassEventArgsToCommand="True" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
                 </Grid>
-
             </Grid>
             <Syncfusion:SfDataGrid  Grid.Column="0"  Grid.ColumnSpan="3"  Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
                                        AllowDraggingColumns="True"
@@ -149,7 +165,7 @@
                     <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
                     <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
                     <Syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
-                                                                            StringFormat=d}"/>
+                                                                            StringFormat='{}{0:dd/MM/yyyy}'}"/>
                     <Syncfusion:GridTextColumn HeaderText="Télephone fixe" MappingName="TelephoneFixe"/>
                     <Syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
                     <Syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneDaccompagnant"/>
@@ -356,7 +372,7 @@
                                      />
                 </Grid>
                 <TextBlock Grid.Column="0" Grid.Row="12" Text="Date depot" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <DatePicker  Margin="10 5"  SelectedDate="{Binding DateDeDepot,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}'}"    Grid.Column="1" Grid.Row="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <DatePicker IsEnabled="False" Margin="10 5"  SelectedDate="{Binding DateDeDepot,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}'}"    Grid.Column="1" Grid.Row="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <TextBlock Grid.Column="1" Grid.Row="12"  Text="Date de dépot" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -673,7 +689,7 @@
                                         </ListView.ItemTemplate>
                                         <ListView.ContextMenu>
                                             <ContextMenu DataContext="{Binding Path=DataContext,  ElementName=RootGrid}">
-                                                <MenuItem  Header="Supprimer piece jointe" Command="{Binding DeletePieceJointeCommand}" >                                                 
+                                                <MenuItem  Header="Supprimer piece jointe" Command="{Binding DeletePieceJointeCommand}" >
                                                     <MenuItem.Icon>
                                                         <Path Data="{StaticResource DeletePath}" Width="7" Height="7" Fill="Black" Stretch="Uniform"/>
                                                     </MenuItem.Icon>

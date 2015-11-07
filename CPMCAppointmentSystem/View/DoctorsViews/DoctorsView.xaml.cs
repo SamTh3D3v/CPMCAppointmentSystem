@@ -5,9 +5,6 @@ using Syncfusion.UI.Xaml.Grid;
 
 namespace CPMCAppointmentSystem.View.DoctorsViews
 {
-    /// <summary>
-    /// Interaction logic for DoctorsView.xaml
-    /// </summary>
     public partial class DoctorsView : Page
     {
         public DoctorsView()
