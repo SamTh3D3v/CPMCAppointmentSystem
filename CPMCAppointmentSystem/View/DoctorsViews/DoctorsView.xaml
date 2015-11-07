@@ -49,7 +49,8 @@
                                        AllowGrouping="True"
                                        ItemsSource="{Binding DoctorsList}"
                                    SelectedItem="{Binding SelectedDoctor,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" >
+                                       ShowGroupDropArea="True"
+                                    SelectionChanged="SfDataGrid_OnSelectionChanged">
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />

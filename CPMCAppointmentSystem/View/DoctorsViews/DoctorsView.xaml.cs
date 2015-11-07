@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Syncfusion.UI.Xaml.Grid;
 
 namespace CPMCAppointmentSystem.View.DoctorsViews
 {
@@ -33,5 +34,14 @@ namespace CPMCAppointmentSystem.View.DoctorsViews
         {
             BuSave.Tag = "no";
         }
+        private void SfDataGrid_OnSelectionChanged(object sender, GridSelectionChangedEventArgs e)
+        {
+            CbUpdatePass.IsChecked = false;
+            BuSave.Tag = "yes";
+            PassBoxUserPass.Clear();
+            PassBoxConfirmPass.Clear();
+
+        }
+
     }
 }
