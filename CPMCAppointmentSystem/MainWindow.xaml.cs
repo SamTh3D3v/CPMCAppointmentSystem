@@ -12,7 +12,7 @@ namespace CPMCAppointmentSystem
 
     public partial class MainWindow : MetroWindow
     {
-   
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,7 +33,7 @@ namespace CPMCAppointmentSystem
             #endregion
         }
 
-      
+
 
         private void MainFrame_OnContentRendered(object sender, EventArgs e)
         {
@@ -42,9 +42,7 @@ namespace CPMCAppointmentSystem
 
         private void ShowDataBaesSettingsOnClick(object sender, RoutedEventArgs e)
         {
-            if (!DataBaseSettingsFlyout.IsOpen)
-                DataBaseSettingsFlyout.IsOpen = true;
-
+            DataBaseSettingsFlyout.IsOpen = !DataBaseSettingsFlyout.IsOpen;
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
