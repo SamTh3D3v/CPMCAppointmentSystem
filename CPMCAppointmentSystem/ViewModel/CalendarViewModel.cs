@@ -804,6 +804,33 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
+        private RelayCommand _filterCalendarPerMedecinCheckedCommand;
+        public RelayCommand FilterCalendarPerMedecinCheckedCommand
+        {
+            get
+            {
+                return _filterCalendarPerMedecinCheckedCommand
+                    ?? (_filterCalendarPerMedecinCheckedCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _filterCalendarPerMedecinUncheckedCommand;
+        public RelayCommand FilterCalendarPerMedecinUncheckedCommand
+        {
+            get
+            {
+                return _filterCalendarPerMedecinUncheckedCommand
+                    ?? (_filterCalendarPerMedecinUncheckedCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+
 
         #endregion
         #region Ctors and Methods

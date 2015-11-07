@@ -16,26 +16,26 @@ namespace CPMCAppointmentSystem.ViewModel
         public static InnerFrameNavigationService InnerFrameNavigationService;
 
         static ViewModelLocator()
-        {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);         
-            SimpleIoc.Default.Register<MainWindowViewModel>();
-            SimpleIoc.Default.Register<LoginViewModel>();
-            SimpleIoc.Default.Register<CalendarViewModel>();
-            SimpleIoc.Default.Register<DoctorsViewModel>();
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<MyPatientsViewModel>();
-            SimpleIoc.Default.Register<PathologiesViewModel>();
-            SimpleIoc.Default.Register<PatientsViewModel>();
-            SimpleIoc.Default.Register<SettingsViewModel>();
-            SimpleIoc.Default.Register<SpecialityViewModel>();
-            SimpleIoc.Default.Register<NotificationViewModel>();
-            SimpleIoc.Default.Register<StatisticsViewModel>();
-            SimpleIoc.Default.Register<PatientsPerSexeChartViewModel>();
-            SimpleIoc.Default.Register<PatientPerDateChartViewModel>();
-            SimpleIoc.Default.Register<LogViewModel>();
-            
-            SetupMainNavigationService();
-            SetupInnerNavigationService();
+        {         
+                ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+                SimpleIoc.Default.Register<MainWindowViewModel>();
+                SimpleIoc.Default.Register<LoginViewModel>();
+                SimpleIoc.Default.Register<CalendarViewModel>();
+                SimpleIoc.Default.Register<DoctorsViewModel>();
+                SimpleIoc.Default.Register<MainViewModel>();
+                SimpleIoc.Default.Register<MyPatientsViewModel>();
+                SimpleIoc.Default.Register<PathologiesViewModel>();
+                SimpleIoc.Default.Register<PatientsViewModel>();
+                SimpleIoc.Default.Register<SettingsViewModel>();
+                SimpleIoc.Default.Register<SpecialityViewModel>();
+                SimpleIoc.Default.Register<NotificationViewModel>();
+                SimpleIoc.Default.Register<StatisticsViewModel>();
+                SimpleIoc.Default.Register<PatientsPerSexeChartViewModel>();
+                SimpleIoc.Default.Register<PatientPerDateChartViewModel>();
+                SimpleIoc.Default.Register<LogViewModel>();
+
+                SetupMainNavigationService();
+                SetupInnerNavigationService();           
         }
         private static void SetupMainNavigationService()
         {

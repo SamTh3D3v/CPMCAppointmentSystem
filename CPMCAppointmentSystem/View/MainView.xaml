@@ -6,6 +6,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
       xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:helpers="clr-namespace:CPMCAppointmentSystem.Helpers"
       x:Class="CPMCAppointmentSystem.View.MainView"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1200"
@@ -108,6 +109,6 @@
                 </RadioButton>                               
             </Grid>
         </Grid>
-        <Frame Grid.Row="1" x:Name="InnerFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" LoadCompleted="InnerFrame_OnSourceUpdated"/>
+        <Frame helpers:DisableNavigation.Disable="True" Grid.Row="1" x:Name="InnerFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" LoadCompleted="InnerFrame_OnSourceUpdated"/>
     </Grid>
 </Page>

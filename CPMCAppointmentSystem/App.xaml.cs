@@ -2,7 +2,11 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
+using CPMCAppointmentSystem.SubModel;
 using GalaSoft.MvvmLight.Threading;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -51,18 +55,17 @@ namespace CPMCAppointmentSystem
         public App():base()
         {
             DispatcherHelper.Initialize();
-            Application.Current.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(DomainUnhandlerEceptionHandler);
+            Application.Current.Dispatcher.UnhandledException += OnDispatcherUnhandledException;          
+            AppDomain currentDomain = AppDomain.CurrentDomain;            
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(DomainUnhandlerEceptionHandler);            
             Thread.CurrentThread.CurrentCulture = new CultureInfo("fr");
-
 
             //NotificationHelper.Start();
             
             ////TODO : OUSSAMA This line to bedoneon nitification View.
             //NotificationHelper.NotificationsChange += NotificationHelper_NotificationsChange;
         }
-
+       
         //void NotificationHelper_NotificationsChange(object sender, DataLayer.Notifications.NotificationEventArgs<DataLayer.Model.Notification> args)
         //{
         //    //Get Valide notifications
@@ -95,6 +98,19 @@ namespace CPMCAppointmentSystem
         {
             NotificationHelper.Stop();
             base.OnExit(e);
+        }
+
+        public static void SaveDateBaseSettings(DataBaseSettings databasesettings, object passwordbox)
+        {
+            var passwordBox = passwordbox as PasswordBox;
+            if (passwordBox != null)
+            {
+                var pass = passwordBox.Password;                
+                //todo farouk : use databasesettings and pass to generate the connexion string
+
+
+
+            }
         }
     }
 }

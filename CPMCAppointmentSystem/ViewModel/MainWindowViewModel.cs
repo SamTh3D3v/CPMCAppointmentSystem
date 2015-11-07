@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using CPMCAppointmentSystem.Helpers;
+using CPMCAppointmentSystem.SubModel;
 using DataLayer.Model;
 using DataLayer.Notifications;
 using GalaSoft.MvvmLight;
@@ -16,12 +17,31 @@ namespace CPMCAppointmentSystem.ViewModel
     public class MainWindowViewModel : NavigableViewModelBase
     {
         #region Fields
+        private DataBaseSettings _dataBaseSettings;
         private User _currentUser;
         private bool _isCurrentUserFlayoutOpen;
         private ObservableCollection<Notification> _notificationCollection;
         private bool _isNotificationFlayoutOpen;
         #endregion
-        #region Properties 
+        #region Properties         
+        public DataBaseSettings DataBaseSttings
+        {
+            get
+            {
+                return _dataBaseSettings;
+            }
+
+            set
+            {
+                if (_dataBaseSettings == value)
+                {
+                    return;
+                }
+
+                _dataBaseSettings = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool IsNotificationFlayoutOpen
         {
             get
@@ -108,9 +128,65 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         MainFrameNavigationService.NavigateTo(App.LoginViewKey);
+                        DataBaseSttings = GetDataBaseSettings();
 
                     }));
             }
+        }
+
+        private DataBaseSettings GetDataBaseSettings()
+        {
+            //get DataBase Connexion Setting from the app.config using the app.xaml.cs
+            return new DataBaseSettings();            
+        }
+        private RelayCommand<object> _saveDataBaseSettingsCommand;
+        public RelayCommand<object> SaveDataBaseSettingsCommand
+        {
+            get
+            {
+                return _saveDataBaseSettingsCommand
+                    ?? (_saveDataBaseSettingsCommand = new RelayCommand<object>(
+                    (passBox) =>
+                    {
+                        if (passBox==null) return;                      
+                        App.SaveDateBaseSettings(DataBaseSttings, passBox);
+                        //Disconnect 
+                        
+                    }));
+            }
+        }
+        private RelayCommand _cancelSaveDataBaseSettingsCommand;
+        public RelayCommand CancelSaveDataBaseSettingsCommand
+        {
+            get
+            {
+                return _cancelSaveDataBaseSettingsCommand
+                    ?? (_cancelSaveDataBaseSettingsCommand = new RelayCommand(
+                    () =>
+                    {
+                        DataBaseSttings=GetDataBaseSettings();
+                    }));
+            }
+        }
+        private RelayCommand _restoreDataBaseSettingsCommand;
+        public RelayCommand RestoreDataBaseSettingsCommand
+        {
+            get
+            {
+                return _restoreDataBaseSettingsCommand
+                    ?? (_restoreDataBaseSettingsCommand = new RelayCommand(
+                    () =>
+                    {
+                        DataBaseSttings = GetDefaultDataBaseSettings();
+                        //Disconnect then reconnect
+                    }));
+            }
+        }
+
+        private DataBaseSettings GetDefaultDataBaseSettings()
+        {
+            //get the default settings from the settings xml file
+            return new DataBaseSettings();
         }
         private RelayCommand _mainViewUnloadedCommand;
         public RelayCommand MainViewUnloadedCommand

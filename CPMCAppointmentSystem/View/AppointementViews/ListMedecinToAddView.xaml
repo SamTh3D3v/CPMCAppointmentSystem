@@ -67,7 +67,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>                
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"  Margin="2" Command="{Binding ApplyMedecinFilterCommand}">
+            <Button Grid.Column="0"  Margin="2" Command="{Binding ApplyMedecinFilterCommand}" IsEnabled="False">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource FilterDark}" Width="20" Height="20" />

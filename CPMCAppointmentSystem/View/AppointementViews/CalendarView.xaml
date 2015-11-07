@@ -10,7 +10,7 @@
       xmlns:appointementViews="clr-namespace:CPMCAppointmentSystem.View.AppointementViews"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="1000"
+      d:DesignHeight="800" d:DesignWidth="1000"
 	Title="CalendarView" DataContext="{Binding Source={StaticResource Locator},Path=CalendarViewModel}" >
     <Page.Resources>
         <Storyboard x:Key="SchedulerTypeSelectorDisapear">
@@ -296,7 +296,7 @@
 
                 </Grid>
             </Border>
-            <Border  Grid.Column="1" Background="WhiteSmoke" Width="300">
+            <Border  Grid.Column="1" Background="WhiteSmoke" >
                 <Border.Style>
                     <Style TargetType="Border">
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -319,9 +319,9 @@
                                 <TextBlock Text="Date"></TextBlock>
                             </Grid>
                         </Expander.Header>
-                        <syncfusion:CalendarEdit VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-                            <syncfusion:CalendarEdit.Style>
-                                <Style TargetType="syncfusion:CalendarEdit">
+                        <Calendar VerticalAlignment="Stretch" Name="CalendarFilter" HorizontalAlignment="Stretch" SelectionMode="SingleDate" SelectedDatesChanged="Calendar_OnSelectedDatesChanged">
+                            <Calendar.Style>
+                                <Style TargetType="Calendar">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding ElementName=DataFilterCheckBox,Path=IsChecked}" Value="True">
                                             <Setter Property="IsEnabled" Value="True"></Setter>
@@ -331,8 +331,8 @@
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
-                            </syncfusion:CalendarEdit.Style>
-                        </syncfusion:CalendarEdit>
+                            </Calendar.Style>
+                        </Calendar>
                     </Expander>
                     <Expander  IsExpanded="True" Grid.Row="1">
                         <Expander.Header>
@@ -343,7 +343,18 @@
 
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Filtrer par medecin" Grid.Column="0"/>
-                                <CheckBox Grid.Column="1" x:Name="FilterByDoctorCeckBox" IsChecked="{Binding FilterByMedecinIsChecked,Mode=TwoWay}" HorizontalAlignment="Right"/>
+                                <CheckBox Grid.Column="1"  x:Name="FilterByDoctorCeckBox" IsChecked="{Binding FilterByMedecinIsChecked,Mode=TwoWay}" HorizontalAlignment="Right">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Checked">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarPerMedecinCheckedCommand}"
+                            PassEventArgsToCommand="True"  />
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="Unchecked">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarPerMedecinUncheckedCommand}"
+                            PassEventArgsToCommand="True"  />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </CheckBox>
                             </Grid>
                         </Expander.Header>
                         <Grid IsEnabled="{Binding ElementName=FilterByDoctorCeckBox,Path=IsChecked}">
@@ -380,11 +391,11 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <CheckBox Grid.Column="0" Grid.Row="0"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="1"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="2"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="0" IsEnabled="False"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="1" IsEnabled="False"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="2" IsEnabled="False"/>
 
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Age range " VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Tranche d'âge" VerticalAlignment="Center"/>
                                     <controls:RangeSlider x:Name="AgeRangeSlider" Grid.Row="0" Margin="10"  LowerValue="0"  Grid.Column="2"/>
                                     <TextBlock Text="Minimum" Grid.Column="1" Grid.Row="1"/>
                                     <TextBlock Text="Maximum" Grid.Column="1" Grid.Row="2"/>
@@ -398,7 +409,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <CheckBox Grid.Column="0"/>
+                                    <CheckBox Grid.Column="0" IsEnabled="False"/>
                                     <TextBlock Text="Carte Pro"  Grid.Column="1"/>
                                 </Grid>
                             </GroupBox>

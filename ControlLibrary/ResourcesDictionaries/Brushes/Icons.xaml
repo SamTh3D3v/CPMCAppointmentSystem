@@ -40,4 +40,12 @@
     <BitmapImage x:Key="ConnectionLight" UriSource="/ControlLibrary;component/Images/Icons/Light/Connexion_light.png"/>
     <BitmapImage x:Key="ChartLight" UriSource="/ControlLibrary;component/Images/Icons/Light/ChartLight.png"/>
     
+    
+    
+    
+    <!--Both-->
+    <BitmapImage x:Key="ItCompBlackLogo" UriSource="/ControlLibrary;component/Images/Icons/Both/ItcompBlackLogo.png"/>
+    <BitmapImage x:Key="ItCompWhiteLogo" UriSource="/ControlLibrary;component/Images/Icons/Both/ItcompWhiteLogo.png"/>
+    <BitmapImage x:Key="ItCompRedLogo" UriSource="/ControlLibrary;component/Images/Icons/Both/ItcompRedLogo.png"/>
+    
 </ResourceDictionary>

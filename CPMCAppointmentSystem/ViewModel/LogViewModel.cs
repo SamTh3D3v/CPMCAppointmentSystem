@@ -66,7 +66,7 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _logViewLoadedCommand
                     ?? (_logViewLoadedCommand = new RelayCommand(async () =>
-                    {
+                    {                       
                         _dbContext = new CpmcContext();
                         LogCollectionList=new ObservableCollection<Trace>(await Task.Run(()=>_dbContext.Traces));
                     }));

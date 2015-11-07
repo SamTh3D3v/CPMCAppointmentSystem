@@ -72,7 +72,7 @@
                 <Syncfusion:SfMaskedEdit Grid.Row="0" Grid.Column="0" Text="{Binding FilterText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Filtrer les patients"  
                                      />
-                <ComboBox Grid.Row="0"  Grid.Column="1" Margin="2 5" x:Name="FiltrerParBox" ItemsSource="{Binding FilterByCollection}" SelectedItem="{Binding FilterBySelectedItem,Mode=TwoWay}"/>
+                <!--<ComboBox Grid.Row="0"  Grid.Column="1" Margin="2 5" x:Name="FiltrerParBox" ItemsSource="{Binding FilterByCollection}" SelectedItem="{Binding FilterBySelectedItem,Mode=TwoWay}"/>
                 <TextBlock Grid.Row="0"  Grid.Column="1"  Text="Par" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -109,7 +109,7 @@
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
-                </TextBlock>
+                </TextBlock>-->
                 <Grid  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -117,9 +117,9 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Date de dépot" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Syncfusion:DateTimeEdit  Grid.Column="1" x:Name="DateDepotBoxTimeEdit"  Margin="10 5"  HorizontalAlignment="Stretch">
-                        <Syncfusion:DateTimeEdit.Style>
-                            <Style TargetType="Syncfusion:DateTimeEdit">
+                    <DatePicker  Grid.Column="1" SelectedDate="{Binding DateDepotFilter,StringFormat='{}{0:dd/MM/yyyy}',Mode=TwoWay}"  x:Name="DateDepotBoxTimeEdit"  Margin="10 5"  HorizontalAlignment="Stretch">
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ElementName=DateDepotCb,Path=IsChecked}" Value="True">
                                         <Setter Property="IsEnabled" Value="True"/>
@@ -129,13 +129,13 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </Syncfusion:DateTimeEdit.Style>
-                    </Syncfusion:DateTimeEdit>
+                        </DatePicker.Style>
+                    </DatePicker>
                     <CheckBox Grid.Column="2" x:Name="DateDepotCb"></CheckBox>
                 </Grid>
 
             </Grid>
-            <Syncfusion:SfDataGrid Grid.Column="0"  Grid.ColumnSpan="3"  Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
+            <Syncfusion:SfDataGrid  Grid.Column="0"  Grid.ColumnSpan="3"  Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
@@ -145,7 +145,7 @@
                                    SelectedItem="{Binding SelectedPatient}"
                                        ShowGroupDropArea="True" >
                 <Syncfusion:SfDataGrid.Columns>
-                    <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
+                    <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom"/>
                     <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
                     <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
                     <Syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,

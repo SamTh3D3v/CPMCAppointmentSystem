@@ -38,6 +38,7 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         {
             if (e.Key == Key.Escape)
                 RadialPopup.IsOpen = false;
+            
         }
 
         private void Schedule_OnAppointmentEditorOpening(object sender, AppointmentEditorOpeningEventArgs e)
@@ -135,6 +136,11 @@ namespace CPMCAppointmentSystem.View.AppointementViews
                 }
 
             }
+        }
+
+        private void Calendar_OnSelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CalendarFilter.SelectedDate != null) Schedule.MoveToDate(CalendarFilter.SelectedDate.Value);
         }
     }
 }

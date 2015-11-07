@@ -49,7 +49,8 @@
                                        AllowGrouping="True"
                                        ItemsSource="{Binding DoctorsList}"
                                    SelectedItem="{Binding SelectedDoctor,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" >
+                                       ShowGroupDropArea="True"
+                                    SelectionChanged="SfDataGrid_OnSelectionChanged">
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
@@ -212,13 +213,18 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="MoT De Passe" HorizontalAlignment="Left" Foreground="White"/>
-                                    <CheckBox x:Name="CbUpdatePass" Content="Changer" Grid.Column="2" HorizontalAlignment="Right">
+                                    <CheckBox x:Name="CbUpdatePass" Grid.Column="2" HorizontalAlignment="Right" Unchecked="PassCheckBox_OnUnChecked" Checked="PassCheckBox_OnChecked">
                                         <CheckBox.Style>
+                                            
                                             <Style TargetType="CheckBox">
+                                                <Setter Property="IsChecked" Value="False"/>
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Setter Property="Content" Value="changer"></Setter>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding SelectedDoctor.MedecinId}" Value="{x:Static system:Guid.Empty}">
                                                         <Setter Property="IsChecked" Value="True"/>
                                                         <Setter Property="IsEnabled" Value="False"/>
+                                                        <Setter Property="Content" Value="saisir"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -250,12 +256,12 @@
                                 <TextBlock Grid.Column="0" Grid.Row="0" Text="Nouveau password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
 
                                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Confirmé password" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                <PasswordBox Margin="10 5" Grid.Column="1"  Grid.Row="0" x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <PasswordBox Margin="10 5" Grid.Column="1"  Grid.Row="0" x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" PasswordChanged="UserPass_OnPasswordChanged">
                                     <PasswordBox.Resources>
                                         <system:String x:Key="WaterMarkText">Enter password</system:String>
                                     </PasswordBox.Resources>
                                 </PasswordBox>
-                                <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="PassBoxConfirmPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="PassBoxConfirmPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  PasswordChanged="UserPass_OnPasswordChanged">
                                     <PasswordBox.Resources>
                                         <system:String x:Key="WaterMarkText">Confirme password</system:String>
                                     </PasswordBox.Resources>
@@ -272,7 +278,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}">
+                    <Button Tag="no" Grid.Column="0"  Margin="2" Command="{Binding SaveDoctorCommand}" x:Name="BuSave">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -282,14 +288,7 @@
                         <Button.Style>
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="IsEnabled" Value="false" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=CbUpdatePass,Path=IsChecked}" Value="True">
-                                        <Setter Property="CommandParameter">
-                                            <Setter.Value>
-                                                <Binding ElementName="PassBoxUserPass"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
+                                <Style.Triggers>                                    
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
                                             <Condition Binding="{Binding ElementName=TxtEditNom, Path=(Validation.HasError)}" Value="false" />
@@ -297,9 +296,7 @@
                                             <Condition Binding="{Binding ElementName=TexEditTelFix, Path=(Validation.HasError)}" Value="false" />
                                             <Condition Binding="{Binding ElementName=TexEditMobile, Path=(Validation.HasError)}" Value="false" />
                                             <Condition Binding="{Binding ElementName=TbJourDeTravail, Path=(Validation.HasError)}" Value="false" />
-                                            <Condition Binding="{Binding ElementName=TxtEditUserName, Path=(Validation.HasError)}" Value="false" />
-                                            <Condition Binding="{Binding ElementName=PassBoxUserPass, Path=(Validation.HasError)}" Value="false" />
-                                            <Condition Binding="{Binding ElementName=PassBoxConfirmPass, Path=(Validation.HasError)}" Value="false"/>
+                                            <Condition Binding="{Binding ElementName=TxtEditUserName, Path=(Validation.HasError)}" Value="false" />                                                                                        
                                             <Condition>
                                                 <Condition.Binding>
                                                     <Binding Path="SelectedDoctor" Converter="{StaticResource IsValueEqualToParameterConverter}">
@@ -312,17 +309,18 @@
                                                     <system:Boolean>False</system:Boolean>
                                                 </Condition.Value>
                                             </Condition>
-                                            <!--<Condition>
-                                                <Condition.Binding>
-                                                    <Binding Path="Password" ElementName="PassBoxUserPass" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:String.Empty}"/>
-                                                </Condition.Binding>
+                                            <Condition Binding="{Binding ElementName=BuSave, Path=Tag}" >
+                                                <!--pass==confirmpass-->
                                                 <Condition.Value>
-                                                    <system:Boolean>False</system:Boolean>
+                                                    <system:String>yes</system:String>
                                                 </Condition.Value>
-                                            </Condition>-->
+                                            </Condition>                                            
                                         </MultiDataTrigger.Conditions>
                                         <Setter Property="IsEnabled" Value="true" />
                                     </MultiDataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=CbUpdatePass,Path=IsChecked}" Value="True">
+                                        <Setter Property="CommandParameter" Value="{Binding ElementName=PassBoxUserPass}"/>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>

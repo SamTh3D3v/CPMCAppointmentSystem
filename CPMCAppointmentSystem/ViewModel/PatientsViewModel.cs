@@ -22,7 +22,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel : NavigableViewModelBase
     {
         #region Fields
-
+        private DateTime _dateDepotFilterDateTime = DateTime.Now;
         private Note _selectedNote;
         private AddPatientAppointment _addAppointementWindow;
         private ObservableCollection<Patient> _patientList;
@@ -47,7 +47,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _reportPath;
         private PreviewReportView _previewReportView;
         #endregion
-        #region Properties
+        #region Properties              
+        public DateTime DateDepotFilter
+        {
+            get
+            {
+                return _dateDepotFilterDateTime;
+            }
+
+            set
+            {
+                if (_dateDepotFilterDateTime == value)
+                {
+                    return;
+                }
+
+                _dateDepotFilterDateTime = value;                
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<Pathology> PathologiesList
         {
             get

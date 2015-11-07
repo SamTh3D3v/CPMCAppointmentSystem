@@ -227,6 +227,7 @@
     <Compile Include="Helpers\ChartTile.cs" />
     <Compile Include="Helpers\CustomIdentity.cs" />
     <Compile Include="Helpers\CustomPrincipal.cs" />
+    <Compile Include="Helpers\DisableNavigation.cs" />
     <Compile Include="Helpers\DragableProperty.cs" />
     <Compile Include="Helpers\FrameNavigationService.cs" />
     <Compile Include="Helpers\GsmHelper.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="Helpers\SearchService.cs" />
     <Compile Include="Helpers\Security.cs" />
     <Compile Include="Helpers\TreeViewModel.cs" />
+    <Compile Include="SubModel\DataBaseSettings.cs" />
     <Compile Include="SubModel\EntityToAdd.cs" />
     <Compile Include="SubModel\RollsManager.cs" />
     <Compile Include="SubModel\SettingsCollection.cs" />
