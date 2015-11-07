@@ -77,8 +77,10 @@
   <ItemGroup>
     <Compile Include="Audit\CpmcContext.cs" />
     <Compile Include="Audit\ParentAttribute.cs" />
+    <Compile Include="Entities\Parameter.cs" />
     <Compile Include="Enums\AuditAction.cs" />
     <Compile Include="Enums\Days.cs" />
+    <Compile Include="Enums\ParameterNames.cs" />
     <Compile Include="Enums\TypeJourFerie.cs" />
     <Compile Include="Enums\TypeNotification.cs" />
     <Compile Include="Enums\TypeUser.cs" />
