@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
+using CPMCAppointmentSystem.SubModel;
 using GalaSoft.MvvmLight.Threading;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -95,6 +97,19 @@ namespace CPMCAppointmentSystem
         {
             NotificationHelper.Stop();
             base.OnExit(e);
+        }
+
+        public static void SaveDateBaseSettings(DataBaseSettings databasesettings, object passwordbox)
+        {
+            var passwordBox = passwordbox as PasswordBox;
+            if (passwordBox != null)
+            {
+                var pass = passwordBox.Password;                
+                //todo farouk : use databasesettings and pass to generate the connexion string
+
+
+
+            }
         }
     }
 }

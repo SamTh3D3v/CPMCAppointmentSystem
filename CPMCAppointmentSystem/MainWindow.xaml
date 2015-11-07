@@ -125,10 +125,10 @@
                     <TextBlock Margin="10" Text="userName" Grid.Column="0" Grid.Row="3"/>
                     <TextBlock Margin="10" Text="password" Grid.Column="0" Grid.Row="4"/>
 
-                    <syncfusion:SfTextBoxExt Grid.Row="0" Grid.Column="1" Margin="10"  Watermark="serverName" HorizontalAlignment="Stretch"/>
-                    <syncfusion:SfTextBoxExt Grid.Row="1" Grid.Column="1" Margin="10" Watermark="instanceName" HorizontalAlignment="Stretch"/>
-                    <syncfusion:SfTextBoxExt Grid.Row="2" Grid.Column="1" Margin="10" Watermark="portNumber" HorizontalAlignment="Stretch"/>
-                    <syncfusion:SfTextBoxExt Grid.Row="3" Grid.Column="1" Margin="10" Watermark="userName" HorizontalAlignment="Stretch"/>
+                    <syncfusion:SfTextBoxExt Grid.Row="0" Grid.Column="1" Margin="10"  Watermark="serverName" Text="{Binding DataBaseSttings.ServerName,Mode=TwoWay}" HorizontalAlignment="Stretch"/>
+                    <syncfusion:SfTextBoxExt Grid.Row="1" Grid.Column="1" Margin="10" Watermark="instanceName" Text="{Binding DataBaseSttings.InstanceName,Mode=TwoWay}" HorizontalAlignment="Stretch"/>
+                    <syncfusion:SfTextBoxExt Grid.Row="2" Grid.Column="1" Margin="10" Watermark="portNumber" Text="{Binding DataBaseSttings.PortNumber,Mode=TwoWay}" HorizontalAlignment="Stretch"/>
+                    <syncfusion:SfTextBoxExt Grid.Row="3" Grid.Column="1" Margin="10" Watermark="userName" Text="{Binding DataBaseSttings.UserName,Mode=TwoWay}" HorizontalAlignment="Stretch"/>
                     <PasswordBox Margin="10" Grid.Column="1"  Grid.Row="4" x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <PasswordBox.Resources>
                             <system:String x:Key="WaterMarkText">Password</system:String>
@@ -140,9 +140,10 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Content="Save" Grid.Column="0"/>
-                        <Button Content="Cancel" Grid.Column="1"/>
-                        <Button Content="Default" Grid.Column="2"/>
+                        <Button Content="Save" Grid.Column="0" Command="{Binding SaveDataBaseSettingsCommand}" CommandParameter="{Binding ElementName=PassBoxUserPass}">                          
+                        </Button>
+                        <Button Content="Cancel" Grid.Column="1" Command="{Binding CancelSaveDataBaseSettingsCommand}"/>
+                        <Button Content="Default" Grid.Column="2" Command="{Binding RestoreDataBaseSettingsCommand}"/>
                     </Grid>
                 </Grid>
             </controls:Flyout>

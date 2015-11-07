@@ -239,6 +239,7 @@
     <Compile Include="Helpers\SearchService.cs" />
     <Compile Include="Helpers\Security.cs" />
     <Compile Include="Helpers\TreeViewModel.cs" />
+    <Compile Include="SubModel\DataBaseSettings.cs" />
     <Compile Include="SubModel\EntityToAdd.cs" />
     <Compile Include="SubModel\RollsManager.cs" />
     <Compile Include="SubModel\SettingsCollection.cs" />
