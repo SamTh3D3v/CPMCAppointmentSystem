@@ -17,6 +17,7 @@ namespace DataLayer.Notifications
         private SqlCommand _command;
         private SqlDependency _dependency;
         private string _connectionString;
+        private Guid _userId;
 
         #endregion      
         public NotificationHelper()
@@ -25,12 +26,33 @@ namespace DataLayer.Notifications
             _connection = _connection ?? new SqlConnection(_connectionString);
             _command = _command ?? new SqlCommand(@"usp_GetNotifications", _connection);
             _command.CommandType = System.Data.CommandType.StoredProcedure;
+
+           
+
             _command.Notification = null;
         }
         public void Start()
         {                       
             // Starting SQL Server Query Notifications.
+            SqlDependency.Stop(_connectionString);
             SqlDependency.Start(_connectionString);            
+
+            // Get the Initial Notifications Result set, after which changes will be tracked.
+            GetNotifications();
+        }
+
+        public void Start(Guid currentUserId)
+        {
+            _userId = currentUserId;
+
+            if (_userId == Guid.Empty)
+                _command.Parameters.AddWithValue("@UserId", DBNull.Value);
+            else
+                _command.Parameters.AddWithValue("@UserId", _userId);
+
+            // Starting SQL Server Query Notifications.
+            SqlDependency.Stop(_connectionString);
+            SqlDependency.Start(_connectionString);
 
             // Get the Initial Notifications Result set, after which changes will be tracked.
             GetNotifications();
@@ -41,7 +63,7 @@ namespace DataLayer.Notifications
             SqlDependency.Stop(GetConnectionString());
         }
 
-        public event NotificationEventHandler<Notification> NotificationsChange;
+        public event NotificationEventHandler<Notification> NotificationsChange;        
 
         #region Helper Methods 
         private void OnChange(object sender, SqlNotificationEventArgs e)
@@ -93,7 +115,10 @@ namespace DataLayer.Notifications
                         NotificationType = (TypeNotification)reader["NotificationType"],
                         NotifyUserId = reader["NotifyUserId"] == DBNull.Value ? null : (Guid?)reader["NotifyUserId"],
                         TypeUser = (TypeUser)reader["TypeUser"],
-                        IsSystem = (bool)reader["IsSystem"]
+                        IsSystem = (bool)reader["IsSystem"],
+                        CreatedOn = (DateTime)reader["CreatedOn"],
+                        ModifiedOn = (DateTime)reader["ModifiedOn"],
+                        IsActive = (bool)reader["IsActive"]
                     });
                 }
             } 
