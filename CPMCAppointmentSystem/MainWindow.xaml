@@ -9,6 +9,7 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:userControls="clr-namespace:CPMCAppointmentSystem.UserControls"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d ignore"       
         WindowState="Maximized"                                    
         WindowStartupLocation="CenterScreen"
@@ -102,9 +103,48 @@
                 </ListView>
             </controls:Flyout>
             <controls:Flyout x:Name="DataBaseSettingsFlyout" Header="Notification"   Position="Right"  Theme="Dark" Width="300" MouseDown="DataBaseSettingsFlyout_OnMouseDown">
-               <Grid>
-                   
-               </Grid>
+               <Grid Margin="5">
+                   <Grid.Background>
+                       <SolidColorBrush Color="WhiteSmoke" Opacity=".2"/>
+                   </Grid.Background>
+                   <Grid.RowDefinitions> 
+                       <RowDefinition Height="Auto" />
+                       <RowDefinition Height="Auto"/>
+                       <RowDefinition Height="Auto"/>
+                       <RowDefinition Height="Auto"/>
+                       <RowDefinition Height="Auto"/>
+                       <RowDefinition Height="*"/>
+                   </Grid.RowDefinitions>
+                   <Grid.ColumnDefinitions>
+                       <ColumnDefinition Width="Auto"/>
+                       <ColumnDefinition Width="*"/>
+                   </Grid.ColumnDefinitions>
+                    <TextBlock Margin="10" Text="serverName" Grid.Column="0" Grid.Row="0"/>
+                    <TextBlock Margin="10" Text="instanceName" Grid.Column="0" Grid.Row="1"/>
+                    <TextBlock Margin="10" Text="portNumber" Grid.Column="0" Grid.Row="2"/>
+                    <TextBlock Margin="10" Text="userName" Grid.Column="0" Grid.Row="3"/>
+                    <TextBlock Margin="10" Text="password" Grid.Column="0" Grid.Row="4"/>
+
+                    <syncfusion:SfTextBoxExt Grid.Row="0" Grid.Column="1" Margin="10"  Watermark="serverName" HorizontalAlignment="Stretch"/>
+                    <syncfusion:SfTextBoxExt Grid.Row="1" Grid.Column="1" Margin="10" Watermark="instanceName" HorizontalAlignment="Stretch"/>
+                    <syncfusion:SfTextBoxExt Grid.Row="2" Grid.Column="1" Margin="10" Watermark="portNumber" HorizontalAlignment="Stretch"/>
+                    <syncfusion:SfTextBoxExt Grid.Row="3" Grid.Column="1" Margin="10" Watermark="userName" HorizontalAlignment="Stretch"/>
+                    <PasswordBox Margin="10" Grid.Column="1"  Grid.Row="4" x:Name="PassBoxUserPass" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <PasswordBox.Resources>
+                            <system:String x:Key="WaterMarkText">Password</system:String>
+                        </PasswordBox.Resources>
+                    </PasswordBox>
+                    <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Save" Grid.Column="0"/>
+                        <Button Content="Cancel" Grid.Column="1"/>
+                        <Button Content="Default" Grid.Column="2"/>
+                    </Grid>
+                </Grid>
             </controls:Flyout>
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
