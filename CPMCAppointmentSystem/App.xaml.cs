@@ -57,8 +57,9 @@ namespace CPMCAppointmentSystem
             DispatcherHelper.Initialize();
             Application.Current.Dispatcher.UnhandledException += OnDispatcherUnhandledException;          
             AppDomain currentDomain = AppDomain.CurrentDomain;            
-            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(DomainUnhandlerEceptionHandler);
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(DomainUnhandlerEceptionHandler);            
             Thread.CurrentThread.CurrentCulture = new CultureInfo("fr");
+
             //NotificationHelper.Start();
             
             ////TODO : OUSSAMA This line to bedoneon nitification View.

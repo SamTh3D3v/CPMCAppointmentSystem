@@ -117,7 +117,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </controls:Flyout>
-            <controls:Flyout x:Name="DataBaseSettingsFlyout" Header="Notification"   Position="Right"  Theme="Dark" Width="300" MouseDown="DataBaseSettingsFlyout_OnMouseDown">
+            <controls:Flyout x:Name="DataBaseSettingsFlyout" Header="Base de donnée"   Position="Right"  Theme="Dark" Width="300" MouseDown="DataBaseSettingsFlyout_OnMouseDown">
                 <Grid Margin="5">
                     <Grid.Background>
                         <SolidColorBrush Color="WhiteSmoke" Opacity=".2"/>
