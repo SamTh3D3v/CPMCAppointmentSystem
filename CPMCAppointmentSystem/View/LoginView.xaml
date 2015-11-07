@@ -68,8 +68,9 @@
                     </Button.Content>
                 </Button>
             </Grid>
-        </Border>
-
+        </Border>        
+        <Image Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ItCompRedLogo}" Stretch="Uniform" Margin="0,0,10,-20" Width="100" Height="100">
+        </Image>
 
     </Grid>
 </Page>

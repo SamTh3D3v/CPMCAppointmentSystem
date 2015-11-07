@@ -51,9 +51,23 @@
                    Text="Parametres du base" />
                 </StackPanel>
             </Button>
-            </controls:WindowCommands>
-        </controls:MetroWindow.RightWindowCommands>
-            <controls:MetroWindow.Flyouts>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+    <controls:MetroWindow.LeftWindowCommands>
+        <controls:WindowCommands>
+            <Button>
+                <Rectangle Width="50" Height="20"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                    <Rectangle.OpacityMask>
+                        <ImageBrush Stretch="Uniform"
+                         ImageSource="{StaticResource ItCompWhiteLogo}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </controls:WindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
+    <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl >
             <controls:Flyout x:Name="CurrentUserFlyout" IsOpen="{Binding IsCurrentUserFlayoutOpen,Mode=TwoWay}" Header="CurrentUser" Position="Right" HorizontalAlignment="Stretch"  Theme="Dark" Width="300">
                 <ScrollViewer Margin="5,40,5,5" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
@@ -98,27 +112,27 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <userControls:NotificationTile/>
-                        </DataTemplate>                    
-                    </ListView.ItemTemplate>                    
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </controls:Flyout>
             <controls:Flyout x:Name="DataBaseSettingsFlyout" Header="Notification"   Position="Right"  Theme="Dark" Width="300" MouseDown="DataBaseSettingsFlyout_OnMouseDown">
-               <Grid Margin="5">
-                   <Grid.Background>
-                       <SolidColorBrush Color="WhiteSmoke" Opacity=".2"/>
-                   </Grid.Background>
-                   <Grid.RowDefinitions> 
-                       <RowDefinition Height="Auto" />
-                       <RowDefinition Height="Auto"/>
-                       <RowDefinition Height="Auto"/>
-                       <RowDefinition Height="Auto"/>
-                       <RowDefinition Height="Auto"/>
-                       <RowDefinition Height="*"/>
-                   </Grid.RowDefinitions>
-                   <Grid.ColumnDefinitions>
-                       <ColumnDefinition Width="Auto"/>
-                       <ColumnDefinition Width="*"/>
-                   </Grid.ColumnDefinitions>
+                <Grid Margin="5">
+                    <Grid.Background>
+                        <SolidColorBrush Color="WhiteSmoke" Opacity=".2"/>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     <TextBlock Margin="10" Text="serverName" Grid.Column="0" Grid.Row="0"/>
                     <TextBlock Margin="10" Text="instanceName" Grid.Column="0" Grid.Row="1"/>
                     <TextBlock Margin="10" Text="portNumber" Grid.Column="0" Grid.Row="2"/>
@@ -140,7 +154,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Content="Save" Grid.Column="0" Command="{Binding SaveDataBaseSettingsCommand}" CommandParameter="{Binding ElementName=PassBoxUserPass}">                          
+                        <Button Content="Save" Grid.Column="0" Command="{Binding SaveDataBaseSettingsCommand}" CommandParameter="{Binding ElementName=PassBoxUserPass}">
                         </Button>
                         <Button Content="Cancel" Grid.Column="1" Command="{Binding CancelSaveDataBaseSettingsCommand}"/>
                         <Button Content="Default" Grid.Column="2" Command="{Binding RestoreDataBaseSettingsCommand}"/>
