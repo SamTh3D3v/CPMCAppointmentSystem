@@ -16,7 +16,7 @@ namespace DataLayer.Model
     public class Specialite :Auditable, INotifyPropertyChanged, IDataErrorInfo
     {      
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid SpecialiteId { get; set; }
         
         [Required]

@@ -11,6 +11,7 @@ using DataLayer.Notifications;
 using GalaSoft.MvvmLight.Threading;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using System.Configuration;
 
 namespace CPMCAppointmentSystem
 {
@@ -113,10 +114,39 @@ namespace CPMCAppointmentSystem
         {
             var passwordBox = passwordbox as PasswordBox;
             if (passwordBox != null)
-            {
-                var pass = passwordBox.Password;                
+            {                 
                 //todo farouk : use databasesettings and pass to generate the connexion string
+                #region Connection String Settings
 
+                // Get Configuration File Config.
+                Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                // Get Connection String Settings
+                ConnectionStringsSection connectionStringSection = configuration.ConnectionStrings;
+                
+                //if (connectionStringSection.SectionInformation.IsProtected)
+                //    connectionStringSection.SectionInformation.UnprotectSection();
+                
+                ConnectionStringSettings connectionStringSettings = connectionStringSection.ConnectionStrings["CpmcContext"];
+                
+                System.Data.SqlClient.SqlConnectionStringBuilder connectionStringBuilder = new System.Data.SqlClient.SqlConnectionStringBuilder(connectionStringSettings.ConnectionString);
+
+                // Change connection strings Settings according to escSettings.
+                connectionStringBuilder.Clear();
+                connectionStringBuilder.DataSource = databasesettings.ServerName;
+                connectionStringBuilder.InitialCatalog = databasesettings.InstanceName;
+                connectionStringBuilder.UserID = databasesettings.UserName;
+                connectionStringBuilder.Password = passwordBox.Password;
+
+
+                // make changes to configuration file.
+                connectionStringSettings.ConnectionString = connectionStringBuilder.ToString();
+                if (!connectionStringSection.SectionInformation.IsProtected)
+                    connectionStringSection.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
+
+                configuration.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("connectionStrings");
+                #endregion
                 
 
             }
