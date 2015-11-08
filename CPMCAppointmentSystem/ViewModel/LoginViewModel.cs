@@ -121,7 +121,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 //Use the autentification service 
                 if (_dbContext.Users.Any(u => u.UserName == userName && u.UserPass == passwrd))
                 {
-                    System.Threading.Thread.CurrentPrincipal = new CPMCAppointmentSystem.Helpers.CustomPrincipal(new CustomIdentity(true, userName));
+                    AppDomain.CurrentDomain.SetThreadPrincipal(new CPMCAppointmentSystem.Helpers.CustomPrincipal(new CustomIdentity(true, userName)));
                     Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
                     {
                         MainFrameNavigationService.NavigateTo(App.MainViewKey,

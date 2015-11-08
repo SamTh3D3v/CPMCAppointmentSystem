@@ -111,7 +111,7 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddNewUserCommand}" ToolTip="Ajouter un nouveau utilisateur" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddNewUserCommand}" Click="ButtonBase_OnClick"  ToolTip="Ajouter un nouveau utilisateur" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Button.Content>
                                     <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
                                 </Button.Content>

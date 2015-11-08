@@ -23,7 +23,7 @@
 
     <Grid>
         <Button VerticalAlignment="Top" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}">
-            
+
         </Button>
         <syncfusion:LayoutControl HeaderDescriptionText="log des utilisateurs" 
                         HeaderText="LOG "
@@ -37,7 +37,10 @@
                     </Grid.RowDefinitions>
                     <syncfusion:SfDataGrid AllowEditing="False" x:Name="LogDataGrid" Background="WhiteSmoke"
                                        AllowFiltering="True"
-                                       AutoGenerateColumns="True"                                     
+                                       AutoGenerateColumns="False" 
+                                           AllowGrouping="True"
+                                           AllowDraggingColumns="True"
+                                           AllowSorting="True"
                                        ColumnSizer="AutoWithLastColumnFill"
                                         SelectedItem="{Binding SelectedLog,Mode=TwoWay}"
                                        IsGroupDropAreaExpanded="True"
@@ -46,7 +49,15 @@
                                        RowHeight="40"
                                        NavigationMode="Row"
                                        ShowGroupDropArea="True">
-
+                        <syncfusion:SfDataGrid.Columns>
+                            <syncfusion:GridTextColumn HeaderText="Date" MappingName="Date"  />
+                            <syncfusion:GridTextColumn HeaderText="Utilisateur" MappingName="User.UserName" />
+                            <syncfusion:GridTextColumn HeaderText="Machine" MappingName="Machine"  />
+                            <syncfusion:GridTextColumn HeaderText="Nom Action" MappingName="ActionName" />
+                            <syncfusion:GridTextColumn HeaderText="Entité" MappingName="EntitySet" />
+                            <syncfusion:GridTextColumn HeaderText="Entité Parent" MappingName="ParentEntitySet" />
+                            <syncfusion:GridTextColumn HeaderText="Détails" MappingName="Message" />                            
+                        </syncfusion:SfDataGrid.Columns>
                     </syncfusion:SfDataGrid>
                     <syncfusion:SfDataPager x:Name="LogDataPager"
                                        Grid.Row="1"                                       

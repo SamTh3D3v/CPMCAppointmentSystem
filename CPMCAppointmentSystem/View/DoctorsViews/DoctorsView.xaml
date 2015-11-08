@@ -36,7 +36,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Margin="20,0,0,0" Text="Medecins" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" />
-            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddDoctorCommand}">
+            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddDoctorCommand}" Click="ButtonBase_OnClick">
                 <Button.Content>
                     <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
                 </Button.Content>

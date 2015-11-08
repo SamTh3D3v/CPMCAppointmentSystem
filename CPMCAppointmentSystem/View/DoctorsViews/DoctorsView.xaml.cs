@@ -40,5 +40,12 @@ namespace CPMCAppointmentSystem.View.DoctorsViews
 
         }
 
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            CbUpdatePass.IsChecked = true;
+            BuSave.Tag = "no";
+            PassBoxUserPass.Clear();
+            PassBoxConfirmPass.Clear();
+        }
     }
 }

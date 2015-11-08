@@ -42,7 +42,7 @@ namespace CPMCAppointmentSystem.View.SettingsViews
 
         private void SfDataGrid_OnSelectionChanged(object sender, GridSelectionChangedEventArgs e)
         {
-            PassCheckBox.IsChecked = false;
+            PassCheckBox.IsChecked = false;            
             BtnSave.Tag = "yes";
             UserPass.Clear();
             UserConfirmPass.Clear();
@@ -77,6 +77,13 @@ namespace CPMCAppointmentSystem.View.SettingsViews
             }
         }
 
-       
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            PassCheckBox.IsChecked = true;
+            BtnSave.Tag = "no";
+            UserPass.Clear();
+            UserConfirmPass.Clear();
+        }
     }
 }
