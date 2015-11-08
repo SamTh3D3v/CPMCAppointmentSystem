@@ -27,22 +27,21 @@ namespace DataLayer.Notifications
         public NotificationHelper()
         {
             _connectionString = GetConnectionString();
-            _connection = _connection ?? new SqlConnection(_connectionString);
-
-            // initialize notifications command.
-            _notificationsCommand = _notificationsCommand ?? new SqlCommand(@"usp_GetNotifications", _connection);
-            _notificationsCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            _notificationsCommand.Notification = null;
-
-            // initialize parameters command.
-            _parametersCommand = _parametersCommand ?? new SqlCommand(@"usp_GetSyncedParameters", _connection);
-            _parametersCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            _parametersCommand.Notification = null;
+            _connection = _connection ?? new SqlConnection(_connectionString);           
         }
         public void Start()
         {
             if (!_started)
             {
+                // initialize notifications command.
+                _notificationsCommand = _notificationsCommand ?? new SqlCommand(@"usp_GetNotifications", _connection);
+                _notificationsCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                _notificationsCommand.Notification = null;
+
+                // initialize parameters command.
+                _parametersCommand = _parametersCommand ?? new SqlCommand(@"usp_GetSyncedParameters", _connection);
+                _parametersCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                _parametersCommand.Notification = null;
                 _notificationsCommand.Parameters.AddWithValue("@UserId", DBNull.Value);
 
                 // Starting SQL Server Query Notifications.
@@ -80,10 +79,20 @@ namespace DataLayer.Notifications
             {
                 _userId = currentUserId;
 
+                // initialize notifications command.
+                _notificationsCommand = _notificationsCommand ?? new SqlCommand(@"usp_GetNotifications", _connection);
+                _notificationsCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                _notificationsCommand.Notification = null;
+                
                 if (_userId == Guid.Empty)
                     _notificationsCommand.Parameters.AddWithValue("@UserId", DBNull.Value);
                 else
                     _notificationsCommand.Parameters.AddWithValue("@UserId", _userId);
+
+                // initialize parameters command.
+                _parametersCommand = _parametersCommand ?? new SqlCommand(@"usp_GetSyncedParameters", _connection);
+                _parametersCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                _parametersCommand.Notification = null;                             
 
                 // Starting SQL Server Query Notifications.
                 SqlDependency.Stop(_connectionString);
@@ -116,7 +125,10 @@ namespace DataLayer.Notifications
         public void Stop()
         {
             // Stopping SQL Serevr Query Notifications.
-            SqlDependency.Stop(GetConnectionString());
+            _parametersCommand = null;
+            _notificationsCommand = null;
+            _started = false; // IMPORTANT
+            SqlDependency.Stop(GetConnectionString());                        
         }
 
         public event NotificationEventHandler<Notification> NotificationsChange;
