@@ -215,6 +215,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         MainFrameNavigationService.NavigateTo(App.LoginViewKey);
                         App.NotificationHelper.NotificationsChange -= NotificationHelper_NotificationsChange; 
                         App.NotificationHelper.Stop();
+                        System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                        Application.Current.Shutdown();
                     }));
             }
         }

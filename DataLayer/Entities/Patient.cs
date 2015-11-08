@@ -39,6 +39,7 @@ namespace DataLayer.Model
         private ObservableCollection<Medecin> _medecins;
         private ObservableCollection<RendezVous> _rendezVouses;
         private ObservableCollection<Note> _notes;
+        private bool _dead;
 
         #endregion
         #region Properties
@@ -300,6 +301,16 @@ namespace DataLayer.Model
             {
                 if (Equals(value, _notes)) return;
                 _notes = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool Dead
+        {
+            get { return _dead; }
+            set
+            {
+                if (value == _dead) return;
+                _dead = value;
                 OnPropertyChanged();
             }
         }

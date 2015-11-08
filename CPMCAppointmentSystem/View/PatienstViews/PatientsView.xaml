@@ -171,8 +171,14 @@
                     <Syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneDaccompagnant"/>
                     <Syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
                     <Syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
-
                 </Syncfusion:SfDataGrid.Columns>
+                <Syncfusion:SfDataGrid.ContextMenu>
+                    <ContextMenu>
+                        <Menu>
+                            <MenuItem Header=""></MenuItem>
+                        </Menu>
+                    </ContextMenu>
+                </Syncfusion:SfDataGrid.ContextMenu>
             </Syncfusion:SfDataGrid>
 
         </Grid>

@@ -50,7 +50,8 @@
                                        NavigationMode="Row"
                                        ShowGroupDropArea="True">
                         <syncfusion:SfDataGrid.Columns>
-                            <syncfusion:GridTextColumn HeaderText="Date" MappingName="Date"  />
+                            <syncfusion:GridTextColumn HeaderText="Date" DisplayBinding="{Binding Path=Date,
+                                                                            StringFormat='{}{0:dd/MM/yyyy}'}" />
                             <syncfusion:GridTextColumn HeaderText="Utilisateur" MappingName="User.UserName" />
                             <syncfusion:GridTextColumn HeaderText="Machine" MappingName="Machine"  />
                             <syncfusion:GridTextColumn HeaderText="Nom Action" MappingName="ActionName" />
