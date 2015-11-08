@@ -183,6 +183,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+            <TextBlock Text="Copyright © ITComp - 2015" Grid.Column="0" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="13" Foreground="White" Margin="10,0,0,0"></TextBlock>
             <ProgressBar Grid.Column="2" Width="150" Margin="0,0,10,0"></ProgressBar>
 
         </Grid>

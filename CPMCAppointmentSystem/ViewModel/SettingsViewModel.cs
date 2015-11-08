@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ using System.Windows.Controls;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View.SettingsViews;
+using DataLayer;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -29,6 +31,8 @@ namespace CPMCAppointmentSystem.ViewModel
         public const string DpLieuRdvId = "[@LieuRdv]";
         #endregion
         #region Fields
+        private string _betweenAtCmdDelay;
+        private string _centreDeMessagerie;
         private ObservableCollection<UserType> _userTypeCollection;
         private ObservableCollection<JourFerie> _listDesJoursFerieFix;
         private JourFerie _selectedJourFerieFix;
@@ -45,10 +49,46 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _isFormEnabled;
         private ObservableCollection<string> _monthList;
         private SettingsCollection _settingsCollection;
-        private ObservableCollection<DragableProperty> _dragablePropertiesCollection ;
-        private String _smsTextTemplate;
+        private ObservableCollection<DragableProperty> _dragablePropertiesCollection;
+        private String _smsBodyTemplate;
         #endregion
         #region Properties
+        public string BetweenAtCmdDelay
+        {
+            get
+            {
+                return _betweenAtCmdDelay;
+            }
+
+            set
+            {
+                if (_betweenAtCmdDelay == value)
+                {
+                    return;
+                }
+
+                _betweenAtCmdDelay = value;
+                RaisePropertyChanged();
+            }
+        }
+        public string CenterDeMessagerie
+        {
+            get
+            {
+                return _centreDeMessagerie;
+            }
+
+            set
+            {
+                if (_centreDeMessagerie == value)
+                {
+                    return;
+                }
+
+                _centreDeMessagerie = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<UserType> UserTypeCollection
         {
             get
@@ -338,21 +378,21 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public String SmsTextTemplate
+        public String SmsBodyTemplate
         {
             get
             {
-                return _smsTextTemplate;
+                return _smsBodyTemplate;
             }
 
             set
             {
-                if (_smsTextTemplate == value)
+                if (_smsBodyTemplate == value)
                 {
                     return;
                 }
 
-                _smsTextTemplate = value;
+                _smsBodyTemplate = value;
                 RaisePropertyChanged();
             }
         }
@@ -775,6 +815,67 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand _saveSmsSettingsCommand;
+        public RelayCommand SaveSmsSettingsCommand
+        {
+            get
+            {
+                return _saveSmsSettingsCommand
+                    ?? (_saveSmsSettingsCommand = new RelayCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            ParameterManager.SetValue(ParameterNames.SMSCenterNumber, CenterDeMessagerie);
+                            ParameterManager.SetValue(ParameterNames.DelayBetweenATCommand, BetweenAtCmdDelay);
+                            ParameterManager.SetValue(ParameterNames.SMSBodyTemplate, SmsBodyTemplate);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex.Message);
+                        }
+
+                    }));
+            }
+        }
+        private RelayCommand _cancelSaveSmsSettingsCommand;
+        public RelayCommand CancelSaveSmsSettingsCommand
+        {
+            get
+            {
+                return _cancelSaveSmsSettingsCommand
+                    ?? (_cancelSaveSmsSettingsCommand = new RelayCommand(
+                    GetSmsSettings));
+            }
+        }
+        private RelayCommand _smsSettingsTabLoadedCommand;
+        public RelayCommand SmsSettingsTabLoadedCommand
+        {
+            get
+            {
+                return _smsSettingsTabLoadedCommand
+                    ?? (_smsSettingsTabLoadedCommand = new RelayCommand(() =>
+                    {
+                        GetSmsSettings();
+                        InitDragablePropertiesCollection();
+                    }));
+            }
+        }
+
+        private void GetSmsSettings()
+        {
+            try
+            {
+                CenterDeMessagerie = ParameterManager.GetValue<string>(ParameterNames.SMSCenterNumber);
+                BetweenAtCmdDelay = ParameterManager.GetValue<string>(ParameterNames.DelayBetweenATCommand);
+                SmsBodyTemplate = ParameterManager.GetValue<string>(ParameterNames.SMSBodyTemplate);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
         #endregion
         #region Ctors and Methods
         public SettingsViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
@@ -782,8 +883,6 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             if (DateTimeFormatInfo.CurrentInfo != null)
                 MonthsList = new ObservableCollection<string>(DateTimeFormatInfo.CurrentInfo.MonthNames);
-            InitDragablePropertiesCollection();
-            GetDeFaultSmsNotificationSettings();
         }
 
         private async Task LoadUsersList()
@@ -820,24 +919,18 @@ namespace CPMCAppointmentSystem.ViewModel
             }, new DragableProperty()
             {
                 PropertyId = DpPrenomMedecinId,
-                PropertyName = "Prenom du patient"
+                PropertyName = "Prenom du medecin"
             }, new DragableProperty()
             {
                 PropertyId = DpDateRdvId,
-                PropertyName = "Date Rdv"
+                PropertyName = "Date de RDV"
             },new DragableProperty()
             {
                 PropertyId = DpLieuRdvId,
-                PropertyName = "Lieu Rdv"
+                PropertyName = "Lieu de RDV"
             },
         };
         }
-
-        private void GetDeFaultSmsNotificationSettings()
-        {
-            //these settings must be getted from the Xml settings file   //todo
-            SmsTextTemplate = "Confirmation du rendez vous";
-        }      
 
         #endregion
 
