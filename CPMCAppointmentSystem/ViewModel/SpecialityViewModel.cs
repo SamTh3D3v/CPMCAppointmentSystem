@@ -340,6 +340,9 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private void AddNewSpeciality()
         {
+            //Added by Farouk for Audit purpose
+            SelectedSpeciality.SpecialiteId = Guid.NewGuid();
+
             _dbContext.Specialites.Add(SelectedSpeciality);
             IsFormEnabled = false;
         }
