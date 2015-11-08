@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using DataLayer;
+using DataLayer.Model;
 using JetBrains.Annotations;
 using Syncfusion.Data.Extensions;
 
@@ -15,15 +17,14 @@ namespace CPMCAppointmentSystem.Helpers
 {
     public class GsmHelper : INotifyPropertyChanged
     {
-        #region Consts
-        private const int SleepTimeStamp = 1000;
-        #endregion
+     
         #region Fields
         private String _portName=String.Empty;
         private string _messageCenterNumber;
         private int _baudRate;
         #endregion
         #region Properties
+        public int DelayBetweenAtCmds { get; set; }      
         public String PortName
         {
             get
@@ -78,18 +79,18 @@ namespace CPMCAppointmentSystem.Helpers
                 OnPropertyChanged();
             }
         }
-
         #endregion
         #region Ctors
         public GsmHelper(int baudRate, string messageCenterNumber)
         {             
             MessageCenterNumber = messageCenterNumber;
             BaudRate = baudRate;
-            Thread.Sleep(SleepTimeStamp);
+            //Thread.Sleep(int.Parse(DelayBetweenAtCmds));
         }
 
         public async Task InitGsmDevice()
         {
+            GetSmsSettings();
             if (PortName==String.Empty)
             {
                 var validport = "";
@@ -113,6 +114,12 @@ namespace CPMCAppointmentSystem.Helpers
                 PortName = validport;
                 _serialPort = new SerialPort(validport, BaudRate); 
             }
+        }
+
+        private void GetSmsSettings()
+        {
+            MessageCenterNumber = ParameterManager.GetValue<string>(ParameterNames.SMSCenterNumber);
+            DelayBetweenAtCmds = ParameterManager.GetValue<int>(ParameterNames.SMSCenterNumber);
         }
 
         public bool CheckExistingModemOnComPort(SerialPort serialPort)
@@ -143,13 +150,13 @@ namespace CPMCAppointmentSystem.Helpers
 
             _serialPort.Open();
             _serialPort.Write("AT+CMGF=1\r");
-            Thread.Sleep(SleepTimeStamp);
+            Thread.Sleep(DelayBetweenAtCmds);
             _serialPort.Write("AT+CSCA=\"" + MessageCenterNumber + "\"\r");
-            Thread.Sleep(SleepTimeStamp);
+            Thread.Sleep(DelayBetweenAtCmds);
             _serialPort.Write("AT+CMGS=\"" + number + "\"\r");
-            Thread.Sleep(SleepTimeStamp);
+            Thread.Sleep(DelayBetweenAtCmds);
             _serialPort.Write(message + "\x1A");
-            Thread.Sleep(SleepTimeStamp);
+            Thread.Sleep(DelayBetweenAtCmds);
             _serialPort.Close();
         }
 

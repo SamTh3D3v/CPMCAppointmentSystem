@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CPMCAppointmentSystem.Helpers;
+using DataLayer;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -23,7 +25,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private GsmHelper _gsmHelper  ;       
         private CpmcContext _dbContext=new CpmcContext();
         private ObservableCollection<RendezVous> _rdvCollectionList;
-        private RendezVous _selectedRdv;
+        private RendezVous _selectedRdv;        
         #endregion 
         #region Properties
         public GsmHelper GsmHelper
@@ -80,7 +82,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        
+        public String SmsMessageTemplate { get; set; }
         #endregion 
         #region Commands
         private RelayCommand _notificationViewLoadedCommand;
@@ -95,7 +97,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         await LoadRdvs();
                         try
                         {
-                            await GsmHelper.InitGsmDevice();
+                            SmsMessageTemplate = ParameterManager.GetValue<string>(ParameterNames.SMSBodyTemplate);
+                            await GsmHelper.InitGsmDevice();                            
                         }
                         catch (Exception ex)
                         {
@@ -103,7 +106,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
                             {
                                 var ctontroller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(
-                                    "Echec de com", "check the gprs device ... "));
+                                    "Echec de COM", "check the gsm device ... "));
                             }));
                         }
                         
@@ -136,10 +139,17 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_sendsmsCommand   = new RelayCommand(
                     () =>
                     {
-                        GsmHelper.SendSms("+"+SelectedRdv.Patient.TelephoneMobile1,"Confirmation du rendez vous");
+                        GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, ApplySmsTemplateToSelectedRdv());
 
                     }));
             }
+        }
+
+        private string ApplySmsTemplateToSelectedRdv()
+        {
+            return SmsMessageTemplate.Replace(App.DpNomPatientId, SelectedRdv.Patient.Nom).Replace(App.DpPrenomPatientId,SelectedRdv.Patient.Prenom).
+                Replace(App.DpNomMedecinId, SelectedRdv.Medecin.User.UserNom).Replace(App.DpPrenomMedecinId, SelectedRdv.Medecin.User.UserPrenom).Replace(App.DpDateRdvId,SelectedRdv.DateTimeRdv.Date.ToString(CultureInfo.CurrentUICulture))
+                .Replace(App.DpLieuRdvId,SelectedRdv.LieuRdv);
         }
 
         private RelayCommand _callFixCommand;     
@@ -174,11 +184,11 @@ namespace CPMCAppointmentSystem.ViewModel
                     switch (m.Notification)
                     {
                         case "SendSmsToPatient":
-                            GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, "Confirmation du rendez vous");
+                            GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, ApplySmsTemplateToSelectedRdv());
                             SelectedRdv.NotificationSent = true;
                             break;
                         case "SendSmsToAccom":
-                            GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneDaccompagnant, "Confirmation du rendez vous");
+                            GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneDaccompagnant, ApplySmsTemplateToSelectedRdv());
                             SelectedRdv.NotificationSent = true;
                             break;
                         case "CallPatient":
@@ -199,7 +209,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
                     {
                         var ctontroller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(
-                            "Echec de com", "check the gprs device ... "));
+                            "Echec de com", ApplySmsTemplateToSelectedRdv()));
                     }));
                 }
             });

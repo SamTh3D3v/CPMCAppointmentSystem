@@ -22,14 +22,7 @@ namespace CPMCAppointmentSystem.ViewModel
 {
     public class SettingsViewModel : NavigableViewModelBase
     {
-        #region Consts
-        public const string DpNomPatientId = "[@NomPatient]";
-        public const string DpPrenomPatientId = "[@PrenomPatient]";
-        public const string DpNomMedecinId = "[@NomMedecin]";
-        public const string DpPrenomMedecinId = "[@PrenomMedecin]";
-        public const string DpDateRdvId = "[@DateRdv]";
-        public const string DpLieuRdvId = "[@LieuRdv]";
-        #endregion
+     
         #region Fields
         private string _betweenAtCmdDelay;
         private string _centreDeMessagerie;
@@ -364,7 +357,7 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             get
             {
-                return _dragablePropertiesCollection; ;
+                return _dragablePropertiesCollection; 
             }
 
             set
@@ -856,8 +849,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _smsSettingsTabLoadedCommand
                     ?? (_smsSettingsTabLoadedCommand = new RelayCommand(() =>
                     {
-                        GetSmsSettings();
                         InitDragablePropertiesCollection();
+                        GetSmsSettings();                        
                     }));
             }
         }
@@ -902,31 +895,31 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private void InitDragablePropertiesCollection()
         {
-            _dragablePropertiesCollection = new ObservableCollection<DragableProperty>()
+            DragablePropertiesCollection = new ObservableCollection<DragableProperty>()
         {
             new DragableProperty()
             {
-                PropertyId = DpNomPatientId,
+                PropertyId = App.DpNomPatientId,
                 PropertyName = "Nom du patient"
             }, new DragableProperty()
             {
-                PropertyId = DpPrenomPatientId,
+                PropertyId = App.DpPrenomPatientId,
                 PropertyName = "Prenom du patient"
             }, new DragableProperty()
             {
-                PropertyId = DpNomMedecinId,
+                PropertyId = App.DpNomMedecinId,
                 PropertyName = "Nom du medecin"
             }, new DragableProperty()
             {
-                PropertyId = DpPrenomMedecinId,
+                PropertyId = App.DpPrenomMedecinId,
                 PropertyName = "Prenom du medecin"
             }, new DragableProperty()
             {
-                PropertyId = DpDateRdvId,
+                PropertyId = App.DpDateRdvId,
                 PropertyName = "Date de RDV"
             },new DragableProperty()
             {
-                PropertyId = DpLieuRdvId,
+                PropertyId = App.DpLieuRdvId,
                 PropertyName = "Lieu de RDV"
             },
         };

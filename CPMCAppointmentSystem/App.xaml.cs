@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using CPMCAppointmentSystem.SubModel;
+using DataLayer.Notifications;
 using GalaSoft.MvvmLight.Threading;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -36,22 +37,30 @@ namespace CPMCAppointmentSystem
 
         public static String Admin = "Admin";
         public static String Medecin = "Medecin";
-        public static String Agent = "Agent";
+        public static String Agent = "Agent";        
 
-        private static DataLayer.Notifications.NotificationHelper _sqlHelper;
+        public const string DpNomPatientId = "[@NomPatient]";
+        public const string DpPrenomPatientId = "[@PrenomPatient]";
+        public const string DpNomMedecinId = "[@NomMedecin]";
+        public const string DpPrenomMedecinId = "[@PrenomMedecin]";
+        public const string DpDateRdvId = "[@DateRdv]";
+        public const string DpLieuRdvId = "[@LieuRdv]";
+        
 
-        public static DataLayer.Notifications.NotificationHelper NotificationHelper
+        private static NotificationHelper _sqlHelper;
+
+        public static NotificationHelper NotificationHelper
         {
             get
             {
-                _sqlHelper = _sqlHelper ?? new DataLayer.Notifications.NotificationHelper();
+                _sqlHelper = _sqlHelper ?? new NotificationHelper();
                 return _sqlHelper;
             }
         
         }
         #endregion
 
-        DataLayer.Notifications.NotificationHelper notifcationHelper = new DataLayer.Notifications.NotificationHelper();
+        NotificationHelper notifcationHelper = new NotificationHelper();
         public App():base()
         {
             DispatcherHelper.Initialize();
@@ -73,9 +82,9 @@ namespace CPMCAppointmentSystem
         //    MessageBox.Show(notifications.Count.ToString(),notifications.Count>0?notifications[0].NotificationTitle:"");
         //}
 
-        public async void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        public async void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            var errorMessage = string.Format("An exception occurred: {0}", e.Exception.Message);
+            var errorMessage = String.Format("An exception occurred: {0}", e.Exception.Message);
             var window = (Application.Current.MainWindow as MetroWindow);
             if (window==null)
             {
@@ -90,7 +99,7 @@ namespace CPMCAppointmentSystem
 
         public async void DomainUnhandlerEceptionHandler(object sender, UnhandledExceptionEventArgs args)
         {
-            var errorMessage = string.Format("An exception occurred: {0}", args.ExceptionObject.ToString());
+            var errorMessage = String.Format("An exception occurred: {0}", args.ExceptionObject.ToString());
             var controller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Opération non permise, Details :", errorMessage));
         }
 
