@@ -7,6 +7,7 @@
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800" DataContext="{Binding Source={StaticResource Locator} , Path=LoginViewLodel}"
 	Title="LoginView">
@@ -68,9 +69,9 @@
                     </Button.Content>
                 </Button>
             </Grid>
-        </Border>        
-        <Image Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ItCompRedLogo}" Stretch="Uniform" Margin="0,0,10,-20" Width="100" Height="100">
-        </Image>
+        </Border>
+        <controls:ProgressRing Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,40" Foreground="{StaticResource AccentColorBrush}" IsActive="{Binding IsLogInProgressRingOn,Mode=TwoWay}"></controls:ProgressRing>
+        <Image Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ItCompRedLogo}" Stretch="Uniform" Margin="0,0,10,-20" Width="100" Height="100"/>
 
     </Grid>
 </Page>

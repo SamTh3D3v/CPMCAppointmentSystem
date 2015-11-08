@@ -213,6 +213,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         IsCurrentUserFlayoutOpen = false;
                         CurrentUser = null;
                         MainFrameNavigationService.NavigateTo(App.LoginViewKey);
+                        App.NotificationHelper.NotificationsChange -= NotificationHelper_NotificationsChange; 
                         App.NotificationHelper.Stop();
                     }));
             }

@@ -24,5 +24,7 @@ namespace CPMCAppointmentSystem.View
         {
             InitializeComponent();
         }
+
+       
     }
 }

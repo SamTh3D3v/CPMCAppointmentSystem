@@ -176,7 +176,7 @@ namespace CPMCAppointmentSystem.ViewModel
         public NotificationViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {            
-            GsmHelper=new GsmHelper(9600,"+21361000750");                        
+            GsmHelper=new GsmHelper(9600);                        
             Messenger.Default.Register<NotificationMessage>(this, (m) =>
             {
                 try
@@ -209,7 +209,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
                     {
                         var ctontroller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(
-                            "Echec de com", ApplySmsTemplateToSelectedRdv()));
+                            "Echec de com", ex.Message));
                     }));
                 }
             });

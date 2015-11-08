@@ -25,26 +25,32 @@ namespace CPMCAppointmentSystem.View
         #region redirect click event to Vm (due to a bug in syncfusion SfRadialMenu control)
         private void SendSmsToPatentClick(object sender, RoutedEventArgs e)
         {
-            Messenger.Default.Send(new NotificationMessage("SendSmsToPatient"));
+            RadialContextMenu.IsOpen = !RadialContextMenu.IsOpen;
+            Messenger.Default.Send(new NotificationMessage("SendSmsToPatient"));            
         }
         private void CallFixClick(object sender, RoutedEventArgs e)
         {
-            Messenger.Default.Send(new NotificationMessage("CallFix"));
+            RadialContextMenu.IsOpen = !RadialContextMenu.IsOpen;
+            Messenger.Default.Send(new NotificationMessage("CallFix"));            
         }
 
         private void SendSmsToPatentAccompClick(object sender, RoutedEventArgs e)
         {
-            Messenger.Default.Send(new NotificationMessage("SendSmsToAccom"));
+            RadialContextMenu.IsOpen = !RadialContextMenu.IsOpen;
+            Messenger.Default.Send(new NotificationMessage("SendSmsToAccom"));            
         }
 
         private void CallPatentClick(object sender, RoutedEventArgs e)
         {
-            Messenger.Default.Send(new NotificationMessage("CallPatient"));
+            RadialContextMenu.IsOpen = !RadialContextMenu.IsOpen;
+            Messenger.Default.Send(new NotificationMessage("CallPatient"));            
         }
 
         private void CallAccompClick(object sender, RoutedEventArgs e)
         {
+            RadialContextMenu.IsOpen = !RadialContextMenu.IsOpen;
             Messenger.Default.Send(new NotificationMessage("CallAccompagnant"));
+            
         } 
         #endregion
     }

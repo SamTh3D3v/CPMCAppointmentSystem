@@ -115,13 +115,13 @@
 
                     </syncfusion:SfDataGrid.Columns>
                     <syncfusion:SfDataGrid.RecordContextMenu>
-                        <ContextMenu>
+                        <ContextMenu x:Name="RadialContextMenu" >
                             <ContextMenu.Template>
                                 <ControlTemplate>                                    
                                     <syncfusion:SfRadialMenu x:Name="radialMenu" RimBackground="#FF28A5DB" RimRadiusFactor="0.9" 
                                      IsOpen="True" Background="White" BorderBrush="Green" Padding="5"
                                      RadiusX="100" RadiusY="100"
-                                     EnableFreeRotation="True" Visibility="Visible">
+                                     EnableFreeRotation="True" Visibility="Visible" >
                                         <syncfusion:SfRadialMenu.Icon>
                                             <Ellipse x:Name="centerRim" Fill="White" Stroke="Black" StrokeThickness="2" Height="30" Width="30"/>
                                         </syncfusion:SfRadialMenu.Icon>

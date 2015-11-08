@@ -81,11 +81,9 @@ namespace CPMCAppointmentSystem.Helpers
         }
         #endregion
         #region Ctors
-        public GsmHelper(int baudRate, string messageCenterNumber)
-        {             
-            MessageCenterNumber = messageCenterNumber;
-            BaudRate = baudRate;
-            //Thread.Sleep(int.Parse(DelayBetweenAtCmds));
+        public GsmHelper(int baudRate)
+        {                         
+            BaudRate = baudRate;            
         }
 
         public async Task InitGsmDevice()
@@ -96,7 +94,7 @@ namespace CPMCAppointmentSystem.Helpers
                 var validport = "";
                 await Task.Run(() => SerialPort.GetPortNames().ForEach((str) =>
                 {
-                    _serialPort = new SerialPort(str, BaudRate);
+                    _serialPort = new SerialPort(str, BaudRate);                    
                     try
                     {
                         _serialPort.Open();
@@ -106,6 +104,7 @@ namespace CPMCAppointmentSystem.Helpers
                     }
                     catch
                     {
+                        _serialPort.Close();
                         return;
                     }
                 }));
@@ -114,7 +113,7 @@ namespace CPMCAppointmentSystem.Helpers
                 PortName = validport;
                 _serialPort = new SerialPort(validport, BaudRate); 
             }
-        }
+        }      
 
         private void GetSmsSettings()
         {
@@ -144,7 +143,6 @@ namespace CPMCAppointmentSystem.Helpers
 
         #endregion
         #region Methods
-
         public void SendSms(string number, string message)
         {
 
