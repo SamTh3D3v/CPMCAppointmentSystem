@@ -566,6 +566,7 @@
     <EmbeddedResource Include="Reports\Rendez_Vous.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Syncfusion.SfGrid.WPF.resx" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
