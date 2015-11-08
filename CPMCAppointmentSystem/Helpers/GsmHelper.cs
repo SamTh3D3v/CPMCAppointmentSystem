@@ -119,7 +119,7 @@ namespace CPMCAppointmentSystem.Helpers
         private void GetSmsSettings()
         {
             MessageCenterNumber = ParameterManager.GetValue<string>(ParameterNames.SMSCenterNumber);
-            DelayBetweenAtCmds = ParameterManager.GetValue<int>(ParameterNames.SMSCenterNumber);
+            DelayBetweenAtCmds = ParameterManager.GetValue<int>(ParameterNames.DelayBetweenATCommand);
         }
 
         public bool CheckExistingModemOnComPort(SerialPort serialPort)
