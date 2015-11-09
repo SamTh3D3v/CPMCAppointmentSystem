@@ -15,19 +15,39 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Syncfusion.Windows.Chart;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
     public class NotificationViewModel:NavigableViewModelBase
     {
         #region Fields
-      
+       
+        private bool _isSimActive  ;
         private GsmHelper _gsmHelper  ;       
         private CpmcContext _dbContext=new CpmcContext();
         private ObservableCollection<RendezVous> _rdvCollectionList;
         private RendezVous _selectedRdv;        
         #endregion 
         #region Properties
+        public bool IsSimActive
+        {
+            get
+            {
+                return _isSimActive;
+            }
+
+            set
+            {
+                if (_isSimActive == value)
+                {
+                    return;
+                }
+
+                _isSimActive = value;
+                RaisePropertyChanged();
+            }
+        }
         public GsmHelper GsmHelper
         {
             get
@@ -97,8 +117,11 @@ namespace CPMCAppointmentSystem.ViewModel
                         await LoadRdvs();
                         try
                         {
+                            IsSimActive = false;
+                            GsmHelper = new GsmHelper(9600); 
                             SmsMessageTemplate = ParameterManager.GetValue<string>(ParameterNames.SMSBodyTemplate);
-                            await GsmHelper.InitGsmDevice();                            
+                            await GsmHelper.InitGsmDevice();
+                            IsSimActive = true;
                         }
                         catch (Exception ex)
                         {
@@ -108,6 +131,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 var ctontroller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(
                                     "Echec de COM", "check the gsm device ... "));
                             }));
+                            IsSimActive = false;
                         }
                         
                     }));
@@ -148,7 +172,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private string ApplySmsTemplateToSelectedRdv()
         {
             return SmsMessageTemplate.Replace(App.DpNomPatientId, SelectedRdv.Patient.Nom).Replace(App.DpPrenomPatientId,SelectedRdv.Patient.Prenom).
-                Replace(App.DpNomMedecinId, SelectedRdv.Medecin.User.UserNom).Replace(App.DpPrenomMedecinId, SelectedRdv.Medecin.User.UserPrenom).Replace(App.DpDateRdvId,SelectedRdv.DateTimeRdv.Date.ToString(CultureInfo.CurrentUICulture))
+                Replace(App.DpNomMedecinId, SelectedRdv.Medecin.User.UserNom).Replace(App.DpPrenomMedecinId, SelectedRdv.Medecin.User.UserPrenom).Replace(App.DpDateRdvId,SelectedRdv.DateTimeRdv.Date.ToString("dd/MM/yyyy"))
                 .Replace(App.DpLieuRdvId,SelectedRdv.LieuRdv);
         }
 
@@ -175,8 +199,7 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Ctors and methods
         public NotificationViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
-        {            
-            GsmHelper=new GsmHelper(9600);                        
+        {                                               
             Messenger.Default.Register<NotificationMessage>(this, (m) =>
             {
                 try
