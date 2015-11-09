@@ -8,6 +8,7 @@ using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.SpecialitiesViews;
+using DataLayer;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.Data.Extensions;
@@ -198,6 +199,17 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (SelectedSpeciality.SpecialiteId == Guid.Empty)
                         {
                             AddNewSpeciality();
+                            _dbContext.Notifications.Add(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "Nouvelle Specialité",
+                                NotificationMessage = "La specialité :" + SelectedSpeciality.Name + " a été inserer",
+                                NotificationType = TypeNotification.Information,
+                                IsActive = true,
+                                TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
+                                CreatedOn = DateTime.Now,
+                                ModifiedOn = DateTime.Now
+                            });
                         }
                         _dbContext.SaveChanges();
                         await LoadSpacialities();
@@ -219,8 +231,19 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             if (SelectedSpeciality.SpecialiteId != Guid.Empty)
                             {
-                                _dbContext.Specialites.Remove(SelectedSpeciality);
-                                SpecialityList.Remove(SelectedSpeciality);                                
+                                _dbContext.Notifications.Add(new Notification()
+                                {
+                                    NotificationId = Guid.NewGuid(),
+                                    NotificationTitle = "Suppression Specialité",
+                                    NotificationMessage = "La specialité :" + SelectedSpeciality.Name + " a été supprimer",
+                                    NotificationType = TypeNotification.Information,
+                                    IsActive = true,
+                                    TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
+                                    CreatedOn = DateTime.Now,
+                                    ModifiedOn = DateTime.Now
+                                });
+                                _dbContext.Specialites.Remove(SelectedSpeciality);                                                               
+                                SpecialityList.Remove(SelectedSpeciality);
                                 _dbContext.SaveChanges();
                                 SelectedSpeciality = null;
                             }

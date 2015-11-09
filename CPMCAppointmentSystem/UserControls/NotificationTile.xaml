@@ -100,7 +100,7 @@
                 </Path>
             </ToggleButton>
         </Grid>
-        <ScrollViewer Name="SchViewMessage" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" Margin="5" Background="#77ffffff" Height="100">
+        <ScrollViewer Name="SchViewMessage" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="5" Background="#77ffffff" Height="100">
             <ScrollViewer.Style>
                 <Style TargetType="ScrollViewer">
                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -111,7 +111,7 @@
                     </Style.Triggers>
                 </Style>
             </ScrollViewer.Style>
-            <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Text="{Binding NotificationMessage}" FontSize="15" Foreground="Black"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" />
+            <TextBlock Style="{StaticResource BodyTextBlockStyle}"  Text="{Binding NotificationMessage}" FontSize="15" Foreground="Black"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" MaxWidth="280" />
         </ScrollViewer>      
     </Grid>
 </UserControl>

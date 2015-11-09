@@ -38,7 +38,8 @@
         <Style x:Key="RowStyle" TargetType="Syncfusion:VirtualizingCellsControl" BasedOn="{StaticResource GenericRowStyle}">            
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Dead}" Value="True">
-                    <Setter Property="Background" Value="OrangeRed"></Setter>
+                    <Setter Property="Background" Value="LightSalmon"></Setter>
+                    <Setter Property="Foreground" Value="Gray"></Setter>
                 </DataTrigger>
             </Style.Triggers>
             

@@ -11,6 +11,7 @@ using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.PathologiesViews;
+using DataLayer;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.Data.Extensions;
@@ -203,23 +204,27 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (SelectedPathology.PathologyId == Guid.Empty)
                         {
                             AddNewPathology();
-                            NotficationManager.AddNotification(new Notification()
+                            _dbContext.Notifications.Add(new Notification()
                             {
                                 NotificationId = Guid.NewGuid(),
-                                NotificationTitle = "New",
-                                NotificationMessage = "Pathology " + SelectedPathology.NomPathology + " a été inserer avec succes",
-                                NotificationType = TypeNotification.Information
+                                NotificationTitle = "Nouvelle Pathologie",
+                                NotificationMessage = "La pathologie:" + SelectedPathology.NomPathology + " a été inserer",
+                                NotificationType = TypeNotification.Information,
+                                IsActive = true,
+                                TypeUser = TypeUserUtility.WhichTypeUser(true,false,true),
+                                CreatedOn = DateTime.Now,
+                                ModifiedOn = DateTime.Now
                             });
                         }
                         else
                         {
-                            NotficationManager.AddNotification(new Notification()
-                            {
-                                NotificationId = Guid.NewGuid(),
-                                NotificationTitle = "Update",
-                                NotificationMessage = "Pathology " + SelectedPathology.NomPathology + " a été mise a jour avec succes",
-                                NotificationType = TypeNotification.Information
-                            });
+                            //NotficationManager.AddNotification(new Notification()
+                            //{
+                            //    NotificationId = Guid.NewGuid(),
+                            //    NotificationTitle = "Update",
+                            //    NotificationMessage = "Pathology " + SelectedPathology.NomPathology + " a été mise a jour avec succes",
+                            //    NotificationType = TypeNotification.Information
+                            //});
                         }
                         _dbContext.SaveChanges();
                         LoadPathologies();
@@ -309,7 +314,18 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             if (SelectedPathology.PathologyId != Guid.Empty)
                             {
-                                _dbContext.Pathologies.Remove(SelectedPathology);
+                                _dbContext.Notifications.Add(new Notification()
+                                {
+                                    NotificationId = Guid.NewGuid(),
+                                    NotificationTitle = "Supression Pathologie",
+                                    NotificationMessage = "La pathologie:" + SelectedPathology.NomPathology + " a été supprimer",
+                                    NotificationType = TypeNotification.Information,
+                                    IsActive = true,
+                                    TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
+                                    CreatedOn = DateTime.Now,
+                                    ModifiedOn = DateTime.Now
+                                });
+                                _dbContext.Pathologies.Remove(SelectedPathology);                                                                
                                 PathologiesList.Remove(SelectedPathology);
                                 _dbContext.SaveChanges();
                                 SelectedPathology = null;

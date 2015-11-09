@@ -13,6 +13,7 @@ using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.DoctorsViews;
+using DataLayer;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.Data.Extensions;
@@ -486,6 +487,17 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (SelectedDoctor.MedecinId == Guid.Empty)
                         {
                             await AddNewDoctor();
+                            _dbContext.Notifications.Add(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "Nouveau medecin",
+                                NotificationMessage = "Le medecin :" + SelectedDoctor.User.UserNom+" "+SelectedDoctor.User.UserPrenom + " a été inserer",
+                                NotificationType = TypeNotification.Information,
+                                IsActive = true,
+                                TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
+                                CreatedOn = DateTime.Now,
+                                ModifiedOn = DateTime.Now
+                            });
                         }
                         
                             _dbContext.SaveChanges();
@@ -524,7 +536,18 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             if (SelectedDoctor.MedecinId != Guid.Empty)
                             {
-                                _dbContext.Medecins.Remove(SelectedDoctor);
+                                _dbContext.Notifications.Add(new Notification()
+                                {
+                                    NotificationId = Guid.NewGuid(),
+                                    NotificationTitle = "Medecin supprimer",
+                                    NotificationMessage = "Le medecin :" + SelectedDoctor.User.UserNom + " " + SelectedDoctor.User.UserPrenom + " a été supprimer",
+                                    NotificationType = TypeNotification.Information,
+                                    IsActive = true,
+                                    TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
+                                    CreatedOn = DateTime.Now,
+                                    ModifiedOn = DateTime.Now
+                                });
+                                _dbContext.Medecins.Remove(SelectedDoctor);                                                                
                                 DoctorsList.Remove(SelectedDoctor);
                                 _dbContext.SaveChanges();
                                 SelectedDoctor = null;
