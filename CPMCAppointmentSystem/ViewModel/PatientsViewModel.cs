@@ -511,6 +511,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_previewRdvCommand = new RelayCommand(
                     () =>
                     {
+                        if (SelectedAppointement==null) return;                       
                         ReportPath = App.RendezVousReport;
                         _previewReportView = new PreviewReportView();
                         Messenger.Default.Send<RendezVous>(SelectedAppointement);

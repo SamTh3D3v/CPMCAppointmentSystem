@@ -36,23 +36,47 @@ namespace CPMCAppointmentSystem.View.PatienstViews
             });
             Messenger.Default.Register<RendezVous>(this, (r) =>
             {
-               
-             
-                //ReportParameter[] parms = new ReportParameter[2];
-                //parms[0] = new ReportParameter()
-                //{
-                //    Name = "NumeroDordrePara",
-                //    Values =new List<string>(){p.NumeroDordre}
-                    
-                //}; 
-                //parms[1] = new ReportParameter()
-                //{
-                //    Name = "DateDepot",
-                //    Values =new List<string>(){p.DateDeDepot.Date.ToString("dd/MM/yyyy")}
-                    
-                //};
-                //ReportPreviewer.SetParameters(parms);
-                ReportPreviewer.RefreshReport();                                                                                                         
+
+
+                ReportParameter[] parms = new ReportParameter[6];
+                parms[0] = new ReportParameter()
+                {
+                    Name = "NomPatient",
+                    Values = new List<string>() { r.Patient.Nom }
+
+                };
+                parms[1] = new ReportParameter()
+                {
+                    Name = "PrenomParient",
+                    Values = new List<string>() { r.Patient.Prenom }
+
+                };
+                parms[2] = new ReportParameter()
+                {
+                    Name = "NomMedecin",
+                    Values = new List<string>() { r.Medecin.User.UserNom }
+
+                };
+                parms[3] = new ReportParameter()
+                {
+                    Name = "PrenomMedecin",
+                    Values = new List<string>() {r.Medecin.User.UserPrenom}
+
+                };
+                parms[4] = new ReportParameter()
+                {
+                    Name = "DateRdv",
+                    Values = new List<string>() { r.DateTimeRdv.ToString("dd/MM/yyyy") }
+
+                };
+                parms[5] = new ReportParameter()
+                {
+                    Name = "LieuRdv",
+                    Values = new List<string>() { r.LieuRdv }
+
+                };
+                ReportPreviewer.SetParameters(parms);
+                ReportPreviewer.RefreshReport();                                                                                                            
 
             });
             
