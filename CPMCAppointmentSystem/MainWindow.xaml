@@ -103,7 +103,7 @@
                     </Grid>
                 </ScrollViewer>
             </controls:Flyout>
-            <controls:Flyout x:Name="NotificationFlyout" Header="Notification" IsOpen="{Binding IsNotificationFlayoutOpen,Mode=TwoWay}"  Position="Right"  Theme="Dark" Width="300">
+            <controls:Flyout x:Name="NotificationFlyout" Header="Notification" IsOpen="{Binding IsNotificationFlayoutOpen,Mode=TwoWay}"  Position="Right"  Theme="Dark" Width="400">
                 <ListView ItemsSource="{Binding NotificationsCollection}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">

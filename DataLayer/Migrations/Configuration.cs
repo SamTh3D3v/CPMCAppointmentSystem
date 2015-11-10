@@ -12,65 +12,65 @@ namespace DataLayer.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = false;
         }
 
         protected override void Seed(CpmcContext context)
         {
             ////Sexe Table
 
-            context.Database.Connection.Open();
+//            context.Database.Connection.Open();
 
 
-            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Sexe] ON");
-            context.Sexes.AddOrUpdate(s=>s.Designation,new Sexe() { SexeId = 0, Designation = "Male" });
-            context.Sexes.AddOrUpdate(s=>s.Designation,new Sexe() { SexeId = 1, Designation = "Femelle" });
-            context.SaveChanges();
-            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Sexe] OFF");
+//            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Sexe] ON");
+//            context.Sexes.AddOrUpdate(s=>s.Designation,new Sexe() { SexeId = 0, Designation = "Male" });
+//            context.Sexes.AddOrUpdate(s=>s.Designation,new Sexe() { SexeId = 1, Designation = "Femelle" });
+//            context.SaveChanges();
+//            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Sexe] OFF");
             
             
-            ////Willaya Table
-            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Willaya] ON");
-            context.Willayas.AddOrUpdate(w => w.WillayaId,
-                new Willaya() { WillayaId = 2, Designation = "Chlef" },
-                new Willaya() { WillayaId = 31, Designation = "Oran" },
-                new Willaya() { WillayaId = 16, Designation = "Alger" },
-                new Willaya() { WillayaId = 28, Designation = "Msilla" },
-                new Willaya() { WillayaId = 29, Designation = "Mascara" });
-            context.SaveChanges();
-            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Willaya] OFF");
+//            ////Willaya Table
+//            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Willaya] ON");
+//            context.Willayas.AddOrUpdate(w => w.WillayaId,
+//                new Willaya() { WillayaId = 2, Designation = "Chlef" },
+//                new Willaya() { WillayaId = 31, Designation = "Oran" },
+//                new Willaya() { WillayaId = 16, Designation = "Alger" },
+//                new Willaya() { WillayaId = 28, Designation = "Msilla" },
+//                new Willaya() { WillayaId = 29, Designation = "Mascara" });
+//            context.SaveChanges();
+//            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Willaya] OFF");
 
 
             
-            context.UserTypes.AddOrUpdate(u => u.UserTypeName,
-                new UserType() { UserTypeName = "Medecin" },
-                new UserType() { UserTypeName = "Admin" },
-                new UserType() { UserTypeName = "Agent" });
+//            context.UserTypes.AddOrUpdate(u => u.UserTypeName,
+//                new UserType() { UserTypeName = "Medecin" },
+//                new UserType() { UserTypeName = "Admin" },
+//                new UserType() { UserTypeName = "Agent" });
 
 
-            context.Parameters.AddOrUpdate(
-                p => p.Name,
-                new Parameter { Name = ParameterNames.DelayBetweenATCommand.ToString(), Title = "Délai entre AT Commande", Value = "1000", SyncOnChange = true },
-                new Parameter { Name = ParameterNames.MaxNumberOfRetryAfterSMSSendFailure.ToString(), Title = "Nombre de nouvelles tentatives Après Échec d'envoi SMS", Value = "5", SyncOnChange = true },
-                new Parameter { Name = ParameterNames.NotifyPatientRDVDateBefore.ToString(), Title = "Notifier la Date du RDV d'un patient avant", Value = "10", SyncOnChange = false },
-                new Parameter { Name = ParameterNames.NotifyWhenPatientNotConfirmRDVSince.ToString(), Title = "Notifier si patient n'a pas confirmé RDV depuis", Value = "10", SyncOnChange = false },
-                new Parameter { Name = ParameterNames.NotifyWhenPatientWithoutRDVSince.ToString(), Title = "Notifier si patient sans RDV depuis", Value = "10", SyncOnChange = false },
-                new Parameter { Name = ParameterNames.NotifyWhenSMSNotSendForPatientRDVSince.ToString(), Title = "Notifier si SMS non envoyé pour RDV patient depuis", Value = "10", SyncOnChange = false },
-                new Parameter
-                {
-                    Name = ParameterNames.SMSBodyTemplate.ToString(),
-                    Title = "Modèle de contenu SMS",
-                    Value = @"Confirmation du RDV
-                              Patient  : [@NomPatient] [@PrenomPatient]
-                              Date RDV : [@DateRdv]",
-                    SyncOnChange = true
-                },
-                new Parameter { Name = ParameterNames.SMSCenterNumber.ToString(), Title = "Numéro Centre de messagerie", Value = "+213550001701", SyncOnChange = true }
-                );
+//            context.Parameters.AddOrUpdate(
+//                p => p.Name,
+//                new Parameter { Name = ParameterNames.DelayBetweenATCommand.ToString(), Title = "Délai entre AT Commande", Value = "1000", SyncOnChange = true },
+//                new Parameter { Name = ParameterNames.MaxNumberOfRetryAfterSMSSendFailure.ToString(), Title = "Nombre de nouvelles tentatives Après Échec d'envoi SMS", Value = "5", SyncOnChange = true },
+//                new Parameter { Name = ParameterNames.NotifyPatientRDVDateBefore.ToString(), Title = "Notifier la Date du RDV d'un patient avant", Value = "10", SyncOnChange = false },
+//                new Parameter { Name = ParameterNames.NotifyWhenPatientNotConfirmRDVSince.ToString(), Title = "Notifier si patient n'a pas confirmé RDV depuis", Value = "10", SyncOnChange = false },
+//                new Parameter { Name = ParameterNames.NotifyWhenPatientWithoutRDVSince.ToString(), Title = "Notifier si patient sans RDV depuis", Value = "10", SyncOnChange = false },
+//                new Parameter { Name = ParameterNames.NotifyWhenSMSNotSendForPatientRDVSince.ToString(), Title = "Notifier si SMS non envoyé pour RDV patient depuis", Value = "10", SyncOnChange = false },
+//                new Parameter
+//                {
+//                    Name = ParameterNames.SMSBodyTemplate.ToString(),
+//                    Title = "Modèle de contenu SMS",
+//                    Value = @"Confirmation du RDV
+//                              Patient  : [@NomPatient] [@PrenomPatient]
+//                              Date RDV : [@DateRdv]",
+//                    SyncOnChange = true
+//                },
+//                new Parameter { Name = ParameterNames.SMSCenterNumber.ToString(), Title = "Numéro Centre de messagerie", Value = "+213550001701", SyncOnChange = true }
+//                );
 
-            context.SaveChanges();
-            context.Database.Connection.Close();
+//            context.SaveChanges();
+//            context.Database.Connection.Close();
             ////Adress Table
             //IList<Adresse> fakeAdressesList = new List<Adresse>();
             //fakeAdressesList.Add(new Adresse(){AddressDesignation = "03, Rue Good Weather",City = "Elward",CodePosatal = "16000",WillayaId = 16});

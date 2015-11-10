@@ -10,7 +10,7 @@ namespace DataLayer.Model
     public partial class CpmcContext:DbContext
     {
         public CpmcContext()
-            : base("CpmcAppointmentDb")  //"CpmcConnectionString"
+            : base("CpmcContext")  //CpmcContext
         {
             //DeFault Db Initializer
             //Database.SetInitializer<CpmcContext>(new DropCreateDatabaseIfModelChanges<CpmcContext>());

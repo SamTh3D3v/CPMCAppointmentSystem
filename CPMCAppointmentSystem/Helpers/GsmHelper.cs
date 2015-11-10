@@ -134,7 +134,7 @@ namespace CPMCAppointmentSystem.Helpers
                 serialPort.Write(command + "\r");
                 Thread.Sleep(2000);
                 var answer = serialPort.ReadExisting();
-                if (answer.IndexOf("OK", System.StringComparison.Ordinal) >= 0)
+                if (answer.Count() > 0 )   //was : answer.IndexOf("OK", System.StringComparison.Ordinal)
                 {
                     return true;
                 }
