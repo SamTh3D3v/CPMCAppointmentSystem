@@ -110,6 +110,7 @@ namespace CPMCAppointmentSystem.Helpers
                 }));
                 if (validport == "")
                     throw new Exception("The GSM device isn't pluged-in");
+                    //validport = "COM9";
                 PortName = validport;
                 _serialPort = new SerialPort(validport, BaudRate); 
             }
