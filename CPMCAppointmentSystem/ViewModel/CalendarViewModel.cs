@@ -344,6 +344,27 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+      
+        private User _connectedUser  ;
+
+        public User ConnectedUser
+        {
+            get
+            {
+                return _connectedUser;
+            }
+
+            set
+            {
+                if (_connectedUser == value)
+                {
+                    return;
+                }
+
+                _connectedUser = value;
+                RaisePropertyChanged();
+            }
+        }
         private RelayCommand _calendarViewLoadedCommand;
         public RelayCommand CalendarViewLoadedCommand
         {
@@ -356,6 +377,17 @@ namespace CPMCAppointmentSystem.ViewModel
                         await LoadRendezVous();
                         IsProgressRingActive = false;
 
+                        try
+                        {
+                            var user = MainFrameNavigationService.Parameter as User;
+                            if (user != null)                           //todo 
+                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+
+                        }
+                        catch (Exception)
+                        {
+                                                        
+                        }
                     }));
             }
         }

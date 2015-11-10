@@ -533,6 +533,26 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private User _connectedUser;
+
+        public User ConnectedUser
+        {
+            get
+            {
+                return _connectedUser;
+            }
+
+            set
+            {
+                if (_connectedUser == value)
+                {
+                    return;
+                }
+
+                _connectedUser = value;
+                RaisePropertyChanged();
+            }
+        }
         private RelayCommand _patientsViewLoadedCommand;
         public RelayCommand PatientsViewLoadedCommand
         {
@@ -544,6 +564,17 @@ namespace CPMCAppointmentSystem.ViewModel
                         _dbContext = new CpmcContext();
                         SexeList = new ObservableCollection<Sexe>(await Task.Run(() => _dbContext.Sexes));
                         WillayasList = new ObservableCollection<Willaya>(await Task.Run(() => _dbContext.Willayas));
+                        try
+                        {
+                            var user = MainFrameNavigationService.Parameter as User;
+                            if (user != null)                           //todo 
+                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+
+                        }
+                        catch (Exception)
+                        {
+                            
+                        }
                         await LoadPieceJointeTypeList();
                         await LoadPatienstList();
                         await LoadPathologiseList();
@@ -993,6 +1024,17 @@ namespace CPMCAppointmentSystem.ViewModel
                         _dbContext = new CpmcContext();
                         SexeList = new ObservableCollection<Sexe>(await Task.Run(() => _dbContext.Sexes));
                         WillayasList = new ObservableCollection<Willaya>(await Task.Run(() => _dbContext.Willayas));
+                        try
+                        {
+                            var user = MainFrameNavigationService.Parameter as User;
+                            if (user != null)                           //todo 
+                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }
                         await LoadPieceJointeTypeList();
                         await LoadDotorPatienstList();
                         await LoadPathologiseList();

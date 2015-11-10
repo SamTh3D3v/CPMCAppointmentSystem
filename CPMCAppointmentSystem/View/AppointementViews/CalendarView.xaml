@@ -146,8 +146,8 @@
                             </DataTemplate>
                         </syncfusion:SfSchedule.AppointmentTemplate>
                     </syncfusion:SfSchedule>
-                    <Popup x:Name="RadialPopup"  KeyDown="HandleEsc"  syncfusion:SkinStorage.VisualStyle="Metro" Placement="MousePoint" AllowsTransparency="True" IsOpen="False">
-                        <syncfusion:SfRadialMenu x:Name="radialMenu" RimBackground="#FF28A5DB" RimRadiusFactor="0.9" 
+                    <Popup x:Name="RadialPopup" IsEnabled="{Binding ConnectedUser.RolesCollection.AppointementEditAllow,Mode=TwoWay}"  KeyDown="HandleEsc"  syncfusion:SkinStorage.VisualStyle="Metro" Placement="MousePoint" AllowsTransparency="True" IsOpen="False">
+                        <syncfusion:SfRadialMenu IsEnabled="{Binding ConnectedUser.RolesCollection.AppointementEditAllow,Mode=TwoWay}"  x:Name="radialMenu" RimBackground="#FF28A5DB" RimRadiusFactor="0.9" 
                                      IsOpen="False" Background="White" BorderBrush="Green" Padding="5"
                                      RadiusX="100" RadiusY="100"
                                      EnableFreeRotation="True" Visibility="Visible">

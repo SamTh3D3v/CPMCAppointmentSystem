@@ -109,7 +109,7 @@
                 </Expander>                
             </Grid>
         </ScrollViewer>
-        <Grid Grid.Row="1" Grid.Column="0"  Margin="5" VerticalAlignment="Bottom">
+        <Grid Grid.Row="1" Grid.Column="0"  Margin="5" VerticalAlignment="Bottom" IsEnabled="{Binding ConnectedUser.RolesCollection.PatientsEditAppointementAllow}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -149,7 +149,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteAppointementCommand}">
+            <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteAppointementCommand}" >
                 <Button.Style>
                     <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                         <Setter Property="IsEnabled" Value="True"></Setter>

@@ -14,9 +14,9 @@
 	<Page.Resources>
         <Storyboard x:Key="NotificationAnimationStart" RepeatBehavior="Forever">
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
-				<EasingColorKeyFrame KeyTime="0" Value="#FF818F94"/>
-				<EasingColorKeyFrame KeyTime="0:0:0.5" Value="White"/>
-				<EasingColorKeyFrame KeyTime="0:0:1" Value="#FF818F94"/>
+				<EasingColorKeyFrame KeyTime="0" Value="White"/>
+				<EasingColorKeyFrame KeyTime="0:0:0.5" Value="DarkOrange"/>
+				<EasingColorKeyFrame KeyTime="0:0:1" Value="White"/>
 			</ColorAnimationUsingKeyFrames>
 		</Storyboard>
         <Storyboard x:Key="NotificationAnimationStop">
