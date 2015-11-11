@@ -75,6 +75,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\SearchAttribute.cs" />
     <Compile Include="Audit\CpmcContext.cs" />
     <Compile Include="Audit\ParentAttribute.cs" />
     <Compile Include="Entities\Parameter.cs" />

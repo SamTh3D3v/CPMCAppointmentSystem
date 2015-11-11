@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Annotations;
+using DataLayer.Attributes;
 
 namespace DataLayer.Model
 {
@@ -55,7 +56,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
+        [Search]
         [Required]
         public String NumeroDordre
         {
@@ -67,7 +68,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
+        [Search]
         [Required]
         public String Nom
         {
@@ -79,7 +80,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
+        [Search]
         [Required]
         public String Prenom
         {
@@ -103,7 +104,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
+        [Search]
         public String TelephoneFixe
         {
             get { return _telephoneFixe; }
@@ -114,7 +115,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
+        [Search]
         [Required]
         public String TelephoneMobile1
         {
@@ -126,7 +127,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
+        [Search]
         public String TelephoneDaccompagnant
         {
             get { return _telephoneDaccompagnant; }
@@ -137,7 +138,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
+        [Search]
         public String NomPrenomDaccompagnant
         {
             get { return _nomPrenomDaccompagnant; }
@@ -195,7 +196,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
+        [Search]
         [Required]
         public DateTime DateDeNaissance
         {
@@ -243,7 +244,7 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
-
+        [Search]
         public DateTime DateDeDepot
         {
             get { return _dateDeDepot; }

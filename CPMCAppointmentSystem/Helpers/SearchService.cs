@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using DataLayer.Attributes;
 using Syncfusion.Windows.Forms;
 using ICommand = System.Windows.Input.ICommand;
 
@@ -18,7 +18,7 @@ namespace CPMCAppointmentSystem.Helpers
     {
         #region Fields
         private ObservableCollection<T> _dataSource;        
-        private String _searchTerms;
+        private String _searchTerm;
         #endregion
         #region Properties
         public ObservableCollection<T> DataSource
@@ -39,21 +39,21 @@ namespace CPMCAppointmentSystem.Helpers
                 OnPropertyChanged();
             }
         }
-        public String SearchTerms
+        public String SearchTerm
         {
             get
             {
-                return _searchTerms;
+                return _searchTerm;
             }
 
             set
             {
-                if (_searchTerms == value)
+                if (_searchTerm == value)
                 {
                     return;
                 }
 
-                _searchTerms = value;
+                _searchTerm = value;
                 OnPropertyChanged();
             }
         }
@@ -69,7 +69,7 @@ namespace CPMCAppointmentSystem.Helpers
         public SearchService()
         {
         }
-        public async Task<SearchResult> SearchAsync(string term)
+        public async Task<SearchResult> SearchAsync(string term=null)
         {
             var searchResult = await Task.Run(() =>
             {
@@ -77,8 +77,8 @@ namespace CPMCAppointmentSystem.Helpers
                     DataSource.Where(
                         element =>
                             element.GetType()
-                                .GetProperties()
-                                .Any(property => (property.GetValue(element) != null) && (property.GetValue(element).ToString().ToLower().Contains(term.ToLower()))))
+                                .GetProperties().Where(prop=>Attribute.IsDefined(prop,typeof(SearchAttribute)))
+                                .Any(property => (property.GetValue(element) != null) && (property.GetValue(element).ToString().ToLower().Contains((term ?? SearchTerm).ToLower()))))
                         .Select(element => element);
 
                 return query;

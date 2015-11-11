@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.PatienstViews;
+
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -23,6 +24,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel : NavigableViewModelBase
     {
         #region Fields
+        private SearchService<Patient> _searchService;
         private bool _isDateDepotFilterApplied;
         private DateTime _dateDepotFilterDateTime = DateTime.Now;
         private Note _selectedNote;
@@ -49,7 +51,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _reportPath;
         private PreviewReportView _previewReportView;
         #endregion
-        #region Properties
+        #region Properties 
+        public SearchService<Patient> SearchService
+        {
+            get
+            {
+                return _searchService;
+            }
+
+            set
+            {
+                if (_searchService == value)
+                {
+                    return;
+                }
+
+                _searchService = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool IsDateDepotFilterApplied
         {
             get
@@ -173,14 +193,10 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _filterText = value;
-                RaisePropertyChanged();
-                SearchPatients();
+                RaisePropertyChanged();                
             }
         }
-        private void SearchPatients()
-        {
-
-        }
+        
         public String FilterBySelectedItem
         {
             get
@@ -249,7 +265,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     return;
                 }
 
-                _patientList = value;
+                _patientList = value;                
                 RaisePropertyChanged();
             }
         }
@@ -430,6 +446,18 @@ namespace CPMCAppointmentSystem.ViewModel
             var date = DateDepotFilter.Date;
             PatientList = IsDateDepotFilterApplied ? new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients.Where(p => DbFunctions.TruncateTime(p.DateDeDepot) == date))) : new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
         }
+        private RelayCommand _startSearchServiceCommand;
+        public RelayCommand StartSearchServiceCommand
+        {
+            get
+            {
+                return _startSearchServiceCommand
+                    ?? (_startSearchServiceCommand = new RelayCommand(async () =>
+                    {
+                        PatientList=(await SearchService.SearchAsync(FilterText)).Matches;
+                    }));
+            }
+        }
 
         private RelayCommand _saveNewNoteCommand;
         public RelayCommand SaveNewNoteCommand
@@ -578,7 +606,20 @@ namespace CPMCAppointmentSystem.ViewModel
                         await LoadPieceJointeTypeList();
                         await LoadPatienstList();
                         await LoadPathologiseList();
-                        await LoadDoctorsList();
+                        await LoadDoctorsList();                        
+                    }));
+            }
+        }
+        private RelayCommand _patientsViewUnloadedLoadedCommand;
+        public RelayCommand PatientsViewUnloadedLoadedCommand
+        {
+            get
+            {
+                return _patientsViewUnloadedLoadedCommand
+                    ?? (_patientsViewUnloadedLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        _dbContext.Dispose();
                     }));
             }
         }
@@ -1066,6 +1107,7 @@ namespace CPMCAppointmentSystem.ViewModel
         public PatientsViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
+            SearchService = new SearchService<Patient>();
         }
         private async Task LoadPathologiseList()
         {
@@ -1078,6 +1120,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private async Task LoadPatienstList()
         {
             PatientList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
+            SearchService.DataSource = PatientList;
         }
         private async Task LoadPieceJointeTypeList()
         {
