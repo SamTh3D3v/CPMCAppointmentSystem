@@ -445,6 +445,7 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             var date = DateDepotFilter.Date;
             PatientList = IsDateDepotFilterApplied ? new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients.Where(p => DbFunctions.TruncateTime(p.DateDeDepot) == date))) : new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
+            SearchService.DataSource = PatientList;
         }
         private RelayCommand _startSearchServiceCommand;
         public RelayCommand StartSearchServiceCommand
