@@ -11,12 +11,18 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
       xmlns:userControls="clr-namespace:CPMCAppointmentSystem.UserControls"
+      xmlns:model="clr-namespace:DataLayer.Model;assembly=DataLayer"
+      xmlns:converters="clr-namespace:ControlLibrary.Converters;assembly=ControlLibrary"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="1000" DataContext="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
 	Title="SettingsView" >
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=SettingsViewLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=SettingsViewUnLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -245,7 +251,7 @@
                             </GroupBox>
 
                             <Expander IsExpanded="True" Grid.Row="2" Grid.Column="0"  Header="Rolls">
-                                <Expander.Style>                                    
+                                <Expander.Style>
                                     <Style TargetType="Expander">
                                         <Setter Property="IsEnabled" Value="True"/>
                                         <Style.Triggers>
@@ -263,10 +269,10 @@
                                             AllowDragDrop="False">
                                     <syncfusion:TreeViewItemAdv >
                                         <syncfusion:TreeViewItemAdv.Header >
-                                            <StackPanel Orientation="Horizontal">                                                
+                                            <StackPanel Orientation="Horizontal">
                                                 <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource CalendarPath}" Margin="2,5,10,0"/>
                                                 <TextBlock Text="CalendarView" VerticalAlignment="Center"/>
-                                            </StackPanel>                                            
+                                            </StackPanel>
                                         </syncfusion:TreeViewItemAdv.Header>
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv IsEditable="False" >
@@ -281,10 +287,10 @@
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
                                     </syncfusion:TreeViewItemAdv>
-                                    
-                                    
-                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>                                            
+
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource DoctorPath}" Margin="2,5,10,0"/>
                                                 <TextBlock Text="DoctorsView" VerticalAlignment="Center"/>
@@ -306,7 +312,7 @@
 
 
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                        <syncfusion:TreeViewItemAdv.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PatientPath}" Margin="2,5,10,0"/>
                                                 <TextBlock Text="PatientView" VerticalAlignment="Center"/>
@@ -333,7 +339,7 @@
 
 
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                        <syncfusion:TreeViewItemAdv.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SpecialityPath}" Margin="2,5,10,0"/>
                                                 <TextBlock Text="SpecialitePrincipaleView" VerticalAlignment="Center"/>
@@ -355,7 +361,7 @@
 
 
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>                                           
+                                        <syncfusion:TreeViewItemAdv.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PathologyPath}" Margin="2,5,10,0"/>
                                                 <TextBlock Text="PathologyView" VerticalAlignment="Center"/>
@@ -377,7 +383,7 @@
 
 
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                        <syncfusion:TreeViewItemAdv.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PatientPath}" Margin="2,5,10,0"/>
                                                 <TextBlock Text="MyPatientsView" VerticalAlignment="Center"/>
@@ -404,7 +410,7 @@
 
 
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>                                            
+                                        <syncfusion:TreeViewItemAdv.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SmsMobilePath}" Margin="2,5,10,0"/>
                                                 <TextBlock Text="Sms Notifications View" VerticalAlignment="Center"/>
@@ -423,10 +429,10 @@
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
                                     </syncfusion:TreeViewItemAdv>
-                                                                        
-                                    
+
+
                                     <syncfusion:TreeViewItemAdv >
-                                        <syncfusion:TreeViewItemAdv.Header>                                           
+                                        <syncfusion:TreeViewItemAdv.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SettingsPath}" Margin="2,5,10,0"/>
                                                 <TextBlock Text="Settings View" VerticalAlignment="Center"/>
@@ -469,7 +475,7 @@
                                                 <syncfusion:TreeViewItemAdv.Header>
                                                     <CheckBox Content="LogEditAllow" IsChecked="{Binding SelectedUser.RolesCollection.LogEditAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
-                                            </syncfusion:TreeViewItemAdv>                                            
+                                            </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
                                     </syncfusion:TreeViewItemAdv>
 
@@ -1204,6 +1210,150 @@
                                 </Grid>
                             </TabItem.Content>
                         </TabItem>
+                        <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Loaded">
+                                    <command:EventToCommand 
+                            PassEventArgsToCommand="True" Command="{Binding DoctorsWorkDaysLoadedCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <TabItem.Header>
+                                <Grid  Height="50" Margin="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="20" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                    <TextBlock Grid.Column="1" Text="Jours des medecins" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>
+                                </Grid>
+                            </TabItem.Header>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <GroupBox Header="SPECIFIER LES JOURS DE TRVAILS DES MEDECINS" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <ListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding DataContext.DoctorsListCollection,ElementName=RootGrid}">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            <ListView.View>
+                                                <GridView >
+                                                    <GridView.Columns>
+                                                        <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding User.UserNom}" Width="auto"/>
+                                                        <GridViewColumn Header="Prenom" DisplayMemberBinding="{Binding User.UserPrenom}" Width="auto"/>
+                                                        <GridViewColumn Header="Jours de travail" Width="auto">
+                                                            <GridViewColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <Grid>
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <ToggleButton Width="35" Content="S"  ToolTip="Samedi" Grid.Column="0" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}" Name="TbJourDeTravail">
+                                                                            <ToggleButton.Resources>
+                                                                                <converters:FlagToIsCheckedConverter x:Key="SFlagToIsCheckedConverter"/>
+                                                                            </ToggleButton.Resources>
+                                                                            <ToggleButton.IsChecked>
+                                                                                <Binding Path="JoursDeTravail" Converter="{StaticResource SFlagToIsCheckedConverter}" ConverterParameter="{x:Static model:Days.Saturday}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="true" NotifyOnValidationError="False"></Binding>
+                                                                            </ToggleButton.IsChecked>
+                                                                        </ToggleButton>
+                                                                        <ToggleButton Width="35" Content="D"  ToolTip="Dimanche" Grid.Column="1" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}">
+                                                                             <ToggleButton.Resources>
+                                                                                <converters:FlagToIsCheckedConverter x:Key="DFlagToIsCheckedConverter"/>
+                                                                            </ToggleButton.Resources>
+                                                                            <ToggleButton.IsChecked>
+                                                                                <Binding Path="JoursDeTravail" Converter="{StaticResource DFlagToIsCheckedConverter}" ConverterParameter="{x:Static model:Days.Sunday}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="true" NotifyOnValidationError="False"></Binding>
+                                                                            </ToggleButton.IsChecked>
+                                                                        </ToggleButton>
+                                                                        <ToggleButton Width="35" Content="L" ToolTip="Lundi" Grid.Column="2" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}">
+                                                                            <ToggleButton.Resources>
+                                                                                <converters:FlagToIsCheckedConverter x:Key="LFlagToIsCheckedConverter"/>
+                                                                            </ToggleButton.Resources>
+                                                                            <ToggleButton.IsChecked>
+                                                                                <Binding Path="JoursDeTravail" Converter="{StaticResource LFlagToIsCheckedConverter}" ConverterParameter="{x:Static model:Days.Monday}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="true" NotifyOnValidationError="False"></Binding>
+                                                                            </ToggleButton.IsChecked>
+                                                                        </ToggleButton>
+                                                                        <ToggleButton Width="35" Content="M" ToolTip="Mardi" Grid.Column="3" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}">
+                                                                            <ToggleButton.Resources>
+                                                                                <converters:FlagToIsCheckedConverter x:Key="MFlagToIsCheckedConverter"/>
+                                                                            </ToggleButton.Resources>
+                                                                            <ToggleButton.IsChecked>
+                                                                                <Binding Path="JoursDeTravail" Converter="{StaticResource MFlagToIsCheckedConverter}" ConverterParameter="{x:Static model:Days.Tuesday}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="true" NotifyOnValidationError="False"></Binding>
+                                                                            </ToggleButton.IsChecked>
+                                                                        </ToggleButton>
+                                                                        <ToggleButton Width="35" Content="M" ToolTip="Mercredi" Grid.Column="4" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}">
+                                                                            <ToggleButton.Resources>
+                                                                                <converters:FlagToIsCheckedConverter x:Key="MeFlagToIsCheckedConverter"/>
+                                                                            </ToggleButton.Resources>
+                                                                            <ToggleButton.IsChecked>
+                                                                                <Binding Path="JoursDeTravail" Converter="{StaticResource MeFlagToIsCheckedConverter}" ConverterParameter="{x:Static model:Days.Wednesday}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="true" NotifyOnValidationError="False"></Binding>
+                                                                            </ToggleButton.IsChecked>
+                                                                        </ToggleButton>
+                                                                        <ToggleButton Width="35" Content="J" ToolTip="Jeudi" Grid.Column="5" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}">
+                                                                            <ToggleButton.Resources>
+                                                                                <converters:FlagToIsCheckedConverter x:Key="JFlagToIsCheckedConverter"/>
+                                                                            </ToggleButton.Resources>
+                                                                            <ToggleButton.IsChecked>
+                                                                                <Binding Path="JoursDeTravail" Converter="{StaticResource JFlagToIsCheckedConverter}" ConverterParameter="{x:Static model:Days.Thursday}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="true" NotifyOnValidationError="False"></Binding>
+                                                                            </ToggleButton.IsChecked>
+                                                                        </ToggleButton>
+                                                                        <ToggleButton Width="35" Content="V"  ToolTip="Vendredi" Grid.Column="6" Height="35" Margin="2" Style="{DynamicResource MetroCircleToggleButtonStyle}">
+                                                                            <ToggleButton.Resources>
+                                                                                <converters:FlagToIsCheckedConverter x:Key="VFlagToIsCheckedConverter"/>
+                                                                            </ToggleButton.Resources>
+                                                                            <ToggleButton.IsChecked>
+                                                                                <Binding Path="JoursDeTravail" Converter="{StaticResource VFlagToIsCheckedConverter}" ConverterParameter="{x:Static model:Days.Friday}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="true" NotifyOnValidationError="False"></Binding>
+                                                                            </ToggleButton.IsChecked>
+                                                                        </ToggleButton>
+                                                                    </Grid>
+                                                                </DataTemplate>
+                                                            </GridViewColumn.CellTemplate>
+                                                        </GridViewColumn>
+                                                    </GridView.Columns>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                        
+                                    </Grid>
+                                </GroupBox>
+                                <Grid Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourDeTravailCommand}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                                                <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Grid.Column="1" HorizontalAlignment="Left" Width="200"  Margin="2" Command="{Binding CancelSaveJourDeTravailCommand}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                                                <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
                     </TabControl>
                 </TabItem.Content>
             </TabItem>
@@ -1330,8 +1480,8 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                      
-                                        <TextBlock Text="Message de notification [Françcais]" TextWrapping="Wrap" Width="150" VerticalAlignment="Center" Grid.Row="0"/>                                       
+
+                                        <TextBlock Text="Message de notification [Françcais]" TextWrapping="Wrap" Width="150" VerticalAlignment="Center" Grid.Row="0"/>
                                         <userControls:DragDrapRichTextBox Grid.Column="1" Grid.Row="0" Margin="5" HorizontalAlignment="Stretch"/>
                                     </Grid>
                                 </GroupBox>

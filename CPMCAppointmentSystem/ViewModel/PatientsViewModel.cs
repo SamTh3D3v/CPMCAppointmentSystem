@@ -425,7 +425,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_selectedDateFilterChangedCommand = new RelayCommand(async () =>
                     {
                         await LoadFilterPatientListByDate();
-                    }));
+                    })); 
             }
         }
         private RelayCommand _updateBasedOnDateDepotFilterCommand;

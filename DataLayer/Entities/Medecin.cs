@@ -65,18 +65,7 @@ namespace DataLayer.Model
                 _telephoneMobile = value;
                 OnPropertyChanged();
             }
-        }
-
-        //public Guid SpecialitePrincipaleId
-        //{
-        //    get { return _specialitePrincipaleId; }
-        //    set
-        //    {
-        //        if (value.Equals(_specialitePrincipaleId)) return;
-        //        _specialitePrincipaleId = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        }     
 
         public Days JoursDeTravail
         {

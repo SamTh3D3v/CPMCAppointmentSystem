@@ -29,7 +29,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<UserType> _userTypeCollection;
         private ObservableCollection<JourFerie> _listDesJoursFerieFix;
         private JourFerie _selectedJourFerieFix;
-        private readonly CpmcContext _dbContext = new CpmcContext();
+        private CpmcContext _dbContext = new CpmcContext();
         private ObservableCollection<User> _usersList;
         private User _selectedUser;
         private ObservableCollection<TreeViewModel> _treeViewRollCollection = new ObservableCollection<TreeViewModel>();
@@ -44,8 +44,27 @@ namespace CPMCAppointmentSystem.ViewModel
         private SettingsCollection _settingsCollection;
         private ObservableCollection<DragableProperty> _dragablePropertiesCollection;
         private String _smsBodyTemplate;
+        private ObservableCollection<Medecin> _doctorsListCollection;
         #endregion
-        #region Properties
+        #region Properties              
+        public ObservableCollection<Medecin> DoctorsListCollection
+        {
+            get
+            {
+                return _doctorsListCollection;
+            }
+
+            set
+            {
+                if (_doctorsListCollection == value)
+                {
+                    return;
+                }
+
+                _doctorsListCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public string BetweenAtCmdDelay
         {
             get
@@ -454,7 +473,20 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _settingsViewLoadedCommand
                     ?? (_settingsViewLoadedCommand = new RelayCommand(async () =>
                     {
-
+                        _dbContext=new CpmcContext();
+                    }));
+            }
+        }
+        private RelayCommand _settingsViewUnLoadedCommand;
+        public RelayCommand SettingsViewUnLoadedCommand
+        {
+            get
+            {
+                return _settingsViewUnLoadedCommand
+                    ?? (_settingsViewUnLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        _dbContext.Dispose();
                     }));
             }
         }
@@ -481,6 +513,50 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         await LoadTypePieceJointsCollection();
 
+                    }));
+            }
+        }
+        private RelayCommand _doctorsWorkDaysLoadedCommand;
+        public RelayCommand DoctorsWorkDaysLoadedCommand
+        {
+            get
+            {
+                return _doctorsWorkDaysLoadedCommand
+                    ?? (_doctorsWorkDaysLoadedCommand = new RelayCommand(async () =>
+                    {
+                        await LoadDoctorsDataGrid();
+                    }));
+            }
+        }
+
+        private async Task LoadDoctorsDataGrid()
+        {
+            DoctorsListCollection = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
+        }
+        private RelayCommand _saveJourDeTrvailCommand;
+        public RelayCommand SaveJourDeTravailCommand
+        {
+            get
+            {
+                return _saveJourDeTrvailCommand
+                    ?? (_saveJourDeTrvailCommand = new RelayCommand(
+                    () =>
+                    {
+                        _dbContext.SaveChanges();
+                    }));
+            }
+        }
+        private RelayCommand _cancelSaveJourDeTravailCommand;
+        public RelayCommand CancelSaveJourDeTravailCommand
+        {
+            get
+            {
+                return _cancelSaveJourDeTravailCommand
+                    ?? (_cancelSaveJourDeTravailCommand = new RelayCommand(async () =>
+                    {
+                        _dbContext.Dispose();
+                        _dbContext=new CpmcContext();
+                        await LoadDoctorsDataGrid();
                     }));
             }
         }

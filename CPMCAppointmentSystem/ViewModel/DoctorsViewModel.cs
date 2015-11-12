@@ -26,7 +26,7 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Fields
         private ObservableCollection<EntityToAdd<Pathology>> _pathologiesToDoctorListAdds;
         private ObservableCollection<EntityToAdd<Specialite>> _specialityToDoctorList;
-        private readonly CpmcContext _dbContext = new CpmcContext();
+        private CpmcContext _dbContext = new CpmcContext();
         private AddSpecialitiesToDoctorView _addSpecialitiesToDoctorView;
         private AddPathologiesToDoctorView _addPathologiesToDoctorView;
         private AddPatientsToDoctorView _addPatientsToDoctorView;
@@ -440,8 +440,23 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _doctorsViewLoadedCommand
                     ?? (_doctorsViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        _dbContext=new CpmcContext();
                         await LoadDoctorsList();
                         await LoadSpacialities();
+                    }));
+            }
+        }
+        private RelayCommand _doctorsViewUnLoadedCommand;
+        public RelayCommand DoctorsViewUnLoadedCommand
+        {
+            get
+            {
+                return _doctorsViewUnLoadedCommand
+                    ?? (_doctorsViewUnLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        _dbContext.Dispose();
+                        
                     }));
             }
         }
