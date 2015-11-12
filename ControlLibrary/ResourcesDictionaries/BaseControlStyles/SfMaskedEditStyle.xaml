@@ -8,6 +8,7 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Margin"  Value="10 5"/>
         <Setter Property="ValidationMode" Value="LostFocus"/>
+        <Setter Property="ValueMaskFormat" Value="ExcludePromptAndLiterals"/>
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate >
