@@ -210,70 +210,9 @@
                                      RowHeight="32"
                                        HeaderRowHeight="32"
                                        RowSelectionBrush="Orange"
-                                    RowStyle="{StaticResource RowStyle}">
+                                    RowStyle="{StaticResource RowStyle}" >
 
-                <Syncfusion:SfDataGrid.Resources>
-                    <Style TargetType="Syncfusion:FilterToggleButton">
-                        <!--<Setter Property="Background" Value="White"></Setter>-->
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Syncfusion:FilterToggleButton">
-                                    <Grid SnapsToDevicePixels="True">
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroup x:Name="CommonStates">
-                                                <VisualState x:Name="Normal" />
-                                                <VisualState x:Name="MouseOver" />
-                                                <VisualState x:Name="Pressed" />
-                                                <VisualState x:Name="Disabled" />
-                                            </VisualStateGroup>
-                                            <VisualStateGroup x:Name="FilterStates">
-                                                <VisualState x:Name="Filtered">
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_FilterToggleButtonIndicator" Storyboard.TargetProperty="Data">
-                                                            <DiscreteObjectKeyFrame KeyTime="0">
-                                                                <DiscreteObjectKeyFrame.Value>
-                                                                    <Geometry >
-                                                                        M0.31999578,10.863975L35.747338,10.863975C35.737328,11.145958 35.707303,11.422966 35.707303,11.706963 35.707303,16.251976 37.857171,20.298974 41.176995,22.914972L31.797675,33.810969 31.797675,61.022979 20.59842,54.622985 20.59842,33.27798z M58.513341,4.6199989C58.093381,4.6317492,57.678418,4.8039994,57.368447,5.1339998L49.369187,13.225998 46.359467,10.592998C45.66953,9.9969984 44.629628,10.073998 44.039681,10.759998 43.439736,11.447998 43.519731,12.486998 44.209664,13.082998L48.179299,16.552997C48.249291,16.616997 48.329286,16.665997 48.409276,16.712996 49.069215,17.279997 50.059125,17.237997 50.65907,16.598997L59.758225,7.3969984C60.378167,6.7349987 60.348172,5.691999 59.688233,5.0689993 59.358262,4.756999 58.933305,4.6082492 58.513341,4.6199989z M1.2401293,3.9069872L38.253999,3.9069872C37.47392,5.1069903,36.863854,6.4279933,36.463815,7.840997L1.2401293,7.840997C0.56005858,7.8409967,0,7.2859955,0,6.5999937L0,5.1499896C0,4.4629884,0.56005858,3.9069872,1.2401293,3.9069872z M51.91895,0C57.848401,0 62.667954,4.8639994 62.667954,10.863999 62.667954,16.863997 57.848401,21.728996 51.91895,21.728996 45.989499,21.728996 41.179948,16.863997 41.179948,10.863999 41.179948,4.8639994 45.989499,0 51.91895,0z
-                                                                    </Geometry>
-                                                                </DiscreteObjectKeyFrame.Value>
-                                                            </DiscreteObjectKeyFrame>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                        <ColorAnimation Storyboard.TargetName="PathFillColor" Storyboard.TargetProperty="Color"  To="Orange" Duration="0:0:0:1" RepeatBehavior="Forever"/>
-                                                    </Storyboard>
-                                                </VisualState>
-                                                <VisualState x:Name="UnFiltered">
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_FilterToggleButtonIndicator" Storyboard.TargetProperty="Data">
-                                                            <DiscreteObjectKeyFrame KeyTime="0">
-                                                                <DiscreteObjectKeyFrame.Value>
-                                                                    <Geometry>M2.1299944,9.9798575L55.945994,9.9798575 35.197562,34.081179 35.197562,62.672859 23.428433,55.942383 23.428433,33.52121z M1.3001332,0L56.635813,0C57.355887,0,57.935946,0.5891428,57.935946,1.3080959L57.935946,2.8258877C57.935946,3.5448422,57.355887,4.133985,56.635813,4.133985L1.3001332,4.133985C0.58005941,4.133985,-2.3841858E-07,3.5448422,0,2.8258877L0,1.3080959C-2.3841858E-07,0.5891428,0.58005941,0,1.3001332,0z</Geometry>
-                                                                </DiscreteObjectKeyFrame.Value>
-                                                            </DiscreteObjectKeyFrame>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                        <ColorAnimation Storyboard.TargetName="PathFillColor" Storyboard.TargetProperty="Color" To="WhiteSmoke" Duration="0:0:0:1"/>
-                                                    </Storyboard>
-                                                </VisualState>
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
-                                        <Border Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Background="{TemplateBinding Background}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                                            <Path Name="PART_FilterToggleButtonIndicator"
-                                Margin="3"
-                                Data="{StaticResource SfFilterPath}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                Stretch="Fill" >
-                                                <Path.Fill>
-                                                    <SolidColorBrush x:Name="PathFillColor" Color="WhiteSmoke"/>
-                                                </Path.Fill>
-                                            </Path>
-                                        </Border>
-                                    </Grid>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
+                <Syncfusion:SfDataGrid.Resources>                    
                     <Style TargetType="TextBlock">
                         <Setter Property="FontFamily" Value="Segoe UI" />
                         <Setter Property="FontWeight" Value="Light" />
@@ -281,19 +220,9 @@
                         <Setter Property="Foreground" Value="Black" />                        
                     </Style>
                 </Syncfusion:SfDataGrid.Resources>
-                <Syncfusion:SfDataGrid.HeaderStyle>
-                    <Style TargetType="Syncfusion:GridHeaderCellControl">
-                        <Setter Property="HorizontalContentAlignment" Value="Left" />
-                        <Setter Property="Padding" Value="10,3,3,3" />
-                        <Setter Property="FontFamily" Value="Segoe UI" />
-                        <Setter Property="FontSize" Value="16" />
-                        <Setter Property="Margin" Value="1,0,0,0" />
-                        <Setter Property="Foreground" Value="#FFFFFFFF" />
-                        <Setter Property="FontWeight" Value="Normal" />
-                        <Setter Property="Background" Value="{StaticResource InnerBodyTextBrush}" />
-                        <Setter Property="FilterIconVisiblity" Value="Visible"></Setter>                        
-                    </Style>
-                </Syncfusion:SfDataGrid.HeaderStyle>
+                <!--<Syncfusion:SfDataGrid.HeaderStyle>
+                   
+                </Syncfusion:SfDataGrid.HeaderStyle>-->
 
 
                 <Syncfusion:SfDataGrid.Columns>

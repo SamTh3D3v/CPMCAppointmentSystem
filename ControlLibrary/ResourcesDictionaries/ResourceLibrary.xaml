@@ -22,6 +22,9 @@
         <ResourceDictionary Source="BaseControlStyles/ToggleButtonStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/TextBlockStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/SfMaskedEditStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/SfDataGridStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/FilterToggleButtonStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/GridHeaderCellControlStyle.xaml"/>
 
         <!--Custom Controls Styles-->
         <ResourceDictionary Source="CustomControlsStyles/PopupButtonStyle.xaml"/>
