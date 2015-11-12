@@ -24,7 +24,7 @@
                             <Border Background="{TemplateBinding RowSelectionBrush}"
                                     BorderThickness="1"
                                     BorderBrush="DodgerBlue"
-                                    Clip="{TemplateBinding SelectionBorderClipRect}"
+                                    Clip="{TemplateBinding SelectionBorderClipRect}"                                    
                                     Visibility="{TemplateBinding SelectionBorderVisiblity}" />
                             <Border BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}">
@@ -40,7 +40,7 @@
                 <DataTrigger Binding="{Binding Dead}" Value="True">
                     <Setter Property="Background" Value="LightSalmon"></Setter>
                     <Setter Property="Foreground" Value="Gray"></Setter>
-                </DataTrigger>
+                </DataTrigger>                
             </Style.Triggers>
 
         </Style>
@@ -196,33 +196,26 @@
                     </CheckBox>
                 </Grid>
             </Grid>
-            <Syncfusion:SfDataGrid  Grid.Column="0"  Grid.ColumnSpan="3"  Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="sfgrid"
-                                       AllowDraggingColumns="True"
-                                       AllowEditing="False"
-                                       AllowFiltering="True"
+            <Syncfusion:SfDataGrid  Grid.Column="0"  Grid.ColumnSpan="3"  Grid.Row="3" Name="sfgrid"                                      
+                                       AllowEditing="False"                                       
                                        AllowGrouping="True" 
                                     SelectionMode="Single"                                    
                                        ItemsSource="{Binding PatientList}"
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedPatient}"
                                        ShowGroupDropArea="True" 
-                                    FontFamily="Segoe UI"
-                                     RowHeight="32"
-                                       HeaderRowHeight="32"
-                                       RowSelectionBrush="Orange"
+                                                                         
                                     RowStyle="{StaticResource RowStyle}" >
 
-                <Syncfusion:SfDataGrid.Resources>                    
+                <!--<Syncfusion:SfDataGrid.Resources>                    
                     <Style TargetType="TextBlock">
                         <Setter Property="FontFamily" Value="Segoe UI" />
                         <Setter Property="FontWeight" Value="Light" />
                         <Setter Property="FontSize" Value="14" />
                         <Setter Property="Foreground" Value="Black" />                        
                     </Style>
-                </Syncfusion:SfDataGrid.Resources>
-                <!--<Syncfusion:SfDataGrid.HeaderStyle>
-                   
-                </Syncfusion:SfDataGrid.HeaderStyle>-->
+                </Syncfusion:SfDataGrid.Resources>-->
+               
 
 
                 <Syncfusion:SfDataGrid.Columns>
