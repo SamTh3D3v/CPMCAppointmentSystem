@@ -11,6 +11,7 @@
     <SolidColorBrush Color="#242c33" x:Key="ButtonClickedBrush"/>
     <SolidColorBrush Color="#26c3bb" x:Key="AccentColorBr"/>
     <SolidColorBrush Color="#818f94" x:Key="HeaderForgound"/>
+    <SolidColorBrush Color="#E59400" x:Key="OrangeBackGround"/>
     
     
     
