@@ -26,17 +26,17 @@ namespace DataLayer.Model
         private bool _notificationSent;
         private bool _patientConfirmRdv;
         private bool _isTheLastOne;
-        private RdvState _rdvState;
+        private RdvState _rdvStateValue;
         #endregion
         #region Properties
 
-        public RdvState RdvState  
+        public RdvState RdvStateValue  
         {
-            get { return _rdvState; }
+            get { return _rdvStateValue; }
             set
             {
-                if (value == _rdvState) return;
-                _rdvState = value;
+                if (value == _rdvStateValue) return;
+                _rdvStateValue = value;
                 OnPropertyChanged();
             }
         }
@@ -60,9 +60,9 @@ namespace DataLayer.Model
                 OnPropertyChanged();
                 this.StartTime = value;
                 this.EndTime = value+new TimeSpan(0,30,0);
-                if (RdvState != RdvState.Cancelled)
+                if (RdvStateValue != RdvState.Cancelled)
                 {
-                    RdvState = _dateTimeRdv.Date < DateTime.Now ? RdvState.Passed : RdvState.NotYet;
+                    RdvStateValue = _dateTimeRdv.Date < DateTime.Now ? RdvState.Passed : RdvState.NotYet;
                 }
                                 
             }

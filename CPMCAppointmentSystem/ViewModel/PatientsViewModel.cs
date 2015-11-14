@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.View;
 using CPMCAppointmentSystem.View.PatienstViews;
-
+using DataLayer.Enums;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -1103,6 +1103,26 @@ namespace CPMCAppointmentSystem.ViewModel
                     PatientList = new ObservableCollection<Patient>();
             }
         }
+        #region Rdv RelatedCommand 
+        private RelayCommand _changeRdvStateCommand;      
+        public RelayCommand ChangeRdvStateCommand
+        {
+            get
+            {
+                return _changeRdvStateCommand
+                    ?? (_changeRdvStateCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedAppointement!=null)
+                        {
+                            SelectedAppointement.RdvStateValue=(SelectedAppointement.RdvStateValue == RdvState.NotYet) ? RdvState.Cancelled : RdvState.NotYet;
+                        }
+                        _dbContext.SaveChanges();
+                        SelectedAppointement = null;
+                    }));
+            }
+        }
+        #endregion
         #endregion
         #region Ctors and Methods
         public PatientsViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)

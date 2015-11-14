@@ -78,6 +78,10 @@
     <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ResourcesDictionaries\BaseControlStyles\RowStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ResourcesDictionaries\BaseControlStyles\GridHeaderCellControlStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

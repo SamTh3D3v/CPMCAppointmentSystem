@@ -8,6 +8,7 @@
       xmlns:command="http://www.galasoft.ch/mvvmlight"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:enums="clr-namespace:DataLayer.Enums;assembly=DataLayer"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="800" DataContext="{Binding Source={StaticResource Locator},Path=PatientsViewModel}"
 	Title="PatientsView">
@@ -35,14 +36,25 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="RowStyle" TargetType="Syncfusion:VirtualizingCellsControl" BasedOn="{StaticResource GenericRowStyle}">
+        <Style x:Key="PatientRowStyle"  TargetType="Syncfusion:VirtualizingCellsControl" BasedOn="{StaticResource GenericRowStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Dead}" Value="True">
                     <Setter Property="Background" Value="LightSalmon"></Setter>
                     <Setter Property="Foreground" Value="Gray"></Setter>
-                </DataTrigger>                
+                </DataTrigger>
             </Style.Triggers>
-
+        </Style>
+        <Style x:Key="RdvRowStyle"  TargetType="Syncfusion:VirtualizingCellsControl" BasedOn="{StaticResource GenericRowStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RdvStateValue}" Value="{x:Static enums:RdvState.Passed}">
+                    <Setter Property="Background" Value="DarkGray"></Setter>
+                    <Setter Property="Foreground" Value="LightGray"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RdvStateValue}" Value="{x:Static enums:RdvState.Cancelled}">
+                    <Setter Property="Background" Value="LightSalmon"></Setter>
+                    <Setter Property="Foreground" Value="DarkOrange"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </Page.Resources>
     <i:Interaction.Triggers>
@@ -204,7 +216,7 @@
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedPatient,IsAsync=True}"
                                        ShowGroupDropArea="True"                                                                          
-                                    RowStyle="{StaticResource RowStyle}" >            
+                                    RowStyle="{StaticResource PatientRowStyle}" >
 
                 <Syncfusion:SfDataGrid.Columns>
                     <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom"/>
@@ -603,7 +615,8 @@
                                        AllowGrouping="True"
                                        ItemsSource="{Binding DataContext.SelectedPatient.RendezVouses,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                    SelectedItem="{Binding DataContext.SelectedAppointement,Mode=TwoWay,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                       ShowGroupDropArea="True" >
+                                       ShowGroupDropArea="True"
+                                                       RowStyle="{StaticResource RdvRowStyle}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseDoubleClick">
                                             <command:EventToCommand Command="{Binding Mode=OneWay, Path=DataContext.AppointementDoubleClickCommand,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
@@ -616,6 +629,37 @@
                                         <Syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserNom"/>
                                         <Syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserPrenom"/>
                                     </Syncfusion:SfDataGrid.Columns>
+                                    <Syncfusion:SfDataGrid.RecordContextMenu>
+                                        <ContextMenu x:Name="CmRdv">                                                                                       
+                                            <MenuItem VerticalAlignment="Center" VerticalContentAlignment="Center" Command="{Binding Path=PatientsViewModel.ChangeRdvStateCommand,Source={StaticResource Locator}}">
+                                                <MenuItem.Style>
+                                                    <Style TargetType="MenuItem">                                                                                                                                                                      
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=PatientsViewModel.SelectedAppointement.RdvStateValue,Source={StaticResource Locator}}" Value="{x:Static enums:RdvState.Cancelled}">
+                                                                <Setter Property="Header" Value="activer le rendez-vous"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=PatientsViewModel.SelectedAppointement.RdvStateValue,Source={StaticResource Locator}}" Value="{x:Static enums:RdvState.NotYet}">
+                                                                <Setter Property="Header" Value="annuler le rendez-vous"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Source={StaticResource Locator},Path=PatientsViewModel.SelectedAppointement.RdvStateValue}" Value="{x:Static enums:RdvState.Passed}">
+                                                                <Setter Property="IsEnabled" Value="False"/>
+                                                                <Setter Property="Header" Value="rendez-vous depasser"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </MenuItem.Style>
+                                                <MenuItem.Icon>
+                                                    <Path Width="20"
+                                          Height="20"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M10.667026,6.9209997C12.736011,6.9209997 14.413,8.5979762 14.413,10.666975 14.413,12.735933 12.736011,14.413 10.667026,14.413 8.597999,14.413 6.921,12.735933 6.921,10.666975 6.921,8.5979762 8.597999,6.9209997 10.667026,6.9209997z M10.6665,1.7878065C5.7707616,1.7878065 1.7870765,5.7707616 1.7870765,10.6665 1.7870765,15.562208 5.7707616,19.545332 10.6665,19.545332 15.562208,19.545332 19.545733,15.562208 19.545733,10.6665 19.545733,5.7707616 15.562208,1.7878065 10.6665,1.7878065z M10.6665,0C16.557689,0 21.333,4.7760303 21.333,10.6665 21.333,16.557089 16.557689,21.333 10.6665,21.333 4.7753003,21.333 0,16.557089 0,10.6665 0,4.7760303 4.7753003,0 10.6665,0z"
+                                          Fill="#FF5A5A5B"
+                                          Stretch="Fill" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </ContextMenu>
+                                    </Syncfusion:SfDataGrid.RecordContextMenu>
                                 </Syncfusion:SfDataGrid>
 
                             </Grid>
