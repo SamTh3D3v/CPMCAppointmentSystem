@@ -230,13 +230,33 @@
                     <Syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
                     <Syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
                 </Syncfusion:SfDataGrid.Columns>
-                <Syncfusion:SfDataGrid.ContextMenu>
-                    <ContextMenu>
-                        <Menu>
-                            <MenuItem Header="Patient décédé"/>
-                        </Menu>
+                <Syncfusion:SfDataGrid.RecordContextMenu>
+                    <ContextMenu >
+                        <MenuItem Command="{Binding Source={StaticResource Locator},Path=PatientsViewModel.PatientDeadCommand}">
+                            <MenuItem.Style>
+                                <Style TargetType="MenuItem">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=PatientsViewModel.SelectedPatient.Dead,Source={StaticResource Locator}}" Value="False">
+                                            <Setter Property="Header" Value="marker dead"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=PatientsViewModel.SelectedPatient.Dead,Source={StaticResource Locator}}" Value="True">
+                                            <Setter Property="Header" Value="marker alive"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </MenuItem.Style>
+                            <MenuItem.Icon>
+                                <Path Width="20"
+                                          Height="20"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="{StaticResource DeathPath}"
+                                          Fill="#FF5A5A5B"
+                                          Stretch="Fill" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </ContextMenu>
-                </Syncfusion:SfDataGrid.ContextMenu>
+                </Syncfusion:SfDataGrid.RecordContextMenu>
             </Syncfusion:SfDataGrid>
         </Grid>
         <GridSplitter Grid.Column="1" Width="1" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
@@ -630,10 +650,10 @@
                                         <Syncfusion:GridTextColumn HeaderText="Medecin" MappingName="Medecin.User.UserPrenom"/>
                                     </Syncfusion:SfDataGrid.Columns>
                                     <Syncfusion:SfDataGrid.RecordContextMenu>
-                                        <ContextMenu x:Name="CmRdv">                                                                                       
+                                        <ContextMenu x:Name="CmRdv">
                                             <MenuItem VerticalAlignment="Center" VerticalContentAlignment="Center" Command="{Binding Path=PatientsViewModel.ChangeRdvStateCommand,Source={StaticResource Locator}}">
                                                 <MenuItem.Style>
-                                                    <Style TargetType="MenuItem">                                                                                                                                                                      
+                                                    <Style TargetType="MenuItem">
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding Path=PatientsViewModel.SelectedAppointement.RdvStateValue,Source={StaticResource Locator}}" Value="{x:Static enums:RdvState.Cancelled}">
                                                                 <Setter Property="Header" Value="activer le rendez-vous"/>
@@ -653,7 +673,7 @@
                                           Height="20"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
-                                          Data="M10.667026,6.9209997C12.736011,6.9209997 14.413,8.5979762 14.413,10.666975 14.413,12.735933 12.736011,14.413 10.667026,14.413 8.597999,14.413 6.921,12.735933 6.921,10.666975 6.921,8.5979762 8.597999,6.9209997 10.667026,6.9209997z M10.6665,1.7878065C5.7707616,1.7878065 1.7870765,5.7707616 1.7870765,10.6665 1.7870765,15.562208 5.7707616,19.545332 10.6665,19.545332 15.562208,19.545332 19.545733,15.562208 19.545733,10.6665 19.545733,5.7707616 15.562208,1.7878065 10.6665,1.7878065z M10.6665,0C16.557689,0 21.333,4.7760303 21.333,10.6665 21.333,16.557089 16.557689,21.333 10.6665,21.333 4.7753003,21.333 0,16.557089 0,10.6665 0,4.7760303 4.7753003,0 10.6665,0z"
+                                          Data="{StaticResource PatientRdvContextMenuItemPath}"
                                           Fill="#FF5A5A5B"
                                           Stretch="Fill" />
                                                 </MenuItem.Icon>

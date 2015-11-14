@@ -1103,6 +1103,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     PatientList = new ObservableCollection<Patient>();
             }
         }
+
         #region Rdv RelatedCommand 
         private RelayCommand _changeRdvStateCommand;      
         public RelayCommand ChangeRdvStateCommand
@@ -1119,6 +1120,27 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         _dbContext.SaveChanges();
                         SelectedAppointement = null;
+                    }));
+            }
+        }
+        #endregion
+        #region Patient RelatedCommands
+        private RelayCommand _patientDeadCommand;
+        public RelayCommand PatientDeadCommand
+        {
+            get
+            {
+                return _patientDeadCommand
+                    ?? (_patientDeadCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedPatient != null)
+                        {
+                            SelectedPatient.Dead = !SelectedPatient.Dead;
+                        }
+                        _dbContext.SaveChanges();
+                        SelectedPatient = null;
+                        
                     }));
             }
         }
