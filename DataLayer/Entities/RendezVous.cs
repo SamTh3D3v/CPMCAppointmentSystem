@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Annotations;
+using DataLayer.Enums;
 using Syncfusion.UI.Xaml.Schedule;
 
 namespace DataLayer.Model
@@ -25,8 +26,21 @@ namespace DataLayer.Model
         private bool _notificationSent;
         private bool _patientConfirmRdv;
         private bool _isTheLastOne;
+        private RdvState _rdvState;
         #endregion
         #region Properties
+
+        public RdvState RdvState  
+        {
+            get { return _rdvState; }
+            set
+            {
+                if (value == _rdvState) return;
+                _rdvState = value;
+                OnPropertyChanged();
+            }
+        }
+
         [Required]
         public DateTime DateTimeRdv
         {
@@ -46,6 +60,11 @@ namespace DataLayer.Model
                 OnPropertyChanged();
                 this.StartTime = value;
                 this.EndTime = value+new TimeSpan(0,30,0);
+                if (RdvState != RdvState.Cancelled)
+                {
+                    RdvState = _dateTimeRdv.Date < DateTime.Now ? RdvState.Passed : RdvState.NotYet;
+                }
+                                
             }
         }        
       
