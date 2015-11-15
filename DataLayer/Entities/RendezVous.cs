@@ -171,8 +171,7 @@ namespace DataLayer.Model
         {
             get { return String.Empty; }
         }
-
-        [NotMapped]
+        
         public bool Blink
         {
             get { return _blink; }
