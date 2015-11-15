@@ -619,7 +619,28 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.PatientsEditAppointementAllow,ElementName=RootGrid}" Margin="10" Command="{Binding DataContext.AddAppointementCommand,RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding DataContext.AddAppointementCommand,RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <!--<Condition Binding="{Binding DataContext.ConnectedUser.RolesCollection.PatientsEditAppointementAllow,ElementName=RootGrid}" Value="true"/>-->
+                                                        <Condition>
+                                                            <Condition.Binding>
+                                                                <Binding Path="DataContext.SelectedPatient.PatientId" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static sys:Guid.Empty}"/>
+                                                            </Condition.Binding>
+                                                            <Condition.Value>
+                                                                <sys:Boolean>False</sys:Boolean>
+                                                            </Condition.Value>
+                                                        </Condition>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="IsEnabled" Value="True"/>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
                                     <Button.Content>
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
