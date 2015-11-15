@@ -150,7 +150,10 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addSpecialityCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedSpeciality = new Specialite();                        
+                        SelectedSpeciality = new Specialite()
+                        {
+                            Medecins = new ObservableCollection<Medecin>()
+                        };                        
                     }));
             }
         }

@@ -169,7 +169,10 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addPathologyCommand = new RelayCommand(
                     () =>
                     {
-                        SelectedPathology = new Pathology();
+                        SelectedPathology = new Pathology()
+                        {
+                            Medecins = new ObservableCollection<Medecin>()
+                        };
                     }));
             }
         }
