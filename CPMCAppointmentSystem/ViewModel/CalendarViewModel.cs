@@ -345,8 +345,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-      
-        private User _connectedUser  ;
+
+        private User _connectedUser;
 
         public User ConnectedUser
         {
@@ -387,7 +387,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         catch (Exception)
                         {
-                                                        
+
                         }
                     }));
             }
@@ -449,7 +449,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private async Task LoadRendezVous()
         {
             _dbContext.Dispose();
-            _dbContext=new CpmcContext();
+            _dbContext = new CpmcContext();
             await LoadScheduleSettings();
             RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
             _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
@@ -510,12 +510,19 @@ namespace CPMCAppointmentSystem.ViewModel
                     else
                     {
                         brushStatus.Status = sexe == "Male" ? "Man" : "Woman";
-                        brushStatus.Brush = sexe == "Male"
-                            ? new SolidColorBrush(
-                                (Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color))
-                            : new SolidColorBrush(
-                                (Color)ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
-                        brushStatus.Blink =sexe == "Male"? SettingsCollection["HommeSetting"].Blink:SettingsCollection["FemmeSetting"].Blink;
+                        if (carteProfessionel)
+                        {
+                            brushStatus.Brush = new SolidColorBrush(
+                                (Color)ColorConverter.ConvertFromString(SettingsCollection["ProSetting"].Color));
+                            brushStatus.Blink = SettingsCollection["ProSetting"].Blink;
+                        }
+                        else
+                        {
+                            brushStatus.Brush = sexe == "Male"? new SolidColorBrush(
+                         (Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color)): new SolidColorBrush(
+                         (Color)ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
+                            brushStatus.Blink = sexe == "Male" ? SettingsCollection["HommeSetting"].Blink : SettingsCollection["FemmeSetting"].Blink;
+                        }                     
                     }
                 }
             }
@@ -709,15 +716,15 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         else
                         {
-                            args.Cancel = true;                           
-                        }                        
+                            args.Cancel = true;
+                        }
                         await LoadRendezVous();
                         Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Refresh"));
 
                     }));
             }
         }
-     
+
 
         //RadialGradientBrush menu commands
         private RelayCommand<object> _addAppointementFromRadialMenuCommand;
@@ -739,7 +746,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 DateTimeRdv = SelectedDateInScedule
                             };
                             _addAppointementView.ShowDialog();
-                            sfSchedule.Refresh(); 
+                            sfSchedule.Refresh();
                         }
                     }));
             }
@@ -762,7 +769,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             {
                                 SelectedRdv = (RendezVous)selectedAppointement;
                                 _addAppointementView.ShowDialog();
-                                sfSchedule.Refresh();  
+                                sfSchedule.Refresh();
                             }
                         }
 
@@ -770,7 +777,7 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
-        private RendezVous _cutedAppointement=null;
+        private RendezVous _cutedAppointement = null;
         private RelayCommand<object> _cutAppointementFromRadialMenuCommand;
         public RelayCommand<object> CutAppointementFromRadialMenuCommand
         {
@@ -779,14 +786,14 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _cutAppointementFromRadialMenuCommand
                     ?? (_cutAppointementFromRadialMenuCommand = new RelayCommand<object>(
                     (obj) =>
-                    {                        
+                    {
                         var sfSchedule = obj as SfSchedule;
                         if (sfSchedule != null)
                         {
                             var selectedAppointement = sfSchedule.SelectedAppointment;
                             if (selectedAppointement != null)
                             {
-                                _cutedAppointement = (RendezVous)selectedAppointement;                                
+                                _cutedAppointement = (RendezVous)selectedAppointement;
                             }
                         }
 
@@ -803,12 +810,12 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_pastAppointementFromRadialMenuCommand = new RelayCommand<object>(async (obj) =>
                     {
                         var sfSchedule = obj as SfSchedule;
-                        if (sfSchedule != null && _cutedAppointement!=null && SelectedDateInScedule!=null)
+                        if (sfSchedule != null && _cutedAppointement != null && SelectedDateInScedule != null)
                         {
                             _dbContext.RendezVouses.Find(_cutedAppointement.RendezVousId).DateTimeRdv = SelectedDateInScedule;
                             _dbContext.SaveChanges();
                             await LoadRendezVous();
-                            sfSchedule.Refresh();                            
+                            sfSchedule.Refresh();
                         }
                     }));
             }
@@ -822,21 +829,21 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deleteAppointementFromRadialMenuCommand = new RelayCommand<object>(async (obj) =>
                     {
                         var sfSchedule = obj as SfSchedule;
-                        if (sfSchedule!=null)
+                        if (sfSchedule != null)
                         {
-                             var selectedAppointement = sfSchedule.SelectedAppointment;
+                            var selectedAppointement = sfSchedule.SelectedAppointment;
                             if (selectedAppointement != null)
                             {
                                 var result = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Confirmation", "etes vous sure de vouloire supprimer ce rendez-vous", MessageDialogStyle.AffirmativeAndNegative));
                                 if (result == MessageDialogResult.Affirmative)
-                                {                                    
-                                    _dbContext.RendezVouses.Remove((RendezVous) selectedAppointement);
-                                    _dbContext.SaveChanges();                                    
-                                }                              
+                                {
+                                    _dbContext.RendezVouses.Remove((RendezVous)selectedAppointement);
+                                    _dbContext.SaveChanges();
+                                }
                                 await LoadRendezVous();
                                 sfSchedule.Refresh();
                             }
-                        }                       
+                        }
                     }));
             }
         }
@@ -850,7 +857,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_filterCalendarPerMedecinCheckedCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
             }
         }
@@ -863,7 +870,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_filterCalendarPerMedecinUncheckedCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
             }
         }
