@@ -482,6 +482,9 @@ namespace CPMCAppointmentSystem.ViewModel
                                 },
                                 UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId
                             },
+                            Patients = new ObservableCollection<Patient>(),
+                            Pathologies = new ObservableCollection<Pathology>(),
+                            Specialities = new ObservableCollection<Specialite>()
                         };
                     }));
             }
