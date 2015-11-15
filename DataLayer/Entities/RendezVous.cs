@@ -27,6 +27,8 @@ namespace DataLayer.Model
         private bool _patientConfirmRdv;
         private bool _isTheLastOne;
         private RdvState _rdvStateValue;
+        private bool _blink;
+
         #endregion
         #region Properties
 
@@ -168,6 +170,18 @@ namespace DataLayer.Model
         public string Error
         {
             get { return String.Empty; }
+        }
+
+        [NotMapped]
+        public bool Blink
+        {
+            get { return _blink; }
+            set
+            {
+                if (value == _blink) return;
+                _blink = value;
+                OnPropertyChanged();
+            }
         }
 
         #endregion

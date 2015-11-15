@@ -25,6 +25,7 @@ namespace CPMCAppointmentSystem.ViewModel
     {
         public Brush Brush { get; set; }
         public String Status { get; set; }
+        public bool Blink { get; set; }
     }
 
     public class CalendarViewModel : NavigableViewModelBase
@@ -454,16 +455,17 @@ namespace CPMCAppointmentSystem.ViewModel
             _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
             RdvousCollection.ForEach((rdv) =>
             {
+                var brStBl = GetBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
+                    rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel);
                 //Update the rdv status based on rdv date
                 rdv.Status = new ScheduleAppointmentStatus()
                 {
                     Brush =
-                        (GetBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
-                            rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Brush,
+                        brStBl.Brush,
                     Status =
-                        (GetBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
-                            rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel)).Status
+                        brStBl.Status
                 };
+                rdv.Blink = brStBl.Blink;
                 PatientsScheduleAppointmentCollection.Add(rdv);
             });
             RaisePropertyChanged("PatientsScheduleAppointmentCollection");
@@ -479,10 +481,12 @@ namespace CPMCAppointmentSystem.ViewModel
         private BrushStatus GetBrushFromSettings(DateTime dateTimeRdv, DateTime dateDeNaissance, string sexe, bool carteProfessionel)
         {
             var brushStatus = new BrushStatus();
+            var ageMax = SettingsCollection["EnfantSetting"].Information;
+
             if (dateTimeRdv.Date < DateTime.Now.Date)
             {
                 brushStatus.Brush = new SolidColorBrush(Colors.LightGray);
-                if ((DateTime.Now.Year - dateDeNaissance.Year) < 18)
+                if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMax))
                 {
                     brushStatus.Status = sexe == "Male" ? "Boy" : "Girl";
                 }
@@ -493,15 +497,15 @@ namespace CPMCAppointmentSystem.ViewModel
             }
             else
             {
-                var ageMin = SettingsCollection["EnfantSetting"].Information;
-                if (ageMin != null)
+                if (ageMax != null)
                 {
-                    if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMin))
+                    if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMax))
                     {
                         brushStatus.Status = sexe == "Male" ? "Boy" : "Girl";
                         brushStatus.Brush =
                             new SolidColorBrush(
                                 (Color)ColorConverter.ConvertFromString(SettingsCollection["EnfantSetting"].Color));
+                        brushStatus.Blink = SettingsCollection["EnfantSetting"].Blink;
                     }
                     else
                     {
@@ -511,6 +515,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 (Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color))
                             : new SolidColorBrush(
                                 (Color)ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
+                        brushStatus.Blink =sexe == "Male"? SettingsCollection["HommeSetting"].Blink:SettingsCollection["FemmeSetting"].Blink;
                     }
                 }
             }
