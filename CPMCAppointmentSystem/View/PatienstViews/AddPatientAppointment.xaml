@@ -6,6 +6,7 @@
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:enums="clr-namespace:DataLayer.Enums;assembly=DataLayer"
         Title="Ajouter un rendez-vousS"
         WindowStyle="SingleBorderWindow"
                       EnableDWMDropShadow="True"
@@ -45,6 +46,18 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Image Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
+                <controls:ToggleSwitch VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding SelectedAppointement.RdvStateValue,Converter={StaticResource RdvStateValueToBoolConverter},Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0"  OnLabel="Activer le rendez-vous" OffLabel="Annuler le rendez-vous">
+                    <controls:ToggleSwitch.Style>
+                        <Style TargetType="controls:ToggleSwitch">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedAppointement.RdvStateValue}" Value="{x:Static enums:RdvState.Passed}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </controls:ToggleSwitch.Style>
+                </controls:ToggleSwitch>
 
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>

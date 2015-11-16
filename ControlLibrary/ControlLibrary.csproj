@@ -69,6 +69,7 @@
     <Compile Include="Converters\DateJourFerieToNumberConverter.cs" />
     <Compile Include="Converters\FlagToIsCheckedConverter.cs" />
     <Compile Include="Converters\FromArgbToColorConverter.cs" />
+    <Compile Include="Converters\RdvStateValueToBoolConverter.cs" />
     <Compile Include="Converters\SelecteImageConverter.cs" />
     <Compile Include="Converters\ValueToEqualsParameterConverter.cs" />
     <Compile Include="Helpers\PasswordBoxMonitor.cs" />
