@@ -69,8 +69,6 @@
                     </Style>
                 </controls:ToggleSwitch.Style>
             </controls:ToggleSwitch>
-
-
         </Grid>
         <ScrollViewer Grid.Row="1" Margin="10" x:Name="RootGrid" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <Grid>
