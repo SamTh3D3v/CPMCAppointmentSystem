@@ -150,6 +150,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         if (passBox==null) return;                      
                         App.SaveDateBaseSettings(DataBaseSttings, passBox);
+                        System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                        Application.Current.Shutdown();
                         //Disconnect 
                         
                     }));
