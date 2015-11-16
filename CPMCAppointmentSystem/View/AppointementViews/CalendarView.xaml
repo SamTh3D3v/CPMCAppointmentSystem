@@ -11,7 +11,7 @@
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1000"
-	Title="CalendarView" DataContext="{Binding Source={StaticResource Locator},Path=CalendarViewModel}" >
+	Title="CalendarView" DataContext="{Binding Source={StaticResource Locator},Path=CalendarViewModel}">
     <Page.Resources>
         <Storyboard x:Key="SchedulerTypeSelectorDisapear">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" >
@@ -61,6 +61,10 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=CalendarViewLoadedCommand}"
+                            PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=CalendarViewUnLoadedCommand}"
                             PassEventArgsToCommand="True"  />
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -324,7 +328,7 @@
 
                 </Grid>
             </Border>
-            <Border  Grid.Column="1" Background="WhiteSmoke" >
+            <Border  Grid.Column="1" Background="WhiteSmoke" Visibility="Visible">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Setter Property="Visibility" Value="Collapsed"/>

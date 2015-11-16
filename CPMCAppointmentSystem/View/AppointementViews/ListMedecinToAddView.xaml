@@ -33,12 +33,12 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <syncfusion:SfDataGrid Grid.Row="0" Height="250" SelectionMode="Single" Background="WhiteSmoke"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                <syncfusion:SfDataGrid Grid.Row="0"  SelectionMode="Single" Background="WhiteSmoke"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
                                        ColumnSizer="Star"
                                        AllowEditing="True"
                                        AllowFiltering="True"
-                                       AllowGrouping="True"                                   
+                                       AllowGrouping="True"                                        
                                        ItemsSource="{Binding ElementName=DoctorDataPager,Path=PagedSource}"
                                    AutoGenerateColumns="False"                                   
                                        ShowGroupDropArea="True" >
@@ -67,7 +67,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>                
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"  Margin="2" Command="{Binding ApplyMedecinFilterCommand}" IsEnabled="False">
+            <Button Grid.Column="0"  Margin="2" Command="{Binding ApplyMedecinFilterCommand}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource FilterDark}" Width="20" Height="20" />

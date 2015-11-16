@@ -321,11 +321,11 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _applyMedecinFilterCommand
-                    ?? (_applyMedecinFilterCommand = new RelayCommand(
-                    () =>
+                    ?? (_applyMedecinFilterCommand = new RelayCommand(async () =>
                     {
-                        // DoctorsInFilter = new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x => x.IsAdded));
+                        DoctorsInFilter = new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x => x.IsAdded).Select(x => x.Entity));
                         _listMedecinToAddView.Close();
+                        await LoadRendezVous();
                     }));
             }
         }
@@ -374,6 +374,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _calendarViewLoadedCommand
                     ?? (_calendarViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        _dbContext=new CpmcContext();
                         IsProgressRingActive = true;
                         await LoadRendezVous();
                         IsProgressRingActive = false;
@@ -389,6 +390,20 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
 
                         }
+                    }));
+            }
+        }
+
+        private RelayCommand _calendarViewUnLoadedCommand;
+        public RelayCommand CalendarViewUnLoadedCommand
+        {
+            get
+            {
+                return _calendarViewUnLoadedCommand
+                    ?? (_calendarViewUnLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        _dbContext.Dispose();
                     }));
             }
         }
@@ -428,6 +443,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 Entity = s,
                 IsAdded = true
             })));
+            DoctorsInFilter=new ObservableCollection<Medecin>(await Task.Run(()=>_dbContext.Medecins));
 
         }
 
@@ -466,7 +482,15 @@ namespace CPMCAppointmentSystem.ViewModel
                         brStBl.Status
                 };
                 rdv.Blink = brStBl.Blink;
-                PatientsScheduleAppointmentCollection.Add(rdv);
+                if (FilterByMedecinIsChecked)
+                {
+                    if (DoctorsInFilter.Contains(rdv.Medecin))
+                        PatientsScheduleAppointmentCollection.Add(rdv); 
+                }
+                else                
+                    PatientsScheduleAppointmentCollection.Add(rdv); 
+                
+                    
             });
             RaisePropertyChanged("PatientsScheduleAppointmentCollection");
         }
@@ -518,11 +542,11 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         else
                         {
-                            brushStatus.Brush = sexe == "Male"? new SolidColorBrush(
-                         (Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color)): new SolidColorBrush(
+                            brushStatus.Brush = sexe == "Male" ? new SolidColorBrush(
+                         (Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color)) : new SolidColorBrush(
                          (Color)ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
                             brushStatus.Blink = sexe == "Male" ? SettingsCollection["HommeSetting"].Blink : SettingsCollection["FemmeSetting"].Blink;
-                        }                     
+                        }
                     }
                 }
             }
@@ -854,10 +878,9 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _filterCalendarPerMedecinCheckedCommand
-                    ?? (_filterCalendarPerMedecinCheckedCommand = new RelayCommand(
-                    () =>
+                    ?? (_filterCalendarPerMedecinCheckedCommand = new RelayCommand(async () =>
                     {
-
+                        await LoadRendezVous();
                     }));
             }
         }
@@ -867,10 +890,9 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _filterCalendarPerMedecinUncheckedCommand
-                    ?? (_filterCalendarPerMedecinUncheckedCommand = new RelayCommand(
-                    () =>
+                    ?? (_filterCalendarPerMedecinUncheckedCommand = new RelayCommand(async () =>
                     {
-
+                        await LoadRendezVous();
                     }));
             }
         }
