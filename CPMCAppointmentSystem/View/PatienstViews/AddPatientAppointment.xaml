@@ -42,21 +42,37 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>                    
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Image Source="{StaticResource FaceDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
+                <Border Grid.Column="0" Grid.Row="0" Width="75" Height="75" Background="#ffeef0ef">
+                    <Path Data="{StaticResource RdvPath}" Fill="#ff7c7c7c" Width="50" Height="50" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center"  ></Path>
+                </Border>
                 <controls:ToggleSwitch VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding SelectedAppointement.RdvStateValue,Converter={StaticResource RdvStateValueToBoolConverter},Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0"  OnLabel="Activer le rendez-vous" OffLabel="Annuler le rendez-vous">
                     <controls:ToggleSwitch.Style>
                         <Style TargetType="controls:ToggleSwitch">
-                            <Setter Property="IsEnabled" Value="True"/>
-                            <Style.Triggers>                                
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
                                 <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding SelectedAppointement.RdvStateValue}" Value="{x:Static enums:RdvState.Passed}"></Condition>
-                                        <Condition Binding="{Binding SelectedAppointement.RendezVousId}" Value="{x:Static system:Guid.Empty}"></Condition>                                        
+                                    <MultiDataTrigger.Conditions>                                                                              
+                                        <Condition>
+                                            <Condition.Binding>
+                                                <Binding Path="SelectedAppointement.RendezVousId" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:Guid.Empty}"/>
+                                            </Condition.Binding>
+                                            <Condition.Value>
+                                                <system:Boolean>False</system:Boolean>
+                                            </Condition.Value>
+                                        </Condition>
+                                        <Condition>
+                                            <Condition.Binding>
+                                                <Binding Path="SelectedAppointement.RdvStateValue" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static enums:RdvState.Passed}"/>
+                                            </Condition.Binding>
+                                            <Condition.Value>
+                                                <system:Boolean>False</system:Boolean>
+                                            </Condition.Value>
+                                        </Condition>
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Setter Property="IsEnabled" Value="True"/>
                                 </MultiDataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -121,9 +137,9 @@
                                 <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
                                 <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
                             </syncfusion:SfDataGrid.Columns>
-                        </syncfusion:SfDataGrid>                        
+                        </syncfusion:SfDataGrid>
                     </Grid>
-                </Expander>                
+                </Expander>
             </Grid>
         </ScrollViewer>
         <Grid Grid.Row="1" Grid.Column="0"  Margin="5" VerticalAlignment="Bottom" IsEnabled="{Binding ConnectedUser.RolesCollection.PatientsEditAppointementAllow}">
@@ -183,7 +199,7 @@
                         <TextBlock Text="Delete" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button.Content>
-               
+
             </Button>
             <Button Grid.Column="2"  Margin="2" Command="{Binding CancelAppointementChangesCommand}">
                 <Button.Content>
@@ -195,6 +211,6 @@
             </Button>
         </Grid>
     </Grid>
-    
-    
+
+
 </controls:MetroWindow>
