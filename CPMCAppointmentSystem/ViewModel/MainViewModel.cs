@@ -13,11 +13,11 @@ namespace CPMCAppointmentSystem.ViewModel
     public class MainViewModel : NavigableViewModelBase
     {
         #region Fields
-        private  CpmcContext _dbContext=new CpmcContext();
+        private CpmcContext _dbContext = new CpmcContext();
         private User _connectedUser;
-        private bool _unseenNotification;   
+        private bool _unseenNotification;
         #endregion
-        #region Properties                   
+        #region Properties
         public bool UnseenNotification
         {
             get
@@ -101,7 +101,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_mainViewUnloadedCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
             }
         }
@@ -115,7 +115,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () => InnerFrameNavigationService.NavigateTo(App.CalendarViewKey)));
             }
         }
-        private RelayCommand _patientsCommand;  
+        private RelayCommand _patientsCommand;
         public RelayCommand PatientsCommand
         {
             get
@@ -144,7 +144,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_doctorsCommand = new RelayCommand(
                     () => InnerFrameNavigationService.NavigateTo(App.DoctorsViewKey)));
             }
-        }        
+        }
         private RelayCommand _specialitiesCommand;
         public RelayCommand SpecialitiesCommand
         {
@@ -175,7 +175,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () => InnerFrameNavigationService.NavigateTo(App.PathologiesViewKey)));
             }
         }
-        private RelayCommand _statisticsCommand;            
+        private RelayCommand _statisticsCommand;
         public RelayCommand StatisticsCommand
         {
             get
@@ -230,7 +230,7 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Ctors and Methods
         public MainViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
-        {  
+        {
             Messenger.Default.Register<NotificationMessage>(this, (m) =>
             {
                 switch (m.Notification)

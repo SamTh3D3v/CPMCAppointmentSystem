@@ -133,7 +133,18 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-                        <Path Data="M33.977998,27.684L33.977998,58.102997 41.373998,58.102997 41.373998,27.684z M14.841999,27.684L14.841999,58.102997 22.237998,58.102997 22.237998,27.684z M4.0319996,22.433001L52.183,22.433001 52.183,63.999001 4.0319996,63.999001z M15.974,0L40.195001,0 40.195001,7.7260003 56.167001,7.7260003 56.167001,16.000999 0,16.000999 0,7.7260003 15.974,7.7260003z" Stretch="Uniform" Fill="#FF000000" Width="10" Height="10" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5"/>
+                        <Path Data="{StaticResource DeletePath}" Stretch="Uniform" Width="10" Height="10" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Setter Property="Fill" Value="LightGray"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=RootGrid,Path=DataContext.IsFormEnabled}" Value="True">
+                                            <Setter Property="Fill" Value="Black"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
                     </Button>
                 </Grid>
 
