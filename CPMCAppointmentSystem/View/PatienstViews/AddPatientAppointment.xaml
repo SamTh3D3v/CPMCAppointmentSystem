@@ -50,10 +50,14 @@
                     <controls:ToggleSwitch.Style>
                         <Style TargetType="controls:ToggleSwitch">
                             <Setter Property="IsEnabled" Value="True"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedAppointement.RdvStateValue}" Value="{x:Static enums:RdvState.Passed}">
+                            <Style.Triggers>                                
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding SelectedAppointement.RdvStateValue}" Value="{x:Static enums:RdvState.Passed}"></Condition>
+                                        <Condition Binding="{Binding SelectedAppointement.RendezVousId}" Value="{x:Static system:Guid.Empty}"></Condition>                                        
+                                    </MultiDataTrigger.Conditions>
                                     <Setter Property="IsEnabled" Value="False"/>
-                                </DataTrigger>
+                                </MultiDataTrigger>
                             </Style.Triggers>
                         </Style>
                     </controls:ToggleSwitch.Style>
