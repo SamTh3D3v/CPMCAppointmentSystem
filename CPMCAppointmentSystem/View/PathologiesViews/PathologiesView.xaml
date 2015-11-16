@@ -172,7 +172,7 @@
             <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <syncfusion:TabControlExt  EnableLabelEdit="False" syncfusion:SkinStorage.VisualStyle="Metro" Margin="5,30,5,5"
                                   CloseButtonType="Hide" ShowTabItemContextMenu="False"
-                                  ShowTabListContextMenu="False" TabStripPlacement="Left">
+                                  ShowTabListContextMenu="False" TabStripPlacement="Left" TabItemSelectedBackground="{Binding IsFormEnabled,Converter={StaticResource IsFormEnabledToSelectedTabBackGround}}">
 
                     <syncfusion:TabItemExt  MinHeight="35" x:Name="DoctorsTab">
                         <syncfusion:TabItemExt.HeaderTemplate>

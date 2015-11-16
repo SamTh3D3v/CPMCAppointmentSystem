@@ -65,7 +65,8 @@
             <converters:DateJourFerieToNumberConverter x:Key="DateJourFerieToNumberConverter"/>
             <converters:BooleanOrConverter x:Key="BooleanOrConverter"/>
             <converters:FromArgbToColorConverter x:Key="FromArgbToColorConverter"/>
-            <converters:RdvStateValueToBoolConverter x:Key="RdvStateValueToBoolConverter"/>            
+            <converters:RdvStateValueToBoolConverter x:Key="RdvStateValueToBoolConverter"/>
+            <converters:IsFormEnabledToSelectedTabBackGround x:Key="IsFormEnabledToSelectedTabBackGround"/>            
         </ResourceDictionary>
 
 
