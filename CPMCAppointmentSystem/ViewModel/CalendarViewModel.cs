@@ -586,7 +586,6 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (RespectTranchDageFilters(rdv) && RespectCarteProFilters(rdv))
                             PatientsScheduleAppointmentCollection.Add(rdv);
                     }
-
                 }
                 else
                 {

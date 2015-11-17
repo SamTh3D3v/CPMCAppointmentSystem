@@ -571,7 +571,6 @@ namespace CPMCAppointmentSystem.ViewModel
                                 SelectedDoctor = null;
                             }
                         }
-
                     }));
             }
         }
@@ -584,6 +583,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelChangesToDoctorCommand = new RelayCommand(
                     () =>
                     {
+                        NotficationManager.AddNotification(new Notification());
                         if (SelectedDoctor != null)
                         {
                             if (SelectedDoctor.MedecinId != Guid.Empty)

@@ -256,6 +256,7 @@
     <Compile Include="Helpers\InnerFrameNavigationService.cs" />
     <Compile Include="Helpers\NavigableViewModelBase.cs" />
     <Compile Include="Helpers\NotficationManager.cs" />
+    <Compile Include="Helpers\NotificationPopUp.cs" />
     <Compile Include="Helpers\NotifyPropertyChanged.cs" />
     <Compile Include="Helpers\SearchService.cs" />
     <Compile Include="Helpers\Security.cs" />
@@ -307,6 +308,9 @@
     </Compile>
     <Compile Include="View\LogViews\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NotificationStackWindow.xaml.cs">
+      <DependentUpon>NotificationStackWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NotificationView.xaml.cs">
       <DependentUpon>NotificationView.xaml</DependentUpon>
@@ -434,6 +438,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LogViews\LogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NotificationStackWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
