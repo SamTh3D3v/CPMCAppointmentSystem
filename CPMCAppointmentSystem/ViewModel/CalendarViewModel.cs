@@ -49,9 +49,47 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _filterByPatientIsChecked;
         private bool _filterByMedecinIsChecked;
         private ListMedecinToAddView _listMedecinToAddView;
-        private AddAppointementView _addAppointementView;
+        private AddAppointementView _addAppointementView;      
+        private int _lowerValue  ;
+        private int _ageUpperValue;     
         #endregion
         #region Properties
+        public int AgeLowerValue
+        {
+            get
+            {
+                return _lowerValue;
+            }
+
+            set
+            {
+                if (_lowerValue == value)
+                {
+                    return;
+                }
+
+                _lowerValue = value;
+                RaisePropertyChanged();
+            }
+        }
+        public int AgeUpperValue
+        {
+            get
+            {
+                return _ageUpperValue;
+            }
+
+            set
+            {
+                if (_ageUpperValue == value)
+                {
+                    return;
+                }
+
+                _ageUpperValue = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool CarteProIsChecked
         {
             get

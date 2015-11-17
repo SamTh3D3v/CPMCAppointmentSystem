@@ -429,6 +429,8 @@
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding ElementName=FilterByPatientCheckBox,Path=IsChecked}" Value="False">
                                                 <Setter Property="IsEnabled" Value="False"></Setter>
+                                                <Setter Property="Background" Value="LightGray"></Setter>
+                                                <Setter Property="BorderBrush" Value="LightGray"></Setter>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -474,11 +476,11 @@
 
 
                                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Tranche d'âge" VerticalAlignment="Center"/>
-                                    <controls:RangeSlider x:Name="AgeRangeSlider" Grid.Row="0" Margin="10"  LowerValue="0"  Grid.Column="1"/>
+                                    <controls:RangeSlider x:Name="AgeRangeSlider" Grid.Row="0" MinRangeWidth="1" Margin="10" Maximum="120" MinRange="0"  Minimum="0"   LowerValue="{Binding AgeLowerValue,Mode=TwoWay}" UpperValue="{Binding AgeUpperValue,Mode=TwoWay}"  Grid.Column="1"/>
                                     <TextBlock Text="Minimum" Grid.Column="0" Grid.Row="1"/>
                                     <TextBlock Text="Maximum" Grid.Column="0" Grid.Row="2"/>
-                                    <controls:NumericUpDown Value="{Binding ElementName=AgeRangeSlider,Path=Minimum,Mode=TwoWay}" Grid.Row="1" Grid.Column="1" />
-                                    <controls:NumericUpDown Value="{Binding ElementName=AgeRangeSlider,Path=Maximum,Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+                                    <controls:NumericUpDown Value="{Binding ElementName=AgeRangeSlider,Path=LowerValue,Mode=TwoWay}" Grid.Row="1" Grid.Column="1" />
+                                    <controls:NumericUpDown Value="{Binding ElementName=AgeRangeSlider,Path=UpperValue,Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
                                 </Grid>
                             </GroupBox>
                             <GroupBox Grid.Row="1">
@@ -488,6 +490,8 @@
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding ElementName=FilterByPatientCheckBox,Path=IsChecked}" Value="False">
                                                 <Setter Property="IsEnabled" Value="False"></Setter>
+                                                <Setter Property="Background" Value="LightGray"></Setter>
+                                                <Setter Property="BorderBrush" Value="LightGray"></Setter>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
