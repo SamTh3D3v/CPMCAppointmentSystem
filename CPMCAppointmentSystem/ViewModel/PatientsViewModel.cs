@@ -17,6 +17,7 @@ using DataLayer.Enums;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Syncfusion.Data.Extensions;
 using Syncfusion.Windows.Reports;
 
 namespace CPMCAppointmentSystem.ViewModel
@@ -1141,6 +1142,34 @@ namespace CPMCAppointmentSystem.ViewModel
                         _dbContext.SaveChanges();
                         SelectedPatient = null;
                         
+                    }));
+            }
+        }
+        #endregion
+        #region Notification popup RelatedCommands
+        private RelayCommand _searchForExistingPatientCommand;
+        public RelayCommand SearchForExistingPatientCommand
+        {
+            get
+            {
+                return _searchForExistingPatientCommand
+                    ?? (_searchForExistingPatientCommand = new RelayCommand(async () =>
+                    {
+                        if (SelectedPatient == null) return;
+                        var res = await Task.Run(() =>_dbContext.Patients.Where(p => p.Nom == SelectedPatient.Nom && p.Prenom == SelectedPatient.Prenom));
+                        if (res.Any())
+                        {
+                            res.ForEach(
+                                pp =>
+                                    NotficationManager.AddNotification(new Notification()
+                                    {
+                                        NotificationTitle = "#Ptient existant",
+                                        Image = pp.ProfilePicture,
+                                        NotificationMessage =
+                                            "Un patient avec le meme nom et prenom exist deja dans le system, sont numero d'ordre est : " +
+                                            pp.NumeroDordre + " , effectuer un recherche pour confirmer."
+                                    }));
+                        }
                     }));
             }
         }

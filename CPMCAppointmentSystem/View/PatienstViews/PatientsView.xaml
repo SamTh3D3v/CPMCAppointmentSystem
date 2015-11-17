@@ -395,15 +395,30 @@
                                                                              
                                          Grid.Column="1"  Text="{Binding Nom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Nom"  
-                                     />
+                                     >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="LostFocus">
+                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=DataContext.SearchForExistingPatientCommand,ElementName=RootGrid}"
+                            PassEventArgsToCommand="True" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Syncfusion:SfMaskedEdit>
 
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit Name="TxtEditPrenom"
+                <Syncfusion:SfMaskedEdit  Name="TxtEditPrenom"
                                          
                                          Grid.Column="1"  Text="{Binding Prenom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Prenom"  
-                                     />
+                                     >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="LostFocus">
+                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=DataContext.SearchForExistingPatientCommand,ElementName=RootGrid}"
+                            PassEventArgsToCommand="True" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </Syncfusion:SfMaskedEdit>
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de naiss" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <DatePicker Name="DateTimeNaiss" Margin="10 5"  SelectedDate="{Binding DateDeNaissance,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}',UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>

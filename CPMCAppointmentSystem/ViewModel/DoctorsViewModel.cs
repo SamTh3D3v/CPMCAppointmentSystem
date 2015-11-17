@@ -582,8 +582,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _cancelChangesToDoctorCommand
                     ?? (_cancelChangesToDoctorCommand = new RelayCommand(
                     () =>
-                    {
-                        NotficationManager.AddNotification(new Notification(){NotificationTitle = "#NotifTitle", NotificationMessage = "this a notification message to test how will the notification manager handle a vrey lage sequence of characters"});
+                    {                       
                         if (SelectedDoctor != null)
                         {
                             if (SelectedDoctor.MedecinId != Guid.Empty)
