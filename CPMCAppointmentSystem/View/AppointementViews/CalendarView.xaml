@@ -378,11 +378,11 @@
                                 <CheckBox Grid.Column="1"  x:Name="FilterByDoctorCeckBox" IsChecked="{Binding FilterByMedecinIsChecked,Mode=TwoWay}" HorizontalAlignment="Right">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="Checked">
-                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarPerMedecinCheckedCommand}"
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarReloadCommand}"
                             PassEventArgsToCommand="True"  />
                                         </i:EventTrigger>
                                         <i:EventTrigger EventName="Unchecked">
-                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarPerMedecinUncheckedCommand}"
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarReloadCommand}"
                             PassEventArgsToCommand="True"  />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
@@ -403,7 +403,18 @@
 
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Filtrer par Patient" Grid.Column="0"/>
-                                <CheckBox Grid.Column="1" x:Name="FilterByPatientCheckBox" IsChecked="{Binding FilterByPatientIsChecked}" HorizontalAlignment="Right"/>
+                                <CheckBox Grid.Column="1" x:Name="FilterByPatientCheckBox" IsChecked="{Binding FilterByPatientIsChecked}" HorizontalAlignment="Right">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Checked">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarReloadCommand}"
+                            PassEventArgsToCommand="True"  />
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="Unchecked">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarReloadCommand}"
+                            PassEventArgsToCommand="True"  />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </CheckBox>
                             </Grid>
                         </Expander.Header>
                         <Grid IsEnabled="{Binding ElementName=FilterByPatientCheckBox,Path=IsChecked}">
@@ -411,10 +422,47 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <GroupBox Header="Age">
+                            <GroupBox>
+                                <GroupBox.Style>
+                                    <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}"> 
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=FilterByPatientCheckBox,Path=IsChecked}" Value="False">
+                                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </GroupBox.Style>
+                                <GroupBox.Header>
+                                    <Grid>
+                                        <TextBlock Text="Age" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                                        <CheckBox Name="CbTrancheDage" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" IsChecked="{Binding TrancheDageIsChecked,Mode=TwoWay}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarReloadCommand}"
+                            PassEventArgsToCommand="True"  />
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarReloadCommand}"
+                            PassEventArgsToCommand="True"  />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </Grid>
+                                </GroupBox.Header>
                                 <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="IsEnabled" Value="True"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=CbTrancheDage, Path=IsChecked}" Value="False">
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                </DataTrigger>
+                                                
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                    <Grid.ColumnDefinitions>                                        
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
@@ -422,26 +470,72 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <CheckBox Grid.Column="0" Grid.Row="0" IsEnabled="False"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="1" IsEnabled="False"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="2" IsEnabled="False"/>
+                                    </Grid.RowDefinitions>                                 
 
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Tranche d'âge" VerticalAlignment="Center"/>
-                                    <controls:RangeSlider x:Name="AgeRangeSlider" Grid.Row="0" Margin="10"  LowerValue="0"  Grid.Column="2"/>
-                                    <TextBlock Text="Minimum" Grid.Column="1" Grid.Row="1"/>
-                                    <TextBlock Text="Maximum" Grid.Column="1" Grid.Row="2"/>
-                                    <controls:NumericUpDown Value="{Binding ElementName=AgeRangeSlider,Path=Minimum,Mode=TwoWay}" Grid.Row="1" Grid.Column="2" />
-                                    <controls:NumericUpDown Value="{Binding ElementName=AgeRangeSlider,Path=Maximum,Mode=TwoWay}" Grid.Row="2" Grid.Column="2"/>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Tranche d'âge" VerticalAlignment="Center"/>
+                                    <controls:RangeSlider x:Name="AgeRangeSlider" Grid.Row="0" Margin="10"  LowerValue="0"  Grid.Column="1"/>
+                                    <TextBlock Text="Minimum" Grid.Column="0" Grid.Row="1"/>
+                                    <TextBlock Text="Maximum" Grid.Column="0" Grid.Row="2"/>
+                                    <controls:NumericUpDown Value="{Binding ElementName=AgeRangeSlider,Path=Minimum,Mode=TwoWay}" Grid.Row="1" Grid.Column="1" />
+                                    <controls:NumericUpDown Value="{Binding ElementName=AgeRangeSlider,Path=Maximum,Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
                                 </Grid>
                             </GroupBox>
-                            <GroupBox Header="PROFESSIONEL" Grid.Row="1">
+                            <GroupBox Grid.Row="1">
+                                <GroupBox.Style>
+                                    <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=FilterByPatientCheckBox,Path=IsChecked}" Value="False">
+                                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </GroupBox.Style>
+                                <GroupBox.Header>
+                                    <Grid>
+                                        <TextBlock Text="PROFESSIONEL" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        <CheckBox Name="CbCartePro" HorizontalAlignment="Right" Grid.Column="0" IsChecked="{Binding CarteProFilterIsEnabled,Mode=TwoWay}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarReloadCommand}"
+                            PassEventArgsToCommand="True"  />
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarReloadCommand}"
+                            PassEventArgsToCommand="True"  />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </Grid>
+                                </GroupBox.Header>
                                 <Grid>
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="IsEnabled" Value="True"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=CbCartePro,Path=IsChecked}" Value="False">
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <CheckBox Grid.Column="0" IsEnabled="False"/>
+                                    <CheckBox Grid.Column="0" IsChecked="{Binding CarteProIsChecked,Mode=TwoWay}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Checked">
+                                                <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarReloadCommand}"
+                            PassEventArgsToCommand="True"  />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="Unchecked">
+                                                <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterCalendarReloadCommand}"
+                            PassEventArgsToCommand="True"  />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </CheckBox>
                                     <TextBlock Text="Carte Pro"  Grid.Column="1"/>
                                 </Grid>
                             </GroupBox>

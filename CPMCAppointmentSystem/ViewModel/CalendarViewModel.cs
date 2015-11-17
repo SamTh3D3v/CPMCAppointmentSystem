@@ -31,6 +31,8 @@ namespace CPMCAppointmentSystem.ViewModel
     public class CalendarViewModel : NavigableViewModelBase
     {
         #region Fields
+        private bool _trancheDageIsChecked;
+        private bool _carteProIsChecked;
         private SettingsCollection _settingsCollection;
         private bool _isProgressRingActive;
         private CpmcContext _dbContext = new CpmcContext();
@@ -50,6 +52,42 @@ namespace CPMCAppointmentSystem.ViewModel
         private AddAppointementView _addAppointementView;
         #endregion
         #region Properties
+        public bool CarteProIsChecked
+        {
+            get
+            {
+                return _carteProIsChecked;
+            }
+
+            set
+            {
+                if (_carteProIsChecked == value)
+                {
+                    return;
+                }
+
+                _carteProIsChecked = value;
+                RaisePropertyChanged();
+            }
+        }
+        public bool TrancheDageIsChecked
+        {
+            get
+            {
+                return _trancheDageIsChecked;
+            }
+
+            set
+            {
+                if (_trancheDageIsChecked == value)
+                {
+                    return;
+                }
+
+                _trancheDageIsChecked = value;
+                RaisePropertyChanged();
+            }
+        }
         public SettingsCollection SettingsCollection
         {
             get
@@ -874,7 +912,7 @@ namespace CPMCAppointmentSystem.ViewModel
         }
 
         private RelayCommand _filterCalendarPerMedecinCheckedCommand;
-        public RelayCommand FilterCalendarPerMedecinCheckedCommand
+        public RelayCommand FilterCalendarReloadCommand
         {
             get
             {
@@ -884,21 +922,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         await LoadRendezVous();
                     }));
             }
-        }
-        private RelayCommand _filterCalendarPerMedecinUncheckedCommand;
-        public RelayCommand FilterCalendarPerMedecinUncheckedCommand
-        {
-            get
-            {
-                return _filterCalendarPerMedecinUncheckedCommand
-                    ?? (_filterCalendarPerMedecinUncheckedCommand = new RelayCommand(async () =>
-                    {
-                        await LoadRendezVous();
-                    }));
-            }
-        }
-
-
+        }       
         #endregion
         #region Ctors and Methods
         public CalendarViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
