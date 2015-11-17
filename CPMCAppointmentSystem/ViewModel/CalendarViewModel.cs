@@ -377,7 +377,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         _dbContext=new CpmcContext();
                         IsProgressRingActive = true;
                         await LoadRendezVous();
-                        IsProgressRingActive = false;
+                        DoctorsInFilter=new ObservableCollection<Medecin>(await Task.Run(()=>_dbContext.Medecins));
+                        IsProgressRingActive = false;                        
 
                         try
                         {
@@ -439,11 +440,12 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             AddDoctorsToFilterList = new ObservableCollection<EntityToAdd<Medecin>>(await Task.Run(() => _dbContext.Medecins.Select(s => new EntityToAdd<Medecin>()
             {
-                Entity = s,
-                IsAdded = true
-            })));
-            DoctorsInFilter=new ObservableCollection<Medecin>(await Task.Run(()=>_dbContext.Medecins));
-
+                Entity = s,                
+            })));   
+            AddDoctorsToFilterList.ForEach(d =>
+            {
+                d.IsAdded = DoctorsInFilter.Select(df => df.MedecinId).Contains(d.Entity.MedecinId);
+            });
         }
 
         private async Task LoadAllDoctorsList()
