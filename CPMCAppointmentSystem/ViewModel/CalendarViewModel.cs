@@ -1020,6 +1020,34 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        #region Notification Realted Commands
+        private RelayCommand _searchForExistingRdvsCommand;
+        public RelayCommand SearchForExistingRdvsCommand
+        {
+            get
+            {
+                return _searchForExistingRdvsCommand
+                    ?? (_searchForExistingRdvsCommand = new RelayCommand(async () =>
+                    {
+                         if (SelectedRdv.Patient == null) return;
+                        var res = await Task.Run(() =>_dbContext.RendezVouses.Where(rdv => rdv.PatientId == SelectedRdv.Patient.PatientId ));
+                        if (res.Any())
+                        {
+                            res.ForEach(
+                                rr =>
+                                    NotficationManager.AddNotification(new Notification()
+                                    {
+                                        NotificationTitle = "#Patient déjat pris un rdv",
+                                        Image = rr.Patient.ProfilePicture,
+                                        NotificationMessage =
+                                            "ce patient a déjat pris un rdv de radiothérapie le  : " +rr.DateTimeRdv
+                                             +" effectuer une recherche pour plus de détails."
+                                    }));
+                        }
+                    }));
+            }
+        }
+        #endregion
         #endregion
         #region Ctors and Methods
         public CalendarViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)

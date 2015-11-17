@@ -112,12 +112,19 @@
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
                                        AllowFiltering="True"
-                                       AllowGrouping="True"                                   
+                                       AllowGrouping="True"                                    
                                        ItemsSource="{Binding Path=PagedSource,
                                                              ElementName=PatientsDataPager}"
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedRdv.Patient,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=SearchForExistingRdvsCommand}"
+                            PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
                                 <syncfusion:SfDataGrid.Columns>
                                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
                                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
@@ -129,7 +136,6 @@
                                     <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneDaccompagnant"/>
                                     <syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
                                     <syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
-
                                 </syncfusion:SfDataGrid.Columns>
                             </syncfusion:SfDataGrid>
                             <syncfusion:SfDataPager x:Name="PatientsDataPager"

@@ -1163,11 +1163,11 @@ namespace CPMCAppointmentSystem.ViewModel
                                 pp =>
                                     NotficationManager.AddNotification(new Notification()
                                     {
-                                        NotificationTitle = "#Ptient existant",
+                                        NotificationTitle = "#Patient existant",
                                         Image = pp.ProfilePicture,
                                         NotificationMessage =
                                             "Un patient avec le meme nom et prenom exist deja dans le system, sont numero d'ordre est : " +
-                                            pp.NumeroDordre + " , effectuer un recherche pour confirmer."
+                                            pp.NumeroDordre + " , effectuer une recherche pour confirmer."
                                     }));
                         }
                     }));
