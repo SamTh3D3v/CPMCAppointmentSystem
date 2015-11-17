@@ -431,7 +431,6 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_listMedecinToAddViewLoadedCommand = new RelayCommand(async () =>
                     {
                         await LoadDoctorsToAddList();
-
                     }));
             }
         }
@@ -484,7 +483,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 rdv.Blink = brStBl.Blink;
                 if (FilterByMedecinIsChecked)
                 {
-                    if (DoctorsInFilter.Contains(rdv.Medecin))
+                    if (DoctorsInFilter.Select(d=>d.MedecinId).Contains(rdv.Medecin.MedecinId))
                         PatientsScheduleAppointmentCollection.Add(rdv); 
                 }
                 else                
