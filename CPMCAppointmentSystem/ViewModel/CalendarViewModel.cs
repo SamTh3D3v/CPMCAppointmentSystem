@@ -31,6 +31,8 @@ namespace CPMCAppointmentSystem.ViewModel
     public class CalendarViewModel : NavigableViewModelBase
     {
         #region Fields
+       
+        private bool _carteProFilterIsEnabled  ;             
         private bool _trancheDageIsChecked;
         private bool _carteProIsChecked;
         private SettingsCollection _settingsCollection;
@@ -54,6 +56,24 @@ namespace CPMCAppointmentSystem.ViewModel
         private int _ageUpperValue;     
         #endregion
         #region Properties
+        public bool CarteProFilterIsEnabled
+        {
+            get
+            {
+                return _carteProFilterIsEnabled;
+            }
+
+            set
+            {
+                if (_carteProFilterIsEnabled == value)
+                {
+                    return;
+                }
+
+                _carteProFilterIsEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
         public int AgeLowerValue
         {
             get
@@ -561,15 +581,30 @@ namespace CPMCAppointmentSystem.ViewModel
                 rdv.Blink = brStBl.Blink;
                 if (FilterByMedecinIsChecked)
                 {
-                    if (DoctorsInFilter.Select(d=>d.MedecinId).Contains(rdv.Medecin.MedecinId))
-                        PatientsScheduleAppointmentCollection.Add(rdv); 
+                    if (DoctorsInFilter.Select(d => d.MedecinId).Contains(rdv.Medecin.MedecinId))
+                    {
+                        if (RespectTranchDageFilters(rdv) && RespectCarteProFilters(rdv))
+                            PatientsScheduleAppointmentCollection.Add(rdv);
+                    }
+
                 }
-                else                
-                    PatientsScheduleAppointmentCollection.Add(rdv); 
-                
-                    
+                else
+                {
+                    if (RespectTranchDageFilters(rdv) && RespectCarteProFilters(rdv))
+                        PatientsScheduleAppointmentCollection.Add(rdv); 
+                }      
             });
             RaisePropertyChanged("PatientsScheduleAppointmentCollection");
+        }
+
+        private bool RespectTranchDageFilters(RendezVous rdv)
+        {
+            return TrancheDageIsChecked && (DateTime.Now - rdv.Patient.DateDeNaissance).TotalDays/365 >= AgeLowerValue &&
+                   (DateTime.Now - rdv.Patient.DateDeNaissance).TotalDays / 365 <= AgeUpperValue || !TrancheDageIsChecked;
+        } 
+        private bool RespectCarteProFilters(RendezVous rdv)
+        {
+            return CarteProFilterIsEnabled && rdv.Patient.CarteProfessionel == CarteProIsChecked || !CarteProFilterIsEnabled ;
         }
 
         private async Task LoadScheduleSettings()
@@ -960,7 +995,32 @@ namespace CPMCAppointmentSystem.ViewModel
                         await LoadRendezVous();
                     }));
             }
-        }       
+        }
+        private RelayCommand _filterAgeRangeCheckedCommand;
+        public RelayCommand FilterAgeRangeCheckedCommand
+        {
+            get
+            {
+                return _filterAgeRangeCheckedCommand
+                    ?? (_filterAgeRangeCheckedCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _filterCartePrCheckedCommand;
+        public RelayCommand FilterCartePrCheckedCommand
+        {
+            get
+            {
+                return _filterCartePrCheckedCommand
+                    ?? (_filterCartePrCheckedCommand = new RelayCommand(
+                    () =>
+                    {                        
+                    }));
+            }
+        }
         #endregion
         #region Ctors and Methods
         public CalendarViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
