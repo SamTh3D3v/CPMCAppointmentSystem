@@ -22,7 +22,7 @@ namespace CPMCAppointmentSystem.Helpers
             NotificationStackWindow.Left = SystemParameters.WorkArea.Left + SystemParameters.WorkArea.Width - LeftOffset;
    
             Messenger.Default.Send<Notification>(notification, "AddNotification");
-            NotificationStackWindow.AddNotification(new NotificationPopUp(){ Title = "Mesage #1", ImageUrl = "pack://application:,,,/Resources/notification-icon.png", Message = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." });
+            NotificationStackWindow.AddNotification(notification);
         }
 
         public static void RemoveNotification(Notification notification)

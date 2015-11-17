@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CPMCAppointmentSystem.Helpers;
+using DataLayer.Model;
 
 namespace CPMCAppointmentSystem.View
 {
@@ -26,7 +27,7 @@ namespace CPMCAppointmentSystem.View
             InitializeComponent();
             NotificationsControl.DataContext = Notifications;
         }
-        public void AddNotification(NotificationPopUp notification)
+        public void AddNotification(Notification notification)
         {
             notification.Id = count++;
             if (Notifications.Count + 1 > MAX_NOTIFICATIONS)
@@ -39,7 +40,7 @@ namespace CPMCAppointmentSystem.View
                 Show();
         }
 
-        public void RemoveNotification(NotificationPopUp notification)
+        public void RemoveNotification(Notification notification)
         {
             if (Notifications.Contains(notification))
                 Notifications.Remove(notification);

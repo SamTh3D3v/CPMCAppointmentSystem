@@ -26,17 +26,69 @@ namespace DataLayer.Model
     [Table("Notifications")]
     public class Notification : INotifyPropertyChanged
     {
+        
+
         #region Fields
+        private string _notificationTitle;
+        private TypeNotification _notificationType;
+        private string _notificationMessage;
+        private byte[] _image;
 
         #endregion
 
         #region Properties
         public Guid NotificationId { get; set; }
+
         [MaxLength(128)]
-        public String NotificationTitle { get; set; }
-        public TypeNotification NotificationType { get; set; }
+        public String NotificationTitle
+        {
+            get { return _notificationTitle; }
+            set
+            {
+                if (value == _notificationTitle) return;
+                _notificationTitle = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TypeNotification NotificationType
+        {
+            get { return _notificationType; }
+            set
+            {
+                if (value == _notificationType) return;
+                _notificationType = value;
+                OnPropertyChanged();
+            }
+        }
+
         [MaxLength(1024)]
-        public String NotificationMessage { get; set; }
+        public String NotificationMessage   
+        {
+            get { return _notificationMessage; }
+            set
+            {
+                if (value == _notificationMessage) return;
+                _notificationMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        [NotMapped]
+        public Byte[] Image
+        {
+            get { return _image; }
+            set
+            {
+                if (Equals(value, _image)) return;
+                _image = value;
+                OnPropertyChanged();
+            }
+        }
+        [NotMapped]
+        public int Id { get; set; }  //this is used to handle local and only local notifications
+
+
         public Guid? NotifyUserId { get; set; }
         public TypeUser TypeUser { get; set; }        
         public DateTime CreatedOn { get; set; }
