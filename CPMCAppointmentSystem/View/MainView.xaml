@@ -126,7 +126,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Style="{StaticResource ScrollButtonStyle}" Click="ScrollLeftClick" ClickMode="Press">
+                    <RepeatButton  Grid.Column="0" Style="{StaticResource ScrollButtonStyle}"  Click="ScrollLeftClick" ClickMode="Press">
                         <Path  Data="M520,0L520,657.20001 0,328.60001z" Stretch="Uniform" Fill="#818f94" Width="20" Height="20" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
                             <Path.RenderTransform>
                                 <TransformGroup>
@@ -137,8 +137,8 @@
                                 </TransformGroup>
                             </Path.RenderTransform>
                         </Path>
-                    </Button>
-                    <Button Grid.Column="1" Style="{StaticResource ScrollButtonStyle}" Click="ScrollRightClick" ClickMode="Press">
+                    </RepeatButton>
+                    <RepeatButton  Grid.Column="1" Style="{StaticResource ScrollButtonStyle}" Click="ScrollRightClick" ClickMode="Press">
                         <Path Data="M0,0L496.000005990267,315 0,630z" Stretch="Uniform" Fill="#818f94" Width="20" Height="20" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
                             <Path.RenderTransform>
                                 <TransformGroup>
@@ -149,7 +149,7 @@
                                 </TransformGroup>
                             </Path.RenderTransform>
                         </Path>
-                    </Button>
+                    </RepeatButton>
                 </Grid>
             </Grid>
 

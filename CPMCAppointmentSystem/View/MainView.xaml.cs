@@ -52,5 +52,7 @@ namespace CPMCAppointmentSystem.View
             horizontalOffset -= 10;
             MenuScrollViewer.ScrollToHorizontalOffset(horizontalOffset);
         }
+
+      
     }
 }
