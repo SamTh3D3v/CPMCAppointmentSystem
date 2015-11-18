@@ -25,7 +25,7 @@
                         LayoutMode="Metro"
                         UserOptionsVisibility="Visible">
             <syncfusion:LayoutControl.UserOptionsView>
-                <syncfusion:UserOptions HeaderText="Options">
+                <syncfusion:UserOptions HeaderText="Options" Width="auto">
                     <GroupBox >
                         <GroupBox.Header>
                             <Grid>
@@ -63,7 +63,6 @@
                     </GroupBox>
                 </syncfusion:UserOptions>
             </syncfusion:LayoutControl.UserOptionsView>
-
             <syncfusion:LayoutControl.GridView>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -78,10 +77,14 @@
                                        IsGroupDropAreaExpanded="True"
                                        ItemsSource="{Binding Path=PagedSource,
                                                              ElementName=SmsDataPager}"
+                                           CurrentCellBorderBrush="DarkOrange"
                                        RowHeight="40"
+                                           RowStyle="{StaticResource RdvRowStyle}"
                                        NavigationMode="Cell"
                                        ShowGroupDropArea="True">
                         <syncfusion:SfDataGrid.Columns>
+                            <syncfusion:GridTextColumn HeaderText="Date" DisplayBinding="{Binding DateTimeRdv,StringFormat='{}{0:dd/MM/yyyy}'}"  AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Lieu" MappingName="LieuRdv"  AllowEditing="False"/> 
                             <syncfusion:GridTextColumn HeaderText="Num D'ordre" MappingName="Patient.NumeroDordre"  AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Patient.Nom" AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Patient.Prenom"  AllowEditing="False"/>

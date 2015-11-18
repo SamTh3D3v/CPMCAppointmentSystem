@@ -46,6 +46,7 @@
         <ResourceDictionary Source="NamedStyles/WaterMarkedPasswordBoxStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/TbRadioButtonStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/AddNewRowControlStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/RowStyle.xaml"/>
 
         <!--Other Resource Dictionaries-->
 
