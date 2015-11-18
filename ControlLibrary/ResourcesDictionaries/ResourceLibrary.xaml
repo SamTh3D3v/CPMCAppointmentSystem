@@ -47,6 +47,7 @@
         <ResourceDictionary Source="NamedStyles/TbRadioButtonStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/AddNewRowControlStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/RowStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/ScrollButtonStyle.xaml"/>
 
         <!--Other Resource Dictionaries-->
 
@@ -67,7 +68,8 @@
             <converters:BooleanOrConverter x:Key="BooleanOrConverter"/>
             <converters:FromArgbToColorConverter x:Key="FromArgbToColorConverter"/>
             <converters:RdvStateValueToBoolConverter x:Key="RdvStateValueToBoolConverter"/>
-            <converters:IsFormEnabledToSelectedTabBackGround x:Key="IsFormEnabledToSelectedTabBackGround"/>            
+            <converters:IsFormEnabledToSelectedTabBackGround x:Key="IsFormEnabledToSelectedTabBackGround"/>
+            <converters:GridWidthToVisibilityConverter x:Key="GridWidthToVisibilityConverter"/>            
         </ResourceDictionary>
 
 

@@ -69,6 +69,7 @@
     <Compile Include="Converters\DateJourFerieToNumberConverter.cs" />
     <Compile Include="Converters\FlagToIsCheckedConverter.cs" />
     <Compile Include="Converters\FromArgbToColorConverter.cs" />
+    <Compile Include="Converters\GridWidthToVisibilityConverter.cs" />
     <Compile Include="Converters\IsFormEnabledToSelectedTabBackGround.cs" />
     <Compile Include="Converters\RdvStateValueToBoolConverter.cs" />
     <Compile Include="Converters\SelecteImageConverter.cs" />
@@ -169,6 +170,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ResourcesDictionaries\NamedStyles\AddNewRowControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourcesDictionaries\NamedStyles\ScrollButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

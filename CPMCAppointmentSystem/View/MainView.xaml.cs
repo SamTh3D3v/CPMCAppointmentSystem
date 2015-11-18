@@ -37,5 +37,20 @@ namespace CPMCAppointmentSystem.View
             RbMesPatient.IsChecked = InnerFrame.Source.ToString().Contains("MyPatientsView");
 
         }
+
+        private int horizontalOffset = 0;
+        private void ScrollLeftClick(object sender, RoutedEventArgs e)
+        {
+            if (MenuGrid.ActualWidth - RootGrid.ActualWidth > horizontalOffset - 120)
+            horizontalOffset += 10;
+            MenuScrollViewer.ScrollToHorizontalOffset(horizontalOffset);
+        }
+
+        private void ScrollRightClick(object sender, RoutedEventArgs e)
+        {
+            if (horizontalOffset>0)           
+            horizontalOffset -= 10;
+            MenuScrollViewer.ScrollToHorizontalOffset(horizontalOffset);
+        }
     }
 }
