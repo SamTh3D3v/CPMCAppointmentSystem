@@ -24,6 +24,10 @@ namespace CPMCAppointmentSystem.ViewModel
     public class NotificationViewModel:NavigableViewModelBase
     {
         #region Fields
+
+        private bool _stillInView;
+
+        private MessageDialogResult _exceptionDialog;
         private DateTime _selectedDateDepo = DateTime.Now;     
         private bool _isSimActive  ;
         private GsmHelper _gsmHelper  ;       
@@ -152,7 +156,8 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _notificationViewLoadedCommand
                     ?? (_notificationViewLoadedCommand = new RelayCommand(async () =>
-                    {                        
+                    {
+                        _stillInView = true;
                         _dbContext = new CpmcContext();
                         await LoadRdvs();
                         try
@@ -165,15 +170,13 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         catch (Exception ex)
                         {
-
+                            if (_stillInView)                            
                             Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
                             {
-                                var ctontroller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(
-                                    "Echec de COM", "check the gsm device ... "));
+                                _exceptionDialog = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Echec de COM", "check the gsm device ... "));
                             }));
                             IsSimActive = false;
-                        }
-                        
+                        }                        
                     }));
             }
         }
@@ -188,6 +191,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         _dbContext.SaveChanges();
                         _dbContext.Dispose();
+                        _stillInView = false;
+                       
                     }));
             }
         }
