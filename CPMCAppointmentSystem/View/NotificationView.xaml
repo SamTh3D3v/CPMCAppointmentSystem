@@ -19,7 +19,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>        
+    <Grid Margin="0,2,0,-2">        
         <syncfusion:LayoutControl HeaderDescriptionText="Liste des sms envoyés et en cours d'envoi" Name="RootGrid"
                         HeaderText="Notification Sms "
                         LayoutMode="Metro"
@@ -34,25 +34,30 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="Selectionner par date"/>
-                                <CheckBox x:Name="DataFilterCheckBox" Grid.Column="1"/>
+                                <CheckBox x:Name="DataFilterCheckBox" Grid.Column="1" IsChecked="{Binding IsFilterCheckActivated,Mode=TwoWay}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Checked">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=ReloadRdvsCommand}"
+                            PassEventArgsToCommand="True" />
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="Unchecked">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=ReloadRdvsCommand}"
+                            PassEventArgsToCommand="True" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </CheckBox>
                             </Grid>
                         </GroupBox.Header>
                         <GroupBox.Content>
                             <Grid>
-                                <syncfusion:CalendarEdit VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-                                    <syncfusion:CalendarEdit.Style>
-                                        <Style TargetType="syncfusion:CalendarEdit">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding ElementName=DataFilterCheckBox,Path=IsChecked}" Value="True">
-                                                    <Setter Property="IsEnabled" Value="True"></Setter>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding ElementName=DataFilterCheckBox,Path=IsChecked}" Value="False">
-                                                    <Setter Property="IsEnabled" Value="False"></Setter>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </syncfusion:CalendarEdit.Style>
-                                </syncfusion:CalendarEdit>
+                                <Calendar SelectedDate="{Binding SelectedDateDepo,Mode=TwoWay}" IsEnabled="{Binding IsFilterCheckActivated,Mode=TwoWay}"  VerticalAlignment="Stretch" Name="CalendarFilter" HorizontalAlignment="Stretch" SelectionMode="SingleDate">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectedDatesChanged">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=ReloadRdvsCommand}"
+                            PassEventArgsToCommand="True" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Calendar>                          
                             </Grid>
                         </GroupBox.Content>
                     </GroupBox>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO.Ports;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer;
 using DataLayer.Model;
@@ -22,14 +24,55 @@ namespace CPMCAppointmentSystem.ViewModel
     public class NotificationViewModel:NavigableViewModelBase
     {
         #region Fields
-       
+
+
+
+        private DateTime _selectedDateDepo = DateTime.Now;     
         private bool _isSimActive  ;
         private GsmHelper _gsmHelper  ;       
         private CpmcContext _dbContext=new CpmcContext();
         private ObservableCollection<RendezVous> _rdvCollectionList;
-        private RendezVous _selectedRdv;        
+        private RendezVous _selectedRdv;
+        private bool _isFilterCheckActivated;
         #endregion 
-        #region Properties
+        #region Properties       
+        public DateTime SelectedDateDepo
+        {
+            get
+            {
+                return _selectedDateDepo; ;
+            }
+
+            set
+            {
+                if (_selectedDateDepo == value)
+                {
+                    return;
+                }
+
+                _selectedDateDepo = value;
+                RaisePropertyChanged();
+            }
+        }
+          
+       public bool IsFilterCheckActivated
+        {
+            get
+            {
+                return _isFilterCheckActivated;
+            }
+
+            set
+            {
+                if (_isFilterCheckActivated == value)
+                {
+                    return;
+                }
+
+                _isFilterCheckActivated = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool IsSimActive
         {
             get
@@ -104,7 +147,7 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         public String SmsMessageTemplate { get; set; }
         #endregion 
-        #region Commands
+        #region Commands      
         private RelayCommand _notificationViewLoadedCommand;
         public RelayCommand NotificationViewLoadedCommand
         {
@@ -192,10 +235,23 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadRdvs()
         {
-            RdvCollectionList=new ObservableCollection<RendezVous>(await Task.Run(()=>_dbContext.RendezVouses));
+            var date = SelectedDateDepo.Date;
+            RdvCollectionList = IsFilterCheckActivated ? new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses.Where(rdv => DbFunctions.TruncateTime(rdv.DateTimeRdv) == date))) : new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
+        }
+        private RelayCommand _reloadRdvsCommand;
+        public RelayCommand ReloadRdvsCommand
+        {
+            get
+            {
+                return _reloadRdvsCommand
+                    ?? (_reloadRdvsCommand = new RelayCommand(async () =>
+                    {
+                        await LoadRdvs();
+                    }));
+            }
         }
 
-        #endregion 
+        #endregion  
         #region Ctors and methods
         public NotificationViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)

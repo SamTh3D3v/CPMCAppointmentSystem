@@ -10,7 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using JetBrains.Annotations;
 
-
 namespace CPMCAppointmentSystem.Helpers
 {
     public class FrameNavigationService : IFrameNavigationService, INotifyPropertyChanged
