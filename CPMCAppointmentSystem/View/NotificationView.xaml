@@ -17,6 +17,10 @@
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=NotificationViewLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=NotificationViewUnLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <Grid Margin="0,2,0,-2">        

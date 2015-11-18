@@ -24,9 +24,6 @@ namespace CPMCAppointmentSystem.ViewModel
     public class NotificationViewModel:NavigableViewModelBase
     {
         #region Fields
-
-
-
         private DateTime _selectedDateDepo = DateTime.Now;     
         private bool _isSimActive  ;
         private GsmHelper _gsmHelper  ;       
@@ -177,6 +174,20 @@ namespace CPMCAppointmentSystem.ViewModel
                             IsSimActive = false;
                         }
                         
+                    }));
+            }
+        }
+        private RelayCommand _notificationViewUnLoadedCommand;
+        public RelayCommand NotificationViewUnLoadedCommand
+        {
+            get
+            {
+                return _notificationViewUnLoadedCommand
+                    ?? (_notificationViewUnLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        _dbContext.SaveChanges();
+                        _dbContext.Dispose();
                     }));
             }
         }
