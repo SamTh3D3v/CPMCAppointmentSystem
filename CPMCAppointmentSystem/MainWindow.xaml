@@ -100,8 +100,8 @@
                                 <TextBlock Text="{Binding CurrentUser.UserType.UserTypeName}" Style="{DynamicResource TitleTextBlockStyle}" HorizontalAlignment="Right" Foreground="White" Grid.Row="0" Grid.Column="1"/>
                             </Grid>
                         </Border>
-                        <Expander  Grid.Row="2" Header="Changer le mot de passe" Style="{StaticResource {x:Type Expander}}">                           
-                            <Grid>                               
+                        <Expander  Grid.Row="2" Header="Changer le mot de passe" Style="{StaticResource {x:Type Expander}}">
+                            <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -124,14 +124,25 @@
                                         <system:String x:Key="WaterMarkText">Confirme password</system:String>
                                     </PasswordBox.Resources>
                                 </PasswordBox>
-                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                                    <Button ToolTip="Enregistrer" Style="{DynamicResource MetroCircleButtonStyle}" Width="75" Height="75">
-                                       <Path Data="{StaticResource SavePath}" Fill="White" Width="24" Height="24" Stretch="Uniform"></Path> 
+                                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Margin="5" ToolTip="Enregistrer" Grid.Column="0" HorizontalAlignment="Stretch" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <Path Data="{StaticResource SavePath}" Fill="White" Width="7" Height="7" Stretch="Uniform"/>
+                                            <TextBlock Text="Enregistrer" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2"/>
+                                        </StackPanel>
                                     </Button>
-                                    <Button ToolTip="Annuler" Style="{DynamicResource MetroCircleButtonStyle}" Width="75" Height="75">
-                                        <Path Data="{StaticResource CancelPath}" Fill="White" Width="24" Height="24" Stretch="Uniform"></Path> 
+                                    <Button Margin="5" Grid.Column="1" ToolTip="Annuler" HorizontalAlignment="Stretch">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Path Data="{StaticResource CancelPath}" Fill="White" Width="7" Height="7" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform"/>
+                                            <TextBlock Text="Annuler" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2"/>                                           
+                                        </StackPanel>
+
                                     </Button>
-                                </StackPanel>
+                                </Grid>
                             </Grid>
                         </Expander>
                         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
@@ -150,7 +161,7 @@
                                 </Path>
                             </Button>
                             <TextBlock Text="Déconnexion" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"></TextBlock>
-                        </StackPanel>                      
+                        </StackPanel>
                     </Grid>
                 </ScrollViewer>
             </controls:Flyout>
