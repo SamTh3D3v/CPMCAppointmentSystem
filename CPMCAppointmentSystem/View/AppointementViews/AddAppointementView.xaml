@@ -7,6 +7,7 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:enums="clr-namespace:DataLayer.Enums;assembly=DataLayer"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
         WindowStyle="SingleBorderWindow"
                       Title="Ajouter un rendez vous"
                       EnableDWMDropShadow="True"
@@ -182,10 +183,35 @@
                 <Expander Grid.Column="0" Grid.ColumnSpan="2" Header="Selectionnez un medecin" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <syncfusion:SfDataGrid Background="WhiteSmoke" Grid.Row="0" Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                        <Grid Grid.Row="0" Background="Gray" Margin="0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Margin="5" Text="Qui travail : " Grid.Column="0" FontWeight="DemiBold" Foreground="White" />
+                            <RadioButton IsChecked="{Binding ShowSpesificDayDoctors,Mode=TwoWay}"  GroupName="DtrDays" Margin="5"  Content="{Binding SelectedRdv.DateTimeRdv.DayOfWeek,ConverterCulture='Fr-fr' }" HorizontalAlignment="Center" Foreground="White" Grid.Column="1" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=DtrDaysSelectionChangedCommand}"
+                            PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </RadioButton>
+                            <RadioButton  GroupName="DtrDays" Margin="5" Content="Tous les jours" Grid.Column="2" Foreground="White" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=DtrDaysSelectionChangedCommand}"
+                            PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </RadioButton>
+                        </Grid>
+                        <syncfusion:SfDataGrid Background="WhiteSmoke" Grid.Row="1" Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
                                            ColumnSizer="Star"
                                        AllowEditing="False"
@@ -203,7 +229,7 @@
                             </syncfusion:SfDataGrid.Columns>
                         </syncfusion:SfDataGrid>
                         <syncfusion:SfDataPager x:Name="DoctorDataPager"
-                                       Grid.Row="1"                                       
+                                       Grid.Row="2"                                       
                                        Height="60"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"
@@ -212,7 +238,7 @@
                                        NumericButtonCount="10"
                                        Orientation="Horizontal"
                                        PageSize="16"
-                                       Source="{Binding AllDoctorsCollection}" />
+                                       Source="{Binding AllDoctorsCollection,Mode=TwoWay}" />
                     </Grid>
                 </Expander>
 

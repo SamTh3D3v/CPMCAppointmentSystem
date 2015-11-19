@@ -31,7 +31,8 @@ namespace CPMCAppointmentSystem.ViewModel
     public class CalendarViewModel : NavigableViewModelBase
     {
         #region Fields
-       
+      
+        private bool _showSpesificDayDoctors =true ;               
         private bool _carteProFilterIsEnabled  ;             
         private bool _trancheDageIsChecked;
         private bool _carteProIsChecked;
@@ -56,6 +57,24 @@ namespace CPMCAppointmentSystem.ViewModel
         private int _ageUpperValue;     
         #endregion
         #region Properties
+        public bool ShowSpesificDayDoctors
+        {
+            get
+            {
+                return _showSpesificDayDoctors;
+            }
+
+            set
+            {
+                if (_showSpesificDayDoctors == value)
+                {
+                    return;
+                }
+
+                _showSpesificDayDoctors = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool CarteProFilterIsEnabled
         {
             get
@@ -513,9 +532,9 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addAppointementViewLoadedCommand = new RelayCommand(async () =>
                     {
                         LoadAddAppointmentViewItemSources();
+                        ShowSpesificDayDoctors = true;
                         await LoadAllPatientsList();
                         await LoadAllDoctorsList();
-
                     }));
             }
         }
@@ -546,8 +565,11 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadAllDoctorsList()
         {
-            AllDoctorsCollection = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
+            var day = (Days)Math.Pow(2, (((double)(SelectedRdv.DateTimeRdv.DayOfWeek)) + 1) % 7);
+            AllDoctorsCollection = ShowSpesificDayDoctors ? new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins.Where(m => m.JoursDeTravail.HasFlag(day)))) : new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
         }
+
+        
 
         private async Task LoadAllPatientsList()
         {
@@ -1017,6 +1039,18 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_filterCartePrCheckedCommand = new RelayCommand(
                     () =>
                     {                        
+                    }));
+            }
+        }
+        private RelayCommand _dtrDaysSelectionChangedCommand;
+        public RelayCommand DtrDaysSelectionChangedCommand
+        {
+            get
+            {
+                return _dtrDaysSelectionChangedCommand
+                    ?? (_dtrDaysSelectionChangedCommand = new RelayCommand(async () =>
+                    {
+                        await LoadAllDoctorsList();
                     }));
             }
         }
