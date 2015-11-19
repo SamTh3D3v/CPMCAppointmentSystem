@@ -232,8 +232,12 @@
             </syncfusion:LayoutControl.GridView>
 
         </syncfusion:LayoutControl>
-        <Grid Width="46" Height="46" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,40,40">
-            <Path Data="{StaticResource SimPath}" Stretch="Uniform" Width="46" Height="46" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+        <Grid Width="70" Height="46" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,40,40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Path Data="{StaticResource SimPath}" Grid.Column="1" Stretch="Uniform" Width="46" Height="46" Margin="0" RenderTransformOrigin="0.5,0.5">
                 <Path.RenderTransform>
                     <TransformGroup>
                         <TransformGroup.Children>
@@ -253,6 +257,7 @@
                     </Style>
                 </Path.Style>
             </Path>
+            <controls:ProgressRing Height="15" Width="15" Margin="2,2,5,2" Grid.Column="0" IsActive="{Binding IsProgressRingActive,Mode=TwoWay}"></controls:ProgressRing>
         </Grid>
     </Grid>
 </Page>

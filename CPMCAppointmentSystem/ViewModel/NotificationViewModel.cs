@@ -31,9 +31,28 @@ namespace CPMCAppointmentSystem.ViewModel
         private CpmcContext _dbContext=new CpmcContext();
         private ObservableCollection<RendezVous> _rdvCollectionList;
         private RendezVous _selectedRdv;
-        private bool _isFilterCheckActivated;
+        private bool _isFilterCheckActivated;      
+        private bool _isProgressRingActive ;            
         #endregion 
-        #region Properties       
+        #region Properties     
+        public bool IsProgressRingActive
+        {
+            get
+            {
+                return _isProgressRingActive;
+            }
+
+            set
+            {
+                if (_isProgressRingActive == value)
+                {
+                    return;
+                }
+
+                _isProgressRingActive = value;
+                RaisePropertyChanged();
+            }
+        }
         public DateTime SelectedDateDepo
         {
             get
@@ -160,10 +179,12 @@ namespace CPMCAppointmentSystem.ViewModel
                         try
                         {
                             IsSimActive = false;
+                            IsProgressRingActive = true;
                             GsmHelper = new GsmHelper(9600); 
                             SmsMessageTemplate = ParameterManager.GetValue<string>(ParameterNames.SMSBodyTemplate);
                             await GsmHelper.InitGsmDevice();
                             IsSimActive = true;
+                            IsProgressRingActive = false;
                         }
                         catch (Exception ex)
                         {
@@ -173,6 +194,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 var exceptionDialog = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Echec de COM", "check the gsm device ... "));
                             }));
                             IsSimActive = false;
+                            IsProgressRingActive = false;
                         }                        
                     }));
             }
@@ -189,6 +211,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         _dbContext.SaveChanges();
                         _dbContext.Dispose();
                         _stillInView = false;
+                        IsProgressRingActive = false;
                        
                     }));
             }
