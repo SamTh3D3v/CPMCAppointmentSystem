@@ -70,10 +70,11 @@
     </controls:MetroWindow.LeftWindowCommands>
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl >
-            <controls:Flyout x:Name="CurrentUserFlyout" IsOpen="{Binding IsCurrentUserFlayoutOpen,Mode=TwoWay}" Header="CurrentUser" Position="Right" HorizontalAlignment="Stretch"  Theme="Dark" Width="300">
+            <controls:Flyout x:Name="CurrentUserFlyout" IsOpen="{Binding IsCurrentUserFlayoutOpen,Mode=TwoWay}" Header="L'utilisateur Connecter" Position="Right" HorizontalAlignment="Stretch"  Theme="Dark" Width="300">
                 <ScrollViewer Margin="5,40,5,5" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
                     <Grid   HorizontalAlignment="Stretch">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
@@ -99,7 +100,57 @@
                                 <TextBlock Text="{Binding CurrentUser.UserType.UserTypeName}" Style="{DynamicResource TitleTextBlockStyle}" HorizontalAlignment="Right" Foreground="White" Grid.Row="0" Grid.Column="1"/>
                             </Grid>
                         </Border>
-                        <Button Grid.Row="3" Grid.Column="0" Command="{Binding LogOutCommand}" Content="Déconnexion" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5"/>
+                        <Expander  Grid.Row="2" Header="Changer le mot de passe" Style="{StaticResource {x:Type Expander}}">                           
+                            <Grid>                               
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Nouveau mot de passe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Confirmé mot de passe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                <PasswordBox Margin="10 5" Grid.Column="1"  Grid.Row="0" x:Name="PbUser" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" PasswordChanged="UserPass_OnPasswordChanged">
+                                    <PasswordBox.Resources>
+                                        <system:String x:Key="WaterMarkText">Enter password</system:String>
+                                    </PasswordBox.Resources>
+                                </PasswordBox>
+                                <PasswordBox Margin="10 5" Grid.Column="1" Grid.Row="1"  x:Name="PbUserConfirme" Style="{DynamicResource  WaterMarkPasswordBoxStyle}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  PasswordChanged="UserPass_OnPasswordChanged">
+                                    <PasswordBox.Resources>
+                                        <system:String x:Key="WaterMarkText">Confirme password</system:String>
+                                    </PasswordBox.Resources>
+                                </PasswordBox>
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                                    <Button ToolTip="Enregistrer" Style="{DynamicResource MetroCircleButtonStyle}" Width="75" Height="75">
+                                       <Path Data="{StaticResource SavePath}" Fill="White" Width="24" Height="24" Stretch="Uniform"></Path> 
+                                    </Button>
+                                    <Button ToolTip="Annuler" Style="{DynamicResource MetroCircleButtonStyle}" Width="75" Height="75">
+                                        <Path Data="{StaticResource CancelPath}" Fill="White" Width="24" Height="24" Stretch="Uniform"></Path> 
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </Expander>
+                        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <Button x:Name="BtnLogOut" HorizontalContentAlignment="Center" ToolTip="Deconnexion" Style="{DynamicResource MetroCircleButtonStyle}"  Command="{Binding LogOutCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5" Width="100" Height="100">
+                                <Path Data="{StaticResource LogoutPath}" Width="50" Height="50" Stretch="Uniform">
+                                    <Path.Style>
+                                        <Style TargetType="Path">
+                                            <Setter Property="Fill" Value="White"></Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=BtnLogOut,Path=IsMouseOver}" Value="True">
+                                                    <Setter Property="Fill" Value="{StaticResource AccentColorBrush}"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                            </Button>
+                            <TextBlock Text="Déconnexion" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"></TextBlock>
+                        </StackPanel>                      
                     </Grid>
                 </ScrollViewer>
             </controls:Flyout>

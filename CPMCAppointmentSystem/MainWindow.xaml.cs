@@ -56,5 +56,10 @@ namespace CPMCAppointmentSystem
         {
             e.Handled = true;
         }
+
+        private void UserPass_OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

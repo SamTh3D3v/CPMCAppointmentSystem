@@ -24,10 +24,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class NotificationViewModel:NavigableViewModelBase
     {
         #region Fields
-
-        private bool _stillInView;
-
-        private MessageDialogResult _exceptionDialog;
+        private bool _stillInView;        
         private DateTime _selectedDateDepo = DateTime.Now;     
         private bool _isSimActive  ;
         private GsmHelper _gsmHelper  ;       
@@ -173,7 +170,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             if (_stillInView)                            
                             Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
                             {
-                                _exceptionDialog = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Echec de COM", "check the gsm device ... "));
+                                var exceptionDialog = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Echec de COM", "check the gsm device ... "));
                             }));
                             IsSimActive = false;
                         }                        
@@ -223,7 +220,6 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, ApplySmsTemplateToSelectedRdv());
-
                     }));
             }
         }
