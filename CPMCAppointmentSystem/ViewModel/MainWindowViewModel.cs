@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
@@ -247,6 +248,33 @@ namespace CPMCAppointmentSystem.ViewModel
             Application.Current.Dispatcher.BeginInvoke(new Action(() => NotificationsCollection = new ObservableCollection<Notification>(notifications)));
 
             // MessageBox.Show(notifications.Count.ToString(), notifications.Count > 0 ? notifications[0].NotificationTitle : "");
+        }
+        private RelayCommand<object> _saveNewPasswordCommand;
+        public RelayCommand<object> SaveNewPasswordCommand
+        {
+            get
+            {
+                return _saveNewPasswordCommand
+                    ?? (_saveNewPasswordCommand = new RelayCommand<object>(
+                    (pass) =>
+                    {                        
+                        var pBox=pass as PasswordBox;
+                        if (pBox == null || CurrentUser==null) return;
+                        using (var context=new CpmcContext())
+                        {
+                            var user = context.Users.Find(CurrentUser.UserId);
+                            if (user!=null)
+                            {
+                                user.UserPass = pBox.Password;
+                                context.SaveChanges();
+                            }
+                            
+                        }
+                       
+
+                        
+                    }));
+            }
         }
         #endregion
         #region Ctors and Methods

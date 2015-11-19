@@ -129,7 +129,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button IsEnabled="False" x:Name="BtnSave" Margin="5" ToolTip="Enregistrer" Grid.Column="0" HorizontalAlignment="Stretch" >
+                                    <Button IsEnabled="False" x:Name="BtnSave" Margin="5" ToolTip="Enregistrer" Grid.Column="0" HorizontalAlignment="Stretch" Command="{Binding SaveNewPasswordCommand}"  CommandParameter="{Binding ElementName=PbUser}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource SavePath}" Fill="White" Width="7" Height="7" Stretch="Uniform"/>
                                             <TextBlock Text="Enregistrer" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2"/>
