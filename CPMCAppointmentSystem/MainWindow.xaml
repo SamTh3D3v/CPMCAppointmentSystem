@@ -126,19 +126,28 @@
                                 </PasswordBox>
                                 <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Button IsEnabled="False" x:Name="BtnSave" Margin="5" ToolTip="Enregistrer" Grid.Column="0" HorizontalAlignment="Stretch" Command="{Binding SaveNewPasswordCommand}"  CommandParameter="{Binding ElementName=PbUser}">
+                                    <Button IsEnabled="False" x:Name="BtnSave" Margin="5" ToolTip="Enregistrer"
+                                            Grid.Column="0" HorizontalAlignment="Stretch"
+                                            Command="{Binding SaveNewPasswordCommand}" Click="BtnSave_OnClick"
+                                            CommandParameter="{Binding ElementName=PbUser}">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource SavePath}" Fill="White" Width="7" Height="7" Stretch="Uniform"/>
-                                            <TextBlock Text="Enregistrer" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2"/>
+                                            <Path Data="{StaticResource SavePath}" Fill="White" Width="7" Height="7"
+                                                  Stretch="Uniform" />
+                                            <TextBlock Text="Enregistrer" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center" Margin="2" />
                                         </StackPanel>
                                     </Button>
-                                    <Button x:Name="BtnCancel" Click="BtnCancel_OnClick" Margin="5" Grid.Column="1" ToolTip="Annuler" HorizontalAlignment="Stretch">
+                                    <Button x:Name="BtnCancel" Click="BtnCancel_OnClick" Margin="5" Grid.Column="1"
+                                            ToolTip="Annuler" HorizontalAlignment="Stretch">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource CancelPath}" Fill="White" Width="7" Height="7" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform"/>
-                                            <TextBlock Text="Annuler" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2"/>                                           
+                                            <Path Data="{StaticResource CancelPath}" Fill="White" Width="7" Height="7"
+                                                  VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                  Stretch="Uniform" />
+                                            <TextBlock Text="Annuler" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center" Margin="2" />
                                         </StackPanel>
 
                                     </Button>

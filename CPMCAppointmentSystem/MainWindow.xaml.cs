@@ -32,9 +32,6 @@ namespace CPMCAppointmentSystem
             });
             #endregion
         }
-
-
-
         private void MainFrame_OnContentRendered(object sender, EventArgs e)
         {
             throw new NotImplementedException();
@@ -60,16 +57,20 @@ namespace CPMCAppointmentSystem
         private void UserPass_OnPasswordChanged(object sender, RoutedEventArgs e)
         {
             if (!String.IsNullOrEmpty(PbUser.Password) && PbUser.Password.Equals(PbUserConfirme.Password))
-                    BtnSave.IsEnabled = true;
-                else
-                    BtnSave.IsEnabled = false;
-            }
+                BtnSave.IsEnabled = true;
+            else
+                BtnSave.IsEnabled = false;
+        }
 
         private void BtnCancel_OnClick(object sender, RoutedEventArgs e)
         {
             PbUser.Clear();
             PbUserConfirme.Clear();
         }
-    
+
+        private void BtnSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            CurrentUserFlyout.IsOpen = false;
+        }
     }
 }
