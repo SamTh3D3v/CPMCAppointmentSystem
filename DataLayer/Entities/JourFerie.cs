@@ -8,12 +8,13 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Annotations;
+using Syncfusion.UI.Xaml.Schedule;
 
 namespace DataLayer.Model
 {
     
     [Table("JourFerie")]
-    public class JourFerie:INotifyPropertyChanged,IDataErrorInfo
+    public class JourFerie :ScheduleAppointment, INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
         
@@ -24,7 +25,6 @@ namespace DataLayer.Model
         private TypeJourFerie _typeJourFerie;
 
         #endregion
-
         #region Properties
 
         [Key]
@@ -45,8 +45,12 @@ namespace DataLayer.Model
             set
             {
                 if (value.Equals(_dateJourFerie)) return;
-                _dateJourFerie = value; 
+                _dateJourFerie = value;
+                this.StartTime = value;
+                this.EndTime = value + new TimeSpan(23, 59, 59);
+                this.AllDay = true;
                 OnPropertyChanged();
+                
             }
         }
         public String TitreJourFerie

@@ -70,6 +70,31 @@ namespace DataLayer.Model
             modelBuilder.Entity<RendezVous>().Ignore(r => r.Status);
             modelBuilder.Entity<RendezVous>().Ignore(r => r.Subject);
             
+            
+            
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.AppointmentBackground);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.AllDay);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.EndTime);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.EndTimeZone);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.IsRecursive);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.IsSelected);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.Location);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.Notes);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.ObjectID);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.ReadOnly);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.ReadOnlyVisibility);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.RecurrenceID);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.RecurrenceProperites);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.RecurrenceRule);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.ReminderTime);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.ResourceCollection);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.StartTime);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.StartTimeZone);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.Status);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.Subject);
+            modelBuilder.Entity<JourFerie>().Ignore(r => r.Dispatcher);
+
+            
             base.OnModelCreating(modelBuilder);
         }
 

@@ -9,6 +9,7 @@
       xmlns:helpers="clr-namespace:CPMCAppointmentSystem.Helpers"
       xmlns:appointementViews="clr-namespace:CPMCAppointmentSystem.View.AppointementViews"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:model="clr-namespace:DataLayer.Model;assembly=DataLayer"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1000"
 	Title="CalendarView" DataContext="{Binding Source={StaticResource Locator},Path=CalendarViewModel}">
@@ -48,7 +49,7 @@
         <Storyboard x:Key="BlinkAnimationStart" RepeatBehavior="Forever">
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
                 <EasingColorKeyFrame KeyTime="0" Value="White"/>
-                <EasingColorKeyFrame KeyTime="0:0:0.5" Value="DarkOrange"/>                
+                <EasingColorKeyFrame KeyTime="0:0:0.5" Value="DarkOrange"/>
             </ColorAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="BlinkAnimationStop">
@@ -57,7 +58,90 @@
                 <EasingColorKeyFrame KeyTime="0:0:0" Value="White"/>
             </ColorAnimationUsingKeyFrames>
         </Storyboard>
-    </Page.Resources>  
+        <DataTemplate x:Key="DefaultRdvDataTemplate" DataType="{x:Type model:RendezVous}">
+            <Grid x:Name="GridRdv">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="White" x:Name="BorderRdv">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderThickness" Value="0"></Setter>
+                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Blink}" Value="True">
+                                    <Setter Property="BorderThickness" Value="3"></Setter>
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource BlinkAnimationStart}"/>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource BlinkAnimationStop}"/>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=GridRdv,Path=DataContext,Converter={StaticResource GetTypeConverter}}" Value="{x:Type model:RendezVous}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Grid>
+                        <Rectangle  Fill="{Binding Status.Brush}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="35" Width="35">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Status.Status}" Value="Boy">
+                                                <Setter Property="Source" Value="{DynamicResource BoyDark}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status.Status}" Value="Girl">
+                                                <Setter Property="Source" Value="{DynamicResource GirlDark}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status.Status}" Value="Man">
+                                                <Setter Property="Source" Value="{DynamicResource ManDark}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status.Status}" Value="Woman">
+                                                <Setter Property="Source" Value="{DynamicResource WomanDark}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <TextBlock Text="{Binding Patient.NumeroDordre}"   Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
+                            <TextBlock Text="{Binding Patient.Nom}"  Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Normal" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
+                        </Grid>
+                    </Grid>
+
+                </Border>
+                <Border x:Name="BorderRestDay" Grid.Row="1" Background="Red" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=GridRdv,Path=DataContext,Converter={StaticResource GetTypeConverter}}" Value="{x:Type model:JourFerie}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+            </Grid>
+
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type model:JourFerie}" x:Key="RestDayDataTemplate">
+
+        </DataTemplate>
+        <helpers:RdvDataTemplateSelector x:Key="TemplateSelector"
+              DefaultRdvDataTemplate="{StaticResource DefaultRdvDataTemplate}"
+              RestDayDataTemplate="{StaticResource RestDayDataTemplate}" 
+              />
+    </Page.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=CalendarViewLoadedCommand}"
@@ -77,7 +161,7 @@
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderThickness="1">
                 <Grid  syncfusion:DockingManager.State="Document"  
                    syncfusion:DockingManager.Header="Docking Manager" >
-                    <syncfusion:SfSchedule  MouseLeave="Schedule_OnMouseLeave" ContextMenuOpening="Schedule_OnContextMenuOpening" ShowAppointmentNavigationButtons="True"  ScheduleClick="Schedule_OnScheduleClick"  
+                    <syncfusion:SfSchedule MouseLeave="Schedule_OnMouseLeave" ContextMenuOpening="Schedule_OnContextMenuOpening" ShowAppointmentNavigationButtons="True"  ScheduleClick="Schedule_OnScheduleClick"  
                                            x:Name="Schedule"  Appointments="{Binding PatientsScheduleAppointmentCollection,Mode=TwoWay}"
                                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="True" Margin="5" ShowAllDay="True"   
                                    ScheduleType="{Binding SelectedScheduleType,Mode=TwoWay}" EnableTouch="False"   TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening">
@@ -124,57 +208,98 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <syncfusion:SfSchedule.AppointmentTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="White">
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Setter Property="BorderThickness" Value="0"></Setter>                                            
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Blink}" Value="True">
-                                                    <Setter Property="BorderThickness" Value="3"></Setter>
-                                                    <DataTrigger.EnterActions>
-                                                        <BeginStoryboard Storyboard="{StaticResource BlinkAnimationStart}"/>
-                                                    </DataTrigger.EnterActions>
-                                                    <DataTrigger.ExitActions>
-                                                        <BeginStoryboard Storyboard="{StaticResource BlinkAnimationStop}"/>
-                                                    </DataTrigger.ExitActions>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                    <Grid>
-                                        <Rectangle  Fill="{Binding Status.Brush}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                            <DataTemplate >
+                                <Grid x:Name="GridRdv">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Border BorderBrush="White" x:Name="BorderRdv">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="BorderThickness" Value="0"></Setter>
+                                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Blink}" Value="True">
+                                                        <Setter Property="BorderThickness" Value="3"></Setter>
+                                                        <DataTrigger.EnterActions>
+                                                            <BeginStoryboard Storyboard="{StaticResource BlinkAnimationStart}"/>
+                                                        </DataTrigger.EnterActions>
+                                                        <DataTrigger.ExitActions>
+                                                            <BeginStoryboard Storyboard="{StaticResource BlinkAnimationStop}"/>
+                                                        </DataTrigger.ExitActions>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=GridRdv,Path=DataContext,Converter={StaticResource GetTypeConverter}}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid>
+                                            <Rectangle  Fill="{Binding Status.Brush}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="35"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Image Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="35" Width="35">
+                                                    <Image.Style>
+                                                        <Style TargetType="Image">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status.Status}" Value="Boy">
+                                                                    <Setter Property="Source" Value="{DynamicResource BoyDark}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status.Status}" Value="Girl">
+                                                                    <Setter Property="Source" Value="{DynamicResource GirlDark}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status.Status}" Value="Man">
+                                                                    <Setter Property="Source" Value="{DynamicResource ManDark}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status.Status}" Value="Woman">
+                                                                    <Setter Property="Source" Value="{DynamicResource WomanDark}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Image.Style>
+                                                </Image>
+                                                <TextBlock Text="{Binding Patient.NumeroDordre}"   Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
+                                                <TextBlock Text="{Binding Patient.Nom}"  Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Normal" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
+                                            </Grid>
+                                        </Grid>
+
+                                    </Border>
+                                    <Border x:Name="BorderRestDay" Grid.Row="1" Background="DodgerBlue"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+
+                                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=GridRdv,Path=DataContext,Converter={StaticResource GetTypeConverter}}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="35"/>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Image Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="35" Width="35">
-                                                <Image.Style>
-                                                    <Style TargetType="Image">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Status.Status}" Value="Boy">
-                                                                <Setter Property="Source" Value="{DynamicResource BoyDark}"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Status.Status}" Value="Girl">
-                                                                <Setter Property="Source" Value="{DynamicResource GirlDark}"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Status.Status}" Value="Man">
-                                                                <Setter Property="Source" Value="{DynamicResource ManDark}"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Status.Status}" Value="Woman">
-                                                                <Setter Property="Source" Value="{DynamicResource WomanDark}"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Image.Style>
-                                            </Image>
-                                            <TextBlock Text="{Binding Patient.NumeroDordre}"   Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
-                                            <TextBlock Text="{Binding Patient.Nom}"  Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Normal" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
-                                        </Grid>
-                                    </Grid>
-                                </Border>
+                                            <Path Data="{StaticResource RestDayPath}" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform" Fill="White" Width="32" Height="32" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                                <Path.RenderTransform>
+                                                    <TransformGroup>
+                                                        <TransformGroup.Children>
+                                                            <RotateTransform Angle="0" />
+                                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                        </TransformGroup.Children>
+                                                    </TransformGroup>
+                                                </Path.RenderTransform>
+                                            </Path>
+                                            <TextBlock Text="{Binding TitreJourFerie}"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Normal" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
+                                        </Grid>                                       
+                                    </Border>
+                                </Grid>
                             </DataTemplate>
                         </syncfusion:SfSchedule.AppointmentTemplate>
                     </syncfusion:SfSchedule>
@@ -424,7 +549,7 @@
                             </Grid.RowDefinitions>
                             <GroupBox>
                                 <GroupBox.Style>
-                                    <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}"> 
+                                    <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
                                         <Setter Property="IsEnabled" Value="True"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding ElementName=FilterByPatientCheckBox,Path=IsChecked}" Value="False">
@@ -460,11 +585,11 @@
                                                 <DataTrigger Binding="{Binding ElementName=CbTrancheDage, Path=IsChecked}" Value="False">
                                                     <Setter Property="IsEnabled" Value="False"/>
                                                 </DataTrigger>
-                                                
+
                                             </Style.Triggers>
                                         </Style>
                                     </Grid.Style>
-                                    <Grid.ColumnDefinitions>                                        
+                                    <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
@@ -472,7 +597,7 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>                                 
+                                    </Grid.RowDefinitions>
 
 
                                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Tranche d'âge" VerticalAlignment="Center"/>

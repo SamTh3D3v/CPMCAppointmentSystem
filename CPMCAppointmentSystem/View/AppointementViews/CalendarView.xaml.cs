@@ -21,6 +21,7 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         DateTime CurrentSelectedDate;
         public CalendarView()
         {
+           
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, (m) =>
             {
@@ -31,7 +32,7 @@ namespace CPMCAppointmentSystem.View.AppointementViews
                         break;
                 }
 
-            });            
+            });                     
         }
 
         private void HandleEsc(object sender, KeyEventArgs e)

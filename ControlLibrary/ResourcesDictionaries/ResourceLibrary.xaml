@@ -69,7 +69,8 @@
             <converters:FromArgbToColorConverter x:Key="FromArgbToColorConverter"/>
             <converters:RdvStateValueToBoolConverter x:Key="RdvStateValueToBoolConverter"/>
             <converters:IsFormEnabledToSelectedTabBackGround x:Key="IsFormEnabledToSelectedTabBackGround"/>
-            <converters:GridWidthToVisibilityConverter x:Key="GridWidthToVisibilityConverter"/>            
+            <converters:GridWidthToVisibilityConverter x:Key="GridWidthToVisibilityConverter"/>
+            <converters:GetTypeConverter x:Key="GetTypeConverter"/>            
         </ResourceDictionary>
 
 

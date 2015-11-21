@@ -69,6 +69,7 @@
     <Compile Include="Converters\DateJourFerieToNumberConverter.cs" />
     <Compile Include="Converters\FlagToIsCheckedConverter.cs" />
     <Compile Include="Converters\FromArgbToColorConverter.cs" />
+    <Compile Include="Converters\GetTypeConverter.cs" />
     <Compile Include="Converters\GridWidthToVisibilityConverter.cs" />
     <Compile Include="Converters\IsFormEnabledToSelectedTabBackGround.cs" />
     <Compile Include="Converters\RdvStateValueToBoolConverter.cs" />

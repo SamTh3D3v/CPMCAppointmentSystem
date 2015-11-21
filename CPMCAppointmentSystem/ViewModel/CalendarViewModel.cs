@@ -31,7 +31,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class CalendarViewModel : NavigableViewModelBase
     {
         #region Fields
-      
+        private ObservableCollection<JourFerie> _restDaysCollection;
         private bool _showSpesificDayDoctors =true ;               
         private bool _carteProFilterIsEnabled  ;             
         private bool _trancheDageIsChecked;
@@ -57,6 +57,24 @@ namespace CPMCAppointmentSystem.ViewModel
         private int _ageUpperValue;     
         #endregion
         #region Properties
+        public ObservableCollection<JourFerie> RestDaysCollection
+        {
+            get
+            {
+                return _restDaysCollection;
+            }
+
+            set
+            {
+                if (_restDaysCollection == value)
+                {
+                    return;
+                }
+
+                _restDaysCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool ShowSpesificDayDoctors
         {
             get
@@ -615,7 +633,17 @@ namespace CPMCAppointmentSystem.ViewModel
                         PatientsScheduleAppointmentCollection.Add(rdv); 
                 }      
             });
+            await LoadRestDays();
+            RestDaysCollection.ForEach(rd =>
+            {
+                PatientsScheduleAppointmentCollection.Add(rd); 
+            });
             RaisePropertyChanged("PatientsScheduleAppointmentCollection");
+        }
+
+        private async Task LoadRestDays()
+        {
+            RestDaysCollection=new ObservableCollection<JourFerie>(await Task.Run(()=>_dbContext.JourFeries));
         }
 
         private bool RespectTranchDageFilters(RendezVous rdv)
