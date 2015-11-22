@@ -211,7 +211,7 @@
                             <DataTemplate >
                                 <Grid x:Name="GridRdv">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>                                        
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <Border BorderBrush="White" x:Name="BorderRdv">
@@ -269,7 +269,7 @@
                                         </Grid>
 
                                     </Border>
-                                    <Border x:Name="BorderRestDay" Grid.Row="1" Background="DodgerBlue"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Border x:Name="BorderRestDay" Grid.Row="1" Background="DodgerBlue" IsHitTestVisible="False"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                         <Border.Style>
                                             <Style TargetType="Border">
 
@@ -296,7 +296,7 @@
                                                     </TransformGroup>
                                                 </Path.RenderTransform>
                                             </Path>
-                                            <TextBlock Text="{Binding TitreJourFerie}"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Normal" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
+                                            <TextBlock Text="{Binding TitreJourFerie}"   Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13" Foreground="White" FontWeight="Normal" FontFamily="Segoe UI" TextWrapping="NoWrap"/>
                                         </Grid>                                       
                                     </Border>
                                 </Grid>

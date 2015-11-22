@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -723,6 +724,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_scheduleOnAppointmentEditorOpeningCommand = new RelayCommand<object>(
                     (obj) =>
                     {
+                        var d = SelectedDateInScedule.Date;
+                        if (RestDaysCollection.Any(r => r.DateJourFerie == d)) return;
                         _addAppointementView = new AddAppointementView();
 
                         var sfSchedule = obj as SfSchedule;
