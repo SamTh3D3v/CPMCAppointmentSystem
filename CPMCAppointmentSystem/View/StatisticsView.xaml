@@ -19,10 +19,20 @@
 
     <Grid>
         <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderThickness="1">
-            <syncfusion:DockingManager  IsEnableHotTracking="True"  syncfusion:SkinStorage.VisualStyle="Metro"
-                                   ContainerMode="TDI" PersistState="false" UseDocumentContainer="True">
-                <ListBox  BorderThickness="0" ItemsSource="{Binding ChartTileCollection}" Width="auto"
-                          
+            <syncfusion:DockingManager   IsEnableHotTracking="True"  syncfusion:SkinStorage.VisualStyle="Metro"
+                                    PersistState="false" 
+                                         
+                                         UseDocumentContainer="False"
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         >
+                <ListBox  BorderThickness="0" ItemsSource="{Binding ChartTileCollection}" Width="auto" 
+                          syncfusion:DockingManager.CanClose="False" 
                              syncfusion:DockingManager.SideInDockedMode="Left" 
                              syncfusion:DockingManager.State="Dock" 
                              syncfusion:DockingManager.DesiredWidthInDockedMode="200"  
@@ -38,7 +48,8 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Grid  syncfusion:DockingManager.State="Document" >
+                <syncfusion:DockingManager.ClientControl>
+                    <Grid >
                     <syncfusion:TileViewControl x:Name="TileViewCtl" ItemsSource="{Binding ChartTileCollection}" 
                                     MinimizedItemsPercentage="0" ClipToBounds="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ItemContainerStyle="{StaticResource tileitemstyle}">
                         <syncfusion:TileViewControl.ItemTemplate>
@@ -54,6 +65,7 @@
 
                     </syncfusion:TileViewControl>
                 </Grid>
+                </syncfusion:DockingManager.ClientControl>
             </syncfusion:DockingManager>
         </Border>
     </Grid>

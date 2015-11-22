@@ -18,7 +18,6 @@ namespace CPMCAppointmentSystem.ViewModel
         #endregion
         #region Properties
        
-
         private ObservableCollection<ChartTile> _chartTileCollection ;   
         public ObservableCollection<ChartTile> ChartTileCollection
         {
