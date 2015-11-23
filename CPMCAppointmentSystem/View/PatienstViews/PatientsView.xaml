@@ -617,6 +617,7 @@
                                                                 <sys:Boolean>False</sys:Boolean>
                                                             </Condition.Value>
                                                         </Condition>
+                                                        <Condition Binding="{Binding DataContext.SelectedPatient.Dead,ElementName=RootGrid}" Value="false"/>
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter Property="IsEnabled" Value="True"/>
                                                 </MultiDataTrigger>
