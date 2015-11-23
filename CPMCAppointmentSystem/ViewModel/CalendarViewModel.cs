@@ -636,7 +636,7 @@ namespace CPMCAppointmentSystem.ViewModel
             });
             await LoadRestDays();
             RestDaysCollection.ForEach(rd =>
-            {
+            {                
                 PatientsScheduleAppointmentCollection.Add(rd); 
             });
             RaisePropertyChanged("PatientsScheduleAppointmentCollection");

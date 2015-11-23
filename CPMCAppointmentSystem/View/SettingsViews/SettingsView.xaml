@@ -986,12 +986,12 @@
                                                     <syncfusion:GridTemplateColumn HeaderText="Date" MappingName="DateJourFerie" AllowEditing="True">
                                                         <syncfusion:GridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
-                                                                <TextBlock Text="{Binding DateJourFerie,StringFormat=d}"/>
+                                                                <TextBlock Text="{Binding DateJourFerie,StringFormat='{}{0:dd/MM/yyyy}'}"/>
                                                             </DataTemplate>
                                                         </syncfusion:GridTemplateColumn.CellTemplate>
                                                         <syncfusion:GridTemplateColumn.EditTemplate>
                                                             <DataTemplate>
-                                                                <syncfusion:DateTimeEdit DateTime="{Binding DateJourFerie,Mode=TwoWay,StringFormat=d}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                                                <syncfusion:DateTimeEdit DateTime="{Binding DateJourFerie,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}'}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                                             </DataTemplate>
                                                         </syncfusion:GridTemplateColumn.EditTemplate>
                                                     </syncfusion:GridTemplateColumn>
@@ -1028,12 +1028,12 @@
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
+                                            </Grid.RowDefinitions>                                            
+                                            <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                                   AddNewRowPosition="Top" AllowDeleting="True" 
                                                        AutoGenerateColumns="False"
                                                                EditTrigger="OnTap"
-                                              LiveDataUpdateMode="AllowDataShaping"
-                                                                   
+                                              LiveDataUpdateMode="AllowDataShaping"                                                                   
                                                ShowRowHeader="True"
                                             AllowDraggingColumns="True"
                                              AllowEditing="True"
