@@ -142,7 +142,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock  Margin="5" Text="Qui travail : " Grid.Column="0" FontWeight="DemiBold" Foreground="White" />
-                            <RadioButton IsChecked="{Binding ShowSpesificDayDoctors,Mode=TwoWay}"  GroupName="DtrDays" Margin="5"  Content="{Binding SelectedRdv.DateTimeRdv.DayOfWeek,ConverterCulture='Fr-fr' }" HorizontalAlignment="Center" Foreground="White" Grid.Column="1" >
+                            <RadioButton IsChecked="{Binding ShowSpesificDayDoctors,Mode=TwoWay}"  GroupName="DtrDays" Margin="5"  Content="{Binding SelectedAppointement.DateTimeRdv.DayOfWeek,ConverterCulture='Fr-fr' }" HorizontalAlignment="Center" Foreground="White" Grid.Column="1" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Checked">
                                         <command:EventToCommand Command="{Binding Mode=OneWay, Path=DtrDaysSelectionChangedCommand}"

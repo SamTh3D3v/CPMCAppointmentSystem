@@ -27,7 +27,8 @@ namespace CPMCAppointmentSystem.ViewModel
 {
     public class PatientsViewModel : NavigableViewModelBase
     {
-        #region Fields        
+        #region Fields   
+        private bool _showSpesificDayDoctors = true;     
         private SearchService<Patient> _searchService;
         private bool _isDateDepotFilterApplied;
         private DateTime _dateDepotFilterDateTime = DateTime.Now;
@@ -55,7 +56,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _reportPath;
         private PreviewReportView _previewReportView;
         #endregion
-        #region Properties         
+        #region Properties 
+        public bool ShowSpesificDayDoctors
+        {
+            get
+            {
+                return _showSpesificDayDoctors;
+            }
+
+            set
+            {
+                if (_showSpesificDayDoctors == value)
+                {
+                    return;
+                }
+
+                _showSpesificDayDoctors = value;
+                RaisePropertyChanged();
+            }
+        }
         public SearchService<Patient> SearchService
         {
             get
@@ -420,6 +439,18 @@ namespace CPMCAppointmentSystem.ViewModel
 
         #endregion
         #region Commands
+        private RelayCommand _dtrDaysSelectionChangedCommand;
+        public RelayCommand DtrDaysSelectionChangedCommand
+        {
+            get
+            {
+                return _dtrDaysSelectionChangedCommand
+                    ?? (_dtrDaysSelectionChangedCommand = new RelayCommand(async () =>
+                    {
+                        await LoadDoctorsList();
+                    }));
+            }
+        }
         private RelayCommand _selectedDateFilterChangedCommand;
         public RelayCommand SelectedDateFilterChangedCommand
         {
@@ -765,6 +796,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             Patient = SelectedPatient
                         };
+                        await LoadDoctorsList();
                         _addAppointementWindow = new AddPatientAppointment();
                         _addAppointementWindow.ShowDialog();
 
@@ -1211,7 +1243,10 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private async Task LoadDoctorsList()
         {
-            DoctorsList = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
+            Days day=Days.None;
+            if(SelectedAppointement!=null)
+            day = (Days)Math.Pow(2, (((double)(SelectedAppointement.DateTimeRdv.DayOfWeek)) + 1) % 7);                         
+            DoctorsList = ShowSpesificDayDoctors ? new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins.Where(m => m.JoursDeTravail.HasFlag(day)))) : new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
         }
         private async Task LoadPatienstList()
         {
