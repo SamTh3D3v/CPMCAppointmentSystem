@@ -512,8 +512,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         ReportPath = App.RecuDeDepotReport;
-                        _previewReportView = new PreviewReportView();
-                        Messenger.Default.Send<Patient>(SelectedPatient);
+                        _previewReportView = new PreviewReportView(SelectedPatient);
+                        //Messenger.Default.Send<Patient>(SelectedPatient);
                         _previewReportView.ShowDialog();
 
                     }));
@@ -543,8 +543,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         if (SelectedAppointement==null) return;                       
                         ReportPath = App.RendezVousReport;
-                        _previewReportView = new PreviewReportView();
-                        Messenger.Default.Send<RendezVous>(SelectedAppointement);
+                        _previewReportView = new PreviewReportView(SelectedAppointement);
+                        //Messenger.Default.Send<RendezVous>(SelectedAppointement);
                         _previewReportView.ShowDialog();
 
                     }));

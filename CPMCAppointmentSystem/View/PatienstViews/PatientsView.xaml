@@ -896,7 +896,7 @@
                             </DataTemplate>
                         </Syncfusion:TabItemExt.HeaderTemplate>
                         <Syncfusion:TabItemExt.Content>
-                            <Grid IsEnabled="{Binding DataContext.SelectedPatient.RendezVouses,ElementName=RootGrid,Converter={StaticResource RdvCollectionToCanPrintConverter}}">
+                            <Grid >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="10"/>
@@ -936,7 +936,7 @@
 
                                     </Grid>
                                 </GroupBox>
-                                <GroupBox Header="Rendez vous" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+                                <GroupBox Header="Rendez vous" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="{Binding DataContext.SelectedPatient.RendezVouses,ElementName=RootGrid,Converter={StaticResource RdvCollectionToCanPrintConverter}}">
                                     <Grid>
                                         <Grid.ColumnDefinitions >
                                             <ColumnDefinition Width="*"/>
