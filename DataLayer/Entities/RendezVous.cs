@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -208,6 +209,14 @@ namespace DataLayer.Model
                 {
                     if (string.IsNullOrEmpty(LieuRdv))
                         result = "Spesifiez le lieu du rendez vous";
+                }
+                if (columnName == "DateTimeRdv")
+                {
+                    var da = DateTimeRdv.Date; 
+                    var context=new CpmcContext();
+                    if (context.JourFeries.Where(jf => jf.DateJourFerie.Day==da.Day && jf.DateJourFerie.Month==da.Month 
+                        &&(jf.TypeJourFerie==TypeJourFerie.Ocas && jf.DateJourFerie.Year==da.Year || jf.TypeJourFerie==TypeJourFerie.Fix)).Any())
+                        result = "ceci est un jour ferié";
                 }
                 if (columnName == "CodePathology")
                 {
