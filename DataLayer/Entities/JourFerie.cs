@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using DataLayer.Annotations;
 using Syncfusion.UI.Xaml.Schedule;
 
@@ -86,6 +87,8 @@ namespace DataLayer.Model
                 {
                     RecurrenceRule = "FREQ=YEARLY;COUNT=3;BYMONTHDAY=" + (StartTime.Day).ToString() + ";BYMONTH=" + (StartTime.Month).ToString() + "";
                     IsRecursive = true;
+                    AllDay = true;                    
+                    
                 }
             }
         }
