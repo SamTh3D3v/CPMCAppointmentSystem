@@ -21,6 +21,7 @@ namespace DataLayer.Model
         private ObservableCollection<Pathology> _pathologies;
         private ObservableCollection<Patient> _patients;
         private ObservableCollection<Specialite> _specialities;
+        private ObservableCollection<RendezVous> _rendezVouses;
         private byte[] _profilePicture;
         //private Specialite _specialitePrincipale;
         private User _user;
@@ -136,6 +137,17 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
+        public virtual ObservableCollection<RendezVous> RendezVouses
+        {
+            get { return _rendezVouses; }
+            set
+            {
+                if (Equals(value, _rendezVouses)) return;
+                _rendezVouses = value;
+                OnPropertyChanged();
+            }
+        }
+
         public byte[] ProfilePicture
         {
             get { return _profilePicture; }

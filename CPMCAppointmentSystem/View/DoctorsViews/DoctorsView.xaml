@@ -564,16 +564,17 @@
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding SelectedDoctor.Patients}"
-                                   SelectedItem="{Binding SelectedPatientInDoctorView,Mode=TwoWay}"
+                                                       AutoGenerateColumns="False"
+                                       ItemsSource="{Binding SelectedDoctor.RendezVouses}"
+                                   
                                        ShowGroupDropArea="True" >
                                     <syncfusion:SfDataGrid.Columns>
-                                        <syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Nom" AllowEditing="False"/>
-                                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Prenom" AllowEditing="False"/>
-                                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="TelephoneMobile" AllowEditing="False"/>
-                                        <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation" AllowEditing="False"/>
-                                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" AllowEditing="False"/>
-                                        <syncfusion:GridTextColumn HeaderText="Pathology" MappingName="Pathology.NomPathology" AllowEditing="False"/>                                        
+                                        <syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Patient.Nom" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Patient.Prenom" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Patient.TelephoneMobile" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Patient.Sexe.Designation" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="Patient.TelephoneMobile" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Pathology" MappingName="Patient.Pathology.NomPathology" AllowEditing="False"/>                                        
                                     </syncfusion:SfDataGrid.Columns>
 
                                 </syncfusion:SfDataGrid>
