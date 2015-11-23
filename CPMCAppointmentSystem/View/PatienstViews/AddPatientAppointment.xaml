@@ -24,13 +24,55 @@
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Row="0">
-            <Grid  Margin="10">
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Grid.Row="0" Width="75" Height="75" Background="#ffeef0ef">
+                <Path Data="{StaticResource RdvPath}" Fill="#ff7c7c7c" Width="50" Height="50" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center"  ></Path>
+            </Border>
+            <controls:ToggleSwitch VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding SelectedAppointement.RdvStateValue,Converter={StaticResource RdvStateValueToBoolConverter},Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0"  OnLabel="Activer le rendez-vous" OffLabel="Annuler le rendez-vous">
+                <controls:ToggleSwitch.Style>
+                    <Style TargetType="controls:ToggleSwitch">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition>
+                                        <Condition.Binding>
+                                            <Binding Path="SelectedAppointement.RendezVousId" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:Guid.Empty}"/>
+                                        </Condition.Binding>
+                                        <Condition.Value>
+                                            <system:Boolean>False</system:Boolean>
+                                        </Condition.Value>
+                                    </Condition>
+                                    <Condition>
+                                        <Condition.Binding>
+                                            <Binding Path="SelectedAppointement.RdvStateValue" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static enums:RdvState.Passed}"/>
+                                        </Condition.Binding>
+                                        <Condition.Value>
+                                            <system:Boolean>False</system:Boolean>
+                                        </Condition.Value>
+                                    </Condition>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:ToggleSwitch.Style>
+            </controls:ToggleSwitch>
+        </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10" Grid.Row="1">
+            <Grid >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -45,40 +87,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Border Grid.Column="0" Grid.Row="0" Width="75" Height="75" Background="#ffeef0ef">
-                    <Path Data="{StaticResource RdvPath}" Fill="#ff7c7c7c" Width="50" Height="50" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center"  ></Path>
-                </Border>
-                <controls:ToggleSwitch VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding SelectedAppointement.RdvStateValue,Converter={StaticResource RdvStateValueToBoolConverter},Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0"  OnLabel="Activer le rendez-vous" OffLabel="Annuler le rendez-vous">
-                    <controls:ToggleSwitch.Style>
-                        <Style TargetType="controls:ToggleSwitch">
-                            <Setter Property="IsEnabled" Value="False"/>
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>                                                                              
-                                        <Condition>
-                                            <Condition.Binding>
-                                                <Binding Path="SelectedAppointement.RendezVousId" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:Guid.Empty}"/>
-                                            </Condition.Binding>
-                                            <Condition.Value>
-                                                <system:Boolean>False</system:Boolean>
-                                            </Condition.Value>
-                                        </Condition>
-                                        <Condition>
-                                            <Condition.Binding>
-                                                <Binding Path="SelectedAppointement.RdvStateValue" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static enums:RdvState.Passed}"/>
-                                            </Condition.Binding>
-                                            <Condition.Value>
-                                                <system:Boolean>False</system:Boolean>
-                                            </Condition.Value>
-                                        </Condition>
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="IsEnabled" Value="True"/>
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </controls:ToggleSwitch.Style>
-                </controls:ToggleSwitch>
-
+              
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <syncfusion:SfMaskedEdit IsEnabled="False" Grid.Column="1" Text="{Binding SelectedPatient.NumeroDordre,Mode=TwoWay}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
@@ -119,15 +128,44 @@
                                      Watermark="selectionnez un medecin"  
                                      />
 
-                <Expander MaxHeight="150" Name="ExpMed" Header="Sélectionner un medecin" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-                        <syncfusion:SfDataGrid  Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke"
+                <Expander Name="ExpMed" Header="Sélectionner un medecin" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Background="Gray" Margin="0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Margin="5" Text="Qui travail : " Grid.Column="0" FontWeight="DemiBold" Foreground="White" />
+                            <RadioButton IsChecked="{Binding ShowSpesificDayDoctors,Mode=TwoWay}"  GroupName="DtrDays" Margin="5"  Content="{Binding SelectedRdv.DateTimeRdv.DayOfWeek,ConverterCulture='Fr-fr' }" HorizontalAlignment="Center" Foreground="White" Grid.Column="1" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=DtrDaysSelectionChangedCommand}"
+                            PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </RadioButton>
+                            <RadioButton  GroupName="DtrDays" Margin="5" Content="Tous les jours" Grid.Column="2" Foreground="White" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=DtrDaysSelectionChangedCommand}"
+                            PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </RadioButton>
+                        </Grid>
+                        <syncfusion:SfDataGrid Grid.Row="1"  Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke"
                                        AllowDraggingColumns="True"
                                                ColumnSizer="Star"
                                        AllowEditing="False"                                               
                                        AllowFiltering="True"
-                                       AllowGrouping="True"                                   
-                                       ItemsSource="{Binding DoctorsList}"
+                                       AllowGrouping="True" 
+                                               ItemsSource="{Binding ElementName=DoctorDataPager,Path=PagedSource}"                                       
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedAppointement.Medecin,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
@@ -138,11 +176,22 @@
                                 <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
                             </syncfusion:SfDataGrid.Columns>
                         </syncfusion:SfDataGrid>
+                        <syncfusion:SfDataPager x:Name="DoctorDataPager"
+                                       Grid.Row="2"                                       
+                                       
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"
+                                       AccentBackground="#FF53C3D5"
+                                       AccentForeground="White"
+                                       NumericButtonCount="10"
+                                       Orientation="Horizontal"
+                                       PageSize="16"
+                                       Source="{Binding DoctorsList,Mode=TwoWay}" />
                     </Grid>
                 </Expander>
             </Grid>
         </ScrollViewer>
-        <Grid Grid.Row="1" Grid.Column="0"  Margin="5" VerticalAlignment="Bottom" IsEnabled="{Binding ConnectedUser.RolesCollection.PatientsEditAppointementAllow}">
+        <Grid Grid.Row="2" Grid.Column="0"  Margin="5" VerticalAlignment="Bottom" IsEnabled="{Binding ConnectedUser.RolesCollection.PatientsEditAppointementAllow}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

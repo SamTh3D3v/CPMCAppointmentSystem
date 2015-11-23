@@ -230,7 +230,7 @@
                         </syncfusion:SfDataGrid>
                         <syncfusion:SfDataPager x:Name="DoctorDataPager"
                                        Grid.Row="2"                                       
-                                       Height="60"
+                                       
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"
                                        AccentBackground="#FF53C3D5"
