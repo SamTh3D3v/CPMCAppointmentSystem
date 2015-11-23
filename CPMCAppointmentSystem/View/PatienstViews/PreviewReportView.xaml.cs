@@ -31,12 +31,7 @@ namespace CPMCAppointmentSystem.View.PatienstViews
                 };
                 ReportPreviewer.SetParameters(parms);
             }
-            // ReportPreviewer.RefreshReport();                                                                                                         
-
-            //});
-            //Messenger.Default.Register<RendezVous>(this, (r) =>
-            //{
-
+          
             if (obj.GetType().Name.StartsWith("RendezVous"))
             {
                 ReportParameter[] parms = new ReportParameter[6];
@@ -78,8 +73,7 @@ namespace CPMCAppointmentSystem.View.PatienstViews
 
                 };
                 ReportPreviewer.SetParameters(parms);
-            }
-            //});           
+            }                
         }
     }
 }

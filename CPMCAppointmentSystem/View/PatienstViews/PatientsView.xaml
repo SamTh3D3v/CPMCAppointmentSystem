@@ -681,6 +681,18 @@
                                           Stretch="Fill" />
                                                 </MenuItem.Icon>
                                             </MenuItem>
+
+                                            <MenuItem VerticalAlignment="Center" VerticalContentAlignment="Center" Header="Imprimer Rendez-Vous" Command="{Binding Path=PatientsViewModel.PrintSelectedRdvCommand,Source={StaticResource Locator}}">                                               
+                                                <MenuItem.Icon>
+                                                    <Path Width="20"
+                                          Height="20"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="{StaticResource PrintPath}"
+                                          Fill="#FF5A5A5B"
+                                          Stretch="Fill" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
                                         </ContextMenu>
                                     </Syncfusion:SfDataGrid.RecordContextMenu>
                                 </Syncfusion:SfDataGrid>

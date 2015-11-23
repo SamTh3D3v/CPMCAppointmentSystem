@@ -512,8 +512,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         ReportPath = App.RecuDeDepotReport;
-                        _previewReportView = new PreviewReportView(SelectedPatient);
-                        //Messenger.Default.Send<Patient>(SelectedPatient);
+                        _previewReportView = new PreviewReportView(SelectedPatient);                        
                         _previewReportView.ShowDialog();
 
                     }));
@@ -541,10 +540,27 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_previewRdvCommand = new RelayCommand(
                     () =>
                     {
+                        var rdv = SelectedPatient.RendezVouses.First(r => r.RdvStateValue == RdvState.NotYet);
+                        if (rdv==null) return;                       
+                        ReportPath = App.RendezVousReport;
+                        _previewReportView = new PreviewReportView(rdv);                        
+                        _previewReportView.ShowDialog();
+
+                    }));
+            }
+        }
+        private RelayCommand _printSelectedRdvCommand;
+        public RelayCommand PrintSelectedRdvCommand
+        {
+            get
+            {
+                return _printSelectedRdvCommand
+                    ?? (_printSelectedRdvCommand = new RelayCommand(
+                    () =>
+                    {                        
                         if (SelectedAppointement==null) return;                       
                         ReportPath = App.RendezVousReport;
-                        _previewReportView = new PreviewReportView(SelectedAppointement);
-                        //Messenger.Default.Send<RendezVous>(SelectedAppointement);
+                        _previewReportView = new PreviewReportView(SelectedAppointement);                        
                         _previewReportView.ShowDialog();
 
                     }));
