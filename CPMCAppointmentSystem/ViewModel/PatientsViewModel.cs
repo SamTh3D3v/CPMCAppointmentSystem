@@ -17,8 +17,11 @@ using DataLayer.Enums;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Syncfusion.Data.Extensions;
 using Syncfusion.Windows.Reports;
+using Application = System.Windows.Application;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -745,14 +748,19 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _addAppointementCommand
-                    ?? (_addAppointementCommand = new RelayCommand(
-                    () =>
-                    {
-                        //If a New Patient, First add him
+                    ?? (_addAppointementCommand = new RelayCommand(async () =>
+                    {                        
                         if (SelectedPatient.PatientId == Guid.Empty)
                         {
                             AddNewPatient();
                         }
+
+                        if (SelectedPatient.RendezVouses.Any(r=>r.RdvStateValue==RdvState.NotYet))
+                        {
+                             await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(ErrorMessages.AlreadyExistingRdvHeader, ErrorMessages.AlreadyExistingRdvMessage));
+                            return;
+                        }
+
                         SelectedAppointement = new RendezVous()
                         {
                             Patient = SelectedPatient

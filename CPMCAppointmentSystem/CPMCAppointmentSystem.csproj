@@ -233,6 +233,7 @@
     <Compile Include="Helpers\CustomPrincipal.cs" />
     <Compile Include="Helpers\DisableNavigation.cs" />
     <Compile Include="Helpers\DragableProperty.cs" />
+    <Compile Include="Helpers\ErrorMessages.cs" />
     <Compile Include="Helpers\FrameNavigationService.cs" />
     <Compile Include="Helpers\GsmHelper.cs" />
     <Compile Include="Helpers\IFrameNavigationService.cs" />
