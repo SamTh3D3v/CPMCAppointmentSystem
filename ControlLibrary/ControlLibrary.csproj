@@ -37,6 +37,14 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="Syncfusion.Chart.WPF.SampleLayout, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.Chart.WPF.SampleLayout.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfChart.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.SfGrid.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfGrid.WPF.dll</HintPath>
@@ -45,6 +53,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfInput.WPF.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.SfSchedule.WPF, Version=13.3451.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.SfShared.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfShared.WPF.dll</HintPath>
@@ -64,14 +73,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChartModel\PatientPerSexeModel.cs" />
     <Compile Include="Converters\BooleanOrConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ColorConverter.cs" />
     <Compile Include="Converters\DateJourFerieToNumberConverter.cs" />
     <Compile Include="Converters\FlagToIsCheckedConverter.cs" />
     <Compile Include="Converters\FromArgbToColorConverter.cs" />
     <Compile Include="Converters\GetTypeConverter.cs" />
     <Compile Include="Converters\GridWidthToVisibilityConverter.cs" />
     <Compile Include="Converters\IsFormEnabledToSelectedTabBackGround.cs" />
+    <Compile Include="Converters\LabelConverter.cs" />
+    <Compile Include="Converters\RdvCollectionToCanPrintConverter.cs" />
     <Compile Include="Converters\RdvStateValueToBoolConverter.cs" />
     <Compile Include="Converters\SelecteImageConverter.cs" />
     <Compile Include="Converters\ValueToEqualsParameterConverter.cs" />

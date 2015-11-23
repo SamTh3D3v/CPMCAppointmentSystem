@@ -70,7 +70,10 @@
             <converters:RdvStateValueToBoolConverter x:Key="RdvStateValueToBoolConverter"/>
             <converters:IsFormEnabledToSelectedTabBackGround x:Key="IsFormEnabledToSelectedTabBackGround"/>
             <converters:GridWidthToVisibilityConverter x:Key="GridWidthToVisibilityConverter"/>
-            <converters:GetTypeConverter x:Key="GetTypeConverter"/>            
+            <converters:GetTypeConverter x:Key="GetTypeConverter"/>
+            <converters:ChartColorConverter x:Key="ChartColorConverter"/>
+            <converters:LabelConverter x:Key="LabelConverter"/>
+            <converters:RdvCollectionToCanPrintConverter x:Key="RdvCollectionToCanPrintConverter"/>            
         </ResourceDictionary>
 
 

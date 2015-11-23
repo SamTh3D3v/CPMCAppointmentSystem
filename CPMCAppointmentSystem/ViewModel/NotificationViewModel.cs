@@ -17,7 +17,6 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Syncfusion.Windows.Chart;
 
 namespace CPMCAppointmentSystem.ViewModel
 {

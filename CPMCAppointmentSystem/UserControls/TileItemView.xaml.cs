@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace CPMCAppointmentSystem.UserControls
 {
-    /// <summary>
-    /// Interaction logic for TileItemView.xaml
-    /// </summary>
+   
     public partial class TileItemView : UserControl
     {
         public TileItemView()

@@ -19,20 +19,12 @@
 
     <Grid>
         <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderThickness="1">
-            <syncfusion:DockingManager   IsEnableHotTracking="True"  syncfusion:SkinStorage.VisualStyle="Metro"
-                                    PersistState="false" 
-                                         
-                                         UseDocumentContainer="False"
-                                         
-                                         
-                                         
-                                         
-                                         
-                                         
-                                         
+            <syncfusion:DockingManager   IsEnableHotTracking="True"  syncfusion:SkinStorage.VisualStyle="Metro" 
+                                    PersistState="false"                                          
+                                         UseDocumentContainer="False"   
                                          >
-                <ListBox  BorderThickness="0" ItemsSource="{Binding ChartTileCollection}" Width="auto" 
-                          syncfusion:DockingManager.CanClose="False" 
+                <!--<ListBox  BorderThickness="0" ItemsSource="{Binding ChartTileCollection}" Width="auto" 
+                          syncfusion:DockingManager.CanClose="True" 
                              syncfusion:DockingManager.SideInDockedMode="Left" 
                              syncfusion:DockingManager.State="Dock" 
                              syncfusion:DockingManager.DesiredWidthInDockedMode="200"  
@@ -47,7 +39,7 @@
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>
+                </ListBox>-->
                 <syncfusion:DockingManager.ClientControl>
                     <Grid >
                     <syncfusion:TileViewControl x:Name="TileViewCtl" ItemsSource="{Binding ChartTileCollection}" 

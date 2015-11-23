@@ -6,13 +6,38 @@
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
-             d:DesignHeight="500" x:Name="RootPatientPerSexeUserControl" d:DesignWidth="920" DataContext="{Binding PatientsPerSexeChartViewModel,Source={StaticResource Locator}}">
-   
+             d:DesignHeight="500" x:Name="RootPatientPerSexeUserControl" d:DesignWidth="920" 
+             DataContext="{Binding PatientsPerSexeChartViewModel,Source={StaticResource Locator}}" >
+    <UserControl.Resources>
+        <DataTemplate x:Key="labelTemplate">
+            <Grid>
+                <Rectangle Stroke="White" 
+                               Fill="{Binding Converter={StaticResource ChartColorConverter}}" 
+                               StrokeThickness="1">
+                </Rectangle>
+                <TextBlock Margin="6,3,6,3" HorizontalAlignment="Center" 
+                               VerticalAlignment="Top" FontSize="12" Foreground="White"
+                           Text="{Binding Converter={StaticResource LabelConverter}}" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientPerSexeLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientPerSexeUnLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid Background="LightBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>            
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -21,7 +46,7 @@
         </Grid.ColumnDefinitions>
         <Button  Grid.Column="2" Grid.Row="0" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="0.5, 0.5"
                 Width="48" Height="48" Style="{StaticResource GoBackArrowButtonStyle}" Command="{Binding ReturnToOriginalTileCommand}" CommandParameter="{Binding ElementName=RootPatientPerSexeUserControl}">
-          
+
             <Grid Background="Transparent">
                 <Image Source="{StaticResource LeftArrowDark}"/>
             </Grid>
@@ -30,6 +55,36 @@
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="45 5" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Image Source="{StaticResource ChartLight}" Width="55"/>
             <TextBlock Text="Patient par sexe" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10 0"/>
-        </StackPanel>   
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Margin="5" Background="#99eeeeee">
+            <syncfusion:SfChart x:Name="pieChart" AreaBorderThickness="0" 
+                       HorizontalAlignment="Center" Grid.RowSpan="2">
+
+                <syncfusion:SfChart.Header>
+                    <TextBlock FontSize="24" Foreground="Black" 
+                           FontFamily="Segoe UI" 
+                           Margin="0,20,0,10">Patients Count per Gender</TextBlock>
+                </syncfusion:SfChart.Header>
+                <syncfusion:PieSeries ConnectorType="Bezier" 
+                             PieCoefficient="0.7"  
+                             EnableSmartLabels="True" 
+                             LabelPosition="OutsideExtended"  
+                             x:Name="PieSeries" ShowTooltip="True" 
+                             syncfusion:ChartTooltip.EnableAnimation="True" 
+                             ItemsSource="{Binding PatientCountPerSexeCollection}"
+                             XBindingPath="Sexe" YBindingPath="Count">
+                    <syncfusion:PieSeries.AdornmentsInfo>
+                        <syncfusion:ChartAdornmentInfo HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              UseSeriesPalette="True"   
+                                              ShowConnectorLine="True" 
+                                              ConnectorHeight="80" ShowLabel="True" 
+                                              LabelTemplate="{StaticResource labelTemplate}"  
+                                              SegmentLabelContent="LabelContentPath">
+                        </syncfusion:ChartAdornmentInfo>
+                    </syncfusion:PieSeries.AdornmentsInfo>
+                </syncfusion:PieSeries>
+            </syncfusion:SfChart>
+        </Grid>
     </Grid>
 </UserControl>

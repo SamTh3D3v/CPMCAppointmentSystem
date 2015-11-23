@@ -24,7 +24,7 @@ namespace CPMCAppointmentSystem.ViewModel
 {
     public class PatientsViewModel : NavigableViewModelBase
     {
-        #region Fields
+        #region Fields        
         private SearchService<Patient> _searchService;
         private bool _isDateDepotFilterApplied;
         private DateTime _dateDepotFilterDateTime = DateTime.Now;
@@ -52,7 +52,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _reportPath;
         private PreviewReportView _previewReportView;
         #endregion
-        #region Properties 
+        #region Properties         
         public SearchService<Patient> SearchService
         {
             get
