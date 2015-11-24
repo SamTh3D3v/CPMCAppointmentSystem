@@ -732,7 +732,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         ReportPath = App.RendezVousReport;
-                        Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Refresh"));
+                        Messenger.Default.Send<NotificationMessage>(new NotificationMessage("RefreshRdv"));
                     }));
             }
         }
@@ -746,7 +746,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         ReportPath = App.RecuDeDepotReport;
-                        Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Refresh"));
+                        Messenger.Default.Send<NotificationMessage>(new NotificationMessage("RefreshRecuDepo"));
                     }));
             }
         }

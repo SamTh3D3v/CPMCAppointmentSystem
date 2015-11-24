@@ -1033,7 +1033,8 @@
                                                                    AddNewRowPosition="Top" AllowDeleting="True" 
                                                        AutoGenerateColumns="False"
                                                                EditTrigger="OnTap"
-                                              LiveDataUpdateMode="AllowDataShaping"                                                                   
+                                              LiveDataUpdateMode="AllowDataShaping"
+                                                                   
                                                ShowRowHeader="True"
                                             AllowDraggingColumns="True"
                                              AllowEditing="True"
@@ -1420,7 +1421,7 @@
                                 </Grid>
                             </ListBoxItem>
                         </ListBox>
-                        <syncfusion:ReportViewer Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="ReportPreviewer" ReportPath="{Binding ReportPath,Mode=TwoWay}"/>
+                        <syncfusion:ReportViewer ShowParametersBlock="True" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="ReportPreviewer" ReportPath="{Binding ReportPath,Mode=TwoWay}"/>
                     </Grid>
                 </TabItem.Content>
             </TabItem>
