@@ -54,7 +54,8 @@
                                        AllowDraggingColumns="True"                                           
                                        AllowEditing="True"
                                        AllowFiltering="True"
-                                       AllowGrouping="True"                                   
+                                       AllowGrouping="True"  
+                                       SelectedItem="{Binding SelectedPatientToAdd}"
                                        ItemsSource="{Binding ElementName=PatientsToAddDataPager,Path=PagedSource}"
                                        AutoGenerateColumns="False"                                   
                                        ShowGroupDropArea="True" >
@@ -78,7 +79,7 @@
                                        NumericButtonCount="10"
                                        Orientation="Horizontal"
                                        PageSize="16"
-                                       Source="{Binding PatientsToAddList}" />
+                                       Source="{Binding PatientsList}" />
             </Grid>
         </Expander>
 

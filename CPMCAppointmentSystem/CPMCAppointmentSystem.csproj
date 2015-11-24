@@ -292,6 +292,9 @@
     <Compile Include="View\AppointementViews\ListMedecinToAddView.xaml.cs">
       <DependentUpon>ListMedecinToAddView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DoctorsViews\AddRdvFromDoctorsView.xaml.cs">
+      <DependentUpon>AddRdvFromDoctorsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LogViews\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
@@ -420,6 +423,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AppointementViews\ListMedecinToAddView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DoctorsViews\AddRdvFromDoctorsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

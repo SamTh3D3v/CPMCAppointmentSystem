@@ -785,7 +785,6 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             AddNewPatient();
                         }
-
                         if (SelectedPatient.RendezVouses.Any(r=>r.RdvStateValue==RdvState.NotYet))
                         {
                              await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(ErrorMessages.AlreadyExistingRdvHeader, ErrorMessages.AlreadyExistingRdvMessage));
@@ -1270,7 +1269,6 @@ namespace CPMCAppointmentSystem.ViewModel
             SelectedPatient.RendezVouses = new ObservableCollection<RendezVous>(await Task.Run(() =>
                 _dbContext.RendezVouses.Where(x => x.PatientId == SelectedPatient.PatientId)
             ));
-
         }
        
         #endregion

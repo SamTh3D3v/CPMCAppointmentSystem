@@ -568,11 +568,18 @@
                                        ItemsSource="{Binding SelectedDoctor.RendezVouses}"
                                    
                                        ShowGroupDropArea="True" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=DataContext.AppointementDoubleClickCommand,RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                            PassEventArgsToCommand="True" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <syncfusion:SfDataGrid.Columns>
-                                        <syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Patient.Nom" AllowEditing="False"/>
-                                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Patient.Prenom" AllowEditing="False"/>
-                                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Patient.TelephoneMobile" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Patient.NumeroDordre" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Patient.Nom" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Patient.Prenom" AllowEditing="False"/>                                        
                                         <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Patient.Sexe.Designation" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Tel" MappingName="Patient.TelephoneFixe" AllowEditing="False"/>
                                         <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="Patient.TelephoneMobile" AllowEditing="False"/>
                                         <syncfusion:GridTextColumn HeaderText="Pathology" MappingName="Patient.Pathology.NomPathology" AllowEditing="False"/>                                        
                                     </syncfusion:SfDataGrid.Columns>

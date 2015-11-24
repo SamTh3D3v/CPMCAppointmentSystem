@@ -29,16 +29,36 @@ namespace CPMCAppointmentSystem.ViewModel
         private CpmcContext _dbContext = new CpmcContext();
         private AddSpecialitiesToDoctorView _addSpecialitiesToDoctorView;
         private AddPathologiesToDoctorView _addPathologiesToDoctorView;
-        private AddPatientsToDoctorView _addPatientsToDoctorView;
+        private AddRdvFromDoctorsView _addPatientsToDoctorView;
         private ObservableCollection<Medecin> _doctorsList;
         private Medecin _seletedDoctor;
         private ObservableCollection<Specialite> _specialitiesList;
         private Pathology _selectedPathologyInDoctorsViewPathology;
         private bool _isFormEnabled;
         private Patient _selectedPatientInDoctorView;
-        private ObservableCollection<EntityToAdd<Patient>> _patientsToAddList;        
+        private ObservableCollection<Patient> _patientsList;                
+        private RendezVous _selectedAppointement  ; 
         #endregion
-        #region Properties        
+        #region Properties
+        public RendezVous SelectedAppointement
+        {
+            get
+            {
+                return _selectedAppointement;
+            }
+
+            set
+            {
+                if (_selectedAppointement == value)
+                {
+                    return;
+                }
+
+                _selectedAppointement = value;
+                RaisePropertyChanged();
+            }
+        }
+        
         public ObservableCollection<EntityToAdd<Pathology>> PathologiesToDoctorList
         {
             get
@@ -183,26 +203,90 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<EntityToAdd<Patient>> PatientsToAddList
+        public ObservableCollection<Patient> PatientsList
         {
             get
             {
-                return _patientsToAddList;
+                return _patientsList;
             }
 
             set
             {
-                if (_patientsToAddList == value)
+                if (_patientsList == value)
                 {
                     return;
                 }
 
-                _patientsToAddList = value;
+                _patientsList = value;
                 RaisePropertyChanged();
             }
         }     
         #endregion
         #region Commands
+        private RelayCommand _appointementDoubleClickCommand;
+        public RelayCommand AppointementDoubleClickCommand
+        {
+            get
+            {
+                return _appointementDoubleClickCommand
+                    ?? (_appointementDoubleClickCommand = new RelayCommand(
+                    () =>
+                    {
+                        _addPatientsToDoctorView = new AddRdvFromDoctorsView();
+                        _addPatientsToDoctorView.ShowDialog();
+                    }));
+            }
+        }
+        private RelayCommand _saveAppointementCommand;
+        public RelayCommand SaveAppointementCommand
+        {
+            get
+            {
+                return _saveAppointementCommand
+                    ?? (_saveAppointementCommand = new RelayCommand(async () =>
+                    {
+
+                        if (SelectedAppointement.RendezVousId == Guid.Empty)
+                        {
+                            AddNewAppointement();
+                            NotficationManager.AddNotification(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "New",
+                                NotificationMessage = "Rendez vous du patient  " + SelectedAppointement.Patient.Nom + " " + SelectedAppointement.Patient.Prenom,
+                                NotificationType = TypeNotification.Information
+                            });
+                        }
+                        else
+                        {
+                            NotficationManager.AddNotification(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "Update",
+                                NotificationMessage = "Rendez vous du patient  " + SelectedAppointement.Patient.Nom + " " + SelectedAppointement.Patient.Prenom,
+                                NotificationType = TypeNotification.Information
+                            });
+                        }
+                        _dbContext.SaveChanges();
+                        _addPatientsToDoctorView.Close();                       
+                        SelectedAppointement = null;
+
+                    }));
+            }
+        }
+
+        private void AddNewAppointement()
+        {
+            //Added by Farouk for Audit purpose
+            SelectedAppointement.RendezVousId = Guid.NewGuid();
+            _dbContext.RendezVouses.Add(SelectedAppointement);
+        }
+        //private async Task LoadPatientAppointementList()
+        //{
+        //    SelectedDoctor.RendezVouses = new ObservableCollection<RendezVous>(await Task.Run(() =>
+        //        _dbContext.RendezVouses.Where(x => x.D == SelectedPatient.PatientId)
+        //    ));
+        //}
         private RelayCommand _savePathologyWhithDoctorsCommand;
         public RelayCommand SavePathologyWhithDoctorsCommand
         {
@@ -244,47 +328,47 @@ namespace CPMCAppointmentSystem.ViewModel
 
             });
         }
-        private RelayCommand _savePatientsToDoctorsViewCommand;
-        public RelayCommand SavePatientsToDoctorsViewCommand
-        {
-            get
-            {
-                return _savePatientsToDoctorsViewCommand
-                    ?? (_savePatientsToDoctorsViewCommand = new RelayCommand(async () =>
-                    {                        
-                        await SavePatientsAddedToDoctor();
-                        _dbContext.SaveChanges();
-                        _addPatientsToDoctorView.Close();
+        //private RelayCommand _savePatientsToDoctorsViewCommand;
+        //public RelayCommand SavePatientsToDoctorsViewCommand
+        //{
+        //    get
+        //    {
+        //        return _savePatientsToDoctorsViewCommand
+        //            ?? (_savePatientsToDoctorsViewCommand = new RelayCommand(async () =>
+        //            {                        
+        //                await SavePatientsAddedToDoctor();
+        //                _dbContext.SaveChanges();
+        //                _addPatientsToDoctorView.Close();
 
-                    }));
-            }
-        }
+        //            }));
+        //    }
+        //}
 
-        private async Task SavePatientsAddedToDoctor()
-        {
-            await Task.Run(() =>
-            {
-                if (SelectedDoctor.Patients == null)
-                    SelectedDoctor.Patients = new ObservableCollection<Patient>();
-                PatientsToAddList.ForEach(pToAdd =>
-                {
-                    if (pToAdd.IsAdded)
-                    {
-                        if (SelectedDoctor.Patients.All(p => p.PatientId != pToAdd.Entity.PatientId))
-                        {
-                            SelectedDoctor.Patients.Add(_dbContext.Patients.Find(pToAdd.Entity.PatientId));
-                        }
-                    }
-                    else
-                    {
-                        if (SelectedDoctor.Patients.Any(p => p.PatientId == pToAdd.Entity.PatientId))
-                        {
-                            SelectedDoctor.Patients.Remove(_dbContext.Patients.Find(pToAdd.Entity.PatientId));
-                        }
-                    }
-                });
-            });
-        }
+        //private async Task SavePatientsAddedToDoctor()
+        //{
+        //    await Task.Run(() =>
+        //    {
+        //        if (SelectedDoctor.Patients == null)
+        //            SelectedDoctor.Patients = new ObservableCollection<Patient>();
+        //        PatientsList.ForEach(pToAdd =>
+        //        {
+        //            if (pToAdd.IsAdded)
+        //            {
+        //                if (SelectedDoctor.Patients.All(p => p.PatientId != pToAdd.Entity.PatientId))
+        //                {
+        //                    SelectedDoctor.Patients.Add(_dbContext.Patients.Find(pToAdd.Entity.PatientId));
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (SelectedDoctor.Patients.Any(p => p.PatientId == pToAdd.Entity.PatientId))
+        //                {
+        //                    SelectedDoctor.Patients.Remove(_dbContext.Patients.Find(pToAdd.Entity.PatientId));
+        //                }
+        //            }
+        //        });
+        //    });
+        //}
 
         private RelayCommand _saveSpecialityWithDoctorsCommand;    
         public RelayCommand SaveSpecialityWithDoctorsCommand
@@ -398,14 +482,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadPatientsToAddList()
         {
-            PatientsToAddList = new ObservableCollection<EntityToAdd<Patient>>(await Task.Run(() => _dbContext.Patients.Select(s => new EntityToAdd<Patient>()
-            {
-                Entity = s
-            })));
-            foreach (var patToAdd in PatientsToAddList)
-            {
-                patToAdd.IsAdded = SelectedDoctor.Patients.Any(dp => patToAdd.Entity.PatientId == dp.PatientId);
-            }
+            PatientsList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));                    
         }
         private RelayCommand _addSpecialitiesToDoctorCommand;
         public RelayCommand AddSpecialitiesToDoctorLoadedCommand
@@ -599,14 +676,18 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _addPatientsToSelectedDoctorCommand
-                    ?? (_addPatientsToSelectedDoctorCommand = new RelayCommand(
-                    () =>
+                    ?? (_addPatientsToSelectedDoctorCommand = new RelayCommand(async () =>
                     {
                         if (SelectedDoctor.MedecinId == Guid.Empty)
                         {
                             AddNewDoctor();
                         }
-                        _addPatientsToDoctorView = new AddPatientsToDoctorView();
+                        SelectedAppointement = new RendezVous()
+                        {
+                            Medecin=SelectedDoctor
+                        };
+                        await LoadPatientsToAddList();
+                        _addPatientsToDoctorView = new AddRdvFromDoctorsView();
                         _addPatientsToDoctorView.ShowDialog();
 
                     }));
