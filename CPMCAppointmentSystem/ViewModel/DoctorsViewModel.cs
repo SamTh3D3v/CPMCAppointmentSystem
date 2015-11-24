@@ -223,6 +223,42 @@ namespace CPMCAppointmentSystem.ViewModel
         }     
         #endregion
         #region Commands
+        private RelayCommand _cancelAppointementChangesCommand;
+        public RelayCommand CancelAppointementChangesCommand
+        {
+            get
+            {
+                return _cancelAppointementChangesCommand
+                    ?? (_cancelAppointementChangesCommand = new RelayCommand(
+                    () =>
+                    {
+                        _addPatientsToDoctorView.Close();
+                    }));
+            }
+        }
+        private RelayCommand _deleteAppointementCommand;
+        public RelayCommand DeleteAppointementCommand
+        {
+            get
+            {
+                return _deleteAppointementCommand
+                    ?? (_deleteAppointementCommand = new RelayCommand(async () =>
+                    {
+                        //todo Logical suppression 
+                        if (SelectedAppointement != null)
+                        {
+                            if (SelectedAppointement.RendezVousId != Guid.Empty)
+                            {
+                                _dbContext.RendezVouses.Remove(SelectedAppointement);
+                                _dbContext.SaveChanges();
+                                SelectedAppointement = null;
+                                _addPatientsToDoctorView.Close();                                
+                            }
+                        }
+
+                    }));
+            }
+        }
         private RelayCommand _appointementDoubleClickCommand;
         public RelayCommand AppointementDoubleClickCommand
         {

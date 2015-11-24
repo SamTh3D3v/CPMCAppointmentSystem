@@ -566,7 +566,7 @@
                                        AllowGrouping="True"
                                                        AutoGenerateColumns="False"
                                        ItemsSource="{Binding SelectedDoctor.RendezVouses}"
-                                   
+                                   SelectedItem="{Binding SelectedAppointement,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseDoubleClick">
