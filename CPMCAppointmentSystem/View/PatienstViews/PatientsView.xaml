@@ -75,7 +75,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
-                <Syncfusion:SfMaskedEdit Grid.Row="0" Grid.Column="0" Text="{Binding FilterText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
+                <Syncfusion:SfTextBoxExt Grid.Row="0" Grid.Column="0" Text="{Binding FilterText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Filtrer les patients"  
                                      >
                     <i:Interaction.Triggers>
@@ -84,7 +84,7 @@
                             PassEventArgsToCommand="True" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                </Syncfusion:SfMaskedEdit>
+                </Syncfusion:SfTextBoxExt>
                 <!--<ComboBox Grid.Row="0"  Grid.Column="1" Margin="2 5" x:Name="FiltrerParBox" ItemsSource="{Binding FilterByCollection}" SelectedItem="{Binding FilterBySelectedItem,Mode=TwoWay}"/>
                 <TextBlock Grid.Row="0"  Grid.Column="1"  Text="Par" >
                     <TextBlock.Style>
@@ -340,14 +340,14 @@
                     </ToggleButton>
                 </Grid>
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Num D'ordre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit Name="TxtEditNumOrdre"
+                <Syncfusion:SfTextBoxExt Name="TxtEditNumOrdre"
                                          
                                          Grid.Column="1"  Text="{Binding NumeroDordre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Numero d'ordre"  
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit Name="TxtEditNom"
+                <Syncfusion:SfTextBoxExt Name="TxtEditNom"
                                                                              
                                          Grid.Column="1"  Text="{Binding Nom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Nom"  
@@ -358,11 +358,11 @@
                             PassEventArgsToCommand="True" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                </Syncfusion:SfMaskedEdit>
+                </Syncfusion:SfTextBoxExt>
 
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit  Name="TxtEditPrenom"
+                <Syncfusion:SfTextBoxExt  Name="TxtEditPrenom"
                                          
                                          Grid.Column="1"  Text="{Binding Prenom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Prenom"  
@@ -374,7 +374,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 
-                </Syncfusion:SfMaskedEdit>
+                </Syncfusion:SfTextBoxExt>
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de naiss" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <DatePicker Name="DateTimeNaiss" Margin="10 5"  SelectedDate="{Binding DateDeNaissance,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}',UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
@@ -405,33 +405,33 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="6" Text="Telephone Fixe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit Name="TxtEditTelFix" Grid.Column="1" Text="{Binding TelephoneFixe,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"
+                <Syncfusion:SfTextBoxExt Name="TxtEditTelFix" Grid.Column="1" Text="{Binding TelephoneFixe,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"
                                          Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Telephone fixe"  
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="7" Text="Mobile" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit Name="TxtEditMobile"
+                <Syncfusion:SfTextBoxExt Name="TxtEditMobile"
                                         
                                          Grid.Column="1"  Text="{Binding TelephoneMobile1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Telephone mobile 1"  
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="8" Text="Mobile d'accomp" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit  Name="TxtEditMobileAcc" Grid.Column="1" 
+                <Syncfusion:SfTextBoxExt  Name="TxtEditMobileAcc" Grid.Column="1" 
                                          
                                          Text="{Binding TelephoneDaccompagnant,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Telephone mobile d'accompagnant"  
                                      />
                 <TextBlock Grid.Column="0" Grid.Row="9" Text="Nom d'accomp" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit Name="TxtEditNomAcc"
+                <Syncfusion:SfTextBoxExt Name="TxtEditNomAcc"
                                         
                                          Grid.Column="1"  Text="{Binding NomPrenomDaccompagnant,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Nom et prenom d'accompagnant"  
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="10" Text="Adresse" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit Name="TxtEditAdress" 
+                <Syncfusion:SfTextBoxExt Name="TxtEditAdress" 
                                         
                                          Grid.Column="1"  Text="{Binding Adresse.AddressDesignation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Adresse"  
@@ -443,7 +443,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Syncfusion:SfMaskedEdit Name="TxtEditCity"
+                    <Syncfusion:SfTextBoxExt Name="TxtEditCity"
                                               
                                              Grid.Column="0"  Text="{Binding Adresse.City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5"                                      
                                      Watermark="City"  
@@ -460,7 +460,7 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <Syncfusion:SfMaskedEdit Name="TxtEditCodeP"
+                    <Syncfusion:SfTextBoxExt Name="TxtEditCodeP"
                                               
                                              Grid.Column="2"  Text="{Binding Adresse.CodePosatal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5"                                      
                                      Watermark="code postal"  
@@ -787,10 +787,10 @@
                                             </TextBlock.Style>
                                         </TextBlock>
 
-                                        <Syncfusion:SfMaskedEdit Name="TxtEditIde" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.IdPieceJointe,Mode=TwoWay,
+                                        <Syncfusion:SfTextBoxExt Name="TxtEditIde" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.IdPieceJointe,Mode=TwoWay,
                                             UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Identifiant"/>
-                                        <Syncfusion:SfMaskedEdit Name="TxtEditDesc" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.Description,Mode=TwoWay,
+                                        <Syncfusion:SfTextBoxExt Name="TxtEditDesc" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe.Description,Mode=TwoWay,
                                             UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Description"/>
                                         <Grid Grid.Row="3">
@@ -1038,9 +1038,9 @@
                                             <RowDefinition Height="100"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <Syncfusion:SfMaskedEdit  Name="TxtEditTitre" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                        <Syncfusion:SfTextBoxExt  Name="TxtEditTitre" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Titre du note"  />
-                                        <Syncfusion:SfMaskedEdit AcceptsReturn="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Name="TxtEditContenu" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Content,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                                        <Syncfusion:SfTextBoxExt AcceptsReturn="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Name="TxtEditContenu" Text="{Binding ElementName=RootGrid,Path=DataContext.SelectedNote.Content,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Contenu du note" />
                                         <Grid Grid.Row="2">
                                             <Grid.ColumnDefinitions>

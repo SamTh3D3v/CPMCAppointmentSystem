@@ -31,5 +31,6 @@ namespace DataLayer.Model
         public string ParentEntitySet { get; set; }
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
+      
     }  
 }

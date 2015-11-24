@@ -167,18 +167,18 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <syncfusion:SfMaskedEdit Name="TxtEditNom" Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay,
+                                    <syncfusion:SfTextBoxExt Name="TxtEditNom" Grid.Column="1" Text="{Binding SelectedUser.UserNom,Mode=TwoWay,
                                         UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="0"                                       
                                      Watermark="Nom de l'utilisateur"  
                                      />
 
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <syncfusion:SfMaskedEdit Name="TxtEditPrenom" Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1"                                      
+                                    <syncfusion:SfTextBoxExt Name="TxtEditPrenom" Grid.Column="1" Text="{Binding SelectedUser.UserPrenom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1"                                      
                                      Watermark="Prenom de l'utilisateur" 
                                      />
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="UserName" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <syncfusion:SfMaskedEdit Name="TxtEditUserName" Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2"                                   
+                                    <syncfusion:SfTextBoxExt Name="TxtEditUserName" Grid.Column="1" Text="{Binding SelectedUser.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="2"                                   
                                      Watermark="Prenom de l'utilisateur" 
                                      />
 
@@ -1468,9 +1468,9 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         <TextBlock Text="Centre du messegerie" VerticalAlignment="Center" Grid.Row="0"/>
-                                        <syncfusion:SfMaskedEdit Margin="30,5,5,5" Text="{Binding CenterDeMessagerie,Mode=TwoWay}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></syncfusion:SfMaskedEdit>
+                                        <syncfusion:SfTextBoxExt Margin="30,5,5,5" Text="{Binding CenterDeMessagerie,Mode=TwoWay}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></syncfusion:SfTextBoxExt>
                                         <TextBlock Text="Between AT cmd delay" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                                        <syncfusion:SfMaskedEdit Margin="30,5,5,5" Text="{Binding BetweenAtCmdDelay,Mode=TwoWay}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch"></syncfusion:SfMaskedEdit>
+                                        <syncfusion:SfTextBoxExt Margin="30,5,5,5" Text="{Binding BetweenAtCmdDelay,Mode=TwoWay}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch"></syncfusion:SfTextBoxExt>
                                     </Grid>
                                 </GroupBox>
                                 <GroupBox Header="Core sms" Grid.Row="1" Grid.Column="0">

@@ -85,8 +85,8 @@ namespace DataLayer.Model
                 OnPropertyChanged();
                 if (_typeJourFerie==TypeJourFerie.Fix)
                 {
-                    RecurrenceRule = "FREQ=YEARLY;COUNT=3;BYMONTHDAY=" + (StartTime.Day).ToString() + ";BYMONTH=" + (StartTime.Month).ToString() + "";
-                    IsRecursive = true;
+                    //RecurrenceRule = "FREQ=YEARLY;COUNT=3;BYMONTHDAY=" + (StartTime.Day).ToString() + ";BYMONTH=" + (StartTime.Month).ToString() + "";
+                    //IsRecursive = true;
                     AllDay = true;                    
                     
                 }

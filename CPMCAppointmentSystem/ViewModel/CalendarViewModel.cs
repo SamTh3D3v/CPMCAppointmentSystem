@@ -601,8 +601,7 @@ namespace CPMCAppointmentSystem.ViewModel
         }
 
         private async Task LoadRendezVous()
-        {
-            _dbContext.Dispose();
+        {            
             _dbContext = new CpmcContext();
             await LoadScheduleSettings();
             RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
@@ -634,7 +633,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         PatientsScheduleAppointmentCollection.Add(rdv); 
                 }      
             });
-            await LoadRestDays();
+            await LoadRestDays();            
             RestDaysCollection.ForEach(rd =>
             {                
                 PatientsScheduleAppointmentCollection.Add(rd); 

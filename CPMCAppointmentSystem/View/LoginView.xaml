@@ -48,10 +48,10 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Login" Style="{StaticResource SubheaderTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <syncfusion:SfMaskedEdit Height="35"   Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
+                <syncfusion:SfTextBoxExt Height="35"   Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
                                      Watermark="Nom d'utilisateur" VerticalContentAlignment="Center"  Text="{Binding UserName,Mode=TwoWay}" 
                                      >              
-                </syncfusion:SfMaskedEdit>
+                </syncfusion:SfTextBoxExt>
                 <PasswordBox Margin="10 5" VerticalContentAlignment="Center"  Height="35"  x:Name="PassBox" Style="{DynamicResource  WaterMarkPasswordBoxStyle}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <PasswordBox.Resources>
                         <system:String x:Key="WaterMarkText">Mot de passe</system:String>

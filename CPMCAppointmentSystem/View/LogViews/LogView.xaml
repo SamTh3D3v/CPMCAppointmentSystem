@@ -48,10 +48,11 @@
                                                              ElementName=LogDataPager}"
                                        RowHeight="40"
                                        NavigationMode="Row"
-                                       ShowGroupDropArea="True">
+                                       ShowGroupDropArea="True" >
                         <syncfusion:SfDataGrid.Columns>
                             <syncfusion:GridTextColumn HeaderText="Date" DisplayBinding="{Binding Path=Date,
-                                                                            StringFormat='{}{0:dd/MM/yyyy}'}" />
+                                                                            StringFormat='{}{0:dd/MM/yyyy hh:mm:ss}'}" /> 
+                           
                             <syncfusion:GridTextColumn HeaderText="Utilisateur" MappingName="User.UserName" />
                             <syncfusion:GridTextColumn HeaderText="Machine" MappingName="Machine"  />
                             <syncfusion:GridTextColumn HeaderText="Nom Action" MappingName="ActionName" />

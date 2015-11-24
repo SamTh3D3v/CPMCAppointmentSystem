@@ -37,11 +37,11 @@
 
 
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <Syncfusion:SfMaskedEdit Margin="10 5"  x:Name="NomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <Syncfusion:SfTextBoxExt Margin="10 5"  x:Name="NomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-        <Syncfusion:SfMaskedEdit Margin="10 5" x:Name="PrenomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserPrenom}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <Syncfusion:SfTextBoxExt Margin="10 5" x:Name="PrenomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserPrenom}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
         <Expander IsExpanded="True" x:Name="PExpander" Margin="5" Grid.Column="0" Grid.ColumnSpan="2"
                   Grid.Row="3" Header="Selectionnez les patients"  HorizontalAlignment="Stretch">

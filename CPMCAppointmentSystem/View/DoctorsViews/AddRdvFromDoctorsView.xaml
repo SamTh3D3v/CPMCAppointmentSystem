@@ -89,11 +89,11 @@
 
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom Medecin" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit Margin="10 5"  x:Name="NomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <Syncfusion:SfTextBoxExt Margin="10 5"  x:Name="NomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserNom,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Prenom Medecin" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit Margin="10 5" x:Name="PrenomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserPrenom}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <Syncfusion:SfTextBoxExt Margin="10 5" x:Name="PrenomBox" IsEnabled="False" Text="{Binding SelectedDoctor.User.UserPrenom}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
@@ -111,12 +111,12 @@
                 </TextBlock>-->
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Lieu de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit Name="TxtEditLieuRdv" Grid.Column="1" Text="{Binding SelectedAppointement.LieuRdv,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+                <Syncfusion:SfTextBoxExt Name="TxtEditLieuRdv" Grid.Column="1" Text="{Binding SelectedAppointement.LieuRdv,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="Lieu du rendez vous"  
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="6" Text="Patient" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfMaskedEdit IsEnabled="False" Name="TxtEditMedecin" Grid.Column="1" Text="{Binding SelectedAppointement.Patient.Nom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+                <Syncfusion:SfTextBoxExt IsEnabled="False" Name="TxtEditMedecin" Grid.Column="1" Text="{Binding SelectedAppointement.Patient.Nom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="selectionnez un patient"  
                                      />
 
