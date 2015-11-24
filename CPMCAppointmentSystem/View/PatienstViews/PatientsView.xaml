@@ -168,9 +168,9 @@
                                        AllowEditing="False"                                       
                                        AllowGrouping="True" 
                                     SelectionMode="Single"                                    
-                                       ItemsSource="{Binding PatientList,IsAsync=True}"
+                                       ItemsSource="{Binding PatientList}"
                                    AutoGenerateColumns="False"
-                                   SelectedItem="{Binding SelectedPatient,IsAsync=True}"
+                                   SelectedItem="{Binding SelectedPatient,Mode=TwoWay}"
                                        ShowGroupDropArea="True"                                                                          
                                     RowStyle="{StaticResource PatientRowStyle}" >
 

@@ -882,7 +882,6 @@ namespace CPMCAppointmentSystem.ViewModel
                                 await LoadPatientAppointementList();
                             }
                         }
-
                     }));
             }
         }
