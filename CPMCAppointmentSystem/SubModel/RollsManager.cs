@@ -26,14 +26,14 @@ namespace CPMCAppointmentSystem.SubModel
             rolls.PathologiesViewAllow = true;
             rolls.PathologiesEditAllow = true;
             rolls.MyPatientsViewAllow = userType == App.Medecin ? true : false;
-            rolls.MyPatientsEditAllow = true;
-            rolls.MyPatientsEditAppointementAllow = true;
-            rolls.SettingsViewUsersAllow = true;
-            rolls.SettingsEditUsersAllow = true;
-            rolls.SettingsMangeThemeAllow = true;
+            rolls.MyPatientsEditAllow = userType == App.Medecin ? true : false;
+            rolls.MyPatientsEditAppointementAllow = userType == App.Medecin ? true : false;
+            rolls.AccountSettingsEditAllow = true;
+            rolls.GlobaleSettingsEditAllow = true;            
             rolls.SmsNotificationViewAllow = true;
             rolls.SmsNotificationEditAllow = true;
-            rolls.StatisticsViewAllow = true;                                   
+            rolls.StatisticsViewAllow = true;
+            rolls.DoctorsEditAppointementAllow = true;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace DataLayer.Model
         private bool _appointementEditAllow;
         private bool _doctorsViewAllow;
         private bool _doctorsAddAllow;
+        private bool _doctorsEditAppointementAllow;
         private bool _patientsViewAllow;
         private bool _patientsEditAllow;
         private bool _patientsEditAppointementAllow;
@@ -30,9 +31,8 @@ namespace DataLayer.Model
         private bool _myPatientsViewAllow;
         private bool _myPatientsEditAllow;
         private bool _myPatientsEditAppointementAllow;
-        private bool _settingsViewUsersAllow;
-        private bool _settingsEditUsersAllow;
-        private bool _settingsMangeThemeAllow;
+        private bool _accountSettingsEditAllow;
+        private bool _globaleSettingsEditAllow;        
         private bool _smsNotificationViewAllow;
         private bool _smsNotificationEditAllow;
         private bool _statisticsViewAllow;
@@ -101,6 +101,16 @@ namespace DataLayer.Model
             {
                 if (value.Equals(_doctorsAddAllow)) return;
                 _doctorsAddAllow = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool DoctorsEditAppointementAllow
+        {
+            get { return _doctorsEditAppointementAllow; }
+            set
+            {
+                if (value.Equals(_doctorsEditAppointementAllow)) return;
+                _doctorsEditAppointementAllow = value;
                 OnPropertyChanged();
             }
         }
@@ -230,38 +240,28 @@ namespace DataLayer.Model
         #endregion
         #region Settings View
 
-        public bool SettingsViewUsersAllow
+        public bool AccountSettingsEditAllow
         {
-            get { return _settingsViewUsersAllow; }
+            get { return _accountSettingsEditAllow; }
             set
             {
-                if (value.Equals(_settingsViewUsersAllow)) return;
-                _settingsViewUsersAllow = value;
+                if (value.Equals(_accountSettingsEditAllow)) return;
+                _accountSettingsEditAllow = value;
                 OnPropertyChanged();
             }
         }
 
-        public bool SettingsEditUsersAllow
+        public bool GlobaleSettingsEditAllow
         {
-            get { return _settingsEditUsersAllow; }
+            get { return _globaleSettingsEditAllow; }
             set
             {
-                if (value.Equals(_settingsEditUsersAllow)) return;
-                _settingsEditUsersAllow = value;
+                if (value.Equals(_globaleSettingsEditAllow)) return;
+                _globaleSettingsEditAllow = value;
                 OnPropertyChanged();
             }
         }
-
-        public bool SettingsMangeThemeAllow
-        {
-            get { return _settingsMangeThemeAllow; }
-            set
-            {
-                if (value.Equals(_settingsMangeThemeAllow)) return;
-                _settingsMangeThemeAllow = value;
-                OnPropertyChanged();
-            }
-        }
+       
 
         #endregion
         #region Sms Notification View

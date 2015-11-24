@@ -89,7 +89,7 @@ namespace CPMCAppointmentSystem.ViewModel
             else if (ConnectedUser.RolesCollection.SmsNotificationViewAllow) InnerFrameNavigationService.NavigateTo(App.NotificationViewKey);
             else if (ConnectedUser.RolesCollection.StatisticsViewAllow) InnerFrameNavigationService.NavigateTo(App.StatisticsViewKey);
             else if (ConnectedUser.RolesCollection.LogViewAllow) InnerFrameNavigationService.NavigateTo(App.LogViewKey);
-            else if (ConnectedUser.RolesCollection.SettingsViewUsersAllow) InnerFrameNavigationService.NavigateTo(App.SettingsViewKey);
+            else if (ConnectedUser.RolesCollection.AccountSettingsEditAllow) InnerFrameNavigationService.NavigateTo(App.SettingsViewKey);
 
         }
         private RelayCommand _mainViewUnloadedCommand;
