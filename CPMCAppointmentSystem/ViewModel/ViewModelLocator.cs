@@ -33,6 +33,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 SimpleIoc.Default.Register<PatientsPerSexeChartViewModel>();
                 SimpleIoc.Default.Register<MedecinPerPathologyChartViewModel>();
                 SimpleIoc.Default.Register<PatientPerDateChartViewModel>();
+                SimpleIoc.Default.Register<PatientPerPathologyChartViewModel>();
                 SimpleIoc.Default.Register<LogViewModel>();
 
                 SetupMainNavigationService();
@@ -233,6 +234,17 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<LogViewModel>();
+            }
+        }
+      
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public PatientPerPathologyChartViewModel PatientPerPathologyChartViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PatientPerPathologyChartViewModel>();
             }
         }
         public static void Cleanup()

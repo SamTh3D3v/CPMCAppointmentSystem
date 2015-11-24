@@ -40,13 +40,13 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
         }
         #endregion
         #region Commands
-        private RelayCommand _patientPerSexeLoadedCommand;
+        private RelayCommand _pathoPerDocLoadedCommand;
         public RelayCommand PathoPerDocLoadedCommand
         {
             get
             {
-                return _patientPerSexeLoadedCommand
-                    ?? (_patientPerSexeLoadedCommand = new RelayCommand(async () =>
+                return _pathoPerDocLoadedCommand
+                    ?? (_pathoPerDocLoadedCommand = new RelayCommand(async () =>
                     {
                         _dbContext = new CpmcContext();
                         DoctorPerPathologyCollection = new ObservableCollection<BarModel>(await Task.Run(() => _dbContext.Pathologies.Select(p => new BarModel()
@@ -58,13 +58,13 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                     }));
             }
         }
-        private RelayCommand _patientPerSexeUnLoadedCommand;
+        private RelayCommand _pathoPerDocUnLoadedCommand;
         public RelayCommand PathoPerDocUnLoadedCommand
         {
             get
             {
-                return _patientPerSexeUnLoadedCommand
-                    ?? (_patientPerSexeUnLoadedCommand = new RelayCommand(
+                return _pathoPerDocUnLoadedCommand
+                    ?? (_pathoPerDocUnLoadedCommand = new RelayCommand(
                     () =>
                     {
                         _dbContext.Dispose();
