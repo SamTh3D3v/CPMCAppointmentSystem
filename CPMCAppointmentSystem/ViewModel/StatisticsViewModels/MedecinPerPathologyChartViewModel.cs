@@ -1,24 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ControlLibrary.ChartModel;
 using CPMCAppointmentSystem.Helpers;
+using CPMCAppointmentSystem.SubModel;
+using DataLayer.Model;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
-{
+{   
     public class MedecinPerPathologyChartViewModel : StatisticsChartsViewModelBase
     {
-         #region Fields
-
+        #region Fields
+        private CpmcContext _dbContext;
+        private ObservableCollection<BarModel> _doctorPerPathologyCollection;
         #endregion
         #region Properties
+        public ObservableCollection<BarModel> DoctorPerPathologyCollection
+        {
+            get
+            {
+                return _doctorPerPathologyCollection;
+            }
 
+            set
+            {
+                if (_doctorPerPathologyCollection == value)
+                {
+                    return;
+                }
+
+                _doctorPerPathologyCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
-        #region Commands      
+        #region Commands
+        private RelayCommand _patientPerSexeLoadedCommand;
+        public RelayCommand PathoPerDocLoadedCommand
+        {
+            get
+            {
+                return _patientPerSexeLoadedCommand
+                    ?? (_patientPerSexeLoadedCommand = new RelayCommand(async () =>
+                    {
+                        _dbContext = new CpmcContext();
+                        DoctorPerPathologyCollection = new ObservableCollection<BarModel>(await Task.Run(() => _dbContext.Pathologies.Select(p => new BarModel()
+                             {
+                                 Item = p.NomPathology,
+                                 ItemsCount = p.Medecins.Count
 
+                             })));
+                    }));
+            }
+        }
+        private RelayCommand _patientPerSexeUnLoadedCommand;
+        public RelayCommand PathoPerDocUnLoadedCommand
+        {
+            get
+            {
+                return _patientPerSexeUnLoadedCommand
+                    ?? (_patientPerSexeUnLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        _dbContext.Dispose();
+                    }));
+            }
+        }
         #endregion
         #region Ctors Methods
         public MedecinPerPathologyChartViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
