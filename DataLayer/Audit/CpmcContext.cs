@@ -58,8 +58,8 @@ namespace DataLayer.Model
                         this.Traces.Add(trace);
             } // Cacth any Exception due to Auditing Actions.
             catch (Exception ex)
-            {
-                throw ex;
+            {                
+                System.Diagnostics.Trace.TraceError(ex.Message);
             }
             return base.SaveChanges();
         }

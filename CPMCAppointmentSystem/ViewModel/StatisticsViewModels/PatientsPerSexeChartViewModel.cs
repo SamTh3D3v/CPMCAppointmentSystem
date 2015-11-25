@@ -57,12 +57,12 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                             {
                                 new PatientPerSexeModel()
                                 {
-                                    Sexe = "Male",
+                                    Sexe = "Masculin",
                                     Count = _dbContext.Patients.Count(p => p.SexeId == 1)
                                 },
                                 new PatientPerSexeModel()
                                 {
-                                    Sexe = "Femelle",
+                                    Sexe = "Féminin",
                                     Count = _dbContext.Patients.Count(p => p.SexeId == 2)
                                 }
                             };
