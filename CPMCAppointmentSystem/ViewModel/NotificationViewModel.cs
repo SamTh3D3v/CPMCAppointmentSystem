@@ -179,11 +179,13 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             IsSimActive = false;
                             IsProgressRingActive = true;
+                            Messenger.Default.Send<String>("détection du Sim en cours", "enableLoading");
                             GsmHelper = new GsmHelper(9600); 
                             SmsMessageTemplate = ParameterManager.GetValue<string>(ParameterNames.SMSBodyTemplate);
                             await GsmHelper.InitGsmDevice();
                             IsSimActive = true;
                             IsProgressRingActive = false;
+                            Messenger.Default.Send<String>("", "desableLoading");
                         }
                         catch (Exception ex)
                         {
@@ -194,6 +196,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             }));
                             IsSimActive = false;
                             IsProgressRingActive = false;
+                            Messenger.Default.Send<String>("Sim non reconnue", "desableLoading");
                         }                        
                     }));
             }
