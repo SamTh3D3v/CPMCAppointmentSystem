@@ -49,7 +49,8 @@
                                        AllowDraggingColumns="True"
                                        AllowEditing="True"                                   
                                        AllowFiltering="True"
-                                       AllowGrouping="True"                                   
+                                       AllowGrouping="True"
+                                       ColumnSizer="Star"
                                        ItemsSource="{Binding PathologiesToDoctorList}"
                                    AutoGenerateColumns="False"
                                    

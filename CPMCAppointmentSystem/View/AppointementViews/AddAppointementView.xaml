@@ -9,7 +9,7 @@
         xmlns:enums="clr-namespace:DataLayer.Enums;assembly=DataLayer"
         xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
         WindowStyle="SingleBorderWindow"
-                      Title="Ajouter un rendez vous"
+                      Title="Planifier un rendez-vous"
                       EnableDWMDropShadow="True"
                       ResizeMode="CanResizeWithGrip"
                       WindowTransitionsEnabled="False"                      
