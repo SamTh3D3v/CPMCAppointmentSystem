@@ -54,7 +54,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="45 5" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Image Source="{StaticResource ChartLight}" Width="55"/>
-            <TextBlock Text="Patient par pathology" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10 0"/>
+            <TextBlock Text="Patient par pathologie" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10 0"/>
         </StackPanel>
         <Grid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Margin="5" Background="#99eeeeee">
             <chart:SfChart AreaBorderThickness="0" 
@@ -63,7 +63,7 @@
                 <chart:SfChart.Header>
                     <TextBlock FontSize="24" Foreground="Black" 
                            FontFamily="Segoe UI" 
-                           Margin="0,20,0,10">Patient Count per Pathology</TextBlock>
+                           Margin="0,20,0,10">Nombre des patients par pathologie</TextBlock>
                 </chart:SfChart.Header>
                 <chart:SfChart.PrimaryAxis>
                     <chart:CategoryAxis  Header="Pathologies" Foreground="Black"  FontSize="20" 

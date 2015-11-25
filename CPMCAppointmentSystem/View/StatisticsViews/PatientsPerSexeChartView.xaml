@@ -63,7 +63,7 @@
                 <syncfusion:SfChart.Header>
                     <TextBlock FontSize="24" Foreground="Black" 
                            FontFamily="Segoe UI" 
-                           Margin="0,20,0,10">Patients Count per Gender</TextBlock>
+                           Margin="0,20,0,10">Nombre des patient par sexe</TextBlock>
                 </syncfusion:SfChart.Header>
                 <syncfusion:PieSeries ConnectorType="Bezier" 
                              PieCoefficient="0.7"  
