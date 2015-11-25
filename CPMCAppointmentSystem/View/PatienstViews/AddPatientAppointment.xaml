@@ -23,8 +23,8 @@
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
-    <Grid>
+
+    <Grid IsEnabled="{Binding ConnectedUser.RolesCollection.PatientsEditAppointementAllow}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

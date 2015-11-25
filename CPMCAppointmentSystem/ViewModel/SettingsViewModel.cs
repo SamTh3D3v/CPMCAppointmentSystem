@@ -24,6 +24,7 @@ namespace CPMCAppointmentSystem.ViewModel
     {
      
         #region Fields
+        private User _connectedUser;
         private string _betweenAtCmdDelay;
         private string _centreDeMessagerie;
         private ObservableCollection<UserType> _userTypeCollection;
@@ -46,7 +47,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _smsBodyTemplate;
         private ObservableCollection<Medecin> _doctorsListCollection;
         #endregion
-        #region Properties              
+        #region Properties           
+        public User ConnectedUser
+        {
+            get
+            {
+                return _connectedUser;
+            }
+
+            set
+            {
+                if (_connectedUser == value)
+                {
+                    return;
+                }
+
+                _connectedUser = value;
+                RaisePropertyChanged();
+            }
+        }   
         public ObservableCollection<Medecin> DoctorsListCollection
         {
             get
@@ -474,6 +493,17 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_settingsViewLoadedCommand = new RelayCommand(async () =>
                     {
                         _dbContext=new CpmcContext();
+                        try
+                        {
+                            var user = MainFrameNavigationService.Parameter as User;
+                            if (user != null)                           //todo 
+                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }
                     }));
             }
         }

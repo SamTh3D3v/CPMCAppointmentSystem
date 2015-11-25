@@ -24,7 +24,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid x:Name="GridRoot">
+    <Grid x:Name="GridRoot" IsEnabled="{Binding ConnectedUser.RolesCollection.DoctorsEditAppointementAllow}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

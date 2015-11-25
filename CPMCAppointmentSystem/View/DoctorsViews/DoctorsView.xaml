@@ -394,7 +394,8 @@
                                             <Setter Property="IsEnabled" Value="False"/>
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>                                                      
+                                                    <MultiDataTrigger.Conditions>  
+                                                    
                                                         <Condition>
                                                             <Condition.Binding>
                                                                 <Binding Path="DataContext.SelectedDoctor.MedecinId" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:Guid.Empty}"/>
@@ -538,7 +539,8 @@
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
-                                                        <Condition>
+                                                        <Condition Binding="{Binding DataContext.ConnectedUser.RolesCollection.DoctorsEditAppointementAllow,ElementName=RootGrid}" Value="true"/>
+                                                        <Condition>                                                            
                                                             <Condition.Binding>
                                                                 <Binding Path="DataContext.SelectedDoctor.MedecinId" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:Guid.Empty}"/>
                                                             </Condition.Binding>

@@ -24,6 +24,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class DoctorsViewModel : NavigableViewModelBase
     {
         #region Fields
+        private User _connectedUser;
         private ObservableCollection<EntityToAdd<Pathology>> _pathologiesToDoctorListAdds;
         private ObservableCollection<EntityToAdd<Specialite>> _specialityToDoctorList;
         private CpmcContext _dbContext = new CpmcContext();
@@ -40,6 +41,24 @@ namespace CPMCAppointmentSystem.ViewModel
         private RendezVous _selectedAppointement  ; 
         #endregion
         #region Properties
+        public User ConnectedUser
+        {
+            get
+            {
+                return _connectedUser;
+            }
+
+            set
+            {
+                if (_connectedUser == value)
+                {
+                    return;
+                }
+
+                _connectedUser = value;
+                RaisePropertyChanged();
+            }
+        }   
         public RendezVous SelectedAppointement
         {
             get
@@ -554,6 +573,17 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_doctorsViewLoadedCommand = new RelayCommand(async () =>
                     {
                         _dbContext=new CpmcContext();
+                        try
+                        {
+                            var user = MainFrameNavigationService.Parameter as User;
+                            if (user != null)                           //todo 
+                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }
                         await LoadDoctorsList();
                         await LoadSpacialities();
                     }));
