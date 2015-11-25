@@ -453,7 +453,7 @@
 
                 </Grid>
             </Border>
-            <Border  Grid.Column="1" Background="WhiteSmoke" Visibility="Visible">
+            <Border  Grid.Column="1" Background="WhiteSmoke">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Setter Property="Visibility" Value="Collapsed"/>
