@@ -453,7 +453,7 @@
 
                 </Grid>
             </Border>
-            <Border  Grid.Column="1" Background="WhiteSmoke">
+            <Border  Grid.Column="1" Background="WhiteSmoke" Visibility="Visible">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -527,7 +527,7 @@
                                     <ColumnDefinition Width="*"/>
 
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Filtrer par Patient" Grid.Column="0"/>
+                                <TextBlock Text="Filtre par Patient" Grid.Column="0"/>
                                 <CheckBox Grid.Column="1" x:Name="FilterByPatientCheckBox" IsChecked="{Binding FilterByPatientIsChecked}" HorizontalAlignment="Right">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="Checked">
@@ -623,7 +623,7 @@
                                 </GroupBox.Style>
                                 <GroupBox.Header>
                                     <Grid>
-                                        <TextBlock Text="PROFESSIONEL" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="carte professionnel" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                         <CheckBox Name="CbCartePro" HorizontalAlignment="Right" Grid.Column="0" IsChecked="{Binding CarteProFilterIsEnabled,Mode=TwoWay}">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Checked">

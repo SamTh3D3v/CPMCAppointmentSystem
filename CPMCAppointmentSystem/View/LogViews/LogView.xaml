@@ -35,7 +35,8 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <syncfusion:SfDataGrid AllowEditing="False" x:Name="LogDataGrid" Background="WhiteSmoke"
+                    <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                        <syncfusion:SfDataGrid AllowEditing="False" x:Name="LogDataGrid" Background="WhiteSmoke"
                                        AllowFiltering="True"
                                        AutoGenerateColumns="False" 
                                            AllowGrouping="True"
@@ -49,18 +50,20 @@
                                        RowHeight="40"
                                        NavigationMode="Row"
                                        ShowGroupDropArea="True" >
-                        <syncfusion:SfDataGrid.Columns>
-                            <syncfusion:GridTextColumn HeaderText="Date" DisplayBinding="{Binding Path=Date,
-                                                                            StringFormat='{}{0:dd/MM/yyyy hh:mm:ss}'}" /> 
-                           
-                            <syncfusion:GridTextColumn HeaderText="Utilisateur" MappingName="User.UserName" />
-                            <syncfusion:GridTextColumn HeaderText="Machine" MappingName="Machine"  />
-                            <syncfusion:GridTextColumn HeaderText="Nom Action" MappingName="ActionName" />
-                            <syncfusion:GridTextColumn HeaderText="Entité" MappingName="EntitySet" />
-                            <syncfusion:GridTextColumn HeaderText="Entité Parent" MappingName="ParentEntitySet" />
-                            <syncfusion:GridTextColumn HeaderText="Détails" MappingName="Message" />                            
-                        </syncfusion:SfDataGrid.Columns>
-                    </syncfusion:SfDataGrid>
+                            <syncfusion:SfDataGrid.Columns>
+                                <syncfusion:GridTextColumn HeaderText="Date" DisplayBinding="{Binding Path=Date,
+                                                                            StringFormat='{}{0:dd/MM/yyyy hh:mm:ss}'}" />
+
+                                <syncfusion:GridTextColumn HeaderText="Utilisateur" MappingName="User.UserName" />
+                                <syncfusion:GridTextColumn HeaderText="Machine" MappingName="Machine"  />
+                                <syncfusion:GridTextColumn HeaderText="Nom Action" MappingName="ActionName" />
+                                <syncfusion:GridTextColumn HeaderText="Entité" MappingName="EntitySet" />
+                                <syncfusion:GridTextColumn HeaderText="Détails" MappingName="Message" />
+                                <syncfusion:GridTextColumn HeaderText="Entité Parent" MappingName="ParentEntitySet" />
+                                
+                            </syncfusion:SfDataGrid.Columns>
+                        </syncfusion:SfDataGrid>
+                    </ScrollViewer>                   
                     <syncfusion:SfDataPager x:Name="LogDataPager"
                                        Grid.Row="1"                                       
                                        Height="60"

@@ -118,7 +118,7 @@
                 </TextBlock>-->
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Lieu de Rdv" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <syncfusion:SfTextBoxExt Name="TxtEditLieuRdv" Grid.Column="1" Text="{Binding SelectedAppointement.LieuRdv,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+                <syncfusion:SfTextBoxExt Name="TxtEditLieuRdv" Grid.Column="1"  Text="{Binding SelectedAppointement.LieuRdv,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5" HorizontalContentAlignment="Left" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
                                      Watermark="Lieu du rendez vous"  
                                      />
 
@@ -167,7 +167,7 @@
                                                ItemsSource="{Binding ElementName=DoctorDataPager,Path=PagedSource}"                                       
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedAppointement.Medecin,Mode=TwoWay}"
-                                       ShowGroupDropArea="True" Margin="-10,0,10,0" >
+                                       ShowGroupDropArea="True" Margin="10" >
 
                             <syncfusion:SfDataGrid.Columns>
                                 <syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />

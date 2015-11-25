@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -95,7 +96,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (pass == null) return;
                         await Task.Run(() =>
                         {
-                            IsLogInProgressRingOn = true;
+                            IsLogInProgressRingOn = true;                                                        
                             Login(UserName, pass);
                             IsLogInProgressRingOn = false;
                         });
@@ -114,6 +115,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
         void Login(string userName, object pass)
         {
+            Messenger.Default.Send<String>("connexion en cours", "enableLoading");
             var passwordBox = pass as PasswordBox;
             if (passwordBox != null)
             {
@@ -127,7 +129,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         MainFrameNavigationService.NavigateTo(App.MainViewKey,
                             _dbContext.Users.First(u => u.UserName == userName));
                     }));
-
+                    Messenger.Default.Send<String>("", "desableLoading");
                 }
                 else
                 {
@@ -136,6 +138,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         passwordBox.Clear();
                     }));
+                    Messenger.Default.Send<String>("Utilisateur inconnu ou mot de passe erroné", "desableLoading");
                 }
             }
         }

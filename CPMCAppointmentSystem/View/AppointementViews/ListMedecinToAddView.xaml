@@ -5,7 +5,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
-        Title="ListMedecinToAddView"  WindowStyle="SingleBorderWindow"
+        Title="Filtre par medecin"  WindowStyle="SingleBorderWindow"
         EnableDWMDropShadow="True"
         ResizeMode="CanResizeWithGrip"
         WindowTransitionsEnabled="False"                      
@@ -27,7 +27,7 @@
             <RowDefinition Height="*"></RowDefinition>            
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0" Header="Selectionner la liste des medecins a filtrer selon" VerticalAlignment="Stretch">
+        <GroupBox Grid.Row="0" Header="Afficher les patients des medecins suivant" VerticalAlignment="Stretch">
             <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

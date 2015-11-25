@@ -184,7 +184,8 @@
                     <Syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
                     <Syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneDaccompagnant"/>
                     <Syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
-                    <Syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
+                    <Syncfusion:GridTextColumn HeaderText="Code Postal" MappingName="Adresse.CodePosatal"/>
+                    <Syncfusion:GridTextColumn HeaderText="Pathologie" MappingName="Pathology.NomPathology"/>
                 </Syncfusion:SfDataGrid.Columns>
                 <Syncfusion:SfDataGrid.RecordContextMenu>
                     <ContextMenu >
@@ -414,20 +415,20 @@
                 <Syncfusion:SfTextBoxExt Name="TxtEditMobile"
                                         
                                          Grid.Column="1"  Text="{Binding TelephoneMobile1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Telephone mobile 1"  
+                                     Watermark="Telephone mobile"  
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="8" Text="Mobile d'accomp" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <Syncfusion:SfTextBoxExt  Name="TxtEditMobileAcc" Grid.Column="1" 
                                          
                                          Text="{Binding TelephoneDaccompagnant,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Telephone mobile d'accompagnant"  
+                                     Watermark="Telephone mobile d'accompagnateur"  
                                      />
                 <TextBlock Grid.Column="0" Grid.Row="9" Text="Nom d'accomp" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <Syncfusion:SfTextBoxExt Name="TxtEditNomAcc"
                                         
                                          Grid.Column="1"  Text="{Binding NomPrenomDaccompagnant,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Nom et prenom d'accompagnant"  
+                                     Watermark="Nom et prenom d'accompagnateur"  
                                      />
 
                 <TextBlock Grid.Column="0" Grid.Row="10" Text="Adresse" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
@@ -468,7 +469,7 @@
                 </Grid>
                 <TextBlock Grid.Column="0" Grid.Row="12" Text="Date depot" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <DatePicker IsEnabled="False" Margin="10 5"  SelectedDate="{Binding DateDeDepot,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}'}"    Grid.Column="1" Grid.Row="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="12"  Text="Date de dépot" >
+                <TextBlock Grid.Column="1" Grid.Row="12"  Text="Date de dépôt" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -486,7 +487,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock  Text="Pathologie" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <Syncfusion:ComboBoxAdv Syncfusion:SkinStorage.VisualStyle="Metro" Name="CbxPath" Margin="10 5" ItemsSource="{Binding DataContext.PathologiesList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Pathology}" DisplayMemberPath="NomPathology"
+                        <Syncfusion:ComboBoxAdv IsTextSearchEnabled="True" Syncfusion:SkinStorage.VisualStyle="Metro" Name="CbxPath" Margin="10 5" ItemsSource="{Binding DataContext.PathologiesList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Pathology}" DisplayMemberPath="NomPathology"
                                                  Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         <TextBlock Grid.Column="1"   Text="Sélectionner" >
                             <TextBlock.Style>

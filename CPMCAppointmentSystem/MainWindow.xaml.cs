@@ -30,6 +30,23 @@ namespace CPMCAppointmentSystem
                         break;
                 }
             });
+            Messenger.Default.Register<String>(this, "enableLoading", (message) =>
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
+                {
+                    TxtLoadingMessage.Text = message;
+                    ProgressBarLoading.IsIndeterminate = true;
+                }));
+
+            });
+            Messenger.Default.Register<String>(this, "desableLoading", (message) =>
+            {
+               Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
+              {
+                  TxtLoadingMessage.Text = message;
+                  ProgressBarLoading.IsIndeterminate = false;
+              }));
+            });
             #endregion
         }
         private void MainFrame_OnContentRendered(object sender, EventArgs e)

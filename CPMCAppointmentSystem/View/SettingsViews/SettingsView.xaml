@@ -619,6 +619,11 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <TabControl TabStripPlacement="Left">
+                        <TabControl.Resources>
+                            <Style TargetType="{x:Type TabPanel}">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </Style>
+                        </TabControl.Resources>
                         <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
@@ -735,7 +740,7 @@
                                         </GroupBox>
                                     </Expander>
                                     <Expander Header="Rendez vous" Grid.Row="2">
-                                        <GroupBox Header="Date rendez vous" >
+                                        <GroupBox Header="Date rendez vous" IsEnabled="False">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
@@ -806,9 +811,10 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <GroupBox Header="Ajouter Une Type De Piece Jointe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <syncfusion:SfDataGrid ColumnSizer="Star"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
+                                <GroupBox Header="Insérer un type de piece jointe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <syncfusion:SfDataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AddNewRowPosition="Top" AllowDeleting="True" 
                                                        AutoGenerateColumns="False"
+                                                        ColumnSizer="Star"
                                        AllowDraggingColumns="True"
                                        AllowEditing="True"
                                        AllowFiltering="True"
@@ -875,7 +881,7 @@
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <GroupBox Grid.Row="0" Header="Jour férié occasionnelle" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <GroupBox Grid.Row="0" Header="les jours fériés fixe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
@@ -1044,7 +1050,7 @@
                                             </Grid>
                                         </Grid>
                                     </GroupBox>
-                                    <GroupBox Grid.Row="1" Header="Jour férié fixe" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <GroupBox Grid.Row="1" Header="les jours fériés annuel" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
@@ -1494,7 +1500,7 @@
                                         <syncfusion:SfTextBoxExt Margin="30,5,5,5" Text="{Binding BetweenAtCmdDelay,Mode=TwoWay}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch"></syncfusion:SfTextBoxExt>
                                     </Grid>
                                 </GroupBox>
-                                <GroupBox Header="Core sms" Grid.Row="1" Grid.Column="0">
+                                <GroupBox Header="Modèle du message SMS" Grid.Row="1" Grid.Column="0">
 
                                     <Grid Margin="5" Background="WhiteSmoke">
                                         <Grid.ColumnDefinitions>
@@ -1532,7 +1538,8 @@
                             </Grid>
                         </TabItem>
                         <TabItem Header="Paramètres d'appel">
-                            <Grid>
+                            
+                            <Grid>                                
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
@@ -1540,7 +1547,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                                </Grid.RowDefinitions>                              
                                 <GroupBox Header="Appelle Vocale Automatique" Grid.Row="0" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -1618,7 +1625,9 @@
                                         </Button.Content>
                                     </Button>
                                 </Grid>
-
+                                <Border Background="#eeffffff" Grid.ColumnSpan="2" Grid.RowSpan="3">
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="[In Progress]" Style="{StaticResource HeaderTextBlockStyle}" Foreground="{StaticResource AccentColorBrush}"></TextBlock>
+                                </Border>
                             </Grid>
                         </TabItem>
                     </TabControl>
