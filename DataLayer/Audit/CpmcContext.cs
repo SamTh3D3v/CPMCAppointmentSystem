@@ -56,12 +56,13 @@ namespace DataLayer.Model
                 if (traceList.Count > 0)
                     foreach (var trace in traceList)
                         this.Traces.Add(trace);
+                return base.SaveChanges();
             } // Cacth any Exception due to Auditing Actions.
             catch (Exception ex)
             {                
                 System.Diagnostics.Trace.TraceError(ex.Message);
-            }
-            return base.SaveChanges();
+            } 
+            return -1;    //Something went wrong
         }
 
 

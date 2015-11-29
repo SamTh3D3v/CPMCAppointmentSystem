@@ -11,6 +11,7 @@ using System.Windows.Media;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View.AppointementViews;
+using DataLayer;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -1109,11 +1110,17 @@ namespace CPMCAppointmentSystem.ViewModel
                                 rr =>
                                     NotficationManager.AddNotification(new Notification()
                                     {
+                                        NotificationId = Guid.NewGuid(),
                                         NotificationTitle = "#Patient déjat pris un rdv",
                                         Image = rr.Patient.ProfilePicture,
                                         NotificationMessage =
                                             "ce patient a déjat pris un rdv de radiothérapie le  : " +rr.DateTimeRdv
-                                             +" effectuer une recherche pour plus de détails."
+                                             +" effectuer une recherche pour plus de détails.",
+                                        NotificationType = TypeNotification.Information,
+                                        IsActive = true,
+                                        TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
+                                        CreatedOn = DateTime.Now,
+                                        ModifiedOn = DateTime.Now
                                     }));
                         }
                     }));
