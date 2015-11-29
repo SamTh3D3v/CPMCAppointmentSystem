@@ -115,7 +115,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
         void Login(string userName, object pass)
         {
-            Messenger.Default.Send<String>("connexion en cours", "enableLoading");
+            Messenger.Default.Send<String>(ErrorMessages.LogInInProgressMessage.Body, "enableLoading");
             var passwordBox = pass as PasswordBox;
             if (passwordBox != null)
             {
@@ -138,7 +138,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         passwordBox.Clear();
                     }));
-                    Messenger.Default.Send<String>("Utilisateur inconnu ou mot de passe erroné", "desableLoading");
+                    Messenger.Default.Send<String>(ErrorMessages.CantLogInMessage.Body, "desableLoading");
                 }
             }
         }

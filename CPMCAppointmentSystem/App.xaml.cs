@@ -107,7 +107,7 @@ namespace CPMCAppointmentSystem
         protected override void OnExit(ExitEventArgs e)
         {
             NotificationHelper.Stop();
-            base.OnExit(e);
+            base.OnExit(e); 
         }
 
         public static void SaveDateBaseSettings(DataBaseSettings databasesettings, object passwordbox)

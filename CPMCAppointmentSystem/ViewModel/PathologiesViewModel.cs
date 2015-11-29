@@ -207,17 +207,29 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (SelectedPathology.PathologyId == Guid.Empty)
                         {
                             AddNewPathology();
-                            _dbContext.Notifications.Add(new Notification()
+
+                            NotficationManager.AddNotification(new Notification()
                             {
                                 NotificationId = Guid.NewGuid(),
                                 NotificationTitle = "Nouvelle Pathologie",
                                 NotificationMessage = "La pathologie:" + SelectedPathology.NomPathology + " a été inserer",
                                 NotificationType = TypeNotification.Information,
                                 IsActive = true,
-                                TypeUser = TypeUserUtility.WhichTypeUser(true,false,true),
+                                TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
                                 CreatedOn = DateTime.Now,
                                 ModifiedOn = DateTime.Now
                             });
+                            //_dbContext.Notifications.Add(new Notification()
+                            //{
+                            //    NotificationId = Guid.NewGuid(),
+                            //    NotificationTitle = "Nouvelle Pathologie",
+                            //    NotificationMessage = "La pathologie:" + SelectedPathology.NomPathology + " a été inserer",
+                            //    NotificationType = TypeNotification.Information,
+                            //    IsActive = true,
+                            //    TypeUser = TypeUserUtility.WhichTypeUser(true,false,true),
+                            //    CreatedOn = DateTime.Now,
+                            //    ModifiedOn = DateTime.Now
+                            //});
                         }
                         else
                         {

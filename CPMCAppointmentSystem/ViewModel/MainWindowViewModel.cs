@@ -284,7 +284,7 @@ namespace CPMCAppointmentSystem.ViewModel
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
             NotificationsCollection = new ObservableCollection<Notification>();
-            Messenger.Default.Register<Notification>(this, "AddNotification", (notification) => NotificationsCollection.Add(notification));
+           // Messenger.Default.Register<Notification>(this, "AddNotification", (notification) => NotificationsCollection.Add(notification));
             Messenger.Default.Register<Notification>(this, "RemoveNotification", (notification) => NotificationsCollection.Remove(notification));
 
         }

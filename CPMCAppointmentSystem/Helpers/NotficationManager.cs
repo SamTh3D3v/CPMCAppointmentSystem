@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CPMCAppointmentSystem.View;
+using DataLayer;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -20,8 +21,12 @@ namespace CPMCAppointmentSystem.Helpers
         {
             NotificationStackWindow.Top = SystemParameters.WorkArea.Top + TopOffset;
             NotificationStackWindow.Left = SystemParameters.WorkArea.Left + SystemParameters.WorkArea.Width - LeftOffset;
-   
-            Messenger.Default.Send<Notification>(notification, "AddNotification");
+            using (var db=new CpmcContext())
+            {
+                db.Notifications.Add(notification);
+                db.SaveChanges();
+            }            
+            //Messenger.Default.Send<Notification>(notification, "AddNotification");
             NotificationStackWindow.AddNotification(notification);
         }
 
