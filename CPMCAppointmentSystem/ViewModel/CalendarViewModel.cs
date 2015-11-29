@@ -897,9 +897,17 @@ namespace CPMCAppointmentSystem.ViewModel
                         var result = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Confirmation", "etes vous sure de vouloire faire deplacer ce rendez-vous", MessageDialogStyle.AffirmativeAndNegative));
                         if (result == MessageDialogResult.Affirmative)
                         {
-                            var rdv = args.Appointment as RendezVous;
-                            _dbContext.RendezVouses.Find(rdv.RendezVousId).DateTimeRdv = args.To;
-                            _dbContext.SaveChanges();
+                            if (RestDayHelper.IsRestDay(args.To))
+                            {
+                                await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(ErrorMessages.ThisIsARestDayMessage.Header, ErrorMessages.ThisIsARestDayMessage.Body));
+                                args.Cancel = true;                                ;
+                            }
+                            else
+                            {
+                                var rdv = args.Appointment as RendezVous;
+                                _dbContext.RendezVouses.Find(rdv.RendezVousId).DateTimeRdv = args.To;
+                                _dbContext.SaveChanges();
+                            }                          
                         }
                         else
                         {

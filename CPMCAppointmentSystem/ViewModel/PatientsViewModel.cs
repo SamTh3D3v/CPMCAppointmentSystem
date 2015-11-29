@@ -787,7 +787,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         if (SelectedPatient.RendezVouses.Any(r=>r.RdvStateValue==RdvState.NotYet))
                         {
-                             await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(ErrorMessages.AlreadyExistingRdvHeader, ErrorMessages.AlreadyExistingRdvMessage));
+                            await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(ErrorMessages.AlreadyExistingRdvMessage.Header, ErrorMessages.AlreadyExistingRdvMessage.Body));
                             return;
                         }
 
