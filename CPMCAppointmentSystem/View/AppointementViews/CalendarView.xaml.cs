@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Messaging;
 using Syncfusion.UI.Xaml.Schedule;
@@ -93,6 +94,9 @@ namespace CPMCAppointmentSystem.View.AppointementViews
             if (e.CurrentSelectedDate != null) Messenger.Default.Send<DateTime>((DateTime)e.CurrentSelectedDate);
             RadialPopup.IsOpen = false;
             e.Cancel = true;
+            if (RestDayHelper.IsRestDay((DateTime)e.CurrentSelectedDate)) return;
+
+
             RadialPopup.IsOpen = true;
             radialMenu.IsOpen = true;
             if (e.CurrentSelectedDate != null)

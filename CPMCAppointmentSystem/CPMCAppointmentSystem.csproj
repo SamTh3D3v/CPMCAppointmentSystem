@@ -244,6 +244,7 @@
     <Compile Include="Helpers\Notifications.cs" />
     <Compile Include="Helpers\NotifyPropertyChanged.cs" />
     <Compile Include="Helpers\RdvDataTemplateSelector.cs" />
+    <Compile Include="Helpers\RestDayHelper.cs" />
     <Compile Include="Helpers\SearchService.cs" />
     <Compile Include="Helpers\Security.cs" />
     <Compile Include="Helpers\TreeViewModel.cs" />
