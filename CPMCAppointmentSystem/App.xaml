@@ -8,7 +8,8 @@
              xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              StartupUri="MainWindow.xaml"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+              Exit="Application_Exit" >
 
     <Application.Resources>
         <ResourceDictionary>

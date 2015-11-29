@@ -19,7 +19,7 @@
         ResizeMode="CanResizeWithGrip"
         WindowTransitionsEnabled="False"                      
         BorderBrush="{DynamicResource AccentColorBr}"
-                      BorderThickness="1" WindowTitleBrush="Black"        
+                      BorderThickness="1" WindowTitleBrush="Black"  Closed="MetroWindow_Closed"      
         DataContext="{Binding MainWindow, Source={StaticResource Locator}}" MinWidth="800" MinHeight="550" MouseDown="MainWindow_OnMouseDown">
     <Window.Resources>
         <Canvas x:Key="AppbarSettings" Width="76" Height="76" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">

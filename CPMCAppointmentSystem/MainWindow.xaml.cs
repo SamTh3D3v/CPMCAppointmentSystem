@@ -89,5 +89,10 @@ namespace CPMCAppointmentSystem
         {
             CurrentUserFlyout.IsOpen = false;
         }
+
+        private void MetroWindow_Closed(object sender, EventArgs e)
+        {
+            App.Current.Shutdown();
+        }
     }
 }

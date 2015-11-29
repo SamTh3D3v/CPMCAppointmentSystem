@@ -104,11 +104,11 @@ namespace CPMCAppointmentSystem
             var controller = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Opération non permise, Details :", errorMessage));
         }
 
-        protected override void OnExit(ExitEventArgs e)
-        {
-            NotificationHelper.Stop();
-            base.OnExit(e); 
-        }
+        //protected override void OnExit(ExitEventArgs e)
+        //{
+        //    NotificationHelper.Stop();
+        //    base.OnExit(e);
+        //}
 
         public static void SaveDateBaseSettings(DataBaseSettings databasesettings, object passwordbox)
         {
@@ -150,6 +150,12 @@ namespace CPMCAppointmentSystem
                 
 
             }
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            NotificationHelper.Stop();
+          //  base.OnExit(e); 
         }
     }
 }
