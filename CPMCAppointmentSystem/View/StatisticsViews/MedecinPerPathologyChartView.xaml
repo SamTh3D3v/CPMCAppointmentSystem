@@ -10,7 +10,7 @@
              d:DesignHeight="500" x:Name="RootPatientPerSexeUserControl" d:DesignWidth="920"
              DataContext="{Binding MedecinPerPathologyChartViewModel,Source={StaticResource Locator}}">
     <UserControl.Resources>
-        <DataTemplate x:Key="labelTemplate">
+        <DataTemplate x:Key="LabelTemplate">
             <TextBlock Text="{Binding LabelContent}" Foreground="Black"  FontSize="16"/>
         </DataTemplate>
 
@@ -68,7 +68,7 @@
                 </chart:SfChart.Header>
                 <chart:SfChart.PrimaryAxis>
                     <chart:CategoryAxis  Header="Pathologies" Foreground="Black"  FontSize="20" 
-                                     LabelTemplate="{StaticResource labelTemplate}"
+                                     LabelTemplate="{StaticResource LabelTemplate}"
                                      AxisLineStyle="{StaticResource AxisStyle1}" 
                                      MajorTickLineStyle="{StaticResource AxisStyle}">
                     </chart:CategoryAxis>
@@ -77,14 +77,14 @@
                 <chart:SfChart.SecondaryAxis>
                     <chart:NumericalAxis FontSize="20" Minimum="0" Maximum="40" Interval="5"  
                                      Header="Nombre des medecins" Foreground="Black"
-                                     LabelTemplate="{StaticResource labelTemplate}" 
+                                     LabelTemplate="{StaticResource LabelTemplate}" 
                                      AxisLineStyle="{StaticResource AxisStyle}"
                                      MajorTickLineStyle="{StaticResource AxisStyle}"/>
                 </chart:SfChart.SecondaryAxis>
 
                 <chart:ColumnSeries EnableAnimation="True" Palette="Metro" 
-                                ItemsSource="{Binding DoctorPerPathologyCollection}"  XBindingPath="Item" 
-                                YBindingPath="ItemsCount" Label="Nombre des medecins" ShowTooltip="True" 
+                                ItemsSource="{Binding DoctorPerPathologyCollection}"  XBindingPath="Field" 
+                                YBindingPath="Count" Label="Nombre des medecins" ShowTooltip="True" 
                                 chart:ChartTooltip.EnableAnimation="True">
                     <chart:ColumnSeries.AdornmentsInfo>
                         <chart:ChartAdornmentInfo AdornmentsPosition="Top" HorizontalAlignment="Center" 

@@ -17,10 +17,10 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
     {
         #region Fields
         private CpmcContext _dbContext;
-        private ObservableCollection<BarModel> _doctorPerPathologyCollection;
+        private ObservableCollection<EntityPerFieldCountModel> _doctorPerPathologyCollection;
         #endregion
         #region Properties
-        public ObservableCollection<BarModel> DoctorPerPathologyCollection
+        public ObservableCollection<EntityPerFieldCountModel> DoctorPerPathologyCollection
         {
             get
             {
@@ -49,10 +49,10 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                     ?? (_pathoPerDocLoadedCommand = new RelayCommand(async () =>
                     {
                         _dbContext = new CpmcContext();
-                        DoctorPerPathologyCollection = new ObservableCollection<BarModel>(await Task.Run(() => _dbContext.Pathologies.Select(p => new BarModel()
+                        DoctorPerPathologyCollection = new ObservableCollection<EntityPerFieldCountModel>(await Task.Run(() => _dbContext.Pathologies.Select(p => new EntityPerFieldCountModel()
                              {
-                                 Item = p.NomPathology,
-                                 ItemsCount = p.Medecins.Count
+                                 Field = p.NomPathology,
+                                 Count = p.Medecins.Count
 
                              })));
                     }));

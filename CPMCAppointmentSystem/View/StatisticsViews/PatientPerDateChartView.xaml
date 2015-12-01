@@ -5,8 +5,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behavior="clr-namespace:CPMCAppointmentSystem.Behavior"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
+             xmlns:chart="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="920" DataContext="{Binding PatientPerDateChartViewModel,Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="LabelTemplate">
+            <TextBlock Text="{Binding LabelContent}" Foreground="Black"  FontSize="16"/>
+        </DataTemplate>
+
+        <Style TargetType="Line" x:Key="AxisStyle">
+            <Setter Property="Stroke" Value="DarkGray"  />
+            <Setter Property="StrokeThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="Line" x:Key="AxisStyle1">
+            <Setter Property="Stroke" Value="DarkGray"  />
+            <Setter Property="StrokeThickness" Value="0.5"/>
+        </Style>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientPerDateLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientPerDateUnLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Background="LightSeaGreen">
         <Grid.RowDefinitions>
@@ -19,7 +46,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Button  Grid.Column="2" Grid.Row="0" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="0.5, 0.5"
-                Width="48" Height="48" Style="{StaticResource GoBackArrowButtonStyle}" Command="{Binding ReturnToOriginalTileCommand}">          
+                Width="48" Height="48" Style="{StaticResource GoBackArrowButtonStyle}" Command="{Binding ReturnToOriginalTileCommand}">
             <Grid Background="Transparent">
                 <Image Source="{StaticResource LeftArrowDark}"/>
             </Grid>
@@ -29,8 +56,110 @@
             <Image Source="{StaticResource ChartLight}" Width="55"/>
             <TextBlock Text="Patient par date" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10  0"/>
         </StackPanel>
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Margin="5" Background="#99eeeeee">
+            <chart:SfChart AreaBorderThickness="0" 
+                       HorizontalAlignment="Center" Grid.RowSpan="2">
 
+                <chart:SfChart.Header>
+                    <TextBlock FontSize="24" Foreground="Black" 
+                           FontFamily="Segoe UI" 
+                           Margin="0,20,0,10">Nombre des patient par date</TextBlock>
+                </chart:SfChart.Header>
+                <chart:SfChart.PrimaryAxis>
+                    <chart:CategoryAxis  Header="Pathologies" Foreground="Black"  FontSize="20" 
+                                     LabelTemplate="{StaticResource LabelTemplate}"
+                                     AxisLineStyle="{StaticResource AxisStyle1}" 
+                                     MajorTickLineStyle="{StaticResource AxisStyle}">
+                    </chart:CategoryAxis>
+                </chart:SfChart.PrimaryAxis>
 
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis FontSize="20" Minimum="0" Maximum="40" Interval="5"  
+                                     Header="Nombre des medecins" Foreground="Black"
+                                     LabelTemplate="{StaticResource LabelTemplate}" 
+                                     AxisLineStyle="{StaticResource AxisStyle}"
+                                     MajorTickLineStyle="{StaticResource AxisStyle}"/>
+                </chart:SfChart.SecondaryAxis>
 
+                <chart:ColumnSeries EnableAnimation="True" Palette="Metro" 
+                                ItemsSource="{Binding PatientPerDateCollection}"  XBindingPath="Field" 
+                                YBindingPath="Count" Label="Nombre des medecins" ShowTooltip="True" 
+                                chart:ChartTooltip.EnableAnimation="True">
+                    <chart:ColumnSeries.AdornmentsInfo>
+                        <chart:ChartAdornmentInfo AdornmentsPosition="Top" HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" ShowLabel="True" ShowMarker="True">
+                            <chart:ChartAdornmentInfo.LabelTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock Text="{Binding}" Foreground="White" 
+					       FontFamily="Segoe UI" Margin="0,50,0,0" FontSize="20"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </chart:ChartAdornmentInfo.LabelTemplate>
+                        </chart:ChartAdornmentInfo>
+                    </chart:ColumnSeries.AdornmentsInfo>
+                </chart:ColumnSeries>
+            </chart:SfChart>
+        </Grid>
+        <Grid  Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="3" Width="250" Background="Transparent" HorizontalAlignment="Right" Margin="0,20,20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>                                
+            </Grid.RowDefinitions>
+            <Border HorizontalAlignment="Right" Margin="0,0,9,0" Background="#ffe7E7E7" Width="100" CornerRadius="10,0,0,0">
+                <TextBlock Text="Option" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,30,0" Style="{StaticResource BodyTextBlockStyle}"/>
+            </Border>
+            <Grid Grid.Row="1" Background="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Patient par" Grid.Row="0" Style="{StaticResource {x:Type GroupBox}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <RadioButton Content="Jour" GroupName="PatientPer" Grid.Row="0"/>
+                        <RadioButton Content="Mois" GroupName="PatientPer" Grid.Row="1"/>
+                        <RadioButton Content="Année" GroupName="PatientPer" Grid.Row="2"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Patient entre" Grid.Row="1" Style="{StaticResource {x:Type GroupBox}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Date debut" Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Text="Date Fin" Grid.Column="0" Grid.Row="1"/>
+                        <DatePicker SelectedDate="{Binding DateDebut,Mode=TwoWay}"  Grid.Column="1" Grid.Row="0"/>
+                        <DatePicker SelectedDate="{Binding DateFin,Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        
+        </Grid>
+        <ToggleButton x:Name="SettingsButton"   Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,12,5,0"/>
+        <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,12,5,0">
+            <Grid>               
+                <Path IsHitTestVisible="False" Data="{StaticResource SettingPath}" Stretch="Uniform" Fill="Black" Width="32" Height="32" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <TransformGroup.Children>
+                                <RotateTransform Angle="0" />
+                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                            </TransformGroup.Children>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+             
+            </Grid>
+        </Viewbox>
     </Grid>
 </UserControl>
