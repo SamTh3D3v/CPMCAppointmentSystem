@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
         private DateTime _dateFinDateTime;
         private DateTime _dateDebutDateTime;
         #endregion
-        #region Properties         
+        #region Properties
         public DateTime DateDebut
         {
             get
@@ -39,7 +40,7 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                 _dateDebutDateTime = value;
                 RaisePropertyChanged();
             }
-        }             
+        }
         public DateTime DateFin
         {
             get
@@ -77,7 +78,7 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
             }
         }
         #endregion
-        #region Commands   
+        #region Commands
         private RelayCommand _patientPerDateLoadedCommand;
         public RelayCommand PatientPerDateLoadedCommand
         {
@@ -86,16 +87,47 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                 return _patientPerDateLoadedCommand
                     ?? (_patientPerDateLoadedCommand = new RelayCommand(async () =>
                     {
-                        _dbContext=new CpmcContext();
-                        //PatientPerDateCollection = new ObservableCollection<EntityPerFieldCountModel>(await Task.Run(() => _dbContext.Patients.AsEnumerable().GroupBy(p=>p.DateDeDepot).Select(p => new EntityPerFieldCountModel()
-                        //{
-                        //    Field = p.NomPathology,
-                        //    Count = p.Medecins.Count
-
-                        //})));
-                        
+                        _dbContext = new CpmcContext();
+                        await LoadPatientPerDate("Day");
                     }));
             }
+        }
+
+        private async Task LoadPatientPerDate(string dateField)
+        {
+            await Task.Run(() =>
+            {
+                switch (dateField)
+                {
+                    case "Day":
+                        PatientPerDateCollection = new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.GroupBy(p => DbFunctions.TruncateTime(p.DateDeDepot))
+                            .AsEnumerable().Select(p => new EntityPerFieldCountModel()
+                            {
+                                Field = ((DateTime)p.Key).ToString("dd/MM/yyyy"),
+                                Count = p.Count()
+
+                            }));
+                        break;
+                    case "Month":
+                        PatientPerDateCollection = new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.AsEnumerable().GroupBy(p => new { p.DateDeDepot.Month, p.DateDeDepot.Year }).AsEnumerable().Select(p => new EntityPerFieldCountModel()
+                            {
+                                Field = (p.Key.Month).ToString(),
+                                Count = p.Count()
+
+                            }));
+                        break;
+                    case "Year":
+                        PatientPerDateCollection = new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.GroupBy(p => p.DateDeDepot.Year)
+                            .AsEnumerable().Select(p => new EntityPerFieldCountModel()
+                            {
+                                Field = p.Key.ToString(),
+                                Count = p.Count()
+                            }));
+                        break;
+                }
+            });
+
+
         }
         private RelayCommand _patientPerDateUnLoadedCommand;
         public RelayCommand PatientPerDateUnLoadedCommand
@@ -107,7 +139,19 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                     () =>
                     {
                         _dbContext.Dispose();
-                        
+
+                    }));
+            }
+        }
+        private RelayCommand<string> _perDateChangedCommand;
+        public RelayCommand<string> PerDateChangedCommand
+        {
+            get
+            {
+                return _perDateChangedCommand
+                    ?? (_perDateChangedCommand = new RelayCommand<string>(async (per) =>
+                    {
+                        await LoadPatientPerDate(per);
                     }));
             }
         }

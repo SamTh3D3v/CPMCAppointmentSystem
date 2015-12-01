@@ -24,35 +24,35 @@
             <Setter Property="StrokeThickness" Value="0.5"/>
         </Style>
         <Storyboard x:Key="PatientPerDateCloseStoryBorad">
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)">
-        		<EasingDoubleKeyFrame KeyTime="0" Value="204">
-        			<EasingDoubleKeyFrame.EasingFunction>
-        				<BackEase EasingMode="EaseInOut"/>
-        			</EasingDoubleKeyFrame.EasingFunction>
-        		</EasingDoubleKeyFrame>
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
-        			<EasingDoubleKeyFrame.EasingFunction>
-        				<BackEase EasingMode="EaseIn"/>
-        			</EasingDoubleKeyFrame.EasingFunction>
-        		</EasingDoubleKeyFrame>
-        	</DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="204">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="PatientPerDateOpenStoryBorad">
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)">
-        		<EasingDoubleKeyFrame KeyTime="0" Value="0">
-        			<EasingDoubleKeyFrame.EasingFunction>
-        				<BackEase EasingMode="EaseInOut"/>
-        			</EasingDoubleKeyFrame.EasingFunction>
-        		</EasingDoubleKeyFrame>
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="204">
-        			<EasingDoubleKeyFrame.EasingFunction>
-        				<BackEase EasingMode="EaseInOut"/>
-        			</EasingDoubleKeyFrame.EasingFunction>
-        		</EasingDoubleKeyFrame>
-        	</DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="204">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-	<!--<UserControl.Triggers>
+    <!--<UserControl.Triggers>
 		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
 			<BeginStoryboard x:Name="PatientPerDateCloseStoryBorad_BeginStoryboard" Storyboard="{StaticResource PatientPerDateCloseStoryBorad}"/>
 			<BeginStoryboard Storyboard="{StaticResource PatientPerDateOpenStoryBorad}"/>
@@ -138,12 +138,12 @@
         <Grid  Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="3" Width="250" Background="Transparent" HorizontalAlignment="Right" Margin="0,20,20,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>                                
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Border HorizontalAlignment="Right" Margin="0,0,9,0" Background="#ffe7E7E7" Width="100" CornerRadius="10,0,0,0">
                 <TextBlock Text="Option" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,30,0" Style="{StaticResource BodyTextBlockStyle}"/>
             </Border>
-            <Grid x:Name="grid" Grid.Row="1" Background="WhiteSmoke" Height="0">
+            <Grid x:Name="grid" Grid.Row="1" Background="WhiteSmoke" Height="241">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Triggers>
@@ -169,9 +169,30 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <RadioButton Content="Jour" GroupName="PatientPer" Grid.Row="0"/>
-                        <RadioButton Content="Mois" GroupName="PatientPer" Grid.Row="1"/>
-                        <RadioButton Content="Année" GroupName="PatientPer" Grid.Row="2"/>
+                        <RadioButton IsChecked="True" Content="Jour" GroupName="PatientPer" Grid.Row="0">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=PerDateChangedCommand}" CommandParameter="Day"
+                            PassEventArgsToCommand="True" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </RadioButton>
+                        <RadioButton Content="Mois" GroupName="PatientPer" Grid.Row="1">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=PerDateChangedCommand}" CommandParameter="Month"
+                            PassEventArgsToCommand="True" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </RadioButton>
+                        <RadioButton Content="Année" GroupName="PatientPer" Grid.Row="2">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=PerDateChangedCommand}" CommandParameter="Year"
+                            PassEventArgsToCommand="True" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </RadioButton>
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="Patient entre" Grid.Row="1" Style="{StaticResource {x:Type GroupBox}}">
@@ -191,11 +212,11 @@
                     </Grid>
                 </GroupBox>
             </Grid>
-        
+
         </Grid>
         <ToggleButton x:Name="SettingsButton"   Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,12,5,0"/>
         <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,12,5,0">
-            <Grid>               
+            <Grid>
                 <Path IsHitTestVisible="False" Data="{StaticResource SettingPath}" Stretch="Uniform" Fill="Black" Width="32" Height="32" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
                     <Path.RenderTransform>
                         <TransformGroup>
@@ -205,7 +226,7 @@
                             </TransformGroup.Children>
                         </TransformGroup>
                     </Path.RenderTransform>
-                </Path>             
+                </Path>
             </Grid>
         </Viewbox>
     </Grid>
