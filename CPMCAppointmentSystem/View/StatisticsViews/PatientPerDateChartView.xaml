@@ -32,7 +32,7 @@
         		</EasingDoubleKeyFrame>
         		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
         			<EasingDoubleKeyFrame.EasingFunction>
-        				<BackEase EasingMode="EaseInOut"/>
+        				<BackEase EasingMode="EaseIn"/>
         			</EasingDoubleKeyFrame.EasingFunction>
         		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
