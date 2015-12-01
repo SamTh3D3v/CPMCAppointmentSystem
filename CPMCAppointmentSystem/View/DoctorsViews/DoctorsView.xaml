@@ -580,7 +580,7 @@
                                         <syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Patient.NumeroDordre" AllowEditing="False"/>
                                         <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Patient.Nom" AllowEditing="False"/>
                                         <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Patient.Prenom" AllowEditing="False"/>                                        
-                                        <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Patient.Sexe.Designation" AllowEditing="False"/>
+                                        <syncfusion:GridTextColumn HeaderText="Field" MappingName="Patient.Field.Designation" AllowEditing="False"/>
                                         <syncfusion:GridTextColumn HeaderText="Tel" MappingName="Patient.TelephoneFixe" AllowEditing="False"/>
                                         <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="Patient.TelephoneMobile" AllowEditing="False"/>
                                         <syncfusion:GridTextColumn HeaderText="Pathology" MappingName="Patient.Pathology.NomPathology" AllowEditing="False"/>                                        

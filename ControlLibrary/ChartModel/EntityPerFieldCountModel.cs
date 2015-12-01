@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ControlLibrary.ChartModel
 {
-    public class PatientPerSexeModel
+    public class EntityPerFieldCountModel
     {
-        public string Sexe { get; set; }
+        public string Field { get; set; }
         public double Count { get; set; }
     }
 }

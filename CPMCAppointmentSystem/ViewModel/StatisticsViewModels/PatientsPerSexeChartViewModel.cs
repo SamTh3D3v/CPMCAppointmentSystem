@@ -17,12 +17,12 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
         #region Fields
 
         private CpmcContext _dbContext;
-        private ObservableCollection<PatientPerSexeModel> _patientCountPerSexeCollection;
+        private ObservableCollection<EntityPerFieldCountModel> _patientCountPerSexeCollection;
 
 
         #endregion
         #region Properties
-        public ObservableCollection<PatientPerSexeModel> PatientCountPerSexeCollection
+        public ObservableCollection<EntityPerFieldCountModel> PatientCountPerSexeCollection
         {
             get
             {
@@ -53,16 +53,16 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                         _dbContext = new CpmcContext();
                         await Task.Run(() =>
                         {
-                            PatientCountPerSexeCollection = new ObservableCollection<PatientPerSexeModel>()
+                            PatientCountPerSexeCollection = new ObservableCollection<EntityPerFieldCountModel>()
                             {
-                                new PatientPerSexeModel()
+                                new EntityPerFieldCountModel()
                                 {
-                                    Sexe = "Masculin",
+                                    Field = "Masculin",
                                     Count = _dbContext.Patients.Count(p => p.SexeId == 1)
                                 },
-                                new PatientPerSexeModel()
+                                new EntityPerFieldCountModel()
                                 {
-                                    Sexe = "Féminin",
+                                    Field = "Féminin",
                                     Count = _dbContext.Patients.Count(p => p.SexeId == 2)
                                 }
                             };

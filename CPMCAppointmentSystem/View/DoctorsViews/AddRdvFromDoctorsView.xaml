@@ -140,7 +140,7 @@
                                 <Syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Nom" AllowEditing="False"/>
                                 <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Prenom" AllowEditing="False"/>
                                 <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="TelephoneMobile" AllowEditing="False"/>
-                                <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation" AllowEditing="False"/>
+                                <Syncfusion:GridTextColumn HeaderText="Field" MappingName="Field.Designation" AllowEditing="False"/>
                                 <Syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile" AllowEditing="False"/>
                                 <Syncfusion:GridTextColumn HeaderText="Pathology" MappingName="Pathology.NomPathology" AllowEditing="False"/>
                             </Syncfusion:SfDataGrid.Columns>

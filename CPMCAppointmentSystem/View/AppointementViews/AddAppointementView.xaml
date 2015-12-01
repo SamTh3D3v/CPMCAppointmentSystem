@@ -129,7 +129,7 @@
                                 <syncfusion:SfDataGrid.Columns>
                                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
                                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
-                                    <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
+                                    <syncfusion:GridTextColumn HeaderText="Field" MappingName="Field.Designation"/>
                                     <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
                                                                             StringFormat=d}"/>
                                     <syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>

@@ -15,7 +15,7 @@ internal class LabelConverter: IValueConverter
     {
         ChartAdornment pieAdornment = value as ChartAdornment;
         if (pieAdornment != null)
-            return String.Format((pieAdornment.Item as PatientPerSexeModel).Sexe + " : " + pieAdornment.YData);
+            return String.Format((pieAdornment.Item as EntityPerFieldCountModel).Field + " : " + pieAdornment.YData);
         return null;
     }
 

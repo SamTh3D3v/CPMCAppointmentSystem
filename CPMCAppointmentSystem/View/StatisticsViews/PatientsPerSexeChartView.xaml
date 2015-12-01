@@ -11,7 +11,7 @@
              d:DesignHeight="500" x:Name="RootPatientPerSexeUserControl" d:DesignWidth="920" 
              DataContext="{Binding PatientsPerSexeChartViewModel,Source={StaticResource Locator}}" >
     <UserControl.Resources>
-        <DataTemplate x:Key="labelTemplate">
+        <DataTemplate x:Key="LabelTemplate">
             <Grid>
                 <Rectangle Stroke="White" 
                                Fill="{Binding Converter={StaticResource ChartColorConverter}}" 
@@ -72,14 +72,14 @@
                              x:Name="PieSeries" ShowTooltip="True" 
                              syncfusion:ChartTooltip.EnableAnimation="True" 
                              ItemsSource="{Binding PatientCountPerSexeCollection}"
-                             XBindingPath="Sexe" YBindingPath="Count">
+                             XBindingPath="Field" YBindingPath="Count">
                     <syncfusion:PieSeries.AdornmentsInfo>
                         <syncfusion:ChartAdornmentInfo HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
                                               UseSeriesPalette="True"   
                                               ShowConnectorLine="True" 
                                               ConnectorHeight="80" ShowLabel="True" 
-                                              LabelTemplate="{StaticResource labelTemplate}"  
+                                              LabelTemplate="{StaticResource LabelTemplate}"  
                                               SegmentLabelContent="LabelContentPath">
                         </syncfusion:ChartAdornmentInfo>
                     </syncfusion:PieSeries.AdornmentsInfo>

@@ -64,7 +64,7 @@
                         <Syncfusion:GridTextColumn HeaderText="NumeroDordre" MappingName="Entity.Nom" AllowEditing="False"/>
                         <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Entity.Prenom" AllowEditing="False"/>
                         <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Entity.TelephoneMobile" AllowEditing="False"/>
-                        <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Entity.Sexe.Designation" AllowEditing="False"/>
+                        <Syncfusion:GridTextColumn HeaderText="Field" MappingName="Entity.Field.Designation" AllowEditing="False"/>
                         <Syncfusion:GridTextColumn HeaderText="Mobile" MappingName="Entity.TelephoneMobile" AllowEditing="False"/>
                         <Syncfusion:GridTextColumn HeaderText="Pathology" MappingName="Entity.Pathology.NomPathology" AllowEditing="False"/>
                         <Syncfusion:GridCheckBoxColumn HeaderText="Ajouter" AllowEditing="True" MappingName="IsAdded" />

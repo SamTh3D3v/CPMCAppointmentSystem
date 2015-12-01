@@ -172,7 +172,7 @@
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom"/>
                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
-                    <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
+                    <syncfusion:GridTextColumn HeaderText="Field" MappingName="Field.Designation"/>
                     <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
                                                                             StringFormat='{}{0:dd/MM/yyyy}'}"/>
                     <syncfusion:GridTextColumn HeaderText="Télephone fixe" MappingName="TelephoneFixe"/>
@@ -366,9 +366,9 @@
                     </TextBlock.Style>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="5" Text="Sexe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <TextBlock Grid.Column="0" Grid.Row="5" Text="Field" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <syncfusion:ComboBoxAdv syncfusion:SkinStorage.VisualStyle="Metro" Name="CbxSexe" Margin="10 5" ItemsSource="{Binding DataContext.SexeList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Sexe,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" DisplayMemberPath="Designation" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="5"  Text="Sexe" >
+                <TextBlock Grid.Column="1" Grid.Row="5"  Text="Field" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>

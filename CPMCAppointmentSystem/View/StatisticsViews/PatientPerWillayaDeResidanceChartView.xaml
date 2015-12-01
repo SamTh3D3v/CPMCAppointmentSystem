@@ -2,9 +2,36 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
+             xmlns:chart="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d" 
-                        d:DesignHeight="500" x:Name="RootPatientPerSexeUserControl" d:DesignWidth="920" DataContext="{Binding PatientsPerSexeChartViewModel,Source={StaticResource Locator}}">
+                        d:DesignHeight="500" x:Name="RootPatientPerSexeUserControl" d:DesignWidth="920"
+             DataContext="{Binding PatientPerWillayaDeResidanceChartViewModel,Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="LabelTemplate">
+            <Grid>
+                <Rectangle Stroke="White" 
+                               Fill="{Binding Converter={StaticResource ChartColorConverter}}" 
+                               StrokeThickness="1">
+                </Rectangle>
+                <TextBlock Margin="6,3,6,3" HorizontalAlignment="Center" 
+                               VerticalAlignment="Top" FontSize="12" Foreground="White"
+                           Text="{Binding Converter={StaticResource LabelConverter}}" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientPerWillayaLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientPerWillayaUnLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Background="LightCoral">
         <Grid.RowDefinitions>
@@ -28,5 +55,36 @@
             <Image Source="{StaticResource ChartLight}" Width="55"/>
             <TextBlock Text="Patient par willaya" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10 0"/>
         </StackPanel>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Margin="5" Background="#99eeeeee">
+            <chart:SfChart x:Name="pieChart" AreaBorderThickness="0" 
+                       HorizontalAlignment="Center" Grid.RowSpan="2">
+
+                <chart:SfChart.Header>
+                    <TextBlock FontSize="24" Foreground="Black" 
+                           FontFamily="Segoe UI" 
+                           Margin="0,20,0,10">Nombre des patient par willaya</TextBlock>
+                </chart:SfChart.Header>
+                <chart:PieSeries ConnectorType="Bezier" 
+                             PieCoefficient="0.7"  
+                             EnableSmartLabels="True" 
+                             LabelPosition="OutsideExtended"  
+                             x:Name="PieSeries" ShowTooltip="True" 
+                             chart:ChartTooltip.EnableAnimation="True" 
+                             ItemsSource="{Binding PatientCountPerWillayaCollection}"
+                             XBindingPath="Field" YBindingPath="Count">
+                    <chart:PieSeries.AdornmentsInfo>
+                        <chart:ChartAdornmentInfo HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              UseSeriesPalette="True"   
+                                              ShowConnectorLine="True" 
+                                              ConnectorHeight="80" ShowLabel="True" 
+                                              LabelTemplate="{StaticResource LabelTemplate}"  
+                                              SegmentLabelContent="LabelContentPath">
+                        </chart:ChartAdornmentInfo>
+                    </chart:PieSeries.AdornmentsInfo>
+                </chart:PieSeries>
+            </chart:SfChart>
+        </Grid>
     </Grid>
 </UserControl>
