@@ -19,10 +19,12 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
         #region Fields
         private CpmcContext _dbContext;
         private ObservableCollection<EntityPerFieldCountModel> _patientPerDateCollection;
-        private DateTime _dateFinDateTime;
-        private DateTime _dateDebutDateTime;
+        private DateTime _dateFinDateTime=DateTime.Now;
+        private DateTime _dateDebutDateTime=DateTime.Now;
         #endregion
         #region Properties
+
+        public bool PatientEntreEnabled { get; set; }       
         public DateTime DateDebut
         {
             get
@@ -100,7 +102,14 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                 switch (dateField)
                 {
                     case "Day":
-                        PatientPerDateCollection = new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.GroupBy(p => DbFunctions.TruncateTime(p.DateDeDepot))
+                        PatientPerDateCollection =(!PatientEntreEnabled)? new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.GroupBy(p => DbFunctions.TruncateTime(p.DateDeDepot))
+                            .AsEnumerable().Select(p => new EntityPerFieldCountModel()
+                            {
+                                Field = ((DateTime)p.Key).ToString("dd/MM/yyyy"),
+                                Count = p.Count()
+
+                            })):
+                            new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.Where(p=>DbFunctions.TruncateTime(p.DateDeDepot)>DateDebut && DbFunctions.TruncateTime(p.DateDeDepot)<DateFin).GroupBy(p => DbFunctions.TruncateTime(p.DateDeDepot))
                             .AsEnumerable().Select(p => new EntityPerFieldCountModel()
                             {
                                 Field = ((DateTime)p.Key).ToString("dd/MM/yyyy"),
@@ -109,7 +118,12 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                             }));
                         break;
                     case "Month":
-                        PatientPerDateCollection = new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.AsEnumerable().GroupBy(p => new { p.DateDeDepot.Month, p.DateDeDepot.Year }).AsEnumerable().Select(p => new EntityPerFieldCountModel()
+                        PatientPerDateCollection =(!PatientEntreEnabled)? new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.AsEnumerable().GroupBy(p => new { p.DateDeDepot.Month, p.DateDeDepot.Year }).AsEnumerable().Select(p => new EntityPerFieldCountModel()
+                            {
+                                Field = (p.Key.Month).ToString(),
+                                Count = p.Count()
+
+                            })):new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.Where(p=>DbFunctions.TruncateTime(p.DateDeDepot)>DateDebut && DbFunctions.TruncateTime(p.DateDeDepot)<DateFin).AsEnumerable().GroupBy(p => new { p.DateDeDepot.Month, p.DateDeDepot.Year }).AsEnumerable().Select(p => new EntityPerFieldCountModel()
                             {
                                 Field = (p.Key.Month).ToString(),
                                 Count = p.Count()
@@ -117,7 +131,13 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                             }));
                         break;
                     case "Year":
-                        PatientPerDateCollection = new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.GroupBy(p => p.DateDeDepot.Year)
+                        PatientPerDateCollection =(!PatientEntreEnabled)? new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.GroupBy(p => p.DateDeDepot.Year)
+                            .AsEnumerable().Select(p => new EntityPerFieldCountModel()
+                            {
+                                Field = p.Key.ToString(),
+                                Count = p.Count()
+                            })):
+                            new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.Where(p => DbFunctions.TruncateTime(p.DateDeDepot) > DateDebut && DbFunctions.TruncateTime(p.DateDeDepot) < DateFin).GroupBy(p => p.DateDeDepot.Year)
                             .AsEnumerable().Select(p => new EntityPerFieldCountModel()
                             {
                                 Field = p.Key.ToString(),

@@ -195,8 +195,14 @@
                         </RadioButton>
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="Patient entre" Grid.Row="1" Style="{StaticResource {x:Type GroupBox}}">
-                    <Grid>
+                <GroupBox  Grid.Row="1" Style="{StaticResource {x:Type GroupBox}}">
+                    <GroupBox.Header>  
+                        <Grid>
+                            <TextBlock Text="PATIENT ENTRE" HorizontalAlignment="Left" Foreground="White"/>
+                            <CheckBox HorizontalAlignment="Right" x:Name="CbPatientEntre" IsChecked="{Binding PatientEntreEnabled,Mode=TwoWay}"/>
+                        </Grid>
+                    </GroupBox.Header>
+                    <Grid IsEnabled="{Binding ElementName=CbPatientEntre,Path=IsChecked,Mode=TwoWay}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>

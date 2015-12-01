@@ -28,6 +28,8 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel : NavigableViewModelBase
     {
         #region Fields   
+
+        private bool _allDataLoaded = false;
         private bool _showSpesificDayDoctors = true;     
         private SearchService<Patient> _searchService;
         private bool _isDateDepotFilterApplied;
@@ -641,6 +643,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _patientsViewLoadedCommand
                     ?? (_patientsViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        _allDataLoaded = false;
                         _dbContext = new CpmcContext();
                         SexeList = new ObservableCollection<Sexe>(await Task.Run(() => _dbContext.Sexes));
                         WillayasList = new ObservableCollection<Willaya>(await Task.Run(() => _dbContext.Willayas));
@@ -658,7 +661,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         await LoadPieceJointeTypeList();
                         await LoadPatienstList();
                         await LoadPathologiseList();
-                        await LoadDoctorsList();                        
+                        await LoadDoctorsList();
+                        _allDataLoaded = true;
                     }));
             }
         }
@@ -671,7 +675,13 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_patientsViewUnloadedLoadedCommand = new RelayCommand(
                     () =>
                     {
-                        _dbContext.Dispose();
+                        Task.Run(() =>
+                        {
+                            while (!_allDataLoaded) { }         //To assure that the Context isn't disposed before all the data is loaded  
+                            _dbContext.Dispose();
+
+                        });
+
                     }));
             }
         }
