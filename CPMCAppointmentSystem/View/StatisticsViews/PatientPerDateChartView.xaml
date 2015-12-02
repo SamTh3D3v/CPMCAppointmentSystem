@@ -51,7 +51,19 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-    </UserControl.Resources>
+        <Storyboard x:Key="RotateToOpenStoryboard">
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="180"/>
+        	</DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="RotateToCloseStoryboard">
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-180"/>
+        	</DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>	
     <!--<UserControl.Triggers>
 		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
 			<BeginStoryboard x:Name="PatientPerDateCloseStoryBorad_BeginStoryboard" Storyboard="{StaticResource PatientPerDateCloseStoryBorad}"/>
@@ -140,10 +152,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Border HorizontalAlignment="Right" Margin="0,0,9,0" Background="#ffe7E7E7" Width="100" CornerRadius="10,0,0,0">
-                <TextBlock Text="Option" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,30,0" Style="{StaticResource BodyTextBlockStyle}"/>
+            <Border HorizontalAlignment="Right" Margin="0,0,9,0" Background="#FF515151" Width="100" CornerRadius="10,0,0,0">
+                <TextBlock Text="Option" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,30,0" Style="{StaticResource BodyTextBlockStyle}" Foreground="White"/>
             </Border>
-            <Grid x:Name="grid" Grid.Row="1" Background="WhiteSmoke" Height="241">
+            <Grid x:Name="grid" Grid.Row="1" Background="WhiteSmoke" Height="0">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Triggers>
@@ -223,14 +235,31 @@
         <ToggleButton x:Name="SettingsButton"   Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,12,5,0"/>
         <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,12,5,0">
             <Grid>
-                <Path IsHitTestVisible="False" Data="{StaticResource SettingPath}" Stretch="Uniform" Fill="Black" Width="32" Height="32" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                <Path IsHitTestVisible="False" Data="{StaticResource SettingPath}" Stretch="Uniform" Fill="#FF080707" Width="32" Height="32" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                    <Path.Style>
+                        <Style TargetType="Path">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=SettingsButton,Path=IsChecked}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource RotateToCloseStoryboard}"/>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource RotateToOpenStoryboard}"/>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Path.Style>
+                    <Path.Effect>
+                		<DropShadowEffect Direction="0" ShadowDepth="1" Color="#FF4ACEF5" Opacity="0.75" BlurRadius="10"/>
+                	</Path.Effect>
                     <Path.RenderTransform>
-                        <TransformGroup>
-                            <TransformGroup.Children>
-                                <RotateTransform Angle="0" />
-                                <ScaleTransform ScaleX="1" ScaleY="1" />
-                            </TransformGroup.Children>
-                        </TransformGroup>
+                    	<TransformGroup>
+                    		<ScaleTransform/>
+                    		<SkewTransform/>
+                    		<RotateTransform Angle="0"/>
+                    		<TranslateTransform/>
+                    	</TransformGroup>
                     </Path.RenderTransform>
                 </Path>
             </Grid>

@@ -54,7 +54,6 @@
             </Button>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
-
     <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
             <Button>
