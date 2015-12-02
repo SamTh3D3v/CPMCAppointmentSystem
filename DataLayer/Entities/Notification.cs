@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DataLayer.Annotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using DataLayer.Attributes;
 
 namespace DataLayer.Model
 {
@@ -40,6 +41,7 @@ namespace DataLayer.Model
         public Guid NotificationId { get; set; }
 
         [MaxLength(128)]
+        [Search]
         public String NotificationTitle
         {
             get { return _notificationTitle; }
@@ -63,6 +65,7 @@ namespace DataLayer.Model
         }
 
         [MaxLength(1024)]
+        [Search]
         public String NotificationMessage   
         {
             get { return _notificationMessage; }

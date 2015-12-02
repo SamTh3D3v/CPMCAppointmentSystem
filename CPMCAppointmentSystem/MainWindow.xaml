@@ -190,25 +190,30 @@
                         <Button Width="40" Height="40" ToolTip="Refresh" Grid.Column="0" Command="{Binding RefreshNatificationsCommand}" Style="{DynamicResource MetroCircleButtonStyle}">
                             <Path Stretch="Uniform" Data="{StaticResource RefreshPath}"  Width="20" Height="20" Margin="0,0,0,0" Fill="White" />
                         </Button>
-                        <ToggleButton Width="40" Height="40" x:Name="TbSearchNotifications" ToolTip="Search" Grid.Column="1" Command="{Binding SearchNotificationCommand}" Style="{DynamicResource MetroCircleToggleButtonStyle}">
+                        <ToggleButton Width="40" Height="40" x:Name="TbSearchNotifications" ToolTip="Search" Grid.Column="1" Command="{Binding SearchNotificationCommand}" Style="{DynamicResource MetroCircleToggleButtonStyle}">                            
                             <Path Stretch="Uniform" Data="{StaticResource SearchPath}"  Width="20" Height="20" Margin="0,0,0,0" Fill="White" />
                         </ToggleButton>
                         <Button Width="40" Height="40" ToolTip="Clear all" Grid.Column="2" Command="{Binding ClearAllCommand}" Style="{DynamicResource MetroCircleButtonStyle}">
                             <Path Stretch="Uniform" Data="{StaticResource ClearPath}"  Width="20" Height="20" Margin="0,0,0,0" Fill="White" />
                         </Button>                                                
                     </Grid>
-                    <syncfusion:SfTextBoxExt Watermark="Search Terms" Grid.Row="1" HorizontalAlignment="Stretch" Text="{Binding SearchTerms,Mode=TwoWay}">
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Visibility" Value="Collapsed"/>
+                    <syncfusion:SfTextBoxExt Watermark="Search Terms" Grid.Row="1" HorizontalAlignment="Stretch" Text="{Binding SearchTerms,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <command:EventToCommand Command="{Binding Mode=OneWay, Path=StartSearchServiceCommand}"
+                            PassEventArgsToCommand="True" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <syncfusion:SfTextBoxExt.Style>
+                            <Style TargetType="syncfusion:SfTextBoxExt">
+                                <Setter Property="Visibility" Value="Collapsed"/>                                
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ElementName=TbSearchNotifications,Path=IsChecked}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                        <Setter Property="Text" Value=""/>
+                                        <Setter Property="Visibility" Value="Visible"/>                                        
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </TextBox.Style>
+                        </syncfusion:SfTextBoxExt.Style>
                     </syncfusion:SfTextBoxExt>
                     <ListView Grid.Row="2" ItemsSource="{Binding NotificationsCollection}">
                         <ListView.ItemContainerStyle>

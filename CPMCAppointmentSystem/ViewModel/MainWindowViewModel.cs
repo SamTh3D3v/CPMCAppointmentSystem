@@ -24,8 +24,27 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _isCurrentUserFlayoutOpen;
         private ObservableCollection<Notification> _notificationCollection;
         private bool _isNotificationFlayoutOpen;
+        private SearchService<Notification> _searchService;
         #endregion
-        #region Properties                   
+        #region Properties   
+        public SearchService<Notification> SearchService
+        {
+            get
+            {
+                return _searchService;
+            }
+
+            set
+            {
+                if (_searchService == value)
+                {
+                    return;
+                }
+
+                _searchService = value;
+                RaisePropertyChanged();
+            }
+        }        
         public string SearchTerms
         {
             get
@@ -138,6 +157,19 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _startSearchServiceCommand;
+        public RelayCommand StartSearchServiceCommand
+        {
+            get
+            {
+                return _startSearchServiceCommand
+                    ?? (_startSearchServiceCommand = new RelayCommand(async () =>
+                    {
+                        NotificationsCollection = (await SearchService.SearchAsync(SearchTerms)).Matches;
+                    }));
+            }
+        }
+
         private RelayCommand _mainViewLoadedCommand;
         public RelayCommand MainViewLoadedCommand
         {
@@ -263,7 +295,7 @@ namespace CPMCAppointmentSystem.ViewModel
             //Get Valide notifications
             var notifications = args.NewResult;
             Application.Current.Dispatcher.BeginInvoke(new Action(() => NotificationsCollection = new ObservableCollection<Notification>(notifications)));
-
+            SearchService.DataSource = new ObservableCollection<Notification>(notifications);
             // MessageBox.Show(notifications.Count.ToString(), notifications.Count > 0 ? notifications[0].NotificationTitle : "");
         }
         private RelayCommand<object> _saveNewPasswordCommand;
@@ -316,7 +348,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_searchNotificationCommand = new RelayCommand(
                     () =>
                     {
-                        
+                        SearchTerms=String.Empty;
                     }));
             }
         }
@@ -343,7 +375,7 @@ namespace CPMCAppointmentSystem.ViewModel
             NotificationsCollection = new ObservableCollection<Notification>();
            // Messenger.Default.Register<Notification>(this, "AddNotification", (notification) => NotificationsCollection.Add(notification));
             Messenger.Default.Register<Notification>(this, "RemoveNotification", (notification) => NotificationsCollection.Remove(notification));
-
+            SearchService = new SearchService<Notification>();
         }
         public override void Cleanup()
         {
