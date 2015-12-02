@@ -23,6 +23,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class NotificationViewModel:NavigableViewModelBase
     {
         #region Fields
+        private bool _allDataLoaded = false;
         private bool _stillInView;        
         private DateTime _selectedDateDepo = DateTime.Now;     
         private bool _isSimActive  ;
@@ -172,6 +173,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _notificationViewLoadedCommand
                     ?? (_notificationViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        _allDataLoaded = false;
                         _stillInView = true;
                         _dbContext = new CpmcContext();
                         await LoadRdvs();
@@ -185,7 +187,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             await GsmHelper.InitGsmDevice();
                             IsSimActive = true;
                             IsProgressRingActive = false;
-                            Messenger.Default.Send<String>("", "desableLoading");
+                            Messenger.Default.Send<String>("", "desableLoading");                            
                         }
                         catch (Exception ex)
                         {
@@ -197,7 +199,8 @@ namespace CPMCAppointmentSystem.ViewModel
                             IsSimActive = false;
                             IsProgressRingActive = false;
                             Messenger.Default.Send<String>("Sim non reconnue", "desableLoading");
-                        }                        
+                        }
+                        _allDataLoaded = true;
                     }));
             }
         }
@@ -211,7 +214,12 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         _dbContext.SaveChanges();
-                        _dbContext.Dispose();
+                        Task.Run(() =>
+                        {
+                            while (!_allDataLoaded) { }        
+                            _dbContext.Dispose();
+
+                        });
                         _stillInView = false;
                         IsProgressRingActive = false;
                        

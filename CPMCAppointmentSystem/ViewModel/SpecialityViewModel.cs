@@ -19,9 +19,9 @@ namespace CPMCAppointmentSystem.ViewModel
     public class SpecialityViewModel : NavigableViewModelBase
     {
         #region Fields
-
+        private bool _allDataLoaded = false;
         private AddDoctorToSpecialityView _addDoctorToSpecialityView;
-        private CpmcContext _dbContext = new CpmcContext();
+        private CpmcContext _dbContext;
         private ObservableCollection<Specialite> _specialitiesList;
         private Specialite _selectedSpeciality;
         private bool _isFormEnabled;
@@ -153,7 +153,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         SelectedSpeciality = new Specialite()
                         {
                             Medecins = new ObservableCollection<Medecin>()
-                        };                        
+                        };
                     }));
             }
         }
@@ -184,10 +184,29 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _specialitiesViewLoadedCommand
-                    ?? (_specialitiesViewLoadedCommand = new RelayCommand(
-                    () =>
+                    ?? (_specialitiesViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        LoadSpacialities();
+                        _allDataLoaded = false;
+                        _dbContext = new CpmcContext();
+                        await LoadSpacialities();
+                        _allDataLoaded = true;
+                    }));
+            }
+        }
+        private RelayCommand _specialitiesViewUnLoadedCommand;
+        public RelayCommand SpecialitiesViewUnLoadedCommand
+        {
+            get
+            {
+                return _specialitiesViewUnLoadedCommand
+                    ?? (_specialitiesViewUnLoadedCommand = new RelayCommand(async () =>
+                    {
+                      await Task.Run(() =>
+                      {
+                          while (!_allDataLoaded) { }
+                          _dbContext.Dispose();
+
+                      });
                     }));
             }
         }
@@ -245,7 +264,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                     CreatedOn = DateTime.Now,
                                     ModifiedOn = DateTime.Now
                                 });
-                                _dbContext.Specialites.Remove(SelectedSpeciality);                                                               
+                                _dbContext.Specialites.Remove(SelectedSpeciality);
                                 SpecialityList.Remove(SelectedSpeciality);
                                 _dbContext.SaveChanges();
                                 SelectedSpeciality = null;
@@ -281,7 +300,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addDoctorToSpecialityLoadedCommand
                     ?? (_addDoctorToSpecialityLoadedCommand = new RelayCommand(async () =>
                     {
-                         await LoadDoctorsToAddList();
+                        await LoadDoctorsToAddList();
                     }));
             }
         }

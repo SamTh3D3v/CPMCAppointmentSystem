@@ -23,9 +23,10 @@ namespace CPMCAppointmentSystem.ViewModel
     {
 
         #region Fields
+        private bool _allDataLoaded = false;
         private AddDoctorsToPathologyView _addDoctorsToPathologyView;
         private bool _isFormEnabled;
-        private readonly CpmcContext _dbContext = new CpmcContext();
+        private  CpmcContext _dbContext;
         private ObservableCollection<Pathology> _pathologiesList;
         private Pathology _selectedPathology;
         private Medecin _selectedDoctorWithinPathology;
@@ -132,8 +133,28 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _pathologyViewLoadedCommand
                     ?? (_pathologyViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        _allDataLoaded = false;
+                        _dbContext=new CpmcContext();
                         await LoadPathologies();
+                        _allDataLoaded = true;
 
+                    }));
+            }
+        }
+        private RelayCommand _pathologyViewUnLoadedCommand;
+        public RelayCommand PathologyViewUnLoadedCommand
+        {
+            get
+            {
+                return _pathologyViewUnLoadedCommand
+                    ?? (_pathologyViewUnLoadedCommand = new RelayCommand(async () =>
+                    {
+                       await Task.Run(() =>
+                       {
+                           while (!_allDataLoaded) { }
+                           _dbContext.Dispose();
+
+                       });
                     }));
             }
         }
@@ -201,8 +222,7 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _savePathologyCommand
-                    ?? (_savePathologyCommand = new RelayCommand(
-                    () =>
+                    ?? (_savePathologyCommand = new RelayCommand(async () =>
                     {
                         if (SelectedPathology.PathologyId == Guid.Empty)
                         {
@@ -242,7 +262,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             //});
                         }
                         _dbContext.SaveChanges();
-                        LoadPathologies();
+                        await LoadPathologies();
                         SelectedPathology = null;
                     }));
             }
@@ -340,7 +360,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                     CreatedOn = DateTime.Now,
                                     ModifiedOn = DateTime.Now
                                 });
-                                _dbContext.Pathologies.Remove(SelectedPathology);                                                                
+                                _dbContext.Pathologies.Remove(SelectedPathology);
                                 PathologiesList.Remove(SelectedPathology);
                                 _dbContext.SaveChanges();
                                 SelectedPathology = null;

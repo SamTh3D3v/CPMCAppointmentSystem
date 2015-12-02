@@ -18,6 +18,10 @@
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=PathologyViewLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PathologyViewUnLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid x:Name="RootGrid">
         <Grid.ColumnDefinitions>

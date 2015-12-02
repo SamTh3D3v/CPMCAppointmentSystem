@@ -24,6 +24,7 @@ namespace CPMCAppointmentSystem.ViewModel
     {
      
         #region Fields
+        private bool _allDataLoaded = false;
         private User _connectedUser;
         private string _betweenAtCmdDelay;
         private string _centreDeMessagerie;
@@ -428,6 +429,142 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
         #endregion
+        #region Views Loaded Command Region 
+        private RelayCommand _statusDesPatientsSettingsLoadedCommand;
+        public RelayCommand StatusDesPatientsSettingsLoadedCommand
+        {
+            get
+            {
+                return _statusDesPatientsSettingsLoadedCommand
+                    ?? (_statusDesPatientsSettingsLoadedCommand = new RelayCommand(async () =>
+                    {
+                        _allDataLoaded = false;
+                        SettingsCollection = new SettingsCollection();
+                        await SettingsCollection.LoadSchedulerSettings();
+                        RaisePropertyChanged("SettingsCollection");
+                        _allDataLoaded = true;
+                    }));
+            }
+        }
+        private RelayCommand _settingsViewLoadedCommand;
+        public RelayCommand SettingsViewLoadedCommand
+        {
+            get
+            {
+                return _settingsViewLoadedCommand
+                    ?? (_settingsViewLoadedCommand = new RelayCommand(async () =>
+                    {
+                        _allDataLoaded = false;
+                        _dbContext = new CpmcContext();
+                        try
+                        {
+                            var user = MainFrameNavigationService.Parameter as User;
+                            if (user != null)                           //todo 
+                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                        _allDataLoaded = true;
+                    }));
+            }
+        }
+
+        private RelayCommand _settingsViewUnLoadedCommand;
+        public RelayCommand SettingsViewUnLoadedCommand
+        {
+            get
+            {
+                return _settingsViewUnLoadedCommand
+                    ?? (_settingsViewUnLoadedCommand = new RelayCommand(async () =>
+                    {
+                        await Task.Run(() =>
+                        {
+                            while (!_allDataLoaded) { }
+                            _dbContext.Dispose();
+
+                        });
+                    }));
+            }
+        }
+        private RelayCommand _accountsViewLoadedCommand;
+        public RelayCommand AccountsViewLoadedCommand
+        {
+            get
+            {
+                return _accountsViewLoadedCommand
+                    ?? (_accountsViewLoadedCommand = new RelayCommand(async () =>
+                    {
+                        _allDataLoaded = false;
+                        await LoadUserTypeCollection();
+                        await LoadUsersList();
+                        _allDataLoaded = true;
+                    }));
+            }
+        }
+        private RelayCommand _typePieceJointeDataGridLoadedCommand;
+        public RelayCommand TypePieceJointeDataGridLoadedCommand
+        {
+            get
+            {
+                return _typePieceJointeDataGridLoadedCommand
+                    ?? (_typePieceJointeDataGridLoadedCommand = new RelayCommand(async () =>
+                    {
+                        _allDataLoaded = false;
+                        await LoadTypePieceJointsCollection();
+                        _allDataLoaded = true;
+
+                    }));
+            }
+        }
+        private RelayCommand _doctorsWorkDaysLoadedCommand;
+        public RelayCommand DoctorsWorkDaysLoadedCommand
+        {
+            get
+            {
+                return _doctorsWorkDaysLoadedCommand
+                    ?? (_doctorsWorkDaysLoadedCommand = new RelayCommand(async () =>
+                    {
+                        _allDataLoaded = false;
+                        await LoadDoctorsDataGrid();
+                        _allDataLoaded = true;
+                    }));
+            }
+        }       
+        private RelayCommand _jourFerieDataGridLoadedCommand;
+        public RelayCommand JourFerieDataGridLoadedCommand
+        {
+            get
+            {
+                return _jourFerieDataGridLoadedCommand
+                    ?? (_jourFerieDataGridLoadedCommand = new RelayCommand(async () =>
+                    {
+                        _allDataLoaded = false;
+
+                        await LoadJourFerieOcasion();
+                        await LoadJourFerieFix();
+                        _allDataLoaded = true;
+                    }));
+            }
+        }       
+        private RelayCommand _smsSettingsTabLoadedCommand;
+        public RelayCommand SmsSettingsTabLoadedCommand
+        {
+            get
+            {
+                return _smsSettingsTabLoadedCommand
+                    ?? (_smsSettingsTabLoadedCommand = new RelayCommand(() =>
+                    {
+                        _allDataLoaded = false;
+                        InitDragablePropertiesCollection();
+                        GetSmsSettings();
+                        _allDataLoaded = true;
+                    }));
+            }
+        }
+        #endregion
         #region Commands
         private RelayCommand _savePatientStatusCommand;
         public RelayCommand SavePatientStatusCommand
@@ -469,100 +606,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         //Todo   
                     }));
             }
-        }
-        private RelayCommand _statusDesPatientsSettingsLoadedCommand;
-        public RelayCommand StatusDesPatientsSettingsLoadedCommand
-        {
-            get
-            {
-                return _statusDesPatientsSettingsLoadedCommand
-                    ?? (_statusDesPatientsSettingsLoadedCommand = new RelayCommand(async () =>
-                    {
-                        SettingsCollection = new SettingsCollection();
-                        await SettingsCollection.LoadSchedulerSettings();
-                        RaisePropertyChanged("SettingsCollection");
-                    }));
-            }
-        }
-        private RelayCommand _settingsViewLoadedCommand;
-        public RelayCommand SettingsViewLoadedCommand
-        {
-            get
-            {
-                return _settingsViewLoadedCommand
-                    ?? (_settingsViewLoadedCommand = new RelayCommand(async () =>
-                    {
-                        _dbContext=new CpmcContext();
-                        try
-                        {
-                            var user = MainFrameNavigationService.Parameter as User;
-                            if (user != null)                           //todo 
-                                ConnectedUser = _dbContext.Users.Find(user.UserId);
-
-                        }
-                        catch (Exception)
-                        {
-
-                        }
-                    }));
-            }
-        }
-        private RelayCommand _settingsViewUnLoadedCommand;
-        public RelayCommand SettingsViewUnLoadedCommand
-        {
-            get
-            {
-                return _settingsViewUnLoadedCommand
-                    ?? (_settingsViewUnLoadedCommand = new RelayCommand(
-                    () =>
-                    {
-                        _dbContext.Dispose();
-                    }));
-            }
-        }
-        private RelayCommand _accountsViewLoadedCommand;
-        public RelayCommand AccountsViewLoadedCommand
-        {
-            get
-            {
-                return _accountsViewLoadedCommand
-                    ?? (_accountsViewLoadedCommand = new RelayCommand(async () =>
-                    {
-                        await LoadUserTypeCollection();
-                        await LoadUsersList();
-                    }));
-            }
-        }
-        private RelayCommand _typePieceJointeDataGridLoadedCommand;
-        public RelayCommand TypePieceJointeDataGridLoadedCommand
-        {
-            get
-            {
-                return _typePieceJointeDataGridLoadedCommand
-                    ?? (_typePieceJointeDataGridLoadedCommand = new RelayCommand(async () =>
-                    {
-                        await LoadTypePieceJointsCollection();
-
-                    }));
-            }
-        }
-        private RelayCommand _doctorsWorkDaysLoadedCommand;
-        public RelayCommand DoctorsWorkDaysLoadedCommand
-        {
-            get
-            {
-                return _doctorsWorkDaysLoadedCommand
-                    ?? (_doctorsWorkDaysLoadedCommand = new RelayCommand(async () =>
-                    {
-                        await LoadDoctorsDataGrid();
-                    }));
-            }
-        }
-
-        private async Task LoadDoctorsDataGrid()
-        {
-            DoctorsListCollection = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
-        }
+        }      
+            
         private RelayCommand _saveJourDeTrvailCommand;
         public RelayCommand SaveJourDeTravailCommand
         {
@@ -591,36 +636,7 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
-        private RelayCommand _jourFerieDataGridLoadedCommand;
-        public RelayCommand JourFerieDataGridLoadedCommand
-        {
-            get
-            {
-                return _jourFerieDataGridLoadedCommand
-                    ?? (_jourFerieDataGridLoadedCommand = new RelayCommand(async () =>
-                    {
-
-                        await LoadJourFerieOcasion();
-                        await LoadJourFerieFix();
-                    }));
-            }
-        }
-
-
-
-        private async Task LoadJourFerieOcasion()
-        {
-            ListDesJourFeriesOccasionnelle = new ObservableCollection<JourFerie>(await Task.Run(() => _dbContext.JourFeries.Where(x => x.TypeJourFerie == TypeJourFerie.Ocas)));
-        }
-        private async Task LoadJourFerieFix()
-        {
-            ListDesJoursFerieFix = new ObservableCollection<JourFerie>(await Task.Run(() => _dbContext.JourFeries.Where(x => x.TypeJourFerie == TypeJourFerie.Fix)));
-        }
-
-        private async Task LoadTypePieceJointsCollection()
-        {
-            TypePieceJointeCollection = new ObservableCollection<PieceJointeType>(await Task.Run(() => _dbContext.PieceJointeTypes));
-        }
+       
         private RelayCommand _saveAddTypePieceJointCommand;
         public RelayCommand SaveAddTypePieceJointsCommand
         {
@@ -796,14 +812,14 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-        private RelayCommand<object> _SaveAddNewUserCommand;
+        private RelayCommand<object> _saveAddNewUserCommand;
 
         public RelayCommand<object> SaveAddNewUserCommand
         {
             get
             {
-                return _SaveAddNewUserCommand
-                    ?? (_SaveAddNewUserCommand = new RelayCommand<object>(async (obj) =>
+                return _saveAddNewUserCommand
+                    ?? (_saveAddNewUserCommand = new RelayCommand<object>(async (obj) =>
                     {
                         var passwordBox = obj as PasswordBox;
                         if (passwordBox != null)
@@ -947,19 +963,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     GetSmsSettings));
             }
         }
-        private RelayCommand _smsSettingsTabLoadedCommand;
-        public RelayCommand SmsSettingsTabLoadedCommand
-        {
-            get
-            {
-                return _smsSettingsTabLoadedCommand
-                    ?? (_smsSettingsTabLoadedCommand = new RelayCommand(() =>
-                    {
-                        InitDragablePropertiesCollection();
-                        GetSmsSettings();                        
-                    }));
-            }
-        }
+       
 
         private void GetSmsSettings()
         {
@@ -983,7 +987,10 @@ namespace CPMCAppointmentSystem.ViewModel
             if (DateTimeFormatInfo.CurrentInfo != null)
                 MonthsList = new ObservableCollection<string>(DateTimeFormatInfo.CurrentInfo.MonthNames);
         }
-
+        private async Task LoadDoctorsDataGrid()
+        {
+            DoctorsListCollection = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
+        }
         private async Task LoadUsersList()
         {
             UsersList = new ObservableCollection<User>(await Task.Run(() => _dbContext.Users));
@@ -1029,6 +1036,19 @@ namespace CPMCAppointmentSystem.ViewModel
                 PropertyName = "Lieu de RDV"
             },
         };
+        }
+        private async Task LoadJourFerieOcasion()
+        {
+            ListDesJourFeriesOccasionnelle = new ObservableCollection<JourFerie>(await Task.Run(() => _dbContext.JourFeries.Where(x => x.TypeJourFerie == TypeJourFerie.Ocas)));
+        }
+        private async Task LoadJourFerieFix()
+        {
+            ListDesJoursFerieFix = new ObservableCollection<JourFerie>(await Task.Run(() => _dbContext.JourFeries.Where(x => x.TypeJourFerie == TypeJourFerie.Fix)));
+        }
+
+        private async Task LoadTypePieceJointsCollection()
+        {
+            TypePieceJointeCollection = new ObservableCollection<PieceJointeType>(await Task.Run(() => _dbContext.PieceJointeTypes));
         }
 
         #endregion

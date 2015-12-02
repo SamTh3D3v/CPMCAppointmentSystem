@@ -672,10 +672,9 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _patientsViewUnloadedLoadedCommand
-                    ?? (_patientsViewUnloadedLoadedCommand = new RelayCommand(
-                    () =>
+                    ?? (_patientsViewUnloadedLoadedCommand = new RelayCommand(async () =>
                     {
-                        Task.Run(() =>
+                        await Task.Run(() =>
                         {
                             while (!_allDataLoaded) { }         //To assure that the Context isn't disposed before all the data is loaded  
                             _dbContext.Dispose();

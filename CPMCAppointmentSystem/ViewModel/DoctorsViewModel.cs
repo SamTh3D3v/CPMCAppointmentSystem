@@ -24,10 +24,11 @@ namespace CPMCAppointmentSystem.ViewModel
     public class DoctorsViewModel : NavigableViewModelBase
     {
         #region Fields
+        private bool _allDataLoaded = false;
         private User _connectedUser;
         private ObservableCollection<EntityToAdd<Pathology>> _pathologiesToDoctorListAdds;
         private ObservableCollection<EntityToAdd<Specialite>> _specialityToDoctorList;
-        private CpmcContext _dbContext = new CpmcContext();
+        private CpmcContext _dbContext;
         private AddSpecialitiesToDoctorView _addSpecialitiesToDoctorView;
         private AddPathologiesToDoctorView _addPathologiesToDoctorView;
         private AddRdvFromDoctorsView _addPatientsToDoctorView;
@@ -572,6 +573,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _doctorsViewLoadedCommand
                     ?? (_doctorsViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        _allDataLoaded = false;
                         _dbContext=new CpmcContext();
                         try
                         {
@@ -586,6 +588,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         await LoadDoctorsList();
                         await LoadSpacialities();
+                        _allDataLoaded = true;
                     }));
             }
         }
@@ -595,10 +598,14 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _doctorsViewUnLoadedCommand
-                    ?? (_doctorsViewUnLoadedCommand = new RelayCommand(
-                    () =>
+                    ?? (_doctorsViewUnLoadedCommand = new RelayCommand(async () =>
                     {
-                        _dbContext.Dispose();
+                        await Task.Run(() =>
+                        {
+                            while (!_allDataLoaded) { }
+                            _dbContext.Dispose();
+
+                        });
                         
                     }));
             }
