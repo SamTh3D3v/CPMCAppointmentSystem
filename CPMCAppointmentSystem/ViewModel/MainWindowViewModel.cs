@@ -18,13 +18,32 @@ namespace CPMCAppointmentSystem.ViewModel
     public class MainWindowViewModel : NavigableViewModelBase
     {
         #region Fields
+        private string _searchTerms;
         private DataBaseSettings _dataBaseSettings;
         private User _currentUser;
         private bool _isCurrentUserFlayoutOpen;
         private ObservableCollection<Notification> _notificationCollection;
         private bool _isNotificationFlayoutOpen;
         #endregion
-        #region Properties         
+        #region Properties                   
+        public string SearchTerms
+        {
+            get
+            {
+                return _searchTerms;
+            }
+
+            set
+            {
+                if (_searchTerms == value)
+                {
+                    return;
+                }
+
+                _searchTerms = value;
+                RaisePropertyChanged();
+            }
+        }
         public DataBaseSettings DataBaseSttings
         {
             get
@@ -134,7 +153,6 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-
         private DataBaseSettings GetDataBaseSettings()
         {
             //get DataBase Connexion Setting from the app.config using the app.xaml.cs
@@ -185,7 +203,6 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-
         private DataBaseSettings GetDefaultDataBaseSettings()
         {
             //get the default settings from the settings xml file
@@ -273,6 +290,46 @@ namespace CPMCAppointmentSystem.ViewModel
                        
 
                         
+                    }));
+            }
+        }
+        private RelayCommand _refreshNatificationsCommand;
+        public RelayCommand RefreshNatificationsCommand
+        {
+            get
+            {
+                return _refreshNatificationsCommand
+                    ?? (_refreshNatificationsCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _searchNotificationCommand;
+
+        public RelayCommand SearchNotificationCommand
+        {
+            get
+            {
+                return _searchNotificationCommand
+                    ?? (_searchNotificationCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
+        private RelayCommand _clearAllCommand;
+        public RelayCommand ClearAllCommand
+        {
+            get
+            {
+                return _clearAllCommand
+                    ?? (_clearAllCommand = new RelayCommand(
+                    () =>
+                    {
+                        NotificationsCollection.Clear();
                     }));
             }
         }
