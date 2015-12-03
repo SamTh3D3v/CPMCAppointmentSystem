@@ -248,6 +248,22 @@
     <Compile Include="Helpers\SearchService.cs" />
     <Compile Include="Helpers\Security.cs" />
     <Compile Include="Helpers\TreeViewModel.cs" />
+    <Compile Include="Resources\WindowStaticText.ar.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WindowStaticText.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\WindowStaticText.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WindowStaticText.resx</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Resources\WindowStaticText.fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WindowStaticText.fr.resx</DependentUpon>
+    </Compile>
     <Compile Include="SubModel\BarModel.cs" />
     <Compile Include="SubModel\DataBaseSettings.cs" />
     <Compile Include="SubModel\EntityToAdd.cs" />
@@ -590,6 +606,21 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Syncfusion.SfGrid.WPF.resx" />
+    <EmbeddedResource Include="Resources\WindowStaticText.ar.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WindowStaticText.ar.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\WindowStaticText.fr.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WindowStaticText.fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\WindowStaticText.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WindowStaticText.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

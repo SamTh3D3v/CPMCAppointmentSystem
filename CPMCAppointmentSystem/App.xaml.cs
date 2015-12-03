@@ -69,6 +69,7 @@ namespace CPMCAppointmentSystem
             AppDomain currentDomain = AppDomain.CurrentDomain;            
             currentDomain.UnhandledException += new UnhandledExceptionEventHandler(DomainUnhandlerEceptionHandler);            
             Thread.CurrentThread.CurrentCulture = new CultureInfo("fr");
+           
 
             //NotificationHelper.Start();
             

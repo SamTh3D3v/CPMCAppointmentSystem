@@ -8,6 +8,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:command="http://www.galasoft.ch/mvvmlight"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:resources="clr-namespace:CPMCAppointmentSystem.Resources"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800" DataContext="{Binding Source={StaticResource Locator} , Path=LoginViewLodel}"
 	Title="LoginView">
@@ -35,7 +36,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Source="{StaticResource SideLogo}"></Image>
-            <TextBlock Text="Appointments System" Margin="5,0,0,5" Grid.Column="1" Style="{StaticResource HeaderTextBlockStyle}"  FontSize="17" Foreground="{StaticResource HeaderTextBrush}"></TextBlock>
+            <TextBlock Text="{x:Static resources:WindowStaticText.Login_ApplicationTitleLabel}" Margin="5,0,0,5" Grid.Column="1" Style="{StaticResource HeaderTextBlockStyle}"  FontSize="17" Foreground="{StaticResource HeaderTextBrush}"></TextBlock>
         </Grid>
         <Border BorderThickness="5" BorderBrush="#44777777" Grid.Row="1" Background="{StaticResource InnerBodyBackgroundBrush}" Width="425" VerticalAlignment="Center" CornerRadius="5" >
             <Grid Margin="10">
@@ -47,9 +48,9 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Login" Style="{StaticResource SubheaderTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="{x:Static resources:WindowStaticText.Login_LoginLabel}" Style="{StaticResource SubheaderTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <syncfusion:SfTextBoxExt Height="35"   Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10 5"                                      
-                                     Watermark="Nom d'utilisateur" VerticalContentAlignment="Center"  Text="{Binding UserName,Mode=TwoWay}" 
+                                     Watermark="{x:Static resources:WindowStaticText.Login_UserNameWaterMark}" VerticalContentAlignment="Center"  Text="{Binding UserName,Mode=TwoWay}" 
                                      >              
                 </syncfusion:SfTextBoxExt>
                 <PasswordBox Margin="10 5" VerticalContentAlignment="Center"  Height="35"  x:Name="PassBox" Style="{DynamicResource  WaterMarkPasswordBoxStyle}" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -62,7 +63,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource ConnectionLight}" Height="50"/>
                             <StackPanel Orientation="Vertical" Margin="5" VerticalAlignment="Center">
-                                <TextBlock Text="Connexion" VerticalAlignment="Center" Foreground="White" />
+                                <TextBlock Text="{x:Static resources:WindowStaticText.Login_ConnectionButton}" VerticalAlignment="Center" Foreground="White" />
                                 <!--<TextBlock Text="Randomly" FontSize="8" VerticalAlignment="Center" Foreground="Gainsboro" />-->
                             </StackPanel>
                         </StackPanel>

@@ -112,7 +112,7 @@
                            Margin="0,20,0,10">Nombre des patient par date</TextBlock>
                 </chart:SfChart.Header>
                 <chart:SfChart.PrimaryAxis>
-                    <chart:CategoryAxis  Header="Pathologies" Foreground="Black"  FontSize="20" 
+                    <chart:CategoryAxis  Header="Date" Foreground="Black"  FontSize="20" 
                                      LabelTemplate="{StaticResource LabelTemplate}"
                                      AxisLineStyle="{StaticResource AxisStyle1}" 
                                      MajorTickLineStyle="{StaticResource AxisStyle}">
