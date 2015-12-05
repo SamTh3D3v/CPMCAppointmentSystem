@@ -232,10 +232,11 @@
             </syncfusion:LayoutControl.GridView>
 
         </syncfusion:LayoutControl>
-        <Grid Width="70" Height="46" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,40,40">
+        <Grid Height="46" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,40,40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Path Data="{StaticResource SimPath}" Grid.Column="1" Stretch="Uniform" Width="46" Height="46" Margin="0" RenderTransformOrigin="0.5,0.5">
                 <Path.RenderTransform>
@@ -258,6 +259,20 @@
                 </Path.Style>
             </Path>
             <controls:ProgressRing Height="15" Width="15" Margin="2,2,5,2" Grid.Column="0" IsActive="{Binding IsProgressRingActive,Mode=TwoWay}"></controls:ProgressRing>
+            <Button x:Name="BtnRefresh" HorizontalContentAlignment="Center" ToolTip="Refresh" Style="{DynamicResource MetroCircleButtonStyle}"  Command="{Binding RefreshGsmDeviceCommand}"  Margin="5,2,5,2" Width="40" Height="40"  Grid.Column="2">
+                <Path Data="{StaticResource RefreshPath}" Width="20" Height="20" Stretch="Uniform">
+                    <Path.Style>
+                        <Style TargetType="Path">
+                            <Setter Property="Fill" Value="Black"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=BtnRefresh,Path=IsMouseOver}" Value="True">
+                                    <Setter Property="Fill" Value="{StaticResource AccentColorBrush}"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Path.Style>
+                </Path>
+            </Button>
         </Grid>
     </Grid>
 </Page>

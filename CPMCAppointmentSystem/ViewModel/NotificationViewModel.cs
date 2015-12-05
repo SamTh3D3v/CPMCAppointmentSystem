@@ -164,7 +164,43 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         public String SmsMessageTemplate { get; set; }
         #endregion 
-        #region Commands      
+        #region Commands  
+        private RelayCommand _refreshGsmDeviceCommand;
+        public RelayCommand RefreshGsmDeviceCommand
+        {
+            get
+            {
+                return _refreshGsmDeviceCommand
+                    ?? (_refreshGsmDeviceCommand = new RelayCommand(async () =>
+                    {                        
+                        _stillInView = true;                        
+                        await LoadRdvs();
+                        try
+                        {
+                            IsSimActive = false;
+                            IsProgressRingActive = true;
+                            Messenger.Default.Send<String>("détection du Sim en cours", "enableLoading");
+                            GsmHelper = new GsmHelper(9600); 
+                            SmsMessageTemplate = ParameterManager.GetValue<string>(ParameterNames.SMSBodyTemplate);
+                            await GsmHelper.InitGsmDevice();
+                            IsSimActive = true;
+                            IsProgressRingActive = false;
+                            Messenger.Default.Send<String>("", "desableLoading");                            
+                        }
+                        catch (Exception ex)
+                        {
+                            if (_stillInView)                            
+                            Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
+                            {
+                                var exceptionDialog = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Echec de COM", "check the gsm device ... "));
+                            }));
+                            IsSimActive = false;
+                            IsProgressRingActive = false;
+                            Messenger.Default.Send<String>("Sim non reconnue", "desableLoading");
+                        }                        
+                    }));
+            }
+        }
         private RelayCommand _notificationViewLoadedCommand;
         public RelayCommand NotificationViewLoadedCommand
         {
