@@ -6,7 +6,8 @@
     <Style TargetType="{x:Type syncfusion:SfTextBoxExt}">
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Margin"  Value="10 5"/>
+        <Setter Property="Margin"  Value="10 3"/>
+        <Setter Property="Height"  Value="26"/>
         
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
