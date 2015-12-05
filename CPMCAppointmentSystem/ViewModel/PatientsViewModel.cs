@@ -441,6 +441,21 @@ namespace CPMCAppointmentSystem.ViewModel
 
         #endregion
         #region Commands
+        private RelayCommand _deletePatientPathologieCommand;
+        public RelayCommand DeletePatientPathologieCommand
+        {
+            get
+            {
+                return _deletePatientPathologieCommand
+                    ?? (_deletePatientPathologieCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedPatient != null)
+                            SelectedPatient.Pathology = null;
+
+                    }));
+            }
+        }
         private RelayCommand _dtrDaysSelectionChangedCommand;
         public RelayCommand DtrDaysSelectionChangedCommand
         {

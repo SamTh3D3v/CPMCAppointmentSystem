@@ -194,5 +194,59 @@ namespace CPMCAppointmentSystem.Resources {
                 return ResourceManager.GetString("MainView_StatistiquesLabel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type du compte.
+        /// </summary>
+        public static string MainWindow_AccountTypeLabel {
+            get {
+                return ResourceManager.GetString("MainWindow_AccountTypeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changer le mot de passe.
+        /// </summary>
+        public static string MainWindow_ChangePassLabel {
+            get {
+                return ResourceManager.GetString("MainWindow_ChangePassLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmé mot de passe.
+        /// </summary>
+        public static string MainWindow_ConfirmPassLabel {
+            get {
+                return ResourceManager.GetString("MainWindow_ConfirmPassLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to L&apos;utilisateur Connecter.
+        /// </summary>
+        public static string MainWindow_CurrentUserLabel {
+            get {
+                return ResourceManager.GetString("MainWindow_CurrentUserLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nouveau mot de passe.
+        /// </summary>
+        public static string MainWindow_NewPassLabel {
+            get {
+                return ResourceManager.GetString("MainWindow_NewPassLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom d&apos;utilisateur.
+        /// </summary>
+        public static string MainWindow_UserNameLabel {
+            get {
+                return ResourceManager.GetString("MainWindow_UserNameLabel", resourceCulture);
+            }
+        }
     }
 }

@@ -162,4 +162,22 @@
   <data name="MainView_StatistiquesLabel" xml:space="preserve">
     <value>Statistiques</value>
   </data>
+  <data name="MainWindow_AccountTypeLabel" xml:space="preserve">
+    <value>Type du compte</value>
+  </data>
+  <data name="MainWindow_ChangePassLabel" xml:space="preserve">
+    <value>Changer le mot de passe</value>
+  </data>
+  <data name="MainWindow_ConfirmPassLabel" xml:space="preserve">
+    <value>Confirmé mot de passe</value>
+  </data>
+  <data name="MainWindow_CurrentUserLabel" xml:space="preserve">
+    <value>L'utilisateur Connecter</value>
+  </data>
+  <data name="MainWindow_NewPassLabel" xml:space="preserve">
+    <value>Nouveau mot de passe</value>
+  </data>
+  <data name="MainWindow_UserNameLabel" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
+  </data>
 </root>
