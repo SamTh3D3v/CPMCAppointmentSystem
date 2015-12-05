@@ -26,6 +26,7 @@
         <ResourceDictionary Source="BaseControlStyles/FilterToggleButtonStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/GridHeaderCellControlStyle.xaml"/>
         <ResourceDictionary Source="BaseControlStyles/WaterMarkTextBoxStyle.xaml"/>
+        <ResourceDictionary Source="BaseControlStyles/DatePickerStyle.xaml"/>
 
         <!--Custom Controls Styles-->
         <ResourceDictionary Source="CustomControlsStyles/PopupButtonStyle.xaml"/>

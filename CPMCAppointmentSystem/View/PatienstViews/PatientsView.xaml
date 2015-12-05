@@ -378,7 +378,21 @@
                 </Syncfusion:SfTextBoxExt>
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Date de naiss" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <DatePicker Name="DateTimeNaiss" Margin="10 3"  SelectedDate="{Binding DateDeNaissance,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}',UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <DatePicker  Name="DateTimeNaiss" Margin="10 3"  SelectedDate="{Binding DateDeNaissance,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}',UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <DatePicker.Style> 
+                        <Style TargetType="DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">
+                            <Setter Property="Background" Value="White" ></Setter>
+                            <Setter Property="BorderBrush" Value="#ffadb2b5"></Setter>
+                            <Style.Triggers>
+                               <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="#fff4f4f4"></Setter>
+                               </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        
+                    </DatePicker.Style>
+                    
+                </DatePicker>
                 <TextBlock Grid.Column="1" Grid.Row="4"  Text="Date de naissance" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -392,8 +406,21 @@
                 </TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Sexe" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <ComboBox Syncfusion:SkinStorage.VisualStyle="Metro" Name="CbxSexe" Margin="10 3" ItemsSource="{Binding DataContext.SexeList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Sexe,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" DisplayMemberPath="Designation" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                <TextBlock Grid.Column="1" Grid.Row="5"  Text="Sexe" >
+                <ComboBox  Syncfusion:SkinStorage.VisualStyle="Metro" Name="CbxSexe" Margin="10 3" ItemsSource="{Binding DataContext.SexeList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Sexe,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" DisplayMemberPath="Designation" Grid.Column="1" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <ComboBox.Style>
+                        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                            <Setter Property="Background" Value="White" ></Setter>
+                            <Setter Property="BorderBrush" Value="#ffadb2b5"></Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="#fff4f4f4"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+
+                    </ComboBox.Style>
+                </ComboBox>
+                <TextBlock Grid.Column="1" Grid.Row="5"  Text="Sexe" Margin="10 3">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                             <Style.Triggers>
@@ -446,8 +473,21 @@
                                              Grid.Column="0"  Text="{Binding Adresse.City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}"  Margin="2 5"                                      
                                      Watermark="City"  
                                      />
-                    <ComboBox x:Name="CbxWillaya" Margin="2 5" ItemsSource="{Binding DataContext.WillayasList,RelativeSource={RelativeSource AncestorType={x:Type Page}},UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" IsEditable="True" DisplayMemberPath="Designation" SelectedItem="{Binding Adresse.Willaya,Mode=TwoWay}" Grid.Column="1"/>
-                    <TextBlock Grid.Column="1"   Text="Willaya">
+                    <ComboBox x:Name="CbxWillaya" Margin="2 5" ItemsSource="{Binding DataContext.WillayasList,RelativeSource={RelativeSource AncestorType={x:Type Page}},UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" IsEditable="True" DisplayMemberPath="Designation" SelectedItem="{Binding Adresse.Willaya,Mode=TwoWay}" Grid.Column="1">
+                        <ComboBox.Style>
+                            <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                                <Setter Property="Background" Value="White" ></Setter>
+                                <Setter Property="BorderBrush" Value="#ffadb2b5"></Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Background" Value="#fff4f4f4"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+
+                        </ComboBox.Style>
+                    </ComboBox>
+                    <TextBlock Grid.Column="1"   Text="Willaya" Margin="2 5">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                 <Style.Triggers>
@@ -465,7 +505,19 @@
                                      />
                 </Grid>
                 <TextBlock Grid.Column="0" Grid.Row="12" Text="Date depot" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <DatePicker IsEnabled="False" Margin="10 3"  SelectedDate="{Binding DateDeDepot,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}'}"    Grid.Column="1" Grid.Row="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <DatePicker IsEnabled="False" Margin="10 3"  SelectedDate="{Binding DateDeDepot,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}'}"    Grid.Column="1" Grid.Row="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <DatePicker.Style>
+                        <Style TargetType="DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">
+                            <Setter Property="Background" Value="White" ></Setter>
+                            <Setter Property="BorderBrush" Value="#ffadb2b5"></Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="#fff4f4f4"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DatePicker.Style>
+                </DatePicker>
                 <TextBlock Grid.Column="1" Grid.Row="12"  Text="Date de dépôt" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
@@ -485,9 +537,22 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock  Text="Pathologie" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                        <Syncfusion:ComboBoxAdv IsTextSearchEnabled="True" Syncfusion:SkinStorage.VisualStyle="Metro" Name="CbxPath" Margin="10 5" ItemsSource="{Binding DataContext.PathologiesList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Pathology}" DisplayMemberPath="NomPathology"
-                                                 Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Column="1"   Text="Sélectionner" >
+                        <ComboBox IsTextSearchEnabled="True" Syncfusion:SkinStorage.VisualStyle="Metro" Name="CbxPath" Margin="10 5" ItemsSource="{Binding DataContext.PathologiesList,RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding Path=Pathology}" DisplayMemberPath="NomPathology"
+                                                 Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                                    <Setter Property="Background" Value="White" ></Setter>
+                                    <Setter Property="BorderBrush" Value="#ffadb2b5"></Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Background" Value="#fff4f4f4"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+
+                            </ComboBox.Style>
+                        </ComboBox>
+                        <TextBlock Grid.Column="1"   Text="Sélectionner" Margin="10 5">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">
                                     <Style.Triggers>
