@@ -353,9 +353,9 @@ namespace DataLayer.Model
                     if (string.IsNullOrEmpty(Prenom))
                         result = "Spesifiez le prenom du patient";
                 }
-                if (columnName == "SexeId")
+                if (columnName == "Sexe")
                 {
-                    if (SexeId == 0)
+                    if (Sexe == null)
                         result = "Spesifiez le sexe du patient";
                 }
                 //if (columnName == "TelephoneFixe")

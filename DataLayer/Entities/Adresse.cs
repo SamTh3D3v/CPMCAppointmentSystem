@@ -145,9 +145,9 @@ namespace DataLayer.Model
                 //    if (string.IsNullOrEmpty(CodePosatal))
                 //        result = "Spesifiez le code postale";
                 //}
-                if (columnName == "WillayaId")
+                if (columnName == "Willaya")
                 {
-                    if (WillayaId == 0)
+                    if (Willaya == null)
                         result = "Spesifiez la willaya";
                 }
                 return result;
