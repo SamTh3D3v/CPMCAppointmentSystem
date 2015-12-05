@@ -140,11 +140,11 @@ namespace DataLayer.Model
                     if (string.IsNullOrEmpty(City))
                         result = "Spesifiez la City";
                 }
-                if (columnName == "CodePosatal")
-                {
-                    if (string.IsNullOrEmpty(CodePosatal))
-                        result = "Spesifiez le code postale";
-                }
+                //if (columnName == "CodePosatal")
+                //{
+                //    if (string.IsNullOrEmpty(CodePosatal))
+                //        result = "Spesifiez le code postale";
+                //}
                 if (columnName == "WillayaId")
                 {
                     if (WillayaId == 0)

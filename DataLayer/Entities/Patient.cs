@@ -358,11 +358,11 @@ namespace DataLayer.Model
                     if (SexeId == 0)
                         result = "Spesifiez le sexe du patient";
                 }
-                if (columnName == "TelephoneFixe")
-                {
-                    if (String.IsNullOrEmpty(TelephoneFixe))
-                        result = "Spesifiez le numero de tel fix du patient";
-                }
+                //if (columnName == "TelephoneFixe")
+                //{
+                //    if (String.IsNullOrEmpty(TelephoneFixe))
+                //        result = "Spesifiez le numero de tel fix du patient";
+                //}
                 if (columnName == "TelephoneMobile1")
                 {
                     if (String.IsNullOrEmpty(TelephoneMobile1))
