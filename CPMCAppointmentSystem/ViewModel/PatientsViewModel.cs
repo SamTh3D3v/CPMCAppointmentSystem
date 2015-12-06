@@ -28,7 +28,6 @@ namespace CPMCAppointmentSystem.ViewModel
     public class PatientsViewModel : NavigableViewModelBase
     {
         #region Fields   
-
         private bool _allDataLoaded = false;
         private bool _showSpesificDayDoctors = true;     
         private SearchService<Patient> _searchService;
@@ -47,7 +46,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _isFormEnabled;
         private ObservableCollection<PieceJointeType> _pieceJointeTypeListe;
         private PieceJointe _selectedPieceJointe;
-        private String _filterText;
+        private String _listPatientsFilterText;
         private ObservableCollection<Pathology> _pathologiesList;
         private ObservableCollection<String> _filterByCollection = new ObservableCollection<string>()
         {
@@ -58,7 +57,8 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _reportPath;
         private PreviewReportView _previewReportView;
         #endregion
-        #region Properties 
+        #region Properties                
+       
         public bool ShowSpesificDayDoctors
         {
             get
@@ -203,21 +203,21 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public String FilterText
+        public String ListPatientsFilterText
         {
             get
             {
-                return _filterText;
+                return _listPatientsFilterText;
             }
 
             set
             {
-                if (_filterText == value)
+                if (_listPatientsFilterText == value)
                 {
                     return;
                 }
 
-                _filterText = value;
+                _listPatientsFilterText = value;
                 RaisePropertyChanged();                
             }
         }
@@ -507,7 +507,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _startSearchServiceCommand
                     ?? (_startSearchServiceCommand = new RelayCommand(async () =>
                     {
-                        PatientList=(await SearchService.SearchAsync(FilterText)).Matches;
+                        PatientList=(await SearchService.SearchAsync(ListPatientsFilterText)).Matches;
                     }));
             }
         }

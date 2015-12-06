@@ -42,6 +42,7 @@
                 <RowDefinition Height="10"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Margin="20,0,0,0" Text="Patients" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" />
             <ToggleButton x:Name="FilterTb" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"  Width="25" Height="25" Padding="0" Margin="5,0,0,0">
@@ -75,7 +76,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
-                <Syncfusion:SfTextBoxExt Grid.Row="0" Grid.Column="0" Text="{Binding FilterText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
+                <Syncfusion:SfTextBoxExt Grid.Row="0" Grid.Column="0" Text="{Binding ListPatientsFilterText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Filtrer les patients"  
                                      >
                     <i:Interaction.Triggers>
@@ -168,7 +169,7 @@
                                        AllowEditing="False"                                       
                                        AllowGrouping="True" 
                                     SelectionMode="Single"                                    
-                                       ItemsSource="{Binding PatientList}"
+                                       ItemsSource="{Binding ElementName=PatientsDataPager,Path=PagedSource}"
                                    AutoGenerateColumns="False"
                                    SelectedItem="{Binding SelectedPatient,Mode=TwoWay}"
                                        ShowGroupDropArea="True"                                                                          
@@ -177,7 +178,7 @@
                 <Syncfusion:SfDataGrid.Columns>
                     <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom"/>
                     <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
-                    <Syncfusion:GridTextColumn HeaderText="Field" MappingName="Field.Designation"/>
+                    <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
                     <Syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
                                                                             StringFormat='{}{0:dd/MM/yyyy}'}"/>
                     <Syncfusion:GridTextColumn HeaderText="Télephone fixe" MappingName="TelephoneFixe"/>
@@ -215,6 +216,16 @@
                     </ContextMenu>
                 </Syncfusion:SfDataGrid.RecordContextMenu>
             </Syncfusion:SfDataGrid>
+            <Syncfusion:SfDataPager x:Name="PatientsDataPager"
+                                       Grid.Row="4"   Grid.Column="0" Grid.ColumnSpan="3"                                                                           
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Bottom"
+                                       AccentBackground="#FF53C3D5"
+                                       AccentForeground="White"
+                                       NumericButtonCount="10"
+                                       Orientation="Horizontal"
+                                       PageSize="16"
+                                       Source="{Binding PatientList,Mode=TwoWay}" />
         </Grid>
         <GridSplitter Grid.Column="1" Width="1" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <Grid Grid.Column="2" Background="{StaticResource BodyBackgroundBrush}" DataContext="{Binding SelectedPatient,Mode=TwoWay}" IsEnabled="{Binding DataContext.IsFormEnabled,RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
@@ -677,7 +688,7 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>                                    
                                 </Grid.ColumnDefinitions>
                                 <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding DataContext.AddAppointementCommand,RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
                                     <Button.Style>
@@ -707,6 +718,7 @@
                                     </Button.Content>
                                 </Button>
                                 <TextBlock Margin="20,0,0,0" Text="Rendez-vous" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                      
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
 
                                 <Syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
@@ -797,12 +809,14 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Button Grid.Row="0" Grid.Column="0" Margin="10" Command="{Binding DataContext.NewPieceJointeCommand,ElementName=RootGrid}">
                                     <Button.Style>
@@ -830,9 +844,8 @@
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
                                 </Button>
-                                <TextBlock Margin="20,0,0,0" Text="Piece Jointe" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
-                                <GroupBox  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Header="Nouveau">
-
+                                <TextBlock Margin="20,0,0,0" Text="Piece Jointe" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />                                                              
+                                <GroupBox  Grid.Row="2" Background="WhiteSmoke" Grid.Column="0" Grid.ColumnSpan="3"  Header="Nouveau">
                                     <Grid >
                                         <Grid.Style>
                                             <Style TargetType="Grid">
@@ -923,9 +936,9 @@
 
                                     </Grid>
                                 </GroupBox>
-                                <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
-                                <GroupBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  Header="Liste de pieces">
-                                    <ListView ItemsSource="{Binding DataContext.SelectedPatient.PieceJointes,ElementName=RootGrid}"  SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe}">
+                                <Rectangle Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
+                                <GroupBox Background="WhiteSmoke" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4"  Header="Liste de pieces">
+                                    <ListView Background="WhiteSmoke" ItemsSource="{Binding DataContext.SelectedPatient.PieceJointes,ElementName=RootGrid}"  SelectedItem="{Binding ElementName=RootGrid,Path=DataContext.SelectedPieceJointe}">
                                         <ListView.ItemContainerStyle>
                                             <Style TargetType="ListViewItem">
                                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -933,14 +946,14 @@
                                         </ListView.ItemContainerStyle>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid>
+                                                <Grid Background="LightGray">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
-                                                    <CheckBox Margin="5" VerticalAlignment="Center" />
-                                                    <TextBlock Grid.Column="1" Margin="10,5,5,5" VerticalAlignment="Center" Text="{Binding TypePieceJointe.PieceJointeTitle}"/>
+                                                    <Rectangle Width="10" Height="10" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Black"></Rectangle>
+                                                    <TextBlock Grid.Column="1" Foreground="Black" Margin="10,5,5,5" VerticalAlignment="Center" Text="{Binding TypePieceJointe.PieceJointeTitle}"/>
                                                     <Button Style="{StaticResource MetroCircleButtonStyle}" BorderThickness="0" Grid.Column="2" Width="20" Height="20"  Command="{Binding ElementName=RootGrid,Path=DataContext.DeletePieceJointeCommand}" >
                                                         <Path Data="{StaticResource DeletePath}" Width="10" Height="10" Fill="Black" Stretch="Uniform"/>
                                                     </Button>

@@ -70,7 +70,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
-                <syncfusion:SfTextBoxExt Grid.Row="0" Grid.Column="0" Text="{Binding FilterText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
+                <syncfusion:SfTextBoxExt Grid.Row="0" Grid.Column="0" Text="{Binding ListPatientsFilterText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Filtrer les patients"  
                                      >
                     <i:Interaction.Triggers>
