@@ -618,7 +618,13 @@
                     </Grid>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <TabControl TabStripPlacement="Left">
+                    <TabControl TabStripPlacement="Left" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <command:EventToCommand 
+                            PassEventArgsToCommand="True" Command="{Binding SettingsTabControlSelectionChangedCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <TabControl.Resources>
                             <Style TargetType="{x:Type TabPanel}">
                                 <Setter Property="Background" Value="White"></Setter>
@@ -768,7 +774,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0"  Width="180"  Margin="2" Command="{Binding SavePatientStatusCommand}">
+                                    <Button Background="{Binding SaveButtonBackground,Mode=TwoWay}" Grid.Column="0"  Width="180"  Margin="2" Command="{Binding SavePatientStatusCommand}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -839,7 +845,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveAddTypePieceJointsCommand}">
+                                    <Button Background="{Binding SaveButtonBackground,Mode=TwoWay}" Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveAddTypePieceJointsCommand}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -1031,7 +1037,7 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieOcasiCommand}">
+                                                <Button Background="{Binding SaveButtonBackground,Mode=TwoWay}" Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieOcasiCommand}">
                                                     <Button.Content>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -1215,7 +1221,7 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieFixCommand}">
+                                                <Button Background="{Binding SaveButtonBackground,Mode=TwoWay}" Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourFerieFixCommand}">
                                                     <Button.Content>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -1237,7 +1243,7 @@
                                 </Grid>
                             </TabItem.Content>
                         </TabItem>
-                        <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}">
+                        <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}" >
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
                                     <command:EventToCommand 
@@ -1362,7 +1368,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourDeTravailCommand}">
+                                    <Button Grid.Column="0" HorizontalAlignment="Right" Width="200"  Margin="2" Command="{Binding SaveJourDeTravailCommand}" Background="{Binding DataContext.SaveButtonBackground,ElementName=RootGrid,Mode=TwoWay}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -1517,7 +1523,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Width="180" Margin="2" Command="{Binding SaveSmsSettingsCommand}">
+                                    <Button Background="{Binding SaveButtonBackground,Mode=TwoWay}" Grid.Column="0" Width="180" Margin="2" Command="{Binding SaveSmsSettingsCommand}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View.SettingsViews;
@@ -24,6 +25,7 @@ namespace CPMCAppointmentSystem.ViewModel
     {
      
         #region Fields
+        private SolidColorBrush _saveButtonBackground = new SolidColorBrush(Color.FromArgb(255, 84, 168, 253));
         private bool _allDataLoaded = false;
         private User _connectedUser;
         private string _betweenAtCmdDelay;
@@ -48,7 +50,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _smsBodyTemplate;
         private ObservableCollection<Medecin> _doctorsListCollection;
         #endregion
-        #region Properties           
+        #region Properties                 
+        public SolidColorBrush SaveButtonBackground
+        {
+            get
+            {
+                return _saveButtonBackground;
+            }
+
+            set
+            {
+                if (Equals(_saveButtonBackground, value))
+                {
+                    return;
+                }
+
+                _saveButtonBackground = value;
+                RaisePropertyChanged();
+            }
+        }
         public User ConnectedUser
         {
             get
@@ -430,6 +450,19 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Views Loaded Command Region 
+        private RelayCommand _settingsTabControlSelectionChangedCommand;
+        public RelayCommand SettingsTabControlSelectionChangedCommand
+        {
+            get
+            {
+                return _settingsTabControlSelectionChangedCommand
+                    ?? (_settingsTabControlSelectionChangedCommand = new RelayCommand(
+                    () =>
+                    {
+                        SaveButtonBackground = new SolidColorBrush(Color.FromArgb(255, 84, 168, 253));
+                    }));
+            }
+        }
         private RelayCommand _statusDesPatientsSettingsLoadedCommand;
         public RelayCommand StatusDesPatientsSettingsLoadedCommand
         {
@@ -438,6 +471,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _statusDesPatientsSettingsLoadedCommand
                     ?? (_statusDesPatientsSettingsLoadedCommand = new RelayCommand(async () =>
                     {
+                        SaveButtonBackground = new SolidColorBrush(Color.FromArgb(255, 84, 168, 253));
                         _allDataLoaded = false;
                         SettingsCollection = new SettingsCollection();
                         await SettingsCollection.LoadSchedulerSettings();
@@ -512,6 +546,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _typePieceJointeDataGridLoadedCommand
                     ?? (_typePieceJointeDataGridLoadedCommand = new RelayCommand(async () =>
                     {
+                        SaveButtonBackground = new SolidColorBrush(Color.FromArgb(255, 84, 168, 253));
                         _allDataLoaded = false;
                         await LoadTypePieceJointsCollection();
                         _allDataLoaded = true;
@@ -527,6 +562,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _doctorsWorkDaysLoadedCommand
                     ?? (_doctorsWorkDaysLoadedCommand = new RelayCommand(async () =>
                     {
+                        SaveButtonBackground = new SolidColorBrush(Color.FromArgb(255, 84, 168, 253));
                         _allDataLoaded = false;
                         await LoadDoctorsDataGrid();
                         _allDataLoaded = true;
@@ -541,6 +577,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _jourFerieDataGridLoadedCommand
                     ?? (_jourFerieDataGridLoadedCommand = new RelayCommand(async () =>
                     {
+                        SaveButtonBackground = new SolidColorBrush(Color.FromArgb(255, 84, 168, 253));
                         _allDataLoaded = false;
 
                         await LoadJourFerieOcasion();
@@ -557,6 +594,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _smsSettingsTabLoadedCommand
                     ?? (_smsSettingsTabLoadedCommand = new RelayCommand(() =>
                     {
+                        SaveButtonBackground = new SolidColorBrush(Color.FromArgb(255, 84, 168, 253));
                         _allDataLoaded = false;
                         InitDragablePropertiesCollection();
                         GetSmsSettings();
@@ -576,7 +614,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         SettingsCollection.SaveScheduleSettingsToDataBase();   //this a temporary hack to be updated //todo
-
+                        SaveButtonBackground=new SolidColorBrush(Colors.WhiteSmoke);
                     }));
             }
         }
@@ -618,6 +656,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         _dbContext.SaveChanges();
+                        SaveButtonBackground=new SolidColorBrush(Colors.WhiteSmoke);
                     }));
             }
         }
@@ -654,6 +693,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             }
                         }
                         _dbContext.SaveChanges();
+                        SaveButtonBackground = new SolidColorBrush(Colors.WhiteSmoke);
 
                     }));
             }
@@ -720,6 +760,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             }));
                             _dbContext.SaveChanges();
                             await LoadJourFerieFix();
+                            SaveButtonBackground = new SolidColorBrush(Colors.WhiteSmoke);
                         }));
             }
         }
@@ -949,7 +990,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             Debug.WriteLine(ex.Message);
                         }
-
+                        SaveButtonBackground = new SolidColorBrush(Colors.WhiteSmoke);
                     }));
             }
         }
