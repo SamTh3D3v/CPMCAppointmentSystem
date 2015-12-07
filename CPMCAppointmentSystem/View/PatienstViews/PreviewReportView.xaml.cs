@@ -72,7 +72,7 @@ namespace CPMCAppointmentSystem.View.PatienstViews
                     Values = new List<string>() {r.LieuRdv}
 
                 };
-                ReportPreviewer.SetParameters(parms);
+                ReportPreviewer.SetParameters(parms);                
             }                
         }
     }
