@@ -148,14 +148,22 @@ namespace CPMCAppointmentSystem.Helpers
         {
 
             _serialPort.Open();
-            _serialPort.Write("AT+CMGF=1\r");
+            _serialPort.Write("AT+CMGF=1\r"); //Set the Gsm Modem To Text mode
             Thread.Sleep(DelayBetweenAtCmds);
+
+            _serialPort.Write("AT+CSMP=17,167,0,16\r");
+            Thread.Sleep(DelayBetweenAtCmds);
+            
             _serialPort.Write("AT+CSCA=\"" + MessageCenterNumber + "\"\r");
             Thread.Sleep(DelayBetweenAtCmds);
+
             _serialPort.Write("AT+CMGS=\"" + number + "\"\r");
             Thread.Sleep(DelayBetweenAtCmds);
             _serialPort.Write(message + "\x1A");
             Thread.Sleep(DelayBetweenAtCmds);
+            //var rer=_serialPort.ReadChar();
+            //var rer2=_serialPort.ReadLine();
+            string rer3 =_serialPort.ReadLine();
             _serialPort.Close();
         }
 

@@ -16,6 +16,7 @@ using DataLayer;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using GsmManager;
 using Syncfusion.Data.Extensions;
 using Xceed.Wpf.Toolkit;
 
@@ -23,8 +24,15 @@ namespace CPMCAppointmentSystem.ViewModel
 {
     public class SettingsViewModel : NavigableViewModelBase
     {
-     
+
         #region Fields
+        private bool _isGsmProgressRingActive = false;
+        private GsmConnection _gsmConnection;
+        private bool _isGsmSettingsValidated;
+        private string _gsmStateText;
+        private ObservableCollection<int> _timeOutsCollection;
+        private ObservableCollection<string> _comPortsCollection;
+        private ObservableCollection<int> _baudRatesCollection;
         private SolidColorBrush _saveButtonBackground = new SolidColorBrush(Color.FromArgb(255, 84, 168, 253));
         private bool _allDataLoaded = false;
         private User _connectedUser;
@@ -49,8 +57,156 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<DragableProperty> _dragablePropertiesCollection;
         private String _smsBodyTemplate;
         private ObservableCollection<Medecin> _doctorsListCollection;
+        private ConnectionSettings _connectionSettings;
         #endregion
-        #region Properties                 
+        #region Properties
+        public bool IsGsmProgressRingAcive
+        {
+            get
+            {
+                return _isGsmProgressRingActive;
+            }
+
+            set
+            {
+                if (_isGsmProgressRingActive == value)
+                {
+                    return;
+                }
+
+                _isGsmProgressRingActive = value;
+                RaisePropertyChanged();
+            }
+        }
+        public GsmConnection GsmConnection
+        {
+            get
+            {
+                return _gsmConnection;
+            }
+
+            set
+            {
+                if (_gsmConnection == value)
+                {
+                    return;
+                }
+
+                _gsmConnection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public bool IsGsmSettingsValidated
+        {
+            get
+            {
+                return _isGsmSettingsValidated;
+            }
+
+            set
+            {
+                if (_isGsmSettingsValidated == value)
+                {
+                    return;
+                }
+
+                _isGsmSettingsValidated = value;
+                RaisePropertyChanged();
+            }
+        }
+        public string GsmStateText
+        {
+            get
+            {
+                return _gsmStateText;
+            }
+
+            set
+            {
+                if (_gsmStateText == value)
+                {
+                    return;
+                }
+
+                _gsmStateText = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+
+        public ObservableCollection<int> TimeOutsCollection
+        {
+            get
+            {
+                return _timeOutsCollection;
+            }
+
+            set
+            {
+                if (_timeOutsCollection == value)
+                {
+                    return;
+                }
+
+                _timeOutsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<string> ComPortsCollection
+        {
+            get
+            {
+                return _comPortsCollection;
+            }
+
+            set
+            {
+                if (_comPortsCollection == value)
+                {
+                    return;
+                }
+
+                _comPortsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<int> BaudRatesCollection
+        {
+            get
+            {
+                return _baudRatesCollection;
+            }
+
+            set
+            {
+                if (_baudRatesCollection == value)
+                {
+                    return;
+                }
+
+                _baudRatesCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ConnectionSettings ConnectionSettings
+        {
+            get
+            {
+                return _connectionSettings;
+            }
+
+            set
+            {
+                if (_connectionSettings == value)
+                {
+                    return;
+                }
+
+                _connectionSettings = value;
+                RaisePropertyChanged();
+            }
+        }
         public SolidColorBrush SaveButtonBackground
         {
             get
@@ -86,7 +242,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _connectedUser = value;
                 RaisePropertyChanged();
             }
-        }   
+        }
         public ObservableCollection<Medecin> DoctorsListCollection
         {
             get
@@ -416,7 +572,7 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             get
             {
-                return _dragablePropertiesCollection; 
+                return _dragablePropertiesCollection;
             }
 
             set
@@ -449,7 +605,7 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
         #endregion
-        #region Views Loaded Command Region 
+        #region Views Loaded Command Region
         private RelayCommand _settingsTabControlSelectionChangedCommand;
         public RelayCommand SettingsTabControlSelectionChangedCommand
         {
@@ -568,7 +724,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         _allDataLoaded = true;
                     }));
             }
-        }       
+        }
         private RelayCommand _jourFerieDataGridLoadedCommand;
         public RelayCommand JourFerieDataGridLoadedCommand
         {
@@ -585,7 +741,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         _allDataLoaded = true;
                     }));
             }
-        }       
+        }
         private RelayCommand _smsSettingsTabLoadedCommand;
         public RelayCommand SmsSettingsTabLoadedCommand
         {
@@ -597,6 +753,16 @@ namespace CPMCAppointmentSystem.ViewModel
                         SaveButtonBackground = new SolidColorBrush(Color.FromArgb(255, 84, 168, 253));
                         _allDataLoaded = false;
                         InitDragablePropertiesCollection();
+                        //Init the new sms API
+                        ComPortsCollection = new ObservableCollection<string>(GsmManager.GsmHelper.GetAvailablePortNamesInDevice());
+                        BaudRatesCollection = new ObservableCollection<int>(GsmManager.GsmHelper.GetUsualBaudRate());
+                        TimeOutsCollection = new ObservableCollection<int>(GsmManager.GsmHelper.GetUsualTimeOuts());
+                        //end init of the new sms API
+
+
+
+
+
                         GetSmsSettings();
                         _allDataLoaded = true;
                     }));
@@ -604,6 +770,167 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _clearGsmStateTextCommand;
+        public RelayCommand ClearGsmStateTextCommand
+        {
+            get
+            {
+                return _clearGsmStateTextCommand
+                    ?? (_clearGsmStateTextCommand = new RelayCommand(
+                    () =>
+                    {
+                        GsmStateText = "";
+                    }));
+            }
+        }
+        private RelayCommand _cancelGsmConnectionSettingsCommand;
+        public RelayCommand CancelGsmConnectionSettingsCommand
+        {
+            get
+            {
+                return _cancelGsmConnectionSettingsCommand
+                    ?? (_cancelGsmConnectionSettingsCommand = new RelayCommand(
+                    () =>
+                    {
+                        ConnectionSettings = new ConnectionSettings();
+                    }));
+            }
+        }
+        private RelayCommand _validateGsmConnectionSettingsCommand;
+        public RelayCommand ValidateGsmConnectionSettingsCommand
+        {
+            get
+            {
+                return _validateGsmConnectionSettingsCommand
+                    ?? (_validateGsmConnectionSettingsCommand = new RelayCommand(
+                    () =>
+                    {
+                        IsGsmProgressRingAcive = true;
+                        Task.Run(() =>
+                        {
+                            //First test the current settings
+                            GsmStateText += "\n testing the current settings";
+                            try
+                            {
+                                if (GsmManager.GsmHelper.TestConnection(ConnectionSettings))
+                                {
+                                    GsmStateText += "\n Connection succeded";
+                                    IsGsmSettingsValidated = true;
+                                    GsmConnection = new GsmConnection(ConnectionSettings);                                   
+                                }
+                                else
+                                    GsmStateText += "\n Something went wrong";
+                            }
+                            catch (Exception ex)
+                            {
+                                GsmStateText += "\n " + ex.Message;
+                            }
+                        });
+                        IsGsmProgressRingAcive = false;
+                    }));
+            }
+        }
+
+        private void GsmDeviceDisConnected(object sender, EventArgs e)
+        {
+            var r = e;
+        }
+
+        private void GsmDeviceConnected(object sender, EventArgs e)
+        {
+            var r = e;
+        }
+
+        private RelayCommand _testGsmConnectionSettingsCommand;
+        public RelayCommand TestGsmConnectionSettingsCommand
+        {
+            get
+            {
+                return _testGsmConnectionSettingsCommand
+                    ?? (_testGsmConnectionSettingsCommand = new RelayCommand(async () =>
+                    {
+                        IsGsmProgressRingAcive = true;
+                        await Task.Run(() =>
+                        {
+                            GsmStateText += "\n testing the current settings";
+                            try
+                            {
+                                if (GsmManager.GsmHelper.TestConnection(ConnectionSettings))
+                                    GsmStateText += "\n Connection succeded";
+                                else
+                                    GsmStateText += "\n Something went wrong";
+                            }
+                            catch (Exception ex)
+                            {
+
+                                GsmStateText += "\n " + ex.Message;
+                            }
+                        });
+
+                        IsGsmProgressRingAcive = false;
+
+                    }));
+            }
+        }
+        private RelayCommand _autoDetectGsmConnectionSettingsCommand;
+        public RelayCommand AutoDetectGsmConnectionSettingsCommand
+        {
+            get
+            {
+                return _autoDetectGsmConnectionSettingsCommand
+                    ?? (_autoDetectGsmConnectionSettingsCommand = new RelayCommand(async () =>
+                    {
+                        IsGsmProgressRingAcive = true;
+
+                        ConnectionSettings.BaudRate = 9600;
+                        ConnectionSettings.TimeOut = 300;
+                        if (!GsmManager.GsmHelper.GetAvailablePortNamesInDevice().Any())
+                        {
+                            GsmStateText += "\n No availale ports, connection failed";
+                            return;
+                        }
+                        foreach (var port in GsmManager.GsmHelper.GetAvailablePortNamesInDevice())
+                        {
+                            ConnectionSettings.PortName = port;
+                            GsmStateText += "\n testing connection using the port " + port;
+
+                            try
+                            {
+                                if (!GsmManager.GsmHelper.TestConnection(ConnectionSettings))
+                                {
+                                    GsmStateText += "\n connection failed using the port " + port;
+                                    ConnectionSettings.PortName = "";
+                                }
+                                else
+                                {
+                                    GsmStateText += "\n connection succeeded using the port " + port;
+                                    break;
+                                }
+                            }
+                            catch (Exception)
+                            {
+
+                                GsmStateText += "\n connection failed using the port " + port;
+                                ConnectionSettings.PortName = "";
+                            }
+                        }
+                        if (ConnectionSettings.PortName != "")
+                        {
+                            GsmStateText += "\n All set succesfully";
+                            IsGsmSettingsValidated = true;
+                            GsmConnection = new GsmConnection(ConnectionSettings);
+                        }
+                        else
+                        {
+                            GsmStateText += "\n Can't detect the Gsm device";
+                            IsGsmSettingsValidated = false;
+                        }
+
+
+                        IsGsmProgressRingAcive = false;
+                    }));
+            }
+        }
         private RelayCommand _savePatientStatusCommand;
         public RelayCommand SavePatientStatusCommand
         {
@@ -614,7 +941,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         SettingsCollection.SaveScheduleSettingsToDataBase();   //this a temporary hack to be updated //todo
-                        SaveButtonBackground=new SolidColorBrush(Colors.WhiteSmoke);
+                        SaveButtonBackground = new SolidColorBrush(Colors.WhiteSmoke);
                     }));
             }
         }
@@ -644,8 +971,8 @@ namespace CPMCAppointmentSystem.ViewModel
                         //Todo   
                     }));
             }
-        }      
-            
+        }
+
         private RelayCommand _saveJourDeTrvailCommand;
         public RelayCommand SaveJourDeTravailCommand
         {
@@ -656,7 +983,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         _dbContext.SaveChanges();
-                        SaveButtonBackground=new SolidColorBrush(Colors.WhiteSmoke);
+                        SaveButtonBackground = new SolidColorBrush(Colors.WhiteSmoke);
                     }));
             }
         }
@@ -669,13 +996,13 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelSaveJourDeTravailCommand = new RelayCommand(async () =>
                     {
                         _dbContext.Dispose();
-                        _dbContext=new CpmcContext();
+                        _dbContext = new CpmcContext();
                         await LoadDoctorsDataGrid();
                     }));
             }
         }
 
-       
+
         private RelayCommand _saveAddTypePieceJointCommand;
         public RelayCommand SaveAddTypePieceJointsCommand
         {
@@ -1004,7 +1331,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     GetSmsSettings));
             }
         }
-       
+
 
         private void GetSmsSettings()
         {
@@ -1027,6 +1354,7 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             if (DateTimeFormatInfo.CurrentInfo != null)
                 MonthsList = new ObservableCollection<string>(DateTimeFormatInfo.CurrentInfo.MonthNames);
+            ConnectionSettings = new ConnectionSettings();
         }
         private async Task LoadDoctorsDataGrid()
         {

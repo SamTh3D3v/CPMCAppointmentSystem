@@ -238,7 +238,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
                                 CreatedOn = DateTime.Now,
                                 ModifiedOn = DateTime.Now
-                            });
+                            },true);
                             //_dbContext.Notifications.Add(new Notification()
                             //{
                             //    NotificationId = Guid.NewGuid(),

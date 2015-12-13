@@ -17,6 +17,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AMSSetup", "AMSSetup\AMSSet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMSSetupCustomAction", "AMSSetupCustomAction\AMSSetupCustomAction.csproj", "{A9294830-CA5B-494C-BE4C-3BA3AE841FFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GsmManager", "GsmManager\GsmManager.csproj", "{BAC4A9AF-E247-4D5F-BCBE-4D267CAADBE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{A9294830-CA5B-494C-BE4C-3BA3AE841FFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9294830-CA5B-494C-BE4C-3BA3AE841FFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9294830-CA5B-494C-BE4C-3BA3AE841FFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAC4A9AF-E247-4D5F-BCBE-4D267CAADBE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAC4A9AF-E247-4D5F-BCBE-4D267CAADBE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAC4A9AF-E247-4D5F-BCBE-4D267CAADBE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAC4A9AF-E247-4D5F-BCBE-4D267CAADBE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

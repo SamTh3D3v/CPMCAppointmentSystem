@@ -311,7 +311,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 NotificationTitle = "New",
                                 NotificationMessage = "Rendez vous du patient  " + SelectedAppointement.Patient.Nom + " " + SelectedAppointement.Patient.Prenom,
                                 NotificationType = TypeNotification.Information
-                            });
+                            },false);
                         }
                         else
                         {
@@ -321,7 +321,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 NotificationTitle = "Update",
                                 NotificationMessage = "Rendez vous du patient  " + SelectedAppointement.Patient.Nom + " " + SelectedAppointement.Patient.Prenom,
                                 NotificationType = TypeNotification.Information
-                            });
+                            },false);
                         }
                         _dbContext.SaveChanges();
                         _addPatientsToDoctorView.Close();                       

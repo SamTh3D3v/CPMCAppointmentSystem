@@ -858,7 +858,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 NotificationTitle = "New",
                                 NotificationMessage = "Rendez vous du patient  " + SelectedPatient.Nom + " " + SelectedPatient.Prenom,
                                 NotificationType = TypeNotification.Information
-                            });
+                            },false);
                         }
                         else
                         {
@@ -868,7 +868,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 NotificationTitle = "Update",
                                 NotificationMessage = "Rendez vous du patient  " + SelectedPatient.Nom + " " + SelectedPatient.Prenom,
                                 NotificationType = TypeNotification.Information
-                            });
+                            },false);
                         }
                         _dbContext.SaveChanges();
                         _addAppointementWindow.Close();
@@ -1246,7 +1246,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                         NotificationMessage =
                                             "Un patient avec le meme nom et prenom exist deja dans le system, sont numero d'ordre est : " +
                                             pp.NumeroDordre + " , effectuer une recherche pour confirmer."
-                                    }));
+                                    },false));
                         }
                     }));
             }

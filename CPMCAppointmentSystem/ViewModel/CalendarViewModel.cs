@@ -1121,7 +1121,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                         TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
                                         CreatedOn = DateTime.Now,
                                         ModifiedOn = DateTime.Now
-                                    }));
+                                    },false));
                         }
                     }));
             }

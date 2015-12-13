@@ -648,6 +648,10 @@
       <Project>{7500895c-7dcd-40eb-8fc7-6023a6145764}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GsmManager\GsmManager.csproj">
+      <Project>{bac4a9af-e247-4d5f-bcbe-4d267caadbe9}</Project>
+      <Name>GsmManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Readme.MvvmlightSnippet.txt" />

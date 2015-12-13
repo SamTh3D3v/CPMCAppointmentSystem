@@ -148,5 +148,7 @@ namespace CPMCAppointmentSystem.View.SettingsViews
             UserPass.Clear();
             UserConfirmPass.Clear();
         }
+
+       
     }
 }

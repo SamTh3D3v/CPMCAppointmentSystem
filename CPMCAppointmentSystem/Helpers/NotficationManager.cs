@@ -17,15 +17,18 @@ namespace CPMCAppointmentSystem.Helpers
         private const double LeftOffset = 380;
         static readonly NotificationStackWindow NotificationStackWindow = new NotificationStackWindow();
 
-        public static void AddNotification(Notification notification)
+        public static void AddNotification(Notification notification,bool globalNotification)
         {
             NotificationStackWindow.Top = SystemParameters.WorkArea.Top + TopOffset;
             NotificationStackWindow.Left = SystemParameters.WorkArea.Left + SystemParameters.WorkArea.Width - LeftOffset;
-            using (var db=new CpmcContext())
+            if (globalNotification)
             {
-                db.Notifications.Add(notification);
-                db.SaveChanges();
-            }            
+                using (var db = new CpmcContext())
+                {
+                    db.Notifications.Add(notification);
+                    db.SaveChanges();
+                }
+            }
             //Messenger.Default.Send<Notification>(notification, "AddNotification");
             NotificationStackWindow.AddNotification(notification);
         }
