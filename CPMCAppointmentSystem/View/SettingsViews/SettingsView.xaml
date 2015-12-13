@@ -1679,17 +1679,28 @@
                                                                 <RowDefinition Height="Auto"/>
                                                                 <RowDefinition Height="Auto"/>
                                                             </Grid.RowDefinitions>
-                                                            <Button Content="IsConnected ?" Grid.Column="0" Grid.Row="0" Margin="5" />
-                                                            <Button Content="Identify device" Grid.Column="0" Grid.Row="1" Margin="5"/>
-                                                            <Button Content="Get signal quality" Grid.Column="0" Grid.Row="2" Margin="5"/>
-                                                            <Button Content="Get PIN status" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                                            <Button Content="IsConnected ?" Grid.Column="0" Grid.Row="0" Margin="5" Command="{Binding IsGsmDeviceConnectedCommand}"/>
+                                                            <Button Content="Identify device" Grid.Column="0" Grid.Row="1" Margin="5" Command="{Binding IdentifyGsmDeviceCommand}"/>
+                                                            <Button Content="Get signal quality" Grid.Column="0" Grid.Row="2" Margin="5" Command="{Binding GetSignalQualityCommand}"/>
+                                                            <Button Content="Get PIN status" Grid.Column="1" Grid.Row="0" Margin="5" Command="{Binding GetPinStatusCommand}"/>
                                                             <GroupBox Header="PIN" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Style="{x:Null}">
                                                                 <StackPanel Orientation="Vertical">
-                                                                    <Button Content="Enter PIN" Margin="2"/>
-                                                                    <TextBox Margin="2"/>
+                                                                    <Button Content="Enter PIN" Margin="2" Command="{Binding ModifyPinCommand}">
+                                                                        <Button.Style>
+                                                                            <Style TargetType="Button">
+                                                                                <Setter Property="IsEnabled" Value="True"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding ElementName=TxtPin,Path=Text}" Value="{x:Static system:String.Empty}">
+                                                                                        <Setter Property="IsEnabled" Value="False"></Setter>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                    </Button>
+                                                                    <TextBox Margin="2" x:Name="TxtPin"  Text="{Binding PinCode,Mode=TwoWay}"/>
                                                                 </StackPanel>
                                                             </GroupBox>
-                                                            <Button Content="Reset default" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="5"/>
+                                                            <Button Content="Reset default" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="5" Command="{Binding ResetToDefaultConfigCommand}"/>
                                                         </Grid>
                                                     </TabItem>
 

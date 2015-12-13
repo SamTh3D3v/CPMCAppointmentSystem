@@ -26,6 +26,7 @@ namespace CPMCAppointmentSystem.ViewModel
     {
 
         #region Fields
+        private string _pinCode;
         private bool _isGsmProgressRingActive = false;
         private GsmConnection _gsmConnection;
         private bool _isGsmSettingsValidated;
@@ -60,6 +61,24 @@ namespace CPMCAppointmentSystem.ViewModel
         private ConnectionSettings _connectionSettings;
         #endregion
         #region Properties
+        public string PinCode
+        {
+            get
+            {
+                return _pinCode;
+            }
+
+            set
+            {
+                if (_pinCode == value)
+                {
+                    return;
+                }
+
+                _pinCode = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool IsGsmProgressRingAcive
         {
             get
@@ -816,7 +835,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 {
                                     GsmStateText += "\n Connection succeded";
                                     IsGsmSettingsValidated = true;
-                                    GsmConnection = new GsmConnection(ConnectionSettings);                                   
+                                    GsmConnection = new GsmConnection(ConnectionSettings);
                                 }
                                 else
                                     GsmStateText += "\n Something went wrong";
@@ -831,14 +850,137 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
-        private void GsmDeviceDisConnected(object sender, EventArgs e)
+        private RelayCommand _isGsmDeviceConnectedCommand;
+        public RelayCommand IsGsmDeviceConnectedCommand
         {
-            var r = e;
+            get
+            {
+                return _isGsmDeviceConnectedCommand
+                    ?? (_isGsmDeviceConnectedCommand = new RelayCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            GsmStateText += GsmConnection.IsConnected()
+                                ? "\n the gsm device is connected"
+                                : "\n the gsm device is not connected";
+                        }
+                        catch (Exception)
+                        {
+
+                            GsmStateText += GsmConnection.IsConnected()
+                                ? "\n the gsm device is connected"
+                                : "\n the gsm device is not connected";
+                        }
+
+                    }));
+            }
         }
 
-        private void GsmDeviceConnected(object sender, EventArgs e)
+        private RelayCommand _getPinStatusCommand;
+        public RelayCommand GetPinStatusCommand
         {
-            var r = e;
+            get
+            {
+                return _getPinStatusCommand
+                    ?? (_getPinStatusCommand = new RelayCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            GsmStateText += "\n " + GsmConnection.GetPinStatusCommand();
+                        }
+                        catch (Exception)
+                        {
+
+                            GsmStateText += "\n Something went wrong !";
+                        }
+                    }));
+            }
+        }
+        private RelayCommand _identifyGsmDeviceCommand;
+        public RelayCommand IdentifyGsmDeviceCommand
+        {
+            get
+            {
+                return _identifyGsmDeviceCommand
+                    ?? (_identifyGsmDeviceCommand = new RelayCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            GsmStateText += "\n " + GsmConnection.IdentifyDevice();
+                        }
+                        catch (Exception)
+                        {
+                            GsmStateText += "\n Something went wrong !";
+                        }
+
+                    }));
+            }
+        }
+        private RelayCommand _getSignalQualityCommand;
+        public RelayCommand GetSignalQualityCommand
+        {
+            get
+            {
+                return _getSignalQualityCommand
+                    ?? (_getSignalQualityCommand = new RelayCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            GsmStateText += "\n " + GsmConnection.GetSignalQuality();
+                        }
+                        catch (Exception)
+                        {
+
+                            GsmStateText += "\n Something went wrong !";
+                        }
+                    }));
+            }
+        }
+        private RelayCommand _modifyPinCommand;
+        public RelayCommand ModifyPinCommand
+        {
+            get
+            {
+                return _modifyPinCommand
+                    ?? (_modifyPinCommand = new RelayCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            GsmStateText += "\n " + GsmConnection.ChangePinCode(PinCode);
+                        }
+                        catch (Exception)
+                        {
+
+                            GsmStateText += "\n Something went wrong !";
+                        }
+                    }));
+            }
+        }
+        private RelayCommand _resetToDefaultConfigCommand;
+        public RelayCommand ResetToDefaultConfigCommand
+        {
+            get
+            {
+                return _resetToDefaultConfigCommand
+                    ?? (_resetToDefaultConfigCommand = new RelayCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            GsmStateText += "\n " + GsmConnection.ResetToDefaultConfig();
+                        }
+                        catch (Exception)
+                        {
+
+                            GsmStateText += "\n Something went wrong !";
+                        }
+                    }));
+            }
         }
 
         private RelayCommand _testGsmConnectionSettingsCommand;
