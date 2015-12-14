@@ -1726,10 +1726,10 @@
                                                                 <RowDefinition Height="Auto"/>
                                                             </Grid.RowDefinitions>
 
-                                                            <CheckBox Content="Request Immediate display" Grid.Row="0"/>
-                                                            <CheckBox Content="Request Status report"  Grid.Row="1"/>
-                                                            <CheckBox Content="Send as Unicode (UCS2)"  Grid.Row="2"/>
-                                                            <CheckBox Content="Enable sms batch mode"  Grid.Row="3"/>
+                                                            <CheckBox Content="Request Immediate display" IsChecked="{Binding GsmConnection.RequestImmediateDisplay,Mode=TwoWay}" Grid.Row="0"/>
+                                                            <CheckBox Content="Request Status report" IsChecked="{Binding GsmConnection.RequestStatusReport,Mode=TwoWay}"  Grid.Row="1"/>
+                                                            <CheckBox Content="Send as Unicode (UCS2)" IsChecked="{Binding GsmConnection.SendAsUnicode,Mode=TwoWay}"  Grid.Row="2"/>
+                                                            <CheckBox Content="Enable sms batch mode" IsChecked="{Binding GsmConnection.EnableSmsBatchMode,Mode=TwoWay}"  Grid.Row="3"/>
                                                             
                                                             <Grid Grid.Column="0" Grid.Row="4">
                                                                 <Grid.ColumnDefinitions>
@@ -1742,16 +1742,16 @@
                                                                     <RowDefinition Height="Auto"/>
                                                                     <RowDefinition Height="Auto"/>
                                                                 </Grid.RowDefinitions>
-                                                                <CheckBox Content="SMCS"></CheckBox>
-                                                                <TextBox Margin="5" Grid.Column="1" Grid.Row="0"/>
-                                                                <Button Content="auto detect" Margin="5" Grid.Column="2" Grid.Row="0"/>
+                                                                <CheckBox Content="SMCS" IsChecked="{Binding GsmConnection.Smcs,Mode=TwoWay}"></CheckBox>
+                                                                <TextBox Margin="5" Text="{Binding GsmConnection.SmcsNumber,Mode=TwoWay}" Grid.Column="1" Grid.Row="0"/>
+                                                                <Button Content="auto detect" Command="{Binding AutoDecectSmcsCommand}" Margin="5" Grid.Column="2" Grid.Row="0"/>
 
-                                                                <CheckBox Content="Nombre d'envoie" Grid.Column="0" Grid.Row="1"/>
-                                                                <TextBox Margin="5"  Grid.Column="1" Grid.Row="1"/>
+                                                                <CheckBox Content="Nombre d'envoie" IsChecked="{Binding GsmConnection.CustomSendNumber,Mode=TwoWay}" Grid.Column="0" Grid.Row="1"/>
+                                                                <TextBox Margin="5"  Grid.Column="1" Text="{Binding GsmConnection.SendNumber,Mode=TwoWay}" Grid.Row="1"/>
                                                                 <TextBlock  Text="times" VerticalAlignment="Center"  Margin="5"  Grid.Column="2" Grid.Row="1"/>
                                                                 
-                                                                <CheckBox Content="Destination port" Grid.Column="0" Grid.Row="2"/>
-                                                                <TextBox Margin="5"  Grid.Column="1" Grid.Row="2"/>
+                                                                <CheckBox Content="Destination port" IsChecked="{Binding GsmConnection.CustomDestinationPort,Mode=TwoWay}" Grid.Column="0" Grid.Row="2"/>
+                                                                <TextBox Margin="5"  Grid.Column="1" Text="{Binding GsmConnection.DestinationPort,Mode=TwoWay}" Grid.Row="2"/>
                                                                 
                                                                 
                                                             </Grid>
@@ -1791,10 +1791,10 @@
                                                                     <TextBlock Text="Message" Grid.Column="0" Grid.Row="0"/>
                                                                     <TextBlock Text="Number" Grid.Column="0" Grid.Row="1"/>
                                                                     
-                                                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5" Text="{Binding TestSmsMessage,Mode=TwoWay}"/>
+                                                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" Text="{Binding TestSmsNumber,Mode=TwoWay}"/>
                                                                     
-                                                                    <Button Content="send message" Grid.Column="0" Grid.Row="2" Margin="5" Grid.ColumnSpan="2" />
+                                                                    <Button Content="send message" Grid.Column="0" Grid.Row="2" Margin="5" Grid.ColumnSpan="2" Command="{Binding SendATestSmsMessageCommand}"/>
                                                                 </Grid>
                                                             </GroupBox>
                                                         </Grid>

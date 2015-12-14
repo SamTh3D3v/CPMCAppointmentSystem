@@ -26,6 +26,9 @@ namespace CPMCAppointmentSystem.ViewModel
     {
 
         #region Fields
+        
+        private string _testSmsNumber  ;
+        private string _testSmsMessage;
         private string _pinCode;
         private bool _isGsmProgressRingActive = false;
         private GsmConnection _gsmConnection;
@@ -61,6 +64,42 @@ namespace CPMCAppointmentSystem.ViewModel
         private ConnectionSettings _connectionSettings;
         #endregion
         #region Properties
+        public string TestSmsNumber
+        {
+            get
+            {
+                return _testSmsNumber;
+            }
+
+            set
+            {
+                if (_testSmsNumber == value)
+                {
+                    return;
+                }
+
+                _testSmsNumber = value;
+                RaisePropertyChanged();
+            }
+        }
+        public string TestSmsMessage
+        {
+            get
+            {
+                return _testSmsMessage;
+            }
+
+            set
+            {
+                if (_testSmsMessage == value)
+                {
+                    return;
+                }
+
+                _testSmsMessage = value;
+                RaisePropertyChanged();
+            }
+        }
         public string PinCode
         {
             get
@@ -789,6 +828,28 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _sendATestSmsMessageCommand;
+        public RelayCommand SendATestSmsMessageCommand
+        {
+            get
+            {
+                return _sendATestSmsMessageCommand
+                    ?? (_sendATestSmsMessageCommand = new RelayCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            GsmStateText += "\n"+GsmConnection.SendSms(TestSmsMessage, TestSmsNumber);
+                        }
+                        catch (Exception)
+                        {
+
+                            GsmStateText += "Something went wrong";
+                        }
+                        
+                    }));
+            }
+        }
         private RelayCommand _clearGsmStateTextCommand;
         public RelayCommand ClearGsmStateTextCommand
         {
@@ -873,6 +934,19 @@ namespace CPMCAppointmentSystem.ViewModel
                                 : "\n the gsm device is not connected";
                         }
 
+                    }));
+            }
+        }
+        private RelayCommand _autoDecectSmcsCommand;
+        public RelayCommand AutoDecectSmcsCommand
+        {
+            get
+            {
+                return _autoDecectSmcsCommand
+                    ?? (_autoDecectSmcsCommand = new RelayCommand(
+                    () =>
+                    {
+                        
                     }));
             }
         }

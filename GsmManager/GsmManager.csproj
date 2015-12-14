@@ -37,6 +37,9 @@
     <Reference Include="GSMCommunication">
       <HintPath>..\Libs\GSMCommunication.dll</HintPath>
     </Reference>
+    <Reference Include="PDUConverter">
+      <HintPath>..\Libs\PDUConverter.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
