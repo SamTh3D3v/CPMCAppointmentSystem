@@ -828,6 +828,48 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _readAllReceivedMessagesCommand;
+        public RelayCommand ReadAllReceivedMessagesCommand
+        {
+            get
+            {
+                return _readAllReceivedMessagesCommand
+                    ?? (_readAllReceivedMessagesCommand = new RelayCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            GsmStateText+="\n "+GsmConnection.ReadAllMessages();
+                        }
+                        catch (Exception)
+                        {
+
+                            GsmStateText += "\n Something went wrong";
+                        }
+                    }));
+            }
+        }
+        private RelayCommand _deleteAllReceivedMessagesCommand;
+        public RelayCommand DeleteAllReceivedMessagesCommand
+        {
+            get
+            {
+                return _deleteAllReceivedMessagesCommand
+                    ?? (_deleteAllReceivedMessagesCommand = new RelayCommand(
+                    () =>
+                    {
+                        try
+                        {
+                            GsmStateText += "\n " + GsmConnection.DeleteAllMessages();
+                        }
+                        catch (Exception)
+                        {
+
+                            GsmStateText += "\n Something went wrong";
+                        }
+                    }));
+            }
+        }
         private RelayCommand _sendATestSmsMessageCommand;
         public RelayCommand SendATestSmsMessageCommand
         {

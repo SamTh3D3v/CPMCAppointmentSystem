@@ -14,8 +14,8 @@ namespace GsmManager
     public class GsmConnection : INotifyPropertyChanged
     {
         #region Fields
-        private ConnectionSettings _connectionSettings;      
-        private bool _requestImmediateDisplay  ;
+        private ConnectionSettings _connectionSettings;
+        private bool _requestImmediateDisplay;
         private bool _requestStatusReport;
         private bool _sendAsUnicode;
         private bool _enableSmsBatchMode;
@@ -153,7 +153,7 @@ namespace GsmManager
                 _sendNumber = value;
                 OnPropertyChanged();
             }
-        }      
+        }
         public bool CustomSendNumber
         {
             get
@@ -323,10 +323,10 @@ namespace GsmManager
             }
         }
 
-        public string SendSms(string smsMessage,string number)
+        public string SendSms(string smsMessage, string number)
         {
             try
-            {                
+            {
                 // Send an SMS message
                 SmsSubmitPdu pdu;
                 if (!SendAsUnicode)
@@ -372,17 +372,127 @@ namespace GsmManager
                 for (int i = 0; i < times; i++)
                 {
                     Comm.SendMessage(pdu);
-                    res += "\n Message {"+i + 1+"} of {"+times+"} sent.";                    
+                    res += "\n Message {" + i + 1 + "} of {" + times + "} sent.";
                 }
                 return res + "\n";
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            
-
         }
+
+        public string ReadAllMessages()
+        {
+
+            string storage = GetMessageStorage();
+            string res = "";
+            try
+            {
+                // Read all SMS messages from the storage
+                DecodedShortMessage[] messages = Comm.ReadMessages(PhoneMessageStatus.All, storage);
+                foreach (DecodedShortMessage message in messages)
+                {
+                    res+=(string.Format("Message status = {0}, Location = {1}/{2}",
+                        StatusToString(message.Status), message.Storage, message.Index)
+                        +"\n"+ShowMessage(message.Data)+"\n");                    
+                }
+                res += ("\n " + string.Format("{0,9} messages read.", messages.Length.ToString()) + "\n ");
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private string ShowMessage(SmsPdu pdu)
+        {
+            if (pdu is SmsSubmitPdu)
+            {
+                // Stored (sent/unsent) message
+                SmsSubmitPdu data = (SmsSubmitPdu)pdu;
+                return ("\n SENT/UNSENT MESSAGE"
+                +"\n Recipient: " + data.DestinationAddress
+                + "\n Message text: " + data.UserDataText
+                +"\n -------------------------------------------------------------------");                
+            }
+            if (pdu is SmsDeliverPdu)
+            {
+                // Received message
+                SmsDeliverPdu data = (SmsDeliverPdu)pdu;
+                return ("RECEIVED MESSAGE"
+                + "\n Sender: " + data.OriginatingAddress
+                + "\n Sent: " + data.SCTimestamp.ToString()
+                + "\n Message text: " + data.UserDataText
+                + "\n -------------------------------------------------------------------");                
+            }
+            if (pdu is SmsStatusReportPdu)
+            {
+                // Status report
+                SmsStatusReportPdu data = (SmsStatusReportPdu)pdu;
+                return ("STATUS REPORT"
+                +"\n Recipient: " + data.RecipientAddress
+                +"\n Status: " + data.Status.ToString()
+                +"\n Timestamp: " + data.DischargeTime.ToString()
+                +"\n Message ref: " + data.MessageReference.ToString()
+                +"\n -------------------------------------------------------------------");                
+            }
+            return ("Unknown message type: " + pdu.GetType().ToString());
+        }
+        private string StatusToString(PhoneMessageStatus status)
+        {
+            // Map a message status to a string
+            string ret;
+            switch (status)
+            {
+                case PhoneMessageStatus.All:
+                    ret = "All";
+                    break;
+                case PhoneMessageStatus.ReceivedRead:
+                    ret = "Read";
+                    break;
+                case PhoneMessageStatus.ReceivedUnread:
+                    ret = "Unread";
+                    break;
+                case PhoneMessageStatus.StoredSent:
+                    ret = "Sent";
+                    break;
+                case PhoneMessageStatus.StoredUnsent:
+                    ret = "Unsent";
+                    break;
+                default:
+                    ret = "Unknown (" + status.ToString() + ")";
+                    break;
+            }
+            return ret;
+        }
+        private string GetMessageStorage()
+        {
+            var storage = PhoneStorageType.Sim;
+            if (storage.Length == 0)
+                throw new ApplicationException("Unknown message storage.");
+            else
+                return storage;
+        }
+
+        public string DeleteAllMessages()
+        {                        
+
+            string storage = GetMessageStorage();
+            try
+            {
+                // Delete all messages from Gsm Device memory
+                Comm.DeleteMessages(DeleteScope.All, storage);
+                return "\n Messages deleted.\n";                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+       
+
         #endregion
         #region Inpc related logic
         public event PropertyChangedEventHandler PropertyChanged;

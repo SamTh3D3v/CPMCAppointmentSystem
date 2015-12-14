@@ -1497,7 +1497,7 @@
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <GroupBox Header="Paramètres Globaux" Grid.Row="0" Grid.Column="0">
+                                        <GroupBox Header="Paramètres Globaux" Grid.Row="0" Grid.Column="0" MinHeight="230">
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="*"/>
@@ -1798,7 +1798,36 @@
                                                                 </Grid>
                                                             </GroupBox>
                                                         </Grid>
-                                                    </TabItem>                                                   
+                                                    </TabItem>
+
+                                                    <TabItem  Style="{StaticResource InnerSettingsTabItemStyle}" IsEnabled="{Binding IsGsmSettingsValidated}" >
+                                                        <TabItem.Header>
+                                                            <Grid   Margin="0,0,5,0">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="20" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                                                <TextBlock Grid.Column="1" Text="Receive sms" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>
+                                                            </Grid>
+                                                        </TabItem.Header>
+                                                        <Grid>                                                            
+                                                            <GroupBox Style="{x:Null}" Header="Manage reports">
+                                                                <Grid>
+                                                                    
+                                                                    <Grid.RowDefinitions>                                                                        
+                                                                        <RowDefinition Height="Auto"/>
+                                                                        <RowDefinition Height="Auto"/>
+                                                                    </Grid.RowDefinitions>
+                                                                    
+
+                                                               
+                                                                    <Button Content="read all message"  Grid.Row="0" Margin="5" Command="{Binding ReadAllReceivedMessagesCommand}"/>
+                                                                    <Button Content="delete all message" Grid.Row="1" Margin="5" Command="{Binding DeleteAllReceivedMessagesCommand}"/>
+                                                                </Grid>
+                                                            </GroupBox>
+                                                        </Grid>
+                                                    </TabItem>
                                                 </TabControl>
                                                 <ScrollViewer Grid.Column="1" Grid.Row="0" VerticalScrollBarVisibility="Visible" MaxHeight="150" >
                                                     <TextBox AcceptsReturn="True" TextWrapping="Wrap" Background="Black" Foreground="GreenYellow" Text="{Binding GsmStateText,Mode=TwoWay}" />
