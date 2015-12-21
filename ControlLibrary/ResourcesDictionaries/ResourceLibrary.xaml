@@ -8,6 +8,7 @@
         
         <!--Paths--> 
         <ResourceDictionary Source="Paths/Paths.xaml"/>
+        <ResourceDictionary Source="Paths/UserTypePaths.xaml"/>        
 
         <!--Base Controls Style-->        
         <ResourceDictionary Source="BaseControlStyles/CheckBoxStyle.xaml"/>
@@ -50,6 +51,7 @@
         <ResourceDictionary Source="NamedStyles/AddNewRowControlStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/RowStyle.xaml"/>
         <ResourceDictionary Source="NamedStyles/ScrollButtonStyle.xaml"/>
+        <ResourceDictionary Source="NamedStyles/TbUserTypeRadioButtonStyle.xaml"/>
 
         <!--Other Resource Dictionaries-->
 

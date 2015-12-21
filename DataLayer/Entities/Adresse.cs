@@ -63,8 +63,8 @@ namespace DataLayer.Model
             }
         }
 
-        [Required]
-        public String CodePosatal
+        
+        public  String CodePosatal
         {
             get { return _codePosatal; }
             set
@@ -140,11 +140,7 @@ namespace DataLayer.Model
                     if (string.IsNullOrEmpty(City))
                         result = "Spesifiez la City";
                 }
-                //if (columnName == "CodePosatal")
-                //{
-                //    if (string.IsNullOrEmpty(CodePosatal))
-                //        result = "Spesifiez le code postale";
-                //}
+               
                 if (columnName == "Willaya")
                 {
                     if (Willaya == null)

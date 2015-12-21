@@ -626,11 +626,8 @@ namespace CPMCAppointmentSystem.ViewModel
                                  //Added by Farouk for Audit purpose
                                 UserId = Guid.NewGuid(),
 
-                                RolesCollection = new RolesCollection()
-                                {
-                                    //get the default medecin rolls from the xml settings file
-                                },
-                                UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId
+                               
+                               // UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId
                             },
                             Patients = new ObservableCollection<Patient>(),
                             Pathologies = new ObservableCollection<Pathology>(),

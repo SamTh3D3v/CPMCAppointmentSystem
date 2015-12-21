@@ -1,0 +1,401 @@
+﻿<controls:MetroWindow x:Class="CPMCAppointmentSystem.View.SettingsViews.AddNewUserTypeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        Title="Ajouter un nouveau type d'utilisateur"
+        WindowStyle="SingleBorderWindow"
+        EnableDWMDropShadow="True"
+        ResizeMode="CanResizeWithGrip"
+        WindowTransitionsEnabled="False"                      
+        BorderBrush="{DynamicResource BlackBrush}"
+        BorderThickness="1"
+        WindowStartupLocation="CenterScreen"                                 
+        Height="500" Width="700" 
+        DataContext="{Binding Path=SettingsViewModel, Source={StaticResource Locator}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=ManageUserTypeViewLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <controls:MetroWindow.Resources>
+        <Style TargetType="syncfusion:TreeViewItemAdv" x:Key="TreeViewItemConStyle">
+            <Setter Property="IsExpanded" Value="True"/>
+            <!--<Setter Property="LeftImageSource" Value="{StaticResource PathologyDark}"/>-->
+        </Style>
+    </controls:MetroWindow.Resources>
+    <Grid Grid.Row="1" Margin="10">
+        <Grid.RowDefinitions >
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Type Utilisateur" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <syncfusion:SfTextBoxExt IsEnabled="False"  Grid.Column="1" Text="{Binding SelectedUserType.Entity.UserTypeName,Mode=TwoWay}"  Margin="10 5" HorizontalContentAlignment="Left" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"                                     
+                                     Watermark="Nom du type d'utilisateur"  
+                                     />
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden" Background="Transparent" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"  Margin="5" BorderThickness="0">
+            <StackPanel Orientation="Horizontal">                               
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=1}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="1"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 1}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=2}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="2"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 2}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=3}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="3"   Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 3}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=4}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="4"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 4}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=5}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="5"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 5}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=6}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="6"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 6}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=7}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="7"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 7}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=8}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="8"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 8}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=9}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="9"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 9}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=10}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="10"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 10}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=11}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="11"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 11}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=12}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="12"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 12}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=13}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="13"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 13}" Fill="Black" Margin="0,0,0,0" />
+                </RadioButton>                
+            </StackPanel>
+        </ScrollViewer>
+        <Expander Background="WhiteSmoke" IsExpanded="True" Grid.Row="2" HorizontalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2"  Header="Rolls">
+            <Expander.Style>
+                <Style TargetType="Expander">
+                    <Setter Property="IsEnabled" Value="True"/>                   
+                </Style>
+            </Expander.Style>
+            <syncfusion:TreeViewAdv HorizontalContentAlignment="Center" Background="Transparent" BorderThickness="0"  HorizontalAlignment="Center"
+                                            AnimationType="Fade"                                                         
+                                            ItemContainerStyle="{StaticResource TreeViewItemConStyle}" 
+                                            ShowRootLines="True" 
+                                            AllowMultiSelect="False" 
+                                            AllowDragDrop="False">
+                <syncfusion:TreeViewItemAdv >
+                    <syncfusion:TreeViewItemAdv.Header >
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource CalendarPath}" Margin="2,5,10,0"/>
+                            <TextBlock Text="Planificateur" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </syncfusion:TreeViewItemAdv.Header>
+                    <syncfusion:TreeViewItemAdv.Items>
+                        <syncfusion:TreeViewItemAdv IsEditable="False" >
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Afficher les rendez-vous" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.AppointementViewAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Ajouter et modifier des rendez-vous" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.AppointementEditAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                    </syncfusion:TreeViewItemAdv.Items>
+                </syncfusion:TreeViewItemAdv>
+
+
+                <syncfusion:TreeViewItemAdv >
+                    <syncfusion:TreeViewItemAdv.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource DoctorPath}" Margin="2,5,10,0"/>
+                            <TextBlock Text="Médecins" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </syncfusion:TreeViewItemAdv.Header>
+                    <syncfusion:TreeViewItemAdv.Items>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Afficher la liste des médecins" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.DoctorsViewAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Modifier et ajouter des médecins" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.DoctorsAddAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Affecter des patient aux médecins" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.DoctorsEditAppointementAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                    </syncfusion:TreeViewItemAdv.Items>
+                </syncfusion:TreeViewItemAdv>
+
+
+                <syncfusion:TreeViewItemAdv >
+                    <syncfusion:TreeViewItemAdv.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PatientPath}" Margin="2,5,10,0"/>
+                            <TextBlock Text="Patients" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </syncfusion:TreeViewItemAdv.Header>
+                    <syncfusion:TreeViewItemAdv.Items>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Afficher la liste des patients" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.PatientsViewAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Modifier les details des patients" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.PatientsEditAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Ajouter des Rdv pour des patients" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.PatientsEditAppointementAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                    </syncfusion:TreeViewItemAdv.Items>
+                </syncfusion:TreeViewItemAdv>
+
+
+                <syncfusion:TreeViewItemAdv >
+                    <syncfusion:TreeViewItemAdv.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SpecialityPath}" Margin="2,5,10,0"/>
+                            <TextBlock Text="Spécialité" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </syncfusion:TreeViewItemAdv.Header>
+                    <syncfusion:TreeViewItemAdv.Items>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Afficher la liste des spécialités" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.SpecialitiesViewAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Modifier et ajouter des spécialités" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.SpecialitiesEditAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                    </syncfusion:TreeViewItemAdv.Items>
+                </syncfusion:TreeViewItemAdv>
+
+
+                <syncfusion:TreeViewItemAdv >
+                    <syncfusion:TreeViewItemAdv.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PathologyPath}" Margin="2,5,10,0"/>
+                            <TextBlock Text="Pathologie" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </syncfusion:TreeViewItemAdv.Header>
+                    <syncfusion:TreeViewItemAdv.Items>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Afficher la liste des pathologies" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.PathologiesViewAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Ajouter et modifier les pathologies" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.PathologiesEditAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                    </syncfusion:TreeViewItemAdv.Items>
+                </syncfusion:TreeViewItemAdv>
+
+
+                <syncfusion:TreeViewItemAdv >
+                    <syncfusion:TreeViewItemAdv.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource PatientPath}" Margin="2,5,10,0"/>
+                            <TextBlock Text="Mes patients" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </syncfusion:TreeViewItemAdv.Header>
+                    <syncfusion:TreeViewItemAdv.Items>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Afficher mes patients" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.MyPatientsViewAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv IsEditable="False" >
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Modifier les détails de mes patients" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.MyPatientsEditAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv IsEditable="False" >
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Créer des Rdv pour mes patients" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.MyPatientsEditAppointementAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                    </syncfusion:TreeViewItemAdv.Items>
+                </syncfusion:TreeViewItemAdv>
+
+
+                <syncfusion:TreeViewItemAdv >
+                    <syncfusion:TreeViewItemAdv.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SmsMobilePath}" Margin="2,5,10,0"/>
+                            <TextBlock Text="Les notifications sms" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </syncfusion:TreeViewItemAdv.Header>
+                    <syncfusion:TreeViewItemAdv.Items>
+                        <syncfusion:TreeViewItemAdv IsEditable="False" >
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Afficher les notifications à envoyer" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.SmsNotificationViewAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv IsEditable="False" >
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Envoyer et modifier les notifications" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.SmsNotificationEditAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                    </syncfusion:TreeViewItemAdv.Items>
+                </syncfusion:TreeViewItemAdv>
+
+
+                <syncfusion:TreeViewItemAdv >
+                    <syncfusion:TreeViewItemAdv.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource SettingsPath}" Margin="2,5,10,0"/>
+                            <TextBlock Text="Paramètres" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </syncfusion:TreeViewItemAdv.Header>
+                    <syncfusion:TreeViewItemAdv.Items>
+                        <syncfusion:TreeViewItemAdv IsEditable="False" >
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Modifier Les paramètres des comptes des utilisateurs " IsChecked="{Binding SelectedUserType.Entity.RolesCollection.AccountSettingsEditAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Modifier les paramètres globaux" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.GlobaleSettingsEditAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                    </syncfusion:TreeViewItemAdv.Items>
+                </syncfusion:TreeViewItemAdv>
+
+
+                <syncfusion:TreeViewItemAdv >
+                    <syncfusion:TreeViewItemAdv.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource LogPath}" Margin="2,5,10,0"/>
+                            <TextBlock Text="LOG" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </syncfusion:TreeViewItemAdv.Header>
+                    <syncfusion:TreeViewItemAdv.Items>
+                        <syncfusion:TreeViewItemAdv IsEditable="False" >
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Afficher les logs" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.LogViewAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                        <syncfusion:TreeViewItemAdv  IsEditable="False">
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Modifier les logs" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.LogEditAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                    </syncfusion:TreeViewItemAdv.Items>
+                </syncfusion:TreeViewItemAdv>
+
+                <syncfusion:TreeViewItemAdv >
+                    <syncfusion:TreeViewItemAdv.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource StatPath}" Margin="2,5,10,0"/>
+                            <TextBlock Text="Statistiques" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </syncfusion:TreeViewItemAdv.Header>
+                    <syncfusion:TreeViewItemAdv.Items>
+                        <syncfusion:TreeViewItemAdv IsEditable="False" >
+                            <syncfusion:TreeViewItemAdv.Header>
+                                <CheckBox Content="Afficher les statistiques" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.StatisticsViewAllow,Mode=TwoWay}"/>
+                            </syncfusion:TreeViewItemAdv.Header>
+                        </syncfusion:TreeViewItemAdv>
+                    </syncfusion:TreeViewItemAdv.Items>
+                </syncfusion:TreeViewItemAdv>
+
+
+            </syncfusion:TreeViewAdv>
+        </Expander>
+        <Grid Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="2"  Margin="5" VerticalAlignment="Bottom" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"  Margin="2" Command="{Binding SaveUserTypeCommand}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                        <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="IsEnabled" Value="false" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=TxtEditDateRdv, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=TxtEditLieuRdv, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition>
+                                        <Condition.Binding>
+                                            <Binding Path="SelectedAppointement.Medecin" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                <Binding.ConverterParameter>
+                                                    <x:Null/>
+                                                </Binding.ConverterParameter>
+                                            </Binding>
+                                        </Condition.Binding>
+                                        <Condition.Value>
+                                            <system:Boolean>False</system:Boolean>
+                                        </Condition.Value>
+                                    </Condition>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteUserTypeCommand}" >
+                <Button.Style>
+                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedAppointement}" Value="{x:Static system:Guid.Empty}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
+                        <TextBlock Text="Delete" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+
+            </Button>
+            <Button Grid.Column="2"  Margin="2" Command="{Binding CancelChangesToUserTypeCommand}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                        <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </Grid>
+    </Grid>
+</controls:MetroWindow>

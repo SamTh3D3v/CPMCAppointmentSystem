@@ -13,6 +13,7 @@
       xmlns:userControls="clr-namespace:CPMCAppointmentSystem.UserControls"
       xmlns:model="clr-namespace:DataLayer.Model;assembly=DataLayer"
       xmlns:converters="clr-namespace:ControlLibrary.Converters;assembly=ControlLibrary"
+      xmlns:multiSelectionComboBox="clr-namespace:MultiSelectionComboBox;assembly=MultiSelectionComboBox"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="1000" DataContext="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
 	Title="SettingsView" >
@@ -75,13 +76,19 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <ListView Background="Transparent" ItemsSource="{Binding UserTypeToAddCollection}" Grid.Column="0"  Margin="5" BorderThickness="0">
-                                <ListView.ItemContainerStyle>
+                            <ListView SelectedItem="{Binding SelectedUserType,Mode=TwoWay}"  Background="Transparent" ItemsSource="{Binding UserTypeToFilterCollection,Mode=TwoWay}" Grid.Column="0"  Margin="5" BorderThickness="0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding UpdateTheSelectedUserTypeCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <!--<ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
-                                        <Setter Property="Focusable" Value="False"></Setter>
+                                        <Setter Property="Focusable" Value="False"></Setter>                                        
                                     </Style>
-                                </ListView.ItemContainerStyle>
+                                </ListView.ItemContainerStyle>-->
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Horizontal"/>
@@ -103,15 +110,20 @@
                                                                 <DataTrigger Binding="{Binding ElementName=FilterButton,Path=IsChecked}" Value="True">
                                                                     <Setter Property="Fill" Value="White"/>
                                                                 </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Entity.UserTypeName}" Value="Medecin">
-                                                                    <Setter Property="Data" Value="{StaticResource DoctorPath}"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Entity.UserTypeName}" Value="Admin">
-                                                                    <Setter Property="Data" Value="{StaticResource AdminPath}"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Entity.UserTypeName}" Value="Agent">
-                                                                    <Setter Property="Data" Value="{StaticResource AgentPath}"/>
-                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="1"><Setter Property="Data" Value="{StaticResource 1}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="2"><Setter Property="Data" Value="{StaticResource 2}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="3"><Setter Property="Data" Value="{StaticResource 3}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="4"><Setter Property="Data" Value="{StaticResource 4}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="5"><Setter Property="Data" Value="{StaticResource 5}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="6"><Setter Property="Data" Value="{StaticResource 6}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="7"><Setter Property="Data" Value="{StaticResource 7}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="8"><Setter Property="Data" Value="{StaticResource 8}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="9"><Setter Property="Data" Value="{StaticResource 9}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="10"><Setter Property="Data" Value="{StaticResource 10}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="11"><Setter Property="Data" Value="{StaticResource 11}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="12"><Setter Property="Data" Value="{StaticResource 12}"/></DataTrigger>
+                                                                <DataTrigger Binding="{Binding Entity.UserTypeIconId}" Value="13"><Setter Property="Data" Value="{StaticResource 13}"/></DataTrigger>
+                                                               
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Path.Style>
@@ -122,7 +134,14 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddNewUserCommand}" Click="ButtonBase_OnClick"  ToolTip="Ajouter un nouveau utilisateur" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="{Binding ConnectedUser.RolesCollection.AccountSettingsEditAllow}">
+                            <Grid Margin="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                              
+                                <Button ToolTip="Ajouter type utilisateur" Command="{Binding OpenAddNewUserTypeViewCommand}" x:Name="FilterButton" Width="45" Height="45"  Background="WhiteSmoke" Style="{DynamicResource MetroCircleButtonStyle}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource AddTypeUser}" Fill="Black" Margin="0,0,0,0" />
+                                </Button>
+                               
+                            </Grid>
+                            <Button Grid.Row="0" Grid.Column="2"  Margin="10" Command="{Binding AddNewUserCommand}" Click="ButtonBase_OnClick"  ToolTip="Ajouter un nouveau utilisateur" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="{Binding ConnectedUser.RolesCollection.AccountSettingsEditAllow}">
                                 <Button.Content>
                                     <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
                                 </Button.Content>
@@ -163,7 +182,7 @@
                                 <Grid >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>                                        
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
@@ -189,14 +208,14 @@
 
 
                                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Type" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <ComboBox x:Name="CbxUserType" Margin="10 5" ItemsSource="{Binding UserTypeCollection}" DisplayMemberPath="UserTypeName" SelectedItem="{Binding SelectedUser.UserType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                        <i:Interaction.Triggers>
+                                    <multiSelectionComboBox:MultiSelectComboBox x:Name="CbxUserType" Margin="10 5" ItemsSource="{Binding UserTypeDictionary,Mode=TwoWay}" SelectedItems="{Binding SelectedUserUserTypesDictionary,Mode=TwoWay}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <!--<i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <command:EventToCommand Command="{Binding Mode=OneWay, Path=UserTypeChangedCommand}"
                             PassEventArgsToCommand="True" />
                                             </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </ComboBox>
+                                        </i:Interaction.Triggers>-->                                        
+                                    </multiSelectionComboBox:MultiSelectComboBox>
                                     <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="3"  Text="Type d'utilisateur" VerticalAlignment="Center">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock" BasedOn="{StaticResource HintTextBlockStyle}">

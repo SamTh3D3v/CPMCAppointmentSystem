@@ -13,6 +13,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class MainViewModel : NavigableViewModelBase
     {
         #region Fields
+        private RolesCollection _connectedUserRollsCollection;
         private CpmcContext _dbContext = new CpmcContext();
         private User _connectedUser;
         private bool _unseenNotification;
@@ -55,6 +56,25 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
+        public RolesCollection ConnectedUserRollsCollection
+        {
+            get
+            {
+                return _connectedUserRollsCollection;
+            }
+
+            set
+            {
+                if (_connectedUserRollsCollection == value)
+                {
+                    return;
+                }
+
+                _connectedUserRollsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
         #region Commands
         private RelayCommand _mainViewLoadedCommand;
@@ -68,8 +88,11 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             _dbContext = new CpmcContext();
                             var user = MainFrameNavigationService.Parameter as User;
-                            if (user != null)                           //todo 
-                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+                            if (user == null) return;                          //todo 
+                            ConnectedUser = _dbContext.Users.Find(user.UserId);
+                            IEnumerable<RolesCollection> rols = ConnectedUser.UserTypes.AsEnumerable().Select(u => u.RolesCollection).AsEnumerable();
+                            ConnectedUserRollsCollection = RollsCollectionHelper.MergeRolls(rols);
+
                             NavigateToAnAllowedView();
                             App.NotificationHelper.NotificationsChange += (s, e) =>
                             {
@@ -81,15 +104,15 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private void NavigateToAnAllowedView()
         {
-            if (ConnectedUser.RolesCollection.PatientsViewAllow) InnerFrameNavigationService.NavigateTo(App.PatientsViewKey);
-            else if (ConnectedUser.RolesCollection.AppointementViewAllow) InnerFrameNavigationService.NavigateTo(App.CalendarViewKey);
-            else if (ConnectedUser.RolesCollection.DoctorsViewAllow) InnerFrameNavigationService.NavigateTo(App.DoctorsViewKey);
-            else if (ConnectedUser.RolesCollection.PathologiesViewAllow) InnerFrameNavigationService.NavigateTo(App.PathologiesViewKey);
-            else if (ConnectedUser.RolesCollection.SpecialitiesViewAllow) InnerFrameNavigationService.NavigateTo(App.SpecialityViewKey);
-            else if (ConnectedUser.RolesCollection.SmsNotificationViewAllow) InnerFrameNavigationService.NavigateTo(App.NotificationViewKey);
-            else if (ConnectedUser.RolesCollection.StatisticsViewAllow) InnerFrameNavigationService.NavigateTo(App.StatisticsViewKey);
-            else if (ConnectedUser.RolesCollection.LogViewAllow) InnerFrameNavigationService.NavigateTo(App.LogViewKey);
-            else if (ConnectedUser.RolesCollection.AccountSettingsEditAllow) InnerFrameNavigationService.NavigateTo(App.SettingsViewKey);
+            if (ConnectedUserRollsCollection.PatientsViewAllow) InnerFrameNavigationService.NavigateTo(App.PatientsViewKey);
+            else if (ConnectedUserRollsCollection.AppointementViewAllow) InnerFrameNavigationService.NavigateTo(App.CalendarViewKey);
+            else if (ConnectedUserRollsCollection.DoctorsViewAllow) InnerFrameNavigationService.NavigateTo(App.DoctorsViewKey);
+            else if (ConnectedUserRollsCollection.PathologiesViewAllow) InnerFrameNavigationService.NavigateTo(App.PathologiesViewKey);
+            else if (ConnectedUserRollsCollection.SpecialitiesViewAllow) InnerFrameNavigationService.NavigateTo(App.SpecialityViewKey);
+            else if (ConnectedUserRollsCollection.SmsNotificationViewAllow) InnerFrameNavigationService.NavigateTo(App.NotificationViewKey);
+            else if (ConnectedUserRollsCollection.StatisticsViewAllow) InnerFrameNavigationService.NavigateTo(App.StatisticsViewKey);
+            else if (ConnectedUserRollsCollection.LogViewAllow) InnerFrameNavigationService.NavigateTo(App.LogViewKey);
+            else if (ConnectedUserRollsCollection.AccountSettingsEditAllow) InnerFrameNavigationService.NavigateTo(App.SettingsViewKey);
 
         }
         private RelayCommand _mainViewUnloadedCommand;

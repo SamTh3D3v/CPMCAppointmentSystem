@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMSSetupCustomAction", "AMS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GsmManager", "GsmManager\GsmManager.csproj", "{BAC4A9AF-E247-4D5F-BCBE-4D267CAADBE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSelectionComboBox", "MultiSelectionComboBox\MultiSelectionComboBox.csproj", "{094DB2C0-97DE-472E-BB0A-7CFEA3414D97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{BAC4A9AF-E247-4D5F-BCBE-4D267CAADBE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAC4A9AF-E247-4D5F-BCBE-4D267CAADBE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAC4A9AF-E247-4D5F-BCBE-4D267CAADBE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{094DB2C0-97DE-472E-BB0A-7CFEA3414D97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{094DB2C0-97DE-472E-BB0A-7CFEA3414D97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{094DB2C0-97DE-472E-BB0A-7CFEA3414D97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{094DB2C0-97DE-472E-BB0A-7CFEA3414D97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

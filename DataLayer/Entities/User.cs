@@ -18,12 +18,8 @@ namespace DataLayer.Model
         private Guid _userId;
         private String _userNom;
         private String _userPrenom;
-        private String _userName;
-        private Guid? _rolesCollectionId;
-        private string _userPass;
-        private Guid _userTypeId;
-        private UserType _userType;
-        private RolesCollection _rolesCollection;
+        private String _userName;        
+        private string _userPass;                        
 
         #endregion
         #region Properties
@@ -105,17 +101,6 @@ namespace DataLayer.Model
             }
         }
 
-        public virtual Guid? RolesCollectionId
-        {
-            get { return _rolesCollectionId; }
-            set
-            {
-                if (value.Equals(_rolesCollectionId)) return;
-                _rolesCollectionId = value;
-                OnPropertyChanged();
-            }
-        }
-
         [Required]
         public String UserPass
         {
@@ -126,42 +111,8 @@ namespace DataLayer.Model
                 _userPass = value;
                 OnPropertyChanged();
             }
-        }
-
-        public Guid UserTypeId
-        {
-            get { return _userTypeId; }
-            set
-            {
-                if (value.Equals(_userTypeId)) return;
-                _userTypeId = value;
-                OnPropertyChanged();
-            }
-        }
-
-        [ForeignKey("RolesCollectionId")]
-        public virtual RolesCollection RolesCollection
-        {
-            get { return _rolesCollection; }
-            set
-            {
-                if (Equals(value, _rolesCollection)) return;
-                _rolesCollection = value;
-                OnPropertyChanged();
-            }
-        }
-
-        [ForeignKey("UserTypeId")]
-        public virtual UserType UserType
-        {
-            get { return _userType; }
-            set
-            {
-                if (Equals(value, _userType)) return;
-                _userType = value;
-                OnPropertyChanged();
-            }
-        }
+        }       
+        public virtual ICollection<UserType> UserTypes { get; set; }
         public string Error
         {
             get { return String.Empty; }

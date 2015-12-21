@@ -92,73 +92,85 @@
       <HintPath>..\Libs\PDUConverter.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="Syncfusion.Chart.Base, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Syncfusion.Chart.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Chart.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Syncfusion.Chart.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Chart.WPF.SampleLayout, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.Chart.WPF.SampleLayout.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.Chart.WPF.SampleLayout.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Data.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.Data.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.Data.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PropertyGrid.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Syncfusion.PropertyGrid.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.ReportControls.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.ReportControls.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.ReportControls.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.ReportDesigner.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.ReportDesigner.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.ReportDesigner.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.ReportViewer.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.ReportViewer.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.ReportViewer.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SampleLayout, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SampleLayout.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.SampleLayout.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfChart.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfChart.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.SfChart.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfGrid.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfGrid.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.SfGrid.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfInput.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfInput.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.SfInput.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfRadialMenu.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfRadialMenu.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.SfRadialMenu.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfSchedule.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfSchedule.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.SfSchedule.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfShared.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfShared.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.SfShared.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Shared.MVVM.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.Shared.MVVM.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.Shared.MVVM.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Shared.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.Shared.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.Shared.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Tools.Windows, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.Tools.Windows.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.Tools.Windows.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Tools.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.Tools.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.Tools.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.VectorImages.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.VectorImages.WPF.dll</HintPath>
+      <HintPath>..\Libs\Syncfusion.VectorImages.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -249,6 +261,7 @@
     <Compile Include="Helpers\NotifyPropertyChanged.cs" />
     <Compile Include="Helpers\RdvDataTemplateSelector.cs" />
     <Compile Include="Helpers\RestDayHelper.cs" />
+    <Compile Include="Helpers\RollsCollectionHelper.cs" />
     <Compile Include="Helpers\SearchService.cs" />
     <Compile Include="Helpers\Security.cs" />
     <Compile Include="Helpers\TreeViewModel.cs" />
@@ -334,6 +347,9 @@
     </Compile>
     <Compile Include="View\PatienstViews\PreviewReportView.xaml.cs">
       <DependentUpon>PreviewReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingsViews\AddNewUserTypeView.xaml.cs">
+      <DependentUpon>AddNewUserTypeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsViews\ReportEditorView.xaml.cs">
       <DependentUpon>ReportEditorView.xaml</DependentUpon>
@@ -473,6 +489,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PatienstViews\PreviewReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsViews\AddNewUserTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -655,6 +675,10 @@
     <ProjectReference Include="..\GsmManager\GsmManager.csproj">
       <Project>{bac4a9af-e247-4d5f-bcbe-4d267caadbe9}</Project>
       <Name>GsmManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MultiSelectionComboBox\MultiSelectionComboBox.csproj">
+      <Project>{094db2c0-97de-472e-bb0a-7cfea3414d97}</Project>
+      <Name>MultiSelectionComboBox</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

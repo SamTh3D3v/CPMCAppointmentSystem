@@ -26,8 +26,12 @@ namespace CPMCAppointmentSystem.ViewModel
     {
 
         #region Fields
-        
-        private string _testSmsNumber  ;
+        private Dictionary<string, object> _selectedUserUserTypeDictionary;
+        private ObservableCollection<EntityToAdd<UserType>> _userTypeToFilterCollection;
+        private AddNewUserTypeView _addNewUserTypeView;
+        private EntityToAdd<UserType> _selectedUserType;
+        private ObservableCollection<UserType> _userTypesCollection;
+        private string _testSmsNumber;
         private string _testSmsMessage;
         private string _pinCode;
         private bool _isGsmProgressRingActive = false;
@@ -42,14 +46,13 @@ namespace CPMCAppointmentSystem.ViewModel
         private User _connectedUser;
         private string _betweenAtCmdDelay;
         private string _centreDeMessagerie;
-        private ObservableCollection<UserType> _userTypeCollection;
         private ObservableCollection<JourFerie> _listDesJoursFerieFix;
         private JourFerie _selectedJourFerieFix;
         private CpmcContext _dbContext = new CpmcContext();
         private ObservableCollection<User> _usersList;
         private User _selectedUser;
         private ObservableCollection<TreeViewModel> _treeViewRollCollection = new ObservableCollection<TreeViewModel>();
-        private ObservableCollection<EntityToAdd<UserType>> _userTypeToAddCollection;
+        private Dictionary<string, object> _userTypeDictionary;
         private ObservableCollection<PieceJointeType> _typePieceJointeCollection;
         private PieceJointeType _selectedTypePieceJointe;
         private ObservableCollection<JourFerie> _listDesJourFeriesOccasionnelle;
@@ -63,7 +66,61 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<Medecin> _doctorsListCollection;
         private ConnectionSettings _connectionSettings;
         #endregion
-        #region Properties
+        #region Properties       
+        public ObservableCollection<EntityToAdd<UserType>> UserTypeToFilterCollection
+        {
+            get
+            {
+                return _userTypeToFilterCollection;
+            }
+
+            set
+            {
+                if (_userTypeToFilterCollection == value)
+                {
+                    return;
+                }
+
+                _userTypeToFilterCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+        public EntityToAdd<UserType> SelectedUserType
+        {
+            get
+            {
+                return _selectedUserType;
+            }
+
+            set
+            {
+                if (_selectedUserType == value)
+                {
+                    return;
+                }
+
+                _selectedUserType = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<UserType> UserTypesCollection
+        {
+            get
+            {
+                return _userTypesCollection;
+            }
+
+            set
+            {
+                if (_userTypesCollection == value)
+                {
+                    return;
+                }
+
+                _userTypesCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public string TestSmsNumber
         {
             get
@@ -355,24 +412,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<UserType> UserTypeCollection
-        {
-            get
-            {
-                return _userTypeCollection;
-            }
 
-            set
-            {
-                if (_userTypeCollection == value)
-                {
-                    return;
-                }
-
-                _userTypeCollection = value;
-                RaisePropertyChanged();
-            }
-        }
         public ObservableCollection<string> MonthsList
         {
             get
@@ -481,21 +521,40 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<EntityToAdd<UserType>> UserTypeToAddCollection
+        public Dictionary<string, object> SelectedUserUserTypesDictionary
         {
             get
             {
-                return _userTypeToAddCollection;
+                return _selectedUserUserTypeDictionary;
             }
 
             set
             {
-                if (_userTypeToAddCollection == value)
+                if (_selectedUserUserTypeDictionary == value)
                 {
                     return;
                 }
 
-                _userTypeToAddCollection = value;
+                _selectedUserUserTypeDictionary = value;
+                RaisePropertyChanged();
+            }
+        }
+        public Dictionary<string, object> UserTypeDictionary
+        {
+            get
+            {
+                return _userTypeDictionary;
+            }
+
+            set
+            {
+                if (_userTypeDictionary == value)
+                {
+                    return;
+                }
+
+                _userTypeDictionary = value;
+                LoadSelectedUserUserTypes();
                 RaisePropertyChanged();
             }
         }
@@ -746,7 +805,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_accountsViewLoadedCommand = new RelayCommand(async () =>
                     {
                         _allDataLoaded = false;
-                        await LoadUserTypeCollection();
+                        await LoadUserTypeToAddCollection();
+                        await LoadUserTypeToFilterCollection();
                         await LoadUsersList();
                         _allDataLoaded = true;
                     }));
@@ -828,6 +888,114 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         #endregion
         #region Commands
+        private RelayCommand _saveUserTypeCommand;
+        public RelayCommand SaveUserTypeCommand
+        {
+            get
+            {
+                return _saveUserTypeCommand
+                    ?? (_saveUserTypeCommand = new RelayCommand(
+                    () =>
+                    {
+
+                    }));
+            }
+        }
+        private RelayCommand _deleteUserTypeCommand;
+        public RelayCommand DeleteUserTypeCommand
+        {
+            get
+            {
+                return _deleteUserTypeCommand
+                    ?? (_deleteUserTypeCommand = new RelayCommand(
+                    () =>
+                    {
+
+                    }));
+            }
+        }
+        private RelayCommand _cancelChangesToUserTypeCommand;
+        public RelayCommand CancelChangesToUserTypeCommand
+        {
+            get
+            {
+                return _cancelChangesToUserTypeCommand
+                    ?? (_cancelChangesToUserTypeCommand = new RelayCommand(
+                    () =>
+                    {
+
+                    }));
+            }
+        }
+        private RelayCommand _openAddNewUserTypeViewCommand;
+        public RelayCommand OpenAddNewUserTypeViewCommand
+        {
+            get
+            {
+                return _openAddNewUserTypeViewCommand
+                    ?? (_openAddNewUserTypeViewCommand = new RelayCommand(
+                    () =>
+                    {
+                        _addNewUserTypeView = new AddNewUserTypeView();
+                        SelectedUserType = new EntityToAdd<UserType>()
+                       {
+                           Entity = new UserType()
+                           {
+                               RolesCollection = new RolesCollection()
+                           }
+                       };
+                        _addNewUserTypeView.ShowDialog();
+
+                    }));
+            }
+        }
+        private RelayCommand<object> _userTypeIconCheckedCommand;
+        public RelayCommand<object> UserTypeIconCheckedCommand
+        {
+            get
+            {
+                return _userTypeIconCheckedCommand
+                    ?? (_userTypeIconCheckedCommand = new RelayCommand<object>(
+                    (obj) =>
+                    {
+                        var iconId = int.Parse(obj.ToString());
+                        SelectedUserType.Entity.UserTypeIconId = iconId;
+
+                    }));
+            }
+        }
+        private RelayCommand _updateTheSelectedUserTypeCommand;
+        public RelayCommand UpdateTheSelectedUserTypeCommand
+        {
+            get
+            {
+                return _updateTheSelectedUserTypeCommand
+                    ?? (_updateTheSelectedUserTypeCommand = new RelayCommand(
+                    () =>
+                    {
+                        if (SelectedUserType == null) return;
+
+                        _addNewUserTypeView = new AddNewUserTypeView();
+                        _addNewUserTypeView.ShowDialog();
+
+                    }));
+            }
+        }
+        private RelayCommand _manageUserTypeViewLoadedCommand;
+        public RelayCommand ManageUserTypeViewLoadedCommand
+        {
+            get
+            {
+                return _manageUserTypeViewLoadedCommand
+                    ?? (_manageUserTypeViewLoadedCommand = new RelayCommand(async () =>
+                    {
+
+
+                    }));
+            }
+        }
+
+
         private RelayCommand _readAllReceivedMessagesCommand;
         public RelayCommand ReadAllReceivedMessagesCommand
         {
@@ -839,7 +1007,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         try
                         {
-                            GsmStateText+="\n "+GsmConnection.ReadAllMessages();
+                            GsmStateText += "\n " + GsmConnection.ReadAllMessages();
                         }
                         catch (Exception)
                         {
@@ -881,14 +1049,14 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         try
                         {
-                            GsmStateText += "\n"+GsmConnection.SendSms(TestSmsMessage, TestSmsNumber);
+                            GsmStateText += "\n" + GsmConnection.SendSms(TestSmsMessage, TestSmsNumber);
                         }
                         catch (Exception)
                         {
 
                             GsmStateText += "Something went wrong";
                         }
-                        
+
                     }));
             }
         }
@@ -988,7 +1156,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_autoDecectSmcsCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
             }
         }
@@ -1433,7 +1601,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         SelectedUser = new User()
                         {
-                            RolesCollection = new RolesCollection()
+                            UserTypes = new ObservableCollection<UserType>()
                         };
                     }));
             }
@@ -1488,15 +1656,15 @@ namespace CPMCAppointmentSystem.ViewModel
                         if (SelectedUser != null)
                         {
                             //You can't delete a doc from the users view, only from the Doctors View
-                            if (SelectedUser.UserId != Guid.Empty && SelectedUser.UserType.UserTypeName != App.Medecin)
-                            {
-                                _dbContext.RolesCollections.Remove(SelectedUser.RolesCollection);
-                                _dbContext.Users.Remove(SelectedUser);
-                                _dbContext.SaveChanges();
-                                UsersList.Remove(SelectedUser);
-                                SelectedUser = null;
-                                TreeViewRollCollection = null;
-                            }
+                            //if (SelectedUser.UserId != Guid.Empty && SelectedUser.UserType.UserTypeName != App.Medecin)
+                            //{
+                            //    _dbContext.RolesCollections.Remove(SelectedUser.RolesCollection);
+                            //    _dbContext.Users.Remove(SelectedUser);
+                            //    _dbContext.SaveChanges();
+                            //    UsersList.Remove(SelectedUser);
+                            //    SelectedUser = null;
+                            //    TreeViewRollCollection = null;
+                            //}
                         }
 
                     }));
@@ -1530,8 +1698,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _userTypeCheckedCommand
                     ?? (_userTypeCheckedCommand = new RelayCommand<object>(async (obj) =>
                     {
-                        var search = UserTypeToAddCollection.Where(ut => ut.IsAdded).Select(x => x.Entity.UserTypeId);
-                        UsersList = new ObservableCollection<User>(await Task.Run(() => _dbContext.Users.Where(u => search.Contains(u.UserTypeId))));
+                        // var search = UserTypeDictionary.Where(ut => ut.IsAdded).Select(x => x.Entity.UserTypeId);
+                        //UsersList = new ObservableCollection<User>(await Task.Run(() => _dbContext.Users.Where(u => search.Contains(u.UserTypeId))));
 
                     }));
             }
@@ -1546,6 +1714,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         if (SelectedUser != null)
                         {
+                            
+
                             //if (SelectedUser.UserType != null)              //todo 
                             //{
                             //    var rolesCollection = SelectedUser.RolesCollection;
@@ -1555,6 +1725,18 @@ namespace CPMCAppointmentSystem.ViewModel
 
                     }));
             }
+        }
+
+        private void LoadSelectedUserUserTypes()
+        {
+            SelectedUserUserTypesDictionary=new Dictionary<string, object>();
+            if (SelectedUser == null) return;
+            if (SelectedUser.UserTypes == null)
+                SelectedUser.UserTypes = new List<UserType>();
+            SelectedUser.UserTypes.AsEnumerable().ForEach(ut =>
+            {
+               SelectedUserUserTypesDictionary.Add(ut.UserTypeName,ut.UserTypeId.ToString());
+            });
         }
         private RelayCommand _saveSmsSettingsCommand;
         public RelayCommand SaveSmsSettingsCommand
@@ -1623,14 +1805,25 @@ namespace CPMCAppointmentSystem.ViewModel
             UsersList = new ObservableCollection<User>(await Task.Run(() => _dbContext.Users));
         }
 
-        private async Task LoadUserTypeCollection()
+        private async Task LoadUserTypeToAddCollection()
         {
-            UserTypeToAddCollection = new ObservableCollection<EntityToAdd<UserType>>(await Task.Run(() => _dbContext.UserTypes.Select(x => new EntityToAdd<UserType>()
+            var res=new Dictionary<string, object>();
+            await Task.Run(() =>
+            {
+                _dbContext.UserTypes.AsEnumerable().ForEach(ut =>
+                {
+                    res.Add(ut.UserTypeName, ut.UserTypeId.ToString());
+                });
+            });  
+            UserTypeDictionary=new Dictionary<string, object>(res);      
+        }
+        private async Task LoadUserTypeToFilterCollection()
+        {
+            UserTypeToFilterCollection = new ObservableCollection<EntityToAdd<UserType>>(await Task.Run(() => _dbContext.UserTypes.Select(x => new EntityToAdd<UserType>()
             {
                 Entity = x,
                 IsAdded = true
-            })));
-            UserTypeCollection = new ObservableCollection<UserType>(await Task.Run(() => _dbContext.UserTypes));
+            })));            
         }
 
         private void InitDragablePropertiesCollection()
