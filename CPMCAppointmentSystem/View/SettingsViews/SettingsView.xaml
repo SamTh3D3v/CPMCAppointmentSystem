@@ -544,8 +544,7 @@
                                                     <MultiDataTrigger.Conditions>
                                                         <Condition Binding="{Binding ElementName=TxtEditNom, Path=(Validation.HasError)}" Value="false" />
                                                         <Condition Binding="{Binding ElementName=TxtEditPrenom, Path=(Validation.HasError)}" Value="false" />
-                                                        <Condition Binding="{Binding ElementName=TxtEditUserName, Path=(Validation.HasError)}" Value="false" />
-                                                        <Condition Binding="{Binding ElementName=CbxUserType, Path=(Validation.HasError)}" Value="false" />
+                                                        <Condition Binding="{Binding ElementName=TxtEditUserName, Path=(Validation.HasError)}" Value="false" />                                                                                                               
                                                         <Condition>
                                                             <Condition.Binding>
                                                                 <Binding Path="SelectedUser" Converter="{StaticResource IsValueEqualToParameterConverter}">
@@ -560,7 +559,7 @@
                                                         </Condition>
                                                         <Condition>
                                                             <Condition.Binding>
-                                                                <Binding Path="SelectedUser.UserType" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                                <Binding Path="SelectedUser.UserTypes" Converter="{StaticResource IsValueEqualToParameterConverter}">
                                                                     <Binding.ConverterParameter>
                                                                         <x:Null/>
                                                                     </Binding.ConverterParameter>

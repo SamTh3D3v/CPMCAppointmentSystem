@@ -574,6 +574,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 IsFormEnabled = value != null;
 
                 _selectedUser = value;
+                LoadUserTypeToAddCollection();
+                LoadSelectedUserUserTypes();
                 RaisePropertyChanged();
             }
         }
@@ -1615,6 +1617,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _saveAddNewUserCommand
                     ?? (_saveAddNewUserCommand = new RelayCommand<object>(async (obj) =>
                     {
+                        
                         var passwordBox = obj as PasswordBox;
                         if (passwordBox != null)
                         {
@@ -1624,12 +1627,30 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             await AddNewUser();
                         }
+
+                        await UpdateSelectedUserUserTypes();
                         _dbContext.SaveChanges();
                         await LoadUsersList();
                         SelectedUser = null;
 
                     }));
             }
+        }
+
+        private async Task UpdateSelectedUserUserTypes()
+        {
+            SelectedUser.UserTypes = new List<UserType>();
+            await Task.Run(() =>
+            {
+                SelectedUserUserTypesDictionary.ForEach(su =>
+                {
+                    SelectedUser.UserTypes.Add(
+                        _dbContext.UserTypes.AsEnumerable().First(u => u.UserTypeId.ToString() == (string)su.Value));
+
+                });
+            });
+            
+           
         }
 
         private async Task AddNewUser()
@@ -1727,16 +1748,24 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
-        private void LoadSelectedUserUserTypes()
+        private async void LoadSelectedUserUserTypes()
         {
+            
             SelectedUserUserTypesDictionary=new Dictionary<string, object>();
             if (SelectedUser == null) return;
             if (SelectedUser.UserTypes == null)
                 SelectedUser.UserTypes = new List<UserType>();
-            SelectedUser.UserTypes.AsEnumerable().ForEach(ut =>
+
+            var res = new Dictionary<string, object>();
+            await Task.Run(() =>
             {
-               SelectedUserUserTypesDictionary.Add(ut.UserTypeName,ut.UserTypeId.ToString());
+                SelectedUser.UserTypes.AsEnumerable().ForEach(ut =>
+                {
+                    res.Add(ut.UserTypeName, ut.UserTypeId.ToString());
+                });
+
             });
+            SelectedUserUserTypesDictionary = new Dictionary<string, object>(res);     
         }
         private RelayCommand _saveSmsSettingsCommand;
         public RelayCommand SaveSmsSettingsCommand

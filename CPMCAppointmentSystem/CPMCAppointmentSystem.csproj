@@ -259,6 +259,7 @@
     <Compile Include="Helpers\NotficationManager.cs" />
     <Compile Include="Helpers\Notifications.cs" />
     <Compile Include="Helpers\NotifyPropertyChanged.cs" />
+    <Compile Include="Helpers\ObservableDictionary.cs" />
     <Compile Include="Helpers\RdvDataTemplateSelector.cs" />
     <Compile Include="Helpers\RestDayHelper.cs" />
     <Compile Include="Helpers\RollsCollectionHelper.cs" />
