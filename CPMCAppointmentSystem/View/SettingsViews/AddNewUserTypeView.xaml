@@ -45,43 +45,43 @@
                                      />
         <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden" Background="Transparent" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"  Margin="5" BorderThickness="0">
             <StackPanel Orientation="Horizontal">
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=1,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="1"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=1,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="1"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 1}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=2,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="2"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=2,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="2"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 2}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=3,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="3"   Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=3,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="3"   Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 3}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=4,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="4"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=4,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="4"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 4}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=5,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="5"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=5,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="5"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 5}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=6,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="6"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=6,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="6"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 6}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=7,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="7"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=7,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="7"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 7}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=8,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="8"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=8,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="8"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 8}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=9,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="9"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=9,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="9"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 9}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=10,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="10"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=10,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="10"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 10}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
                 <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=11,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="11"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 11}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=12,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="12"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=12,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="12"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 12}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>
-                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IsValueEqualToParameterConverter},ConverterParameter=13,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="13"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
+                <RadioButton IsChecked="{Binding SelectedUserType.Entity.UserTypeIconId,Converter={StaticResource IdEqualsParameterConverter},ConverterParameter=13,Mode=TwoWay}" Command="{Binding UserTypeIconCheckedCommand}" CommandParameter="13"  Width="80" Height="30" Background="#F3F4F4" BorderBrush="#868686" Foreground="#2C2C2C">
                     <Path Stretch="Uniform"  Width="20" Height="20" Data="{StaticResource 13}" Fill="Black" Margin="0,0,0,0" />
                 </RadioButton>                
             </StackPanel>
