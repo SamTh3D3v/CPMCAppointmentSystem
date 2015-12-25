@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -68,6 +69,7 @@ namespace MultiSelectionComboBox
         #endregion
 
         #region Events
+        public event EventHandler CheckedItemsChanged;
         private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             MultiSelectComboBox control = (MultiSelectComboBox)d;
@@ -119,7 +121,13 @@ namespace MultiSelectionComboBox
             SetSelectedItems();
             SetText();
 
-        }
+
+            // notify that the checked items has changed
+            if (CheckedItemsChanged != null)
+            {
+                CheckedItemsChanged(this, new EventArgs());
+            }
+        }        
         #endregion
 
 

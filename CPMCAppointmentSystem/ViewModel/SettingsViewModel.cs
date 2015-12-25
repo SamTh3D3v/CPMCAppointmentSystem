@@ -26,6 +26,7 @@ namespace CPMCAppointmentSystem.ViewModel
     {
 
         #region Fields
+        private RolesCollection _selectedUserRollsCollection;
         private Dictionary<string, object> _selectedUserUserTypeDictionary;
         private ObservableCollection<EntityToAdd<UserType>> _userTypeToFilterCollection;
         private AddNewUserTypeView _addNewUserTypeView;
@@ -66,7 +67,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<Medecin> _doctorsListCollection;
         private ConnectionSettings _connectionSettings;
         #endregion
-        #region Properties       
+        #region Properties
+        public RolesCollection ConnectedUserRollsCollection
+        {
+            get
+            {
+                return _selectedUserRollsCollection;
+            }
+
+            set
+            {
+                if (_selectedUserRollsCollection == value)
+                {
+                    return;
+                }
+
+                _selectedUserRollsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<EntityToAdd<UserType>> UserTypeToFilterCollection
         {
             get
@@ -576,6 +595,21 @@ namespace CPMCAppointmentSystem.ViewModel
                 _selectedUser = value;
                 LoadUserTypeToAddCollection();
                 LoadSelectedUserUserTypes();
+                IEnumerable<RolesCollection> rols;
+                if (SelectedUser != null)
+                {
+                    rols =
+                        (SelectedUser.UserTypes != null)
+                            ? SelectedUser.UserTypes.AsEnumerable().Select(u => u.RolesCollection).AsEnumerable()
+                            : new List<RolesCollection>();
+                }
+                else
+                {
+                    rols = new List<RolesCollection>();
+                }
+                ConnectedUserRollsCollection = RollsCollectionHelper.MergeRolls(rols);
+
+
                 RaisePropertyChanged();
             }
         }
@@ -1617,7 +1651,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _saveAddNewUserCommand
                     ?? (_saveAddNewUserCommand = new RelayCommand<object>(async (obj) =>
                     {
-                        
+
                         var passwordBox = obj as PasswordBox;
                         if (passwordBox != null)
                         {
@@ -1633,7 +1667,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         _dbContext.SaveChanges();
                         await LoadUsersList();
                         SelectedUser = null;
-                        
+
 
                     }));
             }
@@ -1651,8 +1685,8 @@ namespace CPMCAppointmentSystem.ViewModel
 
                 });
             });
-            
-           
+
+
         }
 
         private async Task AddNewUser()
@@ -1728,7 +1762,7 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
         private RelayCommand _userTypeChangedCommand;
-        public RelayCommand UserTypeChangedCommand
+        public RelayCommand UserTypesRollsChangedCommand
         {
             get
             {
@@ -1737,13 +1771,19 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         if (SelectedUser != null)
                         {
-                            
 
-                            //if (SelectedUser.UserType != null)              //todo 
-                            //{
-                            //    var rolesCollection = SelectedUser.RolesCollection;
-                            //    RollsManager.GetDefaultUserRolls(SelectedUser.UserType.UserTypeName,ref rolesCollection);
-                            //}
+                            var userTypes = new List<UserType>();
+                            await Task.Run(() =>
+                            {
+                                SelectedUserUserTypesDictionary.ForEach(su =>
+                                {
+                                    userTypes.Add(
+                                        _dbContext.UserTypes.AsEnumerable().First(u => u.UserTypeId.ToString() == (string)su.Value));
+
+                                });
+                            });
+                            IEnumerable<RolesCollection> rols = userTypes.AsEnumerable().Select(u => u.RolesCollection).AsEnumerable();
+                            ConnectedUserRollsCollection = RollsCollectionHelper.MergeRolls(rols);
                         }
 
                     }));
@@ -1752,11 +1792,11 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async void LoadSelectedUserUserTypes()
         {
-            
-            SelectedUserUserTypesDictionary=new Dictionary<string, object>();
-            if (SelectedUser == null)           
+
+            SelectedUserUserTypesDictionary = new Dictionary<string, object>();
+            if (SelectedUser == null)
                 return;
-            
+
             if (SelectedUser.UserTypes == null)
                 SelectedUser.UserTypes = new List<UserType>();
 
@@ -1769,7 +1809,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 });
 
             });
-            SelectedUserUserTypesDictionary = new Dictionary<string, object>(res);     
+            SelectedUserUserTypesDictionary = new Dictionary<string, object>(res);
         }
         private RelayCommand _saveSmsSettingsCommand;
         public RelayCommand SaveSmsSettingsCommand
@@ -1840,15 +1880,15 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadUserTypeToAddCollection()
         {
-            var res=new Dictionary<string, object>();
+            var res = new Dictionary<string, object>();
             await Task.Run(() =>
             {
                 _dbContext.UserTypes.AsEnumerable().ForEach(ut =>
                 {
                     res.Add(ut.UserTypeName, ut.UserTypeId.ToString());
                 });
-            });  
-            UserTypeDictionary=new Dictionary<string, object>(res);      
+            });
+            UserTypeDictionary = new Dictionary<string, object>(res);
         }
         private async Task LoadUserTypeToFilterCollection()
         {
@@ -1856,7 +1896,7 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 Entity = x,
                 IsAdded = true
-            })));            
+            })));
         }
 
         private void InitDragablePropertiesCollection()
