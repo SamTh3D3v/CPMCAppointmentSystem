@@ -208,13 +208,15 @@
 
 
                                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Type" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                                    <multiSelectionComboBox:MultiSelectComboBox x:Name="CbxUserType" Margin="10 5" ItemsSource="{Binding UserTypeDictionary,Mode=TwoWay}" SelectedItems="{Binding SelectedUserUserTypesDictionary,Mode=TwoWay}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <multiSelectionComboBox:MultiSelectComboBox  x:Name="CbxUserType" Margin="10 5" ItemsSource="{Binding UserTypeDictionary,Mode=TwoWay}" SelectedItems="{Binding SelectedUserUserTypesDictionary,Mode=TwoWay}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        
+                                        
                                         <!--<i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <command:EventToCommand Command="{Binding Mode=OneWay, Path=UserTypeChangedCommand}"
                             PassEventArgsToCommand="True" />
                                             </i:EventTrigger>
-                                        </i:Interaction.Triggers>-->                                        
+                                        </i:Interaction.Triggers>-->                                       
                                     </multiSelectionComboBox:MultiSelectComboBox>
                                     <TextBlock Grid.Column="1" Margin="10 5" Grid.Row="3"  Text="Type d'utilisateur" VerticalAlignment="Center">
                                         <TextBlock.Style>
@@ -568,7 +570,19 @@
                                                             <Condition.Value>
                                                                 <system:Boolean>False</system:Boolean>
                                                             </Condition.Value>
-                                                        </Condition>
+                                                        </Condition> 
+                                                        <!--<Condition>
+                                                            <Condition.Binding>
+                                                                <Binding Path="SelectedUserUserTypesDictionary.Count" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                                    <Binding.ConverterParameter>
+                                                                        <system:Int32 >0</system:Int32>
+                                                                    </Binding.ConverterParameter>
+                                                                </Binding>
+                                                            </Condition.Binding>
+                                                            <Condition.Value>
+                                                                <system:Boolean>False</system:Boolean>
+                                                            </Condition.Value>
+                                                        </Condition>-->
                                                         <Condition Binding="{Binding ElementName=BtnSave, Path=Tag}" >
                                                             <!--pass==confirmpass-->
                                                             <Condition.Value>

@@ -1629,9 +1629,11 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
 
                         await UpdateSelectedUserUserTypes();
+                        await LoadUserTypeToAddCollection();
                         _dbContext.SaveChanges();
                         await LoadUsersList();
                         SelectedUser = null;
+                        
 
                     }));
             }
@@ -1752,7 +1754,9 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             
             SelectedUserUserTypesDictionary=new Dictionary<string, object>();
-            if (SelectedUser == null) return;
+            if (SelectedUser == null)           
+                return;
+            
             if (SelectedUser.UserTypes == null)
                 SelectedUser.UserTypes = new List<UserType>();
 
