@@ -279,7 +279,7 @@
                                     <Style TargetType="Expander">
                                         <Setter Property="IsEnabled" Value="True"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=CbxUserType,Path=SelectedItem}" Value="{x:Null}">
+                                            <DataTrigger Binding="{Binding ElementName=CbxUserType,Path=SelectedItems}" Value="{x:Null}">
                                                 <Setter Property="IsEnabled" Value="False"/>
                                             </DataTrigger>
                                         </Style.Triggers>

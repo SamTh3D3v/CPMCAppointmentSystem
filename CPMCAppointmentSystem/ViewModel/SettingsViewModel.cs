@@ -930,13 +930,34 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return _saveUserTypeCommand
-                    ?? (_saveUserTypeCommand = new RelayCommand(
-                    () =>
+                    ?? (_saveUserTypeCommand = new RelayCommand(async () =>
                     {
+                        if (SelectedUserType.Entity.UserTypeId == Guid.Empty)
+                        {
+                            await AddNewUserType();
+                        }
+
+                  
+                        _dbContext.SaveChanges();
+                        await LoadUserTypeToFilterCollection();
+                        _addNewUserTypeView.Close();
+                        SelectedUserType = null;
 
                     }));
             }
         }
+
+        private async Task AddNewUserType()
+        {
+            //Added by Farouk for Audit purpose
+            SelectedUserType.Entity.UserTypeId = Guid.NewGuid();
+
+            await Task.Run(() =>
+            {
+                _dbContext.UserTypes.Add(SelectedUserType.Entity);
+            });
+        }
+
         private RelayCommand _deleteUserTypeCommand;
         public RelayCommand DeleteUserTypeCommand
         {

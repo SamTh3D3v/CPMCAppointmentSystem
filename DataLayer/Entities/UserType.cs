@@ -12,7 +12,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("UserType")]
-    public class UserType : INotifyPropertyChanged
+    public class UserType : INotifyPropertyChanged,IDataErrorInfo
     {
         #region Fields
         private Guid _rolesCollectionId;
@@ -46,18 +46,43 @@ namespace DataLayer.Model
                 _rolesCollection = value;
                 OnPropertyChanged();
             }
-        }                  
-        #endregion
-      
-        
-        public event PropertyChangedEventHandler PropertyChanged;
+        }
         public virtual ICollection<User> Users { get; set; }
-        #region INotifyPropertyChanged related
+        public string Error
+        {
+            get { return String.Empty; }
+        }      
+
+        #endregion
+
+
+
+
+        #region INotifyPropertyChanged and IDataErrorInfo related logic
+        public event PropertyChangedEventHandler PropertyChanged;
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "UserTypeName")
+                {
+                    if (String.IsNullOrEmpty(UserTypeName))
+                        return "Spesifié le nom de type d'utilisateur";
+                    var dbContext = new CpmcContext();
+                    var firstOrDefault = dbContext.UserTypes.FirstOrDefault(u => u.UserTypeName == UserTypeName);
+                    if (firstOrDefault != null && ((dbContext.UserTypes.Any(u => u.UserTypeName == UserTypeName) && UserTypeId == Guid.Empty)
+                                                                                                || ((firstOrDefault.UserTypeId != UserTypeId && UserTypeId != Guid.Empty))))
+                        return "Ce nom de type d'utilisateur est déjà utilisé";
+
+                }               
+                return String.Empty;
+            }
         }
         #endregion
     }
