@@ -26,7 +26,7 @@
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid IsEnabled="{Binding ConnectedUser.RolesCollection.AppointementEditAllow}">
+    <Grid IsEnabled="{Binding ConnectedUserRollsCollection.AppointementEditAllow}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -195,20 +195,20 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock  Margin="5" Text="Qui travail : " Grid.Column="0" FontWeight="DemiBold" Foreground="White" />
                             <RadioButton IsChecked="{Binding ShowSpesificDayDoctors,Mode=TwoWay}"  GroupName="DtrDays" Margin="5"  Content="{Binding SelectedRdv.DateTimeRdv.DayOfWeek,ConverterCulture='Fr-fr' }" HorizontalAlignment="Center" Foreground="White" Grid.Column="1" >
-                                <i:Interaction.Triggers>
+                                <!--<i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Checked">
                                         <command:EventToCommand Command="{Binding Mode=OneWay, Path=DtrDaysSelectionChangedCommand}"
                             PassEventArgsToCommand="True" />
                                     </i:EventTrigger>
-                                </i:Interaction.Triggers>
+                                </i:Interaction.Triggers>-->
                             </RadioButton>
-                            <RadioButton  GroupName="DtrDays" Margin="5" Content="Tous les jours" Grid.Column="2" Foreground="White" HorizontalAlignment="Center">
-                                <i:Interaction.Triggers>
+                            <RadioButton  GroupName="DtrDays" Margin="5"  Content="Tous les jours" Grid.Column="2" Foreground="White" HorizontalAlignment="Center">
+                                <!--<i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Checked">
                                         <command:EventToCommand Command="{Binding Mode=OneWay, Path=DtrDaysSelectionChangedCommand}"
                             PassEventArgsToCommand="True" />
                                     </i:EventTrigger>
-                                </i:Interaction.Triggers>
+                                </i:Interaction.Triggers>-->
                             </RadioButton>
                         </Grid>
                         <syncfusion:SfDataGrid Background="WhiteSmoke" Grid.Row="1" Height="250" SelectionMode="Single"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
@@ -246,7 +246,7 @@
 
             </Grid>
         </ScrollViewer>
-        <Grid Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom" Margin="5" IsEnabled="{Binding ConnectedUser.RolesCollection.AppointementEditAllow}">
+        <Grid Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom" Margin="5" IsEnabled="{Binding ConnectedUserRollsCollection.AppointementEditAllow}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

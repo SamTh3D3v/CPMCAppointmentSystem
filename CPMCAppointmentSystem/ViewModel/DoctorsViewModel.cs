@@ -24,6 +24,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class DoctorsViewModel : NavigableViewModelBase
     {
         #region Fields
+        private RolesCollection _connectedUserRollsCollection;
         private bool _allDataLoaded = false;
         private User _connectedUser;
         private ObservableCollection<EntityToAdd<Pathology>> _pathologiesToDoctorListAdds;
@@ -38,10 +39,28 @@ namespace CPMCAppointmentSystem.ViewModel
         private Pathology _selectedPathologyInDoctorsViewPathology;
         private bool _isFormEnabled;
         private Patient _selectedPatientInDoctorView;
-        private ObservableCollection<Patient> _patientsList;                
-        private RendezVous _selectedAppointement  ; 
+        private ObservableCollection<Patient> _patientsList;
+        private RendezVous _selectedAppointement;
         #endregion
         #region Properties
+        public RolesCollection ConnectedUserRollsCollection
+        {
+            get
+            {
+                return _connectedUserRollsCollection;
+            }
+
+            set
+            {
+                if (_connectedUserRollsCollection == value)
+                {
+                    return;
+                }
+
+                _connectedUserRollsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public User ConnectedUser
         {
             get
@@ -59,7 +78,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _connectedUser = value;
                 RaisePropertyChanged();
             }
-        }   
+        }
         public RendezVous SelectedAppointement
         {
             get
@@ -78,7 +97,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        
+
         public ObservableCollection<EntityToAdd<Pathology>> PathologiesToDoctorList
         {
             get
@@ -240,7 +259,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _patientsList = value;
                 RaisePropertyChanged();
             }
-        }     
+        }
         #endregion
         #region Commands
         private RelayCommand _cancelAppointementChangesCommand;
@@ -272,7 +291,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 _dbContext.RendezVouses.Remove(SelectedAppointement);
                                 _dbContext.SaveChanges();
                                 SelectedAppointement = null;
-                                _addPatientsToDoctorView.Close();                                
+                                _addPatientsToDoctorView.Close();
                             }
                         }
 
@@ -311,7 +330,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 NotificationTitle = "New",
                                 NotificationMessage = "Rendez vous du patient  " + SelectedAppointement.Patient.Nom + " " + SelectedAppointement.Patient.Prenom,
                                 NotificationType = TypeNotification.Information
-                            },false);
+                            }, false);
                         }
                         else
                         {
@@ -321,10 +340,10 @@ namespace CPMCAppointmentSystem.ViewModel
                                 NotificationTitle = "Update",
                                 NotificationMessage = "Rendez vous du patient  " + SelectedAppointement.Patient.Nom + " " + SelectedAppointement.Patient.Prenom,
                                 NotificationType = TypeNotification.Information
-                            },false);
+                            }, false);
                         }
                         _dbContext.SaveChanges();
-                        _addPatientsToDoctorView.Close();                       
+                        _addPatientsToDoctorView.Close();
                         SelectedAppointement = null;
 
                     }));
@@ -426,7 +445,7 @@ namespace CPMCAppointmentSystem.ViewModel
         //    });
         //}
 
-        private RelayCommand _saveSpecialityWithDoctorsCommand;    
+        private RelayCommand _saveSpecialityWithDoctorsCommand;
         public RelayCommand SaveSpecialityWithDoctorsCommand
         {
             get
@@ -434,7 +453,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _saveSpecialityWithDoctorsCommand
                     ?? (_saveSpecialityWithDoctorsCommand = new RelayCommand(async () =>
                     {
-                         await SaveSpecialitiesAddedToDoctor();
+                        await SaveSpecialitiesAddedToDoctor();
                         _dbContext.SaveChanges();
                         _addSpecialitiesToDoctorView.Close();
                     }));
@@ -468,7 +487,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
             });
         }
-       
+
         private RelayCommand _cancelPathologyWhithDoctorsCommand;
         public RelayCommand CancelPathologyWhithDoctorsCommand
         {
@@ -492,7 +511,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     {
                         _addSpecialitiesToDoctorView.Close();
                         await LoadDoctorsSpecialities();
-                        
+
                     }));
             }
         }
@@ -513,7 +532,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private async Task LoadDoctorsPathologies()
         {
             PathologiesToDoctorList = new ObservableCollection<EntityToAdd<Pathology>>(await Task.Run(() => _dbContext.Pathologies.Select(p => new EntityToAdd<Pathology>()
-            {               
+            {
                 Entity = p
                 //IsAdded = SelectedDoctor.Pathologies.Any(dp=>p.PathologyId==dp.PathologyId)       //throw [Only primitive types or enumeration types are supported in this context] exception     
 
@@ -531,14 +550,14 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addPatientsToDoctorLoadedCommand
                     ?? (_addPatientsToDoctorLoadedCommand = new RelayCommand(async () =>
                     {
-                       await LoadPatientsToAddList();
+                        await LoadPatientsToAddList();
                     }));
             }
         }
 
         private async Task LoadPatientsToAddList()
         {
-            PatientsList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));                    
+            PatientsList = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
         }
         private RelayCommand _addSpecialitiesToDoctorCommand;
         public RelayCommand AddSpecialitiesToDoctorLoadedCommand
@@ -548,7 +567,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addSpecialitiesToDoctorCommand
                     ?? (_addSpecialitiesToDoctorCommand = new RelayCommand(async () =>
                     {
-                        await LoadDoctorsSpecialities();                       
+                        await LoadDoctorsSpecialities();
                     }));
             }
         }
@@ -557,7 +576,7 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             SpecialitiesToDoctorList = new ObservableCollection<EntityToAdd<Specialite>>(await Task.Run(() => _dbContext.Specialites.Select(s => new EntityToAdd<Specialite>()
             {
-                Entity = s                
+                Entity = s
             })));
             foreach (var speToAdd in SpecialitiesToDoctorList)
             {
@@ -574,12 +593,15 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_doctorsViewLoadedCommand = new RelayCommand(async () =>
                     {
                         _allDataLoaded = false;
-                        _dbContext=new CpmcContext();
+                        _dbContext = new CpmcContext();
                         try
                         {
                             var user = MainFrameNavigationService.Parameter as User;
-                            if (user != null)                           //todo 
-                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+                            if (user == null) return;
+                            ConnectedUser = _dbContext.Users.Find(user.UserId);
+                            IEnumerable<RolesCollection> rols = ConnectedUser.UserTypes.AsEnumerable().Select(u => u.RolesCollection).AsEnumerable();
+                            ConnectedUserRollsCollection = RollsCollectionHelper.MergeRolls(rols);
+
 
                         }
                         catch (Exception)
@@ -606,7 +628,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             _dbContext.Dispose();
 
                         });
-                        
+
                     }));
             }
         }
@@ -623,11 +645,11 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             User = new User()
                             {
-                                 //Added by Farouk for Audit purpose
+                                //Added by Farouk for Audit purpose
                                 UserId = Guid.NewGuid(),
 
-                               
-                               // UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId
+
+                                // UserTypeId = _dbContext.UserTypes.First(x => x.UserTypeName == "Medecin").UserTypeId
                             },
                             Patients = new ObservableCollection<Patient>(),
                             Pathologies = new ObservableCollection<Pathology>(),
@@ -656,7 +678,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             {
                                 NotificationId = Guid.NewGuid(),
                                 NotificationTitle = "Nouveau medecin",
-                                NotificationMessage = "Le medecin :" + SelectedDoctor.User.UserNom+" "+SelectedDoctor.User.UserPrenom + " a été inserer",
+                                NotificationMessage = "Le medecin :" + SelectedDoctor.User.UserNom + " " + SelectedDoctor.User.UserPrenom + " a été inserer",
                                 NotificationType = TypeNotification.Information,
                                 IsActive = true,
                                 TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
@@ -664,8 +686,8 @@ namespace CPMCAppointmentSystem.ViewModel
                                 ModifiedOn = DateTime.Now
                             });
                         }
-                        
-                            _dbContext.SaveChanges();
+
+                        _dbContext.SaveChanges();
                         //}
                         //catch (DbEntityValidationException e)
                         //{
@@ -712,7 +734,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                     CreatedOn = DateTime.Now,
                                     ModifiedOn = DateTime.Now
                                 });
-                                _dbContext.Medecins.Remove(SelectedDoctor);                                                                
+                                _dbContext.Medecins.Remove(SelectedDoctor);
                                 DoctorsList.Remove(SelectedDoctor);
                                 _dbContext.SaveChanges();
                                 SelectedDoctor = null;
@@ -729,7 +751,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _cancelChangesToDoctorCommand
                     ?? (_cancelChangesToDoctorCommand = new RelayCommand(
                     () =>
-                    {                       
+                    {
                         if (SelectedDoctor != null)
                         {
                             if (SelectedDoctor.MedecinId != Guid.Empty)
@@ -754,7 +776,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         SelectedAppointement = new RendezVous()
                         {
-                            Medecin=SelectedDoctor
+                            Medecin = SelectedDoctor
                         };
                         await LoadPatientsToAddList();
                         _addPatientsToDoctorView = new AddRdvFromDoctorsView();
@@ -801,7 +823,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
                     }));
             }
-        }             
+        }
         private RelayCommand _cancelPatientsToDoctorsViewCommand;
         public RelayCommand CancelPatientsToDoctorsViewCommand
         {

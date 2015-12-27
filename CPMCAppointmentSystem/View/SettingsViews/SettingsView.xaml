@@ -44,7 +44,7 @@
                     <Setter Property="Background" Value="#ffe1e7eb"></Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Style="{StaticResource SettingsTabItemStyle}" Visibility="{Binding ConnectedUser.RolesCollection.AccountSettingsEditAllow,Converter={StaticResource BoolToVisibilityConverter}}">
+            <TabItem Style="{StaticResource SettingsTabItemStyle}" Visibility="{Binding CurrentConnectedUserRollsCollection.AccountSettingsEditAllow,Converter={StaticResource BoolToVisibilityConverter}}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <command:EventToCommand Command="{Binding Mode=OneWay, Path=AccountsViewLoadedCommand}"
@@ -141,7 +141,7 @@
                                 </Button>
                                
                             </Grid>
-                            <Button Grid.Row="0" Grid.Column="2"  Margin="10" Command="{Binding AddNewUserCommand}" Click="ButtonBase_OnClick"  ToolTip="Ajouter un nouveau utilisateur" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="{Binding ConnectedUser.RolesCollection.AccountSettingsEditAllow}">
+                            <Button Grid.Row="0" Grid.Column="2"  Margin="10" Command="{Binding AddNewUserCommand}" Click="ButtonBase_OnClick"  ToolTip="Ajouter un nouveau utilisateur" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="{Binding CurrentConnectedUserRollsCollection.AccountSettingsEditAllow}">
                                 <Button.Content>
                                     <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
                                 </Button.Content>
@@ -274,7 +274,7 @@
                                 </Grid>
                             </GroupBox>
 
-                            <Expander IsExpanded="True" Grid.Row="2" Grid.Column="0"  Header="Rolls">
+                            <Expander IsExpanded="True" Grid.Row="2" Grid.Column="0"  Header="Rolls" IsEnabled="False">
                                 <Expander.Style>
                                     <Style TargetType="Expander">
                                         <Setter Property="IsEnabled" Value="True"/>

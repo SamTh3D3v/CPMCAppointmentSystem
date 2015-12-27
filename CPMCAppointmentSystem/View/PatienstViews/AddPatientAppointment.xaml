@@ -24,7 +24,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid IsEnabled="{Binding ConnectedUser.RolesCollection.PatientsEditAppointementAllow}">
+    <Grid IsEnabled="{Binding ConnectedUserRollsCollection.PatientsEditAppointementAllow}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -190,7 +190,7 @@
                 </Expander>
             </Grid>
         </ScrollViewer>
-        <Grid Grid.Row="2" Grid.Column="0"  Margin="5" VerticalAlignment="Bottom" IsEnabled="{Binding ConnectedUser.RolesCollection.PatientsEditAppointementAllow}">
+        <Grid Grid.Row="2" Grid.Column="0"  Margin="5" VerticalAlignment="Bottom" IsEnabled="{Binding ConnectedUserRollsCollection.PatientsEditAppointementAllow}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

@@ -373,7 +373,7 @@
                     <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                         <Setter Property="IsEnabled" Value="True"></Setter>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedAppointement}" Value="{x:Static system:Guid.Empty}">
+                            <DataTrigger Binding="{Binding SelectedUserType.Entity.UserTypeId}" Value="{x:Static system:Guid.Empty}">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
                         </Style.Triggers>

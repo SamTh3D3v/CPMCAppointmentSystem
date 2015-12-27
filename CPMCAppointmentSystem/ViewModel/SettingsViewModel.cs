@@ -26,6 +26,7 @@ namespace CPMCAppointmentSystem.ViewModel
     {
 
         #region Fields
+        private RolesCollection _currentConnectedUserRollsCollection;
         private RolesCollection _selectedUserRollsCollection;
         private Dictionary<string, object> _selectedUserUserTypeDictionary;
         private ObservableCollection<EntityToAdd<UserType>> _userTypeToFilterCollection;
@@ -67,7 +68,25 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<Medecin> _doctorsListCollection;
         private ConnectionSettings _connectionSettings;
         #endregion
-        #region Properties
+        #region Properties   
+        public RolesCollection CurrentConnectedUserRollsCollection
+        {
+            get
+            {
+                return _currentConnectedUserRollsCollection;
+            }
+
+            set
+            {
+                if (_currentConnectedUserRollsCollection == value)
+                {
+                    return;
+                }
+
+                _currentConnectedUserRollsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public RolesCollection ConnectedUserRollsCollection
         {
             get
@@ -802,8 +821,10 @@ namespace CPMCAppointmentSystem.ViewModel
                         try
                         {
                             var user = MainFrameNavigationService.Parameter as User;
-                            if (user != null)                           //todo 
-                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+                            if (user == null) return;
+                            ConnectedUser = _dbContext.Users.Find(user.UserId);
+                            IEnumerable<RolesCollection> rols = ConnectedUser.UserTypes.AsEnumerable().Select(u => u.RolesCollection).AsEnumerable();
+                            CurrentConnectedUserRollsCollection = RollsCollectionHelper.MergeRolls(rols);
 
                         }
                         catch (Exception)
@@ -937,7 +958,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             await AddNewUserType();
                         }
 
-                  
+
                         _dbContext.SaveChanges();
                         await LoadUserTypeToFilterCollection();
                         _addNewUserTypeView.Close();
@@ -967,6 +988,15 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_deleteUserTypeCommand = new RelayCommand(
                     () =>
                     {
+                        _dbContext.UserTypes.Remove(SelectedUserType.Entity);
+
+                        _dbContext.RolesCollections.Remove(_dbContext.RolesCollections.First(r => r.RolesCollectionId == SelectedUserType.Entity.RolesCollectionId));
+
+                        _dbContext.SaveChanges();
+                        UserTypeToFilterCollection.Remove(SelectedUserType);
+                        SelectedUserType = null;
+                        _addNewUserTypeView.Close();
+
 
                     }));
             }
@@ -980,6 +1010,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_cancelChangesToUserTypeCommand = new RelayCommand(
                     () =>
                     {
+                        SelectedUserType = null;
+                        _addNewUserTypeView.Close();
 
                     }));
             }
@@ -993,6 +1025,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_openAddNewUserTypeViewCommand = new RelayCommand(
                     () =>
                     {
+                        SelectedUser = null;
                         _addNewUserTypeView = new AddNewUserTypeView();
                         SelectedUserType = new EntityToAdd<UserType>()
                        {
@@ -1030,6 +1063,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_updateTheSelectedUserTypeCommand = new RelayCommand(
                     () =>
                     {
+                        SelectedUser = null;
                         if (SelectedUserType == null) return;
 
                         _addNewUserTypeView = new AddNewUserTypeView();

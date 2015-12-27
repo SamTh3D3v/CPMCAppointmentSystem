@@ -464,7 +464,7 @@
                         </TextBlock>
                     </Grid>
                 </GroupBox>
-                <Grid Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.MyPatientsEditAllow,ElementName=RootGrid}">
+                <Grid Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.MyPatientsEditAllow,ElementName=RootGrid}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -564,7 +564,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.MyPatientsEditAppointementAllow,ElementName=RootGrid}" Command="{Binding DataContext.AddAppointementCommand,RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.MyPatientsEditAppointementAllow,ElementName=RootGrid}" Command="{Binding DataContext.AddAppointementCommand,RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
                                     <Button.Content>
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
@@ -667,7 +667,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.MyPatientsEditAllow,ElementName=RootGrid}" Command="{Binding DataContext.NewPieceJointeCommand,ElementName=RootGrid}">
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.MyPatientsEditAllow,ElementName=RootGrid}" Command="{Binding DataContext.NewPieceJointeCommand,ElementName=RootGrid}">
                                     <Button.Content>
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
@@ -732,7 +732,7 @@
                                                     </Style>
                                                 </Button.Style>
                                             </Button>
-                                            <Button ToolTip="Enregistrer la piece jointe" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.MyPatientsEditAllow,ElementName=RootGrid}" Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5">
+                                            <Button ToolTip="Enregistrer la piece jointe" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.MyPatientsEditAllow,ElementName=RootGrid}" Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5">
                                                 <Button.Style>
                                                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                                         <Setter Property="IsEnabled" Value="false" />
@@ -924,7 +924,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding DataContext.AddNewNoteCommand,ElementName=RootGrid}" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.MyPatientsEditAllow,ElementName=RootGrid}">
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding DataContext.AddNewNoteCommand,ElementName=RootGrid}" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.MyPatientsEditAllow,ElementName=RootGrid}">
                                     <Button.Content>
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
@@ -967,7 +967,7 @@
                                                     </StackPanel>
                                                 </Button.Content>
                                             </Button>
-                                            <Button Grid.Column="1"  Margin="10 5" Command="{Binding ElementName=RootGrid,Path=DataContext.SaveNewNoteCommand}" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.MyPatientsEditAllow,ElementName=RootGrid}">
+                                            <Button Grid.Column="1"  Margin="10 5" Command="{Binding ElementName=RootGrid,Path=DataContext.SaveNewNoteCommand}" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.MyPatientsEditAllow,ElementName=RootGrid}">
                                                 <Button.Content>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />

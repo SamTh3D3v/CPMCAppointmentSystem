@@ -27,9 +27,10 @@ namespace CPMCAppointmentSystem.ViewModel
 {
     public class PatientsViewModel : NavigableViewModelBase
     {
-        #region Fields   
+        #region Fields
+        private RolesCollection _connectedUserRollsCollection;
         private bool _allDataLoaded = false;
-        private bool _showSpesificDayDoctors = true;     
+        private bool _showSpesificDayDoctors = true;
         private SearchService<Patient> _searchService;
         private bool _isDateDepotFilterApplied;
         private DateTime _dateDepotFilterDateTime = DateTime.Now;
@@ -57,8 +58,26 @@ namespace CPMCAppointmentSystem.ViewModel
         private String _reportPath;
         private PreviewReportView _previewReportView;
         #endregion
-        #region Properties                
-       
+        #region Properties
+        public RolesCollection ConnectedUserRollsCollection
+        {
+            get
+            {
+                return _connectedUserRollsCollection;
+            }
+
+            set
+            {
+                if (_connectedUserRollsCollection == value)
+                {
+                    return;
+                }
+
+                _connectedUserRollsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public bool ShowSpesificDayDoctors
         {
             get
@@ -218,10 +237,10 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _listPatientsFilterText = value;
-                RaisePropertyChanged();                
+                RaisePropertyChanged();
             }
         }
-        
+
         public String FilterBySelectedItem
         {
             get
@@ -290,7 +309,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     return;
                 }
 
-                _patientList = value;                
+                _patientList = value;
                 RaisePropertyChanged();
             }
         }
@@ -477,7 +496,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_selectedDateFilterChangedCommand = new RelayCommand(async () =>
                     {
                         await LoadFilterPatientListByDate();
-                    })); 
+                    }));
             }
         }
         private RelayCommand _updateBasedOnDateDepotFilterCommand;
@@ -507,7 +526,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _startSearchServiceCommand
                     ?? (_startSearchServiceCommand = new RelayCommand(async () =>
                     {
-                        PatientList=(await SearchService.SearchAsync(ListPatientsFilterText)).Matches;
+                        PatientList = (await SearchService.SearchAsync(ListPatientsFilterText)).Matches;
                     }));
             }
         }
@@ -563,7 +582,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         ReportPath = App.RecuDeDepotReport;
-                        _previewReportView = new PreviewReportView(SelectedPatient);                        
+                        _previewReportView = new PreviewReportView(SelectedPatient);
                         _previewReportView.ShowDialog();
 
                     }));
@@ -592,9 +611,9 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         var rdv = SelectedPatient.RendezVouses.First(r => r.RdvStateValue == RdvState.NotYet);
-                        if (rdv==null) return;                       
+                        if (rdv == null) return;
                         ReportPath = App.RendezVousReport;
-                        _previewReportView = new PreviewReportView(rdv);                        
+                        _previewReportView = new PreviewReportView(rdv);
                         _previewReportView.ShowDialog();
 
                     }));
@@ -608,10 +627,10 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _printSelectedRdvCommand
                     ?? (_printSelectedRdvCommand = new RelayCommand(
                     () =>
-                    {                        
-                        if (SelectedAppointement==null) return;                       
+                    {
+                        if (SelectedAppointement == null) return;
                         ReportPath = App.RendezVousReport;
-                        _previewReportView = new PreviewReportView(SelectedAppointement);                        
+                        _previewReportView = new PreviewReportView(SelectedAppointement);
                         _previewReportView.ShowDialog();
 
                     }));
@@ -665,13 +684,15 @@ namespace CPMCAppointmentSystem.ViewModel
                         try
                         {
                             var user = MainFrameNavigationService.Parameter as User;
-                            if (user != null)                           //todo 
-                                ConnectedUser = _dbContext.Users.Find(user.UserId);
+                            if (user == null) return;                         //todo 
+                            ConnectedUser = _dbContext.Users.Find(user.UserId);
+                            IEnumerable<RolesCollection> rols = ConnectedUser.UserTypes.AsEnumerable().Select(u => u.RolesCollection).AsEnumerable();
+                            ConnectedUserRollsCollection = RollsCollectionHelper.MergeRolls(rols);
 
                         }
                         catch (Exception)
                         {
-                            
+
                         }
                         await LoadPieceJointeTypeList();
                         await LoadPatienstList();
@@ -804,12 +825,12 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _addAppointementCommand
                     ?? (_addAppointementCommand = new RelayCommand(async () =>
-                    {                        
+                    {
                         if (SelectedPatient.PatientId == Guid.Empty)
                         {
                             AddNewPatient();
                         }
-                        if (SelectedPatient.RendezVouses.Any(r=>r.RdvStateValue==RdvState.NotYet))
+                        if (SelectedPatient.RendezVouses.Any(r => r.RdvStateValue == RdvState.NotYet))
                         {
                             await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(ErrorMessages.AlreadyExistingRdvMessage.Header, ErrorMessages.AlreadyExistingRdvMessage.Body));
                             return;
@@ -858,7 +879,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 NotificationTitle = "New",
                                 NotificationMessage = "Rendez vous du patient  " + SelectedPatient.Nom + " " + SelectedPatient.Prenom,
                                 NotificationType = TypeNotification.Information
-                            },false);
+                            }, false);
                         }
                         else
                         {
@@ -868,7 +889,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                 NotificationTitle = "Update",
                                 NotificationMessage = "Rendez vous du patient  " + SelectedPatient.Nom + " " + SelectedPatient.Prenom,
                                 NotificationType = TypeNotification.Information
-                            },false);
+                            }, false);
                         }
                         _dbContext.SaveChanges();
                         _addAppointementWindow.Close();
@@ -1183,8 +1204,8 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
-        #region Rdv RelatedCommand 
-        private RelayCommand _changeRdvStateCommand;      
+        #region Rdv RelatedCommand
+        private RelayCommand _changeRdvStateCommand;
         public RelayCommand ChangeRdvStateCommand
         {
             get
@@ -1193,9 +1214,9 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_changeRdvStateCommand = new RelayCommand(
                     () =>
                     {
-                        if (SelectedAppointement!=null)
+                        if (SelectedAppointement != null)
                         {
-                            SelectedAppointement.RdvStateValue=(SelectedAppointement.RdvStateValue == RdvState.NotYet) ? RdvState.Cancelled : RdvState.NotYet;
+                            SelectedAppointement.RdvStateValue = (SelectedAppointement.RdvStateValue == RdvState.NotYet) ? RdvState.Cancelled : RdvState.NotYet;
                         }
                         _dbContext.SaveChanges();
                         SelectedAppointement = null;
@@ -1219,7 +1240,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         _dbContext.SaveChanges();
                         SelectedPatient = null;
-                        
+
                     }));
             }
         }
@@ -1234,7 +1255,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_searchForExistingPatientCommand = new RelayCommand(async () =>
                     {
                         if (SelectedPatient == null) return;
-                        var res = await Task.Run(() =>_dbContext.Patients.Where(p => p.Nom == SelectedPatient.Nom && p.Prenom == SelectedPatient.Prenom));
+                        var res = await Task.Run(() => _dbContext.Patients.Where(p => p.Nom == SelectedPatient.Nom && p.Prenom == SelectedPatient.Prenom));
                         if (res.Any())
                         {
                             res.ForEach(
@@ -1246,7 +1267,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                         NotificationMessage =
                                             "Un patient avec le meme nom et prenom exist deja dans le system, sont numero d'ordre est : " +
                                             pp.NumeroDordre + " , effectuer une recherche pour confirmer."
-                                    },false));
+                                    }, false));
                         }
                     }));
             }
@@ -1265,9 +1286,9 @@ namespace CPMCAppointmentSystem.ViewModel
         }
         private async Task LoadDoctorsList()
         {
-            Days day=Days.None;
-            if(SelectedAppointement!=null)
-            day = (Days)Math.Pow(2, (((double)(SelectedAppointement.DateTimeRdv.DayOfWeek)) + 1) % 7);                         
+            Days day = Days.None;
+            if (SelectedAppointement != null)
+                day = (Days)Math.Pow(2, (((double)(SelectedAppointement.DateTimeRdv.DayOfWeek)) + 1) % 7);
             DoctorsList = ShowSpesificDayDoctors ? new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins.Where(m => m.JoursDeTravail.HasFlag(day)))) : new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
         }
         private async Task LoadPatienstList()
@@ -1293,7 +1314,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 _dbContext.RendezVouses.Where(x => x.PatientId == SelectedPatient.PatientId)
             ));
         }
-       
+
         #endregion
     }
 }

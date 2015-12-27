@@ -33,9 +33,10 @@ namespace CPMCAppointmentSystem.ViewModel
     public class CalendarViewModel : NavigableViewModelBase
     {
         #region Fields
+        private RolesCollection _connectedUserRollsCollection;
         private ObservableCollection<JourFerie> _restDaysCollection;
-        private bool _showSpesificDayDoctors =true ;               
-        private bool _carteProFilterIsEnabled  ;             
+        private bool _showSpesificDayDoctors  ;
+        private bool _carteProFilterIsEnabled;
         private bool _trancheDageIsChecked;
         private bool _carteProIsChecked;
         private SettingsCollection _settingsCollection;
@@ -54,11 +55,29 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _filterByPatientIsChecked;
         private bool _filterByMedecinIsChecked;
         private ListMedecinToAddView _listMedecinToAddView;
-        private AddAppointementView _addAppointementView;      
-        private int _lowerValue  ;
-        private int _ageUpperValue;     
+        private AddAppointementView _addAppointementView;
+        private int _lowerValue;
+        private int _ageUpperValue;
         #endregion
         #region Properties
+        public RolesCollection ConnectedUserRollsCollection
+        {
+            get
+            {
+                return _connectedUserRollsCollection;
+            }
+
+            set
+            {
+                if (_connectedUserRollsCollection == value)
+                {
+                    return;
+                }
+
+                _connectedUserRollsCollection = value;
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<JourFerie> RestDaysCollection
         {
             get
@@ -92,6 +111,10 @@ namespace CPMCAppointmentSystem.ViewModel
                 }
 
                 _showSpesificDayDoctors = value;
+                Task.Run(async () =>
+                {
+                    await LoadAllDoctorsList();
+                });
                 RaisePropertyChanged();
             }
         }
@@ -509,18 +532,19 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _calendarViewLoadedCommand
                     ?? (_calendarViewLoadedCommand = new RelayCommand(async () =>
                     {
-                        _dbContext=new CpmcContext();
+                        _dbContext = new CpmcContext();
                         IsProgressRingActive = true;
                         await LoadRendezVous();
-                        DoctorsInFilter=new ObservableCollection<Medecin>(await Task.Run(()=>_dbContext.Medecins));
-                        IsProgressRingActive = false;                        
+                        DoctorsInFilter = new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
+                        IsProgressRingActive = false;
 
                         try
                         {
                             var user = MainFrameNavigationService.Parameter as User;
-                            if (user != null)                           //todo 
-                                ConnectedUser = _dbContext.Users.Find(user.UserId);
-
+                            if (user == null) return;
+                            ConnectedUser = _dbContext.Users.Find(user.UserId);
+                            IEnumerable<RolesCollection> rols = ConnectedUser.UserTypes.AsEnumerable().Select(u => u.RolesCollection).AsEnumerable();
+                            ConnectedUserRollsCollection = RollsCollectionHelper.MergeRolls(rols);
                         }
                         catch (Exception)
                         {
@@ -575,8 +599,8 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             AddDoctorsToFilterList = new ObservableCollection<EntityToAdd<Medecin>>(await Task.Run(() => _dbContext.Medecins.Select(s => new EntityToAdd<Medecin>()
             {
-                Entity = s,                
-            })));   
+                Entity = s,
+            })));
             AddDoctorsToFilterList.ForEach(d =>
             {
                 d.IsAdded = DoctorsInFilter.Select(df => df.MedecinId).Contains(d.Entity.MedecinId);
@@ -585,11 +609,12 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task LoadAllDoctorsList()
         {
+            //Convert From DayOfWeek (Date Time) To Days Enum
             var day = (Days)Math.Pow(2, (((double)(SelectedRdv.DateTimeRdv.DayOfWeek)) + 1) % 7);
             AllDoctorsCollection = ShowSpesificDayDoctors ? new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins.Where(m => m.JoursDeTravail.HasFlag(day)))) : new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
         }
 
-        
+
 
         private async Task LoadAllPatientsList()
         {
@@ -602,7 +627,7 @@ namespace CPMCAppointmentSystem.ViewModel
         }
 
         private async Task LoadRendezVous()
-        {            
+        {
             _dbContext = new CpmcContext();
             await LoadScheduleSettings();
             RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
@@ -631,30 +656,30 @@ namespace CPMCAppointmentSystem.ViewModel
                 else
                 {
                     if (RespectTranchDageFilters(rdv) && RespectCarteProFilters(rdv))
-                        PatientsScheduleAppointmentCollection.Add(rdv); 
-                }      
+                        PatientsScheduleAppointmentCollection.Add(rdv);
+                }
             });
-            await LoadRestDays();            
+            await LoadRestDays();
             RestDaysCollection.ForEach(rd =>
-            {                
-                PatientsScheduleAppointmentCollection.Add(rd); 
+            {
+                PatientsScheduleAppointmentCollection.Add(rd);
             });
             RaisePropertyChanged("PatientsScheduleAppointmentCollection");
         }
 
         private async Task LoadRestDays()
         {
-            RestDaysCollection=new ObservableCollection<JourFerie>(await Task.Run(()=>_dbContext.JourFeries));
+            RestDaysCollection = new ObservableCollection<JourFerie>(await Task.Run(() => _dbContext.JourFeries));
         }
 
         private bool RespectTranchDageFilters(RendezVous rdv)
         {
-            return TrancheDageIsChecked && (DateTime.Now - rdv.Patient.DateDeNaissance).TotalDays/365 >= AgeLowerValue &&
+            return TrancheDageIsChecked && (DateTime.Now - rdv.Patient.DateDeNaissance).TotalDays / 365 >= AgeLowerValue &&
                    (DateTime.Now - rdv.Patient.DateDeNaissance).TotalDays / 365 <= AgeUpperValue || !TrancheDageIsChecked;
-        } 
+        }
         private bool RespectCarteProFilters(RendezVous rdv)
         {
-            return CarteProFilterIsEnabled && rdv.Patient.CarteProfessionel == CarteProIsChecked || !CarteProFilterIsEnabled ;
+            return CarteProFilterIsEnabled && rdv.Patient.CarteProfessionel == CarteProIsChecked || !CarteProFilterIsEnabled;
         }
 
         private async Task LoadScheduleSettings()
@@ -901,14 +926,14 @@ namespace CPMCAppointmentSystem.ViewModel
                             if (RestDayHelper.IsRestDay(args.To))
                             {
                                 await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync(ErrorMessages.ThisIsARestDayMessage.Header, ErrorMessages.ThisIsARestDayMessage.Body));
-                                args.Cancel = true;                                ;
+                                args.Cancel = true; ;
                             }
                             else
                             {
                                 var rdv = args.Appointment as RendezVous;
                                 _dbContext.RendezVouses.Find(rdv.RendezVousId).DateTimeRdv = args.To;
                                 _dbContext.SaveChanges();
-                            }                          
+                            }
                         }
                         else
                         {
@@ -1065,7 +1090,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_filterAgeRangeCheckedCommand = new RelayCommand(
                     () =>
                     {
-                        
+
                     }));
             }
         }
@@ -1077,7 +1102,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _filterCartePrCheckedCommand
                     ?? (_filterCartePrCheckedCommand = new RelayCommand(
                     () =>
-                    {                        
+                    {
                     }));
             }
         }
@@ -1102,8 +1127,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _searchForExistingRdvsCommand
                     ?? (_searchForExistingRdvsCommand = new RelayCommand(async () =>
                     {
-                         if (SelectedRdv.Patient == null) return;
-                        var res = await Task.Run(() =>_dbContext.RendezVouses.Where(rdv => rdv.PatientId == SelectedRdv.Patient.PatientId ));
+                        if (SelectedRdv.Patient == null) return;
+                        var res = await Task.Run(() => _dbContext.RendezVouses.Where(rdv => rdv.PatientId == SelectedRdv.Patient.PatientId));
                         if (res.Any())
                         {
                             res.ForEach(
@@ -1114,14 +1139,14 @@ namespace CPMCAppointmentSystem.ViewModel
                                         NotificationTitle = "#Patient déjat pris un rdv",
                                         Image = rr.Patient.ProfilePicture,
                                         NotificationMessage =
-                                            "ce patient a déjat pris un rdv de radiothérapie le  : " +rr.DateTimeRdv
-                                             +" effectuer une recherche pour plus de détails.",
+                                            "ce patient a déjat pris un rdv de radiothérapie le  : " + rr.DateTimeRdv
+                                             + " effectuer une recherche pour plus de détails.",
                                         NotificationType = TypeNotification.Information,
                                         IsActive = true,
                                         TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
                                         CreatedOn = DateTime.Now,
                                         ModifiedOn = DateTime.Now
-                                    },false));
+                                    }, false));
                         }
                     }));
             }

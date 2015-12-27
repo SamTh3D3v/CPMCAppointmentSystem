@@ -48,7 +48,7 @@
             <ToggleButton x:Name="FilterTb" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"  Width="25" Height="25" Padding="0" Margin="5,0,0,0">
                 <Image Source="{StaticResource FilterDark}"></Image>
             </ToggleButton>
-            <Button Grid.Row="0" Grid.Column="2" IsEnabled="{Binding ConnectedUser.RolesCollection.PatientsEditAllow}"  Margin="10" Command="{Binding AddPatientCommand}" ToolTip="Show filter">
+            <Button Grid.Row="0" Grid.Column="2" IsEnabled="{Binding ConnectedUserRollsCollection.PatientsEditAllow}"  Margin="10" Command="{Binding AddPatientCommand}" ToolTip="Show filter">
                 <Button.Content>
                     <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
                 </Button.Content>
@@ -590,7 +590,7 @@
                         </Button>
                     </Grid>
                 </GroupBox>
-                <Grid Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.PatientsEditAllow,ElementName=RootGrid}">
+                <Grid Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.PatientsEditAllow,ElementName=RootGrid}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -642,7 +642,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Button Grid.Column="1" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.PatientsEditAllow,ElementName=RootGrid}"  Margin="2" Command="{Binding DataContext.DeletePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
+                    <Button Grid.Column="1" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.PatientsEditAllow,ElementName=RootGrid}"  Margin="2" Command="{Binding DataContext.DeletePatientCommand,RelativeSource={RelativeSource AncestorType=Page}}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
@@ -697,7 +697,7 @@
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding DataContext.ConnectedUser.RolesCollection.PatientsEditAppointementAllow,ElementName=RootGrid}" Value="true"/>
+                                                        <Condition Binding="{Binding DataContext.ConnectedUserRollsCollection.PatientsEditAppointementAllow,ElementName=RootGrid}" Value="true"/>
                                                         <Condition>
                                                             <Condition.Binding>
                                                                 <Binding Path="DataContext.SelectedPatient.PatientId" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static sys:Guid.Empty}"/>
@@ -825,7 +825,7 @@
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding DataContext.ConnectedUser.RolesCollection.PatientsEditAppointementAllow,ElementName=RootGrid}" Value="true"/>
+                                                        <Condition Binding="{Binding DataContext.ConnectedUserRollsCollection.PatientsEditAppointementAllow,ElementName=RootGrid}" Value="true"/>
                                                         <Condition>
                                                             <Condition.Binding>
                                                                 <Binding Path="DataContext.SelectedPatient.PatientId" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static sys:Guid.Empty}"/>
@@ -903,7 +903,7 @@
                                                     </Style>
                                                 </Button.Style>
                                             </Button>
-                                            <Button ToolTip="Enregistrer la piece jointe" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.PatientsEditAllow,ElementName=RootGrid}" Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5">
+                                            <Button ToolTip="Enregistrer la piece jointe" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.PatientsEditAllow,ElementName=RootGrid}" Content="Save" Command="{Binding DataContext.SavePieceJointeCommand,ElementName=RootGrid}" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5">
                                                 <Button.Style>
                                                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                                         <Setter Property="IsEnabled" Value="false" />
@@ -1102,7 +1102,7 @@
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding DataContext.ConnectedUser.RolesCollection.PatientsEditAppointementAllow,ElementName=RootGrid}" Value="true"/>
+                                                        <Condition Binding="{Binding DataContext.ConnectedUserRollsCollection.PatientsEditAppointementAllow,ElementName=RootGrid}" Value="true"/>
                                                         <Condition>
                                                             <Condition.Binding>
                                                                 <Binding Path="DataContext.SelectedPatient.PatientId" ElementName="RootGrid" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static sys:Guid.Empty}"/>
@@ -1159,7 +1159,7 @@
                                                     </StackPanel>
                                                 </Button.Content>
                                             </Button>
-                                            <Button Grid.Column="1"  Margin="10 5" IsEnabled="{Binding DataContext.ConnectedUser.RolesCollection.PatientsEditAllow,ElementName=RootGrid}" Command="{Binding ElementName=RootGrid,Path=DataContext.SaveNewNoteCommand}">
+                                            <Button Grid.Column="1"  Margin="10 5" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.PatientsEditAllow,ElementName=RootGrid}" Command="{Binding ElementName=RootGrid,Path=DataContext.SaveNewNoteCommand}">
                                                 <Button.Content>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
