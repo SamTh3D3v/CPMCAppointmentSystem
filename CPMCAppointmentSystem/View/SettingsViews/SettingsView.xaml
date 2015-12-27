@@ -694,14 +694,14 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <Expander Header="Age et sexe">
+                                    <Expander Header="Age et sexe" IsExpanded="True">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <GroupBox Header="Enfant"  Grid.Column="0">
+                                            <GroupBox Header="Enfant"  Grid.Column="0" Style="{x:Null}">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
@@ -721,7 +721,7 @@
                                                     <controls:NumericUpDown Margin="30,5,5,5" Minimum="1" Maximum="100"  Value="{Binding SettingsCollection[EnfantSetting].Information,Mode=TwoWay}"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"></controls:NumericUpDown>
                                                 </Grid>
                                             </GroupBox>
-                                            <GroupBox Header="Homme"  Grid.Column="1">
+                                            <GroupBox Header="Homme"  Grid.Column="1" Style="{x:Null}">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
@@ -737,7 +737,7 @@
                                                     <ToggleButton Grid.Column="2" Margin="5" IsChecked="{Binding SettingsCollection[HommeSetting].Blink}" Grid.Row="0" Background="{StaticResource AccentColorBrush}" Content="Clignoter" Foreground="WhiteSmoke"/>
                                                 </Grid>
                                             </GroupBox>
-                                            <GroupBox Header="Femme" Grid.Column="2">
+                                            <GroupBox Header="Femme" Grid.Column="2" Style="{x:Null}">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
@@ -756,8 +756,8 @@
                                             </GroupBox>
                                         </Grid>
                                     </Expander>
-                                    <Expander Header="Professionel" Grid.Row="1">
-                                        <GroupBox Header="Carte proffesionel" Grid.Row="0" Grid.Column="0">
+                                    <Expander Header="Professionel" Grid.Row="1" IsExpanded="True">
+                                        <GroupBox Header="Carte proffesionel" Style="{x:Null}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
@@ -775,8 +775,8 @@
                                             </Grid>
                                         </GroupBox>
                                     </Expander>
-                                    <Expander Header="Rendez vous" Grid.Row="2">
-                                        <GroupBox Header="Date rendez vous" IsEnabled="False">
+                                    <Expander Header="Rendez vous" Grid.Row="2" IsExpanded="True">
+                                        <GroupBox Header="Date rendez vous" IsEnabled="False" Style="{x:Null}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
