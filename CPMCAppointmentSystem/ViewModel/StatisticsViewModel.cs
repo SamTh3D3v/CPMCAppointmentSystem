@@ -68,13 +68,13 @@ namespace CPMCAppointmentSystem.ViewModel
                 new ChartTile() { Name = "Medecin par specialité",Description = "Medecin par specialité", Color = new SolidColorBrush(Colors.LightSteelBlue), View = new MedecinPerSpecialityChartView(), Header = "Specialité", Icon = "../../Tiles/Chart.png" },
                 new ChartTile() { Name = "Moyenne des rdvs",Description = "Moyenne des rdvs", Color = new SolidColorBrush(Colors.LightSlateGray), View = new MoyenneDateDepotDateRdvChartView(), Header = "Rdvs", Icon = "../../Tiles/Chart.png" },
                 new ChartTile() { Name = "Patient par date",Description = "Patient par date", Color = new SolidColorBrush(Colors.LightGray), View = new NombreDesPatientPerDateChartView(), Header = "Date", Icon = "../../Tiles/Chart.png" },
-                new ChartTile() { Name = "Pathology par sexe",Description = "Pathology par sexe", Color = new SolidColorBrush(Colors.LightBlue), View = new PathologyPerPatientSexeChartView(), Header = "Field", Icon = "../../Tiles/Chart.png" },
+                new ChartTile() { Name = "Pathology par sexe",Description = "Pathology par sexe", Color = new SolidColorBrush(Colors.LightBlue), View = new PathologyPerPatientSexeChartView(), Header = "Sexe", Icon = "../../Tiles/Chart.png" },
                 new ChartTile() { Name = "Patient par age",Description = "Patient par age", Color = new SolidColorBrush(Colors.LightPink), View = new PatientPerAgeChartView(), Header = "Age", Icon = "../../Tiles/Chart.png" },
                 new ChartTile() { Name = "Patient par date depot",Description = "Patient par date depot", Color = new SolidColorBrush(Colors.LightSeaGreen), View = new PatientPerDateChartView(), Header = "Date depot", Icon = "../../Tiles/Chart.png" },
                 new ChartTile() { Name = "Patient par medecin",Description = "Patient par medecin", Color =new SolidColorBrush(Colors.LightSalmon), View = new PatientPerMedecinChartView(), Header = "Medecin", Icon = "../../Tiles/Chart.png" },
                 new ChartTile() { Name = "Patient par pathology",Description = "Patient par pathology", Color = new SolidColorBrush(Colors.LightGreen), View = new PatientPerPathologyChartView(), Header = "Pathology", Icon = "../../Tiles/Chart.png" },
                 new ChartTile() { Name = "Patient par willaya",Description = "Patient par willaya", Color = new SolidColorBrush(Colors.LightCoral), View = new PatientPerWillayaDeResidanceChartView() , Header = "Willaya", Icon = "../../Tiles/Chart.png" },
-                new ChartTile() { Name = "Patient per sexe", Description = "Patient per sexe", Color = new SolidColorBrush(Colors.LightBlue), View = new PatientsPerSexeChartView(), Header = "Field", Icon = "../../Tiles/Chart.png" }
+                new ChartTile() { Name = "Patient per sexe", Description = "Patient per sexe", Color = new SolidColorBrush(Colors.LightBlue), View = new PatientsPerSexeChartView(), Header = "Sexe", Icon = "../../Tiles/Chart.png" }
             };
             
         }

@@ -1694,7 +1694,18 @@
                                                                     <ColumnDefinition Width="Auto"/>
                                                                     <ColumnDefinition Width="*"/>
                                                                 </Grid.ColumnDefinitions>
-                                                                <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="30" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                                                <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform" Width="20" Height="30" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5">
+                                                                    <Path.Style>
+                                                                        <Style TargetType="Path">
+                                                                            <Setter Property="Fill" Value="#FF7B7B7B"/>
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsGsmSettingsValidated}" Value="false">
+                                                                                    <Setter Property="Fill" Value="LightGray"></Setter>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Path.Style>
+                                                                </Path>
                                                                 <TextBlock Grid.Column="1" Text="General" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>
                                                             </Grid>
                                                         </TabItem.Header>
@@ -1741,7 +1752,18 @@
                                                                     <ColumnDefinition Width="Auto"/>
                                                                     <ColumnDefinition Width="*"/>
                                                                 </Grid.ColumnDefinitions>
-                                                                <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="30" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                                                <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform"  Width="20" Height="30" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5">
+                                                                    <Path.Style>
+                                                                        <Style TargetType="Path">
+                                                                            <Setter Property="Fill" Value="#FF7B7B7B"/>
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsGsmSettingsValidated}" Value="false">
+                                                                                    <Setter Property="Fill" Value="LightGray"></Setter>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Path.Style>
+                                                                </Path>
                                                                 <TextBlock Grid.Column="1" Text="Options" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>
                                                             </Grid>
                                                         </TabItem.Header>
@@ -1798,7 +1820,18 @@
                                                                     <ColumnDefinition Width="Auto"/>
                                                                     <ColumnDefinition Width="*"/>
                                                                 </Grid.ColumnDefinitions>
-                                                                <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="30" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                                                <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform"  Width="20" Height="30" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5">
+                                                                    <Path.Style>
+                                                                        <Style TargetType="Path">
+                                                                            <Setter Property="Fill" Value="#FF7B7B7B"/>
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsGsmSettingsValidated}" Value="false">
+                                                                                    <Setter Property="Fill" Value="LightGray"></Setter>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Path.Style>
+                                                                </Path>
                                                                 <TextBlock Grid.Column="1" Text="Send sms" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>
                                                             </Grid>
                                                         </TabItem.Header>
@@ -1837,7 +1870,18 @@
                                                                     <ColumnDefinition Width="Auto"/>
                                                                     <ColumnDefinition Width="*"/>
                                                                 </Grid.ColumnDefinitions>
-                                                                <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform" Fill="#FF7B7B7B" Width="20" Height="30" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5"/>
+                                                                <Path Grid.Column="0" Data="{StaticResource SettingsItem}"  Stretch="Uniform"  Width="20" Height="30" Margin="0,0,20,0" RenderTransformOrigin="0.5,0.5">
+                                                                    <Path.Style>
+                                                                        <Style TargetType="Path">
+                                                                            <Setter Property="Fill" Value="#FF7B7B7B"/>
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsGsmSettingsValidated}" Value="false">
+                                                                                    <Setter Property="Fill" Value="LightGray"></Setter>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Path.Style>
+                                                                </Path>
                                                                 <TextBlock Grid.Column="1" Text="Receive sms" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="12" Margin="0,0,5,0"></TextBlock>
                                                             </Grid>
                                                         </TabItem.Header>

@@ -19,7 +19,6 @@ namespace CPMCAppointmentSystem.Helpers
         #region Fields
 
         #endregion
-
         #region Properties
         public static ChosenTheme ChosenTheme { get; private set; }
         public static string SettingsFilePath
@@ -107,6 +106,10 @@ namespace CPMCAppointmentSystem.Helpers
             SettingsXmlDocument = new XDocument(new XElement("Root", new XElement("Settings")));
             var themeXElement = new XElement("Theme");
             SettingsXmlDocument.Descendants().First(element => element.Name == "Settings").Add(themeXElement);
+
+
+            var gsmSettingsXElement=new XElement("GsmSettings");
+            gsmSettingsXElement.Descendants().First().Add();
 
             SaveXDocumentToFile();
         }

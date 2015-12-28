@@ -110,6 +110,7 @@ namespace GsmManager
             }
             catch (Exception ex)
             {
+                comm.Close();
                 throw new Exception("Connection error: " + ex.Message);                
             }
             return true; //true:  if connection succeeded

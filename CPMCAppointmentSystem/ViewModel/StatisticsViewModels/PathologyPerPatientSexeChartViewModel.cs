@@ -11,7 +11,7 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
 {
     public class PathologyPerPatientSexeChartViewModel : StatisticsChartsViewModelBase
     {
-         #region Fields
+        #region Fields
 
         #endregion
         #region Properties

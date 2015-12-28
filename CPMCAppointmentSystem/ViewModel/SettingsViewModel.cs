@@ -1187,6 +1187,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () =>
                     {
                         IsGsmProgressRingAcive = true;
+                        if (IsGsmSettingsValidated) return;
                         Task.Run(() =>
                         {
                             //First test the current settings
@@ -1195,7 +1196,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             {
                                 if (GsmManager.GsmHelper.TestConnection(ConnectionSettings))
                                 {
-                                    GsmStateText += "\n Connection succeded";
+                                    GsmStateText += "\n Connection succeeded";
                                     IsGsmSettingsValidated = true;
                                     GsmConnection = new GsmConnection(ConnectionSettings);
                                 }
