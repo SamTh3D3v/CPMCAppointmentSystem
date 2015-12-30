@@ -996,6 +996,19 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand _cancelPieceJointeCommand;
+        public RelayCommand CancelPieceJointeCommand
+        {
+            get
+            {
+                return _cancelPieceJointeCommand
+                    ?? (_cancelPieceJointeCommand = new RelayCommand(
+                    () =>
+                    {
+                        SelectedPieceJointe = null;
+                    }));
+            }
+        }
 
         private RelayCommand _loadPatientImageCommand;
         public RelayCommand LoadPatientImageCommand
@@ -1141,6 +1154,20 @@ namespace CPMCAppointmentSystem.ViewModel
                             SelectedPatient.Notes.Remove(SelectedNote);
                             _dbContext.SaveChanges();
                         }
+
+                    }));
+            }
+        }
+        private RelayCommand _cancelNewNoteCommand; 
+        public RelayCommand CancelNewNoteCommand
+        {
+            get
+            {
+                return _cancelNewNoteCommand
+                    ?? (_cancelNewNoteCommand = new RelayCommand(
+                    () =>
+                    {
+                        SelectedNote = null;
 
                     }));
             }
