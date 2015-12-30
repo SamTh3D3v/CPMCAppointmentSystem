@@ -176,7 +176,7 @@
                                     RowStyle="{StaticResource PatientRowStyle}" >
 
                 <Syncfusion:SfDataGrid.Columns>
-                    <Syncfusion:GridTextColumn HeaderText="Numéro d'ordre" MappingName="NumeroDordre"/>
+                    <Syncfusion:GridTextColumn  HeaderText="Numéro d'ordre" MappingName="NumeroDordre"/>
                     <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom"/>
                     <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
                     <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
@@ -186,7 +186,9 @@
                     <Syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
                     <Syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneDaccompagnant" />
                     <Syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
-                    <Syncfusion:GridTextColumn HeaderText="Code Postal" MappingName="Adresse.CodePosatal"/>
+                    <Syncfusion:GridTextColumn HeaderText="City" MappingName="Adresse.City"/>
+                    <Syncfusion:GridTextColumn HeaderText="Adresse" MappingName="Adresse.AddressDesignation"/>
+                    <Syncfusion:GridCheckBoxColumn HeaderText="CarteProfessionel" MappingName="CarteProfessionel"/>
                     <Syncfusion:GridTextColumn HeaderText="Pathologie" MappingName="Pathology.NomPathology"/>
                 </Syncfusion:SfDataGrid.Columns>
                 <Syncfusion:SfDataGrid.RecordContextMenu>

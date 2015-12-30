@@ -97,6 +97,8 @@ namespace GsmManager
         public static bool TestConnection(ConnectionSettings tcon)
         {            
             GsmCommMain comm = new GsmCommMain(tcon.PortName, tcon.BaudRate, tcon.TimeOut);
+            
+
             try
             {
                 comm.Open();
