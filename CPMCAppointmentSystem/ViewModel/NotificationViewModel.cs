@@ -295,7 +295,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
         private async Task AutoConnectToGsmDevice()
         {
-                        
+
             await Task.Run(() =>
             {
                 ConnectionSettings = new ConnectionSettings
@@ -332,15 +332,22 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     //All set succesfully                            
                     GsmConnection = new GsmConnection(ConnectionSettings);
+                    SetDefaultSettingsToGsmConnection();
                 }
                 else
                 {
                     throw new Exception("\n Can't detect the Gsm device");
                 }
-            }).ContinueWith((d)=>d.Dispose());
-            
+            }).ContinueWith((d) => d.Dispose());
+
         }
 
+        private void SetDefaultSettingsToGsmConnection()
+        {
+            GsmConnection.RequestImmediateDisplay = false;
+            GsmConnection.RequestStatusReport = true;
+            GsmConnection.EnableSmsBatchMode = false;
+        }
 
         private RelayCommand _notificationViewUnLoadedCommand;
         public RelayCommand NotificationViewUnLoadedCommand
@@ -390,9 +397,34 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_sendsmsCommand = new RelayCommand(
                     () =>
                     {
-                        GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, ApplySmsTemplateToSelectedRdv());
+                        if (!IsSimActive || !_allDataLoaded) return;                       
+                        try
+                        {
+                            GsmConnection.SendSms(ApplySmsTemplateToSelectedRdv(), prepareNumber(SelectedRdv.Patient.TelephoneMobile1, "213"));
+                        }
+                        catch (Exception)
+                        {
+
+                            Debug.WriteLine("Something went wrong");
+                        }
+
+                        //GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, ApplySmsTemplateToSelectedRdv());
                     }));
             }
+        }
+
+        private string prepareNumber(string num, string countryCode)
+        {
+            if (num.StartsWith("0"))
+            {
+                if (num.StartsWith(countryCode))
+                    return "+" + num.Substring(1);
+                return "+" + countryCode + num.Substring(1);
+            }
+
+            if (num.StartsWith(countryCode))
+                return "+" + num;
+            return "+" + countryCode + num;
         }
 
         private string ApplySmsTemplateToSelectedRdv()
@@ -446,12 +478,16 @@ namespace CPMCAppointmentSystem.ViewModel
                     switch (m.Notification)
                     {
                         case "SendSmsToPatient":
-                            GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, ApplySmsTemplateToSelectedRdv());
+                            GsmConnection.SendSms(ApplySmsTemplateToSelectedRdv(), prepareNumber(SelectedRdv.Patient.TelephoneMobile1, "213"));
+                            //GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneMobile1, ApplySmsTemplateToSelectedRdv());
                             SelectedRdv.NotificationSent = true;
+                            _dbContext.SaveChanges();
                             break;
                         case "SendSmsToAccom":
-                            GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneDaccompagnant, ApplySmsTemplateToSelectedRdv());
+                            GsmConnection.SendSms(ApplySmsTemplateToSelectedRdv(), prepareNumber(SelectedRdv.Patient.TelephoneDaccompagnant, "213"));
+                            //GsmHelper.SendSms("+" + SelectedRdv.Patient.TelephoneDaccompagnant, ApplySmsTemplateToSelectedRdv());
                             SelectedRdv.NotificationSent = true;
+                            _dbContext.SaveChanges();
                             break;
                         case "CallPatient":
                             GsmHelper.Callphone(SelectedRdv.Patient.TelephoneMobile1);

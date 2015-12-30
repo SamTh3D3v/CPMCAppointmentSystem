@@ -179,8 +179,8 @@
                                                         </StackPanel>
                                                     </Border>
                                                 </syncfusion:SfRadialMenuItem.Header>
-                                                <syncfusion:SfRadialMenuItem CheckMode="None"  ShowMouseOverStyle="true"  MenuMouseOverBackgroundColor="LightSkyBlue" Click="CallPatentClick">
-                                                    <syncfusion:SfRadialMenuItem.Header>
+                                                <syncfusion:SfRadialMenuItem IsEnabled="False" CheckMode="None"  ShowMouseOverStyle="true"  MenuMouseOverBackgroundColor="LightSkyBlue" Click="CallPatentClick">
+                                                    <syncfusion:SfRadialMenuItem.Header >
                                                         <Border Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" >
                                                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                                                 <Path Height="30" Width="20"  UseLayoutRounding="True" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="1"  Fill="Black" Data="{StaticResource CallMobilePath}"  />
@@ -189,7 +189,7 @@
                                                         </Border>
                                                     </syncfusion:SfRadialMenuItem.Header>
                                                 </syncfusion:SfRadialMenuItem>
-                                                <syncfusion:SfRadialMenuItem CheckMode="None"  ShowMouseOverStyle="true"  MenuMouseOverBackgroundColor="LightSkyBlue" Click="CallAccompClick">
+                                                <syncfusion:SfRadialMenuItem IsEnabled="False" CheckMode="None"  ShowMouseOverStyle="true"  MenuMouseOverBackgroundColor="LightSkyBlue" Click="CallAccompClick">
                                                     <syncfusion:SfRadialMenuItem.Header>
                                                         <Border Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" >
                                                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -200,7 +200,7 @@
                                                     </syncfusion:SfRadialMenuItem.Header>
                                                 </syncfusion:SfRadialMenuItem>
                                             </syncfusion:SfRadialMenuItem>
-                                            <syncfusion:SfRadialMenuItem  ShowMouseOverStyle="true"  Click="CallFixClick" MenuMouseOverBackgroundColor="LightSkyBlue"  >
+                                            <syncfusion:SfRadialMenuItem  ShowMouseOverStyle="true" IsEnabled="False"  Click="CallFixClick" MenuMouseOverBackgroundColor="LightSkyBlue"  >
                                                 <syncfusion:SfRadialMenuItem.Header>
                                                     <Border Background="Transparent" Padding="5">
                                                         <StackPanel>
