@@ -19,6 +19,7 @@ namespace CPMCAppointmentSystem.Helpers
 
         public static void AddNotification(Notification notification,bool globalNotification)
         {
+
             NotificationStackWindow.Top = SystemParameters.WorkArea.Top + TopOffset;
             NotificationStackWindow.Left = SystemParameters.WorkArea.Left + SystemParameters.WorkArea.Width - LeftOffset;
             if (globalNotification)
@@ -32,6 +33,7 @@ namespace CPMCAppointmentSystem.Helpers
             //Messenger.Default.Send<Notification>(notification, "AddNotification");
             NotificationStackWindow.AddNotification(notification);
         }
+
 
         public static void RemoveNotification(Notification notification)
         {

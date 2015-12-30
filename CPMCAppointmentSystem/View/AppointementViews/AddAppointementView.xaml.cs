@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using Syncfusion.UI.Xaml.Grid;
 
 namespace CPMCAppointmentSystem.View.AppointementViews
 {
@@ -24,5 +25,7 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         {
             InitializeComponent();
         }
+
+      
     }
 }

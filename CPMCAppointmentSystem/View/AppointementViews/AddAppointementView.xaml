@@ -15,7 +15,7 @@
                       WindowTransitionsEnabled="False"                      
  BorderBrush="{DynamicResource AccentColorBr}"
                       BorderThickness="1"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen" 
                       
                              
          Height="500" Width="700" 
@@ -24,7 +24,7 @@
         <i:EventTrigger EventName="Loaded">
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=AddAppointementViewLoadedCommand}"
                             PassEventArgsToCommand="True" />
-        </i:EventTrigger>
+        </i:EventTrigger>       
     </i:Interaction.Triggers>
     <Grid IsEnabled="{Binding ConnectedUserRollsCollection.AppointementEditAllow}">
         <Grid.RowDefinitions>

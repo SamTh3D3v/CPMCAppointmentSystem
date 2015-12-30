@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:helpers="clr-namespace:CPMCAppointmentSystem.Helpers"
         xmlns:model="clr-namespace:DataLayer.Model;assembly=DataLayer"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
         Title="NotificationStackWindow"  Height="530" Width="350" ShowActivated="False" AllowsTransparency="True" WindowStyle="None" ShowInTaskbar="False" Background="Transparent" Topmost="True" UseLayoutRounding="True">
     <Window.Resources>
         <Storyboard x:Key="CollapseStoryboard">
-            <DoubleAnimation From="100" To="0" Storyboard.TargetProperty="Height" Duration="0:0:1"/>
+            <DoubleAnimation From="100" To="0" Storyboard.TargetProperty="Height" Duration="0:0:1" Completed="Timeline_OnCompleted" />
         </Storyboard>
         <DataTemplate x:Key="MessageTemplate" DataType="model:Notification">
             <Grid x:Name="NotificationWindow" Tag="{Binding Path=Id}" Background="Transparent" SizeChanged="NotificationWindowSizeChanged">
@@ -48,7 +50,7 @@
                     </Trigger.EnterActions>
                     <Trigger.ExitActions>
                         <SeekStoryboard Offset="0:0:3" BeginStoryboardName="FadeInStoryBoard" />
-                        <ResumeStoryboard BeginStoryboardName="FadeInStoryBoard"></ResumeStoryboard>
+                        <ResumeStoryboard BeginStoryboardName="FadeInStoryBoard" ></ResumeStoryboard>
                     </Trigger.ExitActions>
                 </Trigger>
                 <EventTrigger RoutedEvent="Button.Click" SourceName="CloseButton">
@@ -62,7 +64,8 @@
                     <Setter TargetName="NotificationWindow" Property="Visibility" Value="Hidden"></Setter>
                     <Trigger.EnterActions>
                         <BeginStoryboard Storyboard="{StaticResource CollapseStoryboard}"/>
-                    </Trigger.EnterActions>
+                    </Trigger.EnterActions>   
+                    
                 </Trigger>
             </DataTemplate.Triggers>
         </DataTemplate>

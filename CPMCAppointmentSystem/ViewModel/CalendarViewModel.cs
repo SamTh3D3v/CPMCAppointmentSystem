@@ -582,6 +582,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+       
         private RelayCommand _listMedecinToAddViewLoadedCommand;
         public RelayCommand ListMedecinToAddViewLoadedCommand
         {
@@ -1127,6 +1128,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _searchForExistingRdvsCommand
                     ?? (_searchForExistingRdvsCommand = new RelayCommand(async () =>
                     {
+                        if (SelectedRdv==null) return;                        
                         if (SelectedRdv.Patient == null) return;
                         var res = await Task.Run(() => _dbContext.RendezVouses.Where(rdv => rdv.PatientId == SelectedRdv.Patient.PatientId));
                         if (res.Any())
@@ -1139,7 +1141,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                         NotificationTitle = "#Patient déjat pris un rdv",
                                         Image = rr.Patient.ProfilePicture,
                                         NotificationMessage =
-                                            "ce patient a déjat pris un rdv de radiothérapie le  : " + rr.DateTimeRdv
+                                            "le patient "+rr.Patient.Nom+" "+rr.Patient.Prenom+" a déjat pris un rdv le  : " + rr.DateTimeRdv
                                              + " effectuer une recherche pour plus de détails.",
                                         NotificationType = TypeNotification.Information,
                                         IsActive = true,

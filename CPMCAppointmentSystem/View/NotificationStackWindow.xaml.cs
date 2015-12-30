@@ -29,6 +29,7 @@ namespace CPMCAppointmentSystem.View
         }
         public void AddNotification(Notification notification)
         {
+            if (NotificationExisted(notification.NotificationMessage)) return;
             notification.Id = count++;
             if (Notifications.Count + 1 > MAX_NOTIFICATIONS)
                 buffer.Add(notification);
@@ -38,6 +39,12 @@ namespace CPMCAppointmentSystem.View
             //Show window if there're notifications
             if (Notifications.Count > 0 && !IsActive)
                 Show();
+        }
+
+        public bool NotificationExisted(string nm)
+        {
+            var res= Notifications.Any(n => n.NotificationMessage == nm);
+            return res;
         }
 
         public void RemoveNotification(Notification notification)
@@ -56,12 +63,23 @@ namespace CPMCAppointmentSystem.View
                 Hide();
         }
 
+        public void RemoveNotification()
+        {
+            if (Notifications.Any())
+                Notifications.RemoveAt(0);
+        }
+
         private void NotificationWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.NewSize.Height != 0.0)
                 return;
             var element = sender as Grid;
             RemoveNotification(Notifications.First(n => n.Id == Int32.Parse(element.Tag.ToString())));
+        }
+
+        private void Timeline_OnCompleted(object sender, EventArgs e)
+        {
+            RemoveNotification();
         }
     }
 
