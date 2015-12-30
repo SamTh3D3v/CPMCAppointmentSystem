@@ -821,7 +821,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0" Margin="10" Command="{Binding DataContext.NewPieceJointeCommand,ElementName=RootGrid}">
+                                <Button Grid.Row="0" Grid.Column="0" Margin="10" IsEnabled="{Binding DataContext.ConnectedUserRollsCollection.PatientsEditAllow,ElementName=RootGrid}" Command="{Binding DataContext.NewPieceJointeCommand,ElementName=RootGrid}">
                                     <Button.Style>
                                         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                                             <Setter Property="IsEnabled" Value="False"/>
