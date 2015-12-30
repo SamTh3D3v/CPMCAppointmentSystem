@@ -515,8 +515,10 @@ namespace CPMCAppointmentSystem.ViewModel
         private async Task LoadFilterPatientListByDate()
         {
             var date = DateDepotFilter.Date;
-            PatientList = IsDateDepotFilterApplied ? new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients.Where(p => DbFunctions.TruncateTime(p.DateDeDepot) == date))) : new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
+            PatientList = IsDateDepotFilterApplied ? new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients.Where(p => DbFunctions.TruncateTime(p.DateDeDepot) == date))) : 
+                new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
             SearchService.DataSource = PatientList;
+            RaisePropertyChanged("PatientList");
         }
         private RelayCommand _startSearchServiceCommand;
         public RelayCommand StartSearchServiceCommand
@@ -714,6 +716,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             while (!_allDataLoaded) { }         //To assure that the Context isn't disposed before all the data is loaded  
                             _dbContext.Dispose();
+                            SelectedPatient = null;
 
                         });
 

@@ -358,20 +358,24 @@ namespace DataLayer.Model
                     if (Sexe == null)
                         result = "Spesifiez le sexe du patient";
                 }
-                //if (columnName == "TelephoneFixe")
-                //{
-                //    if (String.IsNullOrEmpty(TelephoneFixe))
-                //        result = "Spesifiez le numero de tel fix du patient";
-                //}
+                if (columnName == "TelephoneFixe")
+                {
+                    if (!TelephoneFixe.All(char.IsDigit))
+                        result = "le format du numero de tel n'est pas valid";
+                }
                 if (columnName == "TelephoneMobile1")
                 {
                     if (String.IsNullOrEmpty(TelephoneMobile1))
                         result = "Spesifiez le numero de tel mobile de l'assurant";
+                    else if (!TelephoneMobile1.All(char.IsDigit))
+                        result = "le format du numero de tel n'est pas valid";
                 }
                 if (columnName == "TelephoneDaccompagnant")
                 {
                     if (String.IsNullOrEmpty(TelephoneDaccompagnant))
-                        result = "Spesifiez le numero de tel mobile de l'accompagnant";
+                        result = "Spesifiez le numero de tel mobile de l'accompagnateur";
+                    else if (!TelephoneDaccompagnant.All(char.IsDigit))
+                        result = "le format du numero de tel n'est pas valid";
                 }
                 return result;
             }

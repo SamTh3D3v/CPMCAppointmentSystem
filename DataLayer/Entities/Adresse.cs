@@ -146,6 +146,12 @@ namespace DataLayer.Model
                     if (Willaya == null)
                         result = "Spesifiez la willaya";
                 }
+
+                if (columnName == "CodePosatal")
+                {
+                     if (!CodePosatal.All(char.IsDigit))
+                        result = "le format du code postal n'est pas valid";
+                }
                 return result;
             }
         }
