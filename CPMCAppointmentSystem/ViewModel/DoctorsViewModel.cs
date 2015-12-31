@@ -677,8 +677,10 @@ namespace CPMCAppointmentSystem.ViewModel
                             _dbContext.Notifications.Add(new Notification()
                             {
                                 NotificationId = Guid.NewGuid(),
-                                NotificationTitle = "Nouveau medecin",
-                                NotificationMessage = "Le medecin :" + SelectedDoctor.User.UserNom + " " + SelectedDoctor.User.UserPrenom + " a été inserer",
+                                NotificationTitle = "Nouveau médecin",
+                                NotificationMessage =
+                                    "Le medecin :" + SelectedDoctor.User.UserNom + " " + SelectedDoctor.User.UserPrenom +
+                                    " a été insérée",
                                 NotificationType = TypeNotification.Information,
                                 IsActive = true,
                                 TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
@@ -686,6 +688,24 @@ namespace CPMCAppointmentSystem.ViewModel
                                 ModifiedOn = DateTime.Now
                             });
                         }
+                        else
+                        {
+                            _dbContext.Notifications.Add(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "Mise a jour du profil d'un médecin",
+                                NotificationMessage =
+                                    "Le profil du medecin :" + SelectedDoctor.User.UserNom + " " + SelectedDoctor.User.UserPrenom +
+                                    " a été mis à jour",
+                                NotificationType = TypeNotification.Information,
+                                IsActive = true,
+                                TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
+                                CreatedOn = DateTime.Now,
+                                ModifiedOn = DateTime.Now
+                            });
+
+                        }
+                       
 
                         _dbContext.SaveChanges();
                         //}

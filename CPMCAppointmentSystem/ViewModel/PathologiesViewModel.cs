@@ -232,7 +232,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             {
                                 NotificationId = Guid.NewGuid(),
                                 NotificationTitle = "Nouvelle Pathologie",
-                                NotificationMessage = "La pathologie:" + SelectedPathology.NomPathology + " a été inserer",
+                                NotificationMessage = "La pathologie:" + SelectedPathology.NomPathology + " a été insérée",
                                 NotificationType = TypeNotification.Information,
                                 IsActive = true,
                                 TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
@@ -253,13 +253,17 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         else
                         {
-                            //NotficationManager.AddNotification(new Notification()
-                            //{
-                            //    NotificationId = Guid.NewGuid(),
-                            //    NotificationTitle = "Update",
-                            //    NotificationMessage = "Pathology " + SelectedPathology.NomPathology + " a été mise a jour avec succes",
-                            //    NotificationType = TypeNotification.Information
-                            //});
+                            NotficationManager.AddNotification(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "Mise a jour d'une Pathologie",
+                                NotificationMessage = "La pathologie:" + SelectedPathology.NomPathology + " a été mis à jour",
+                                NotificationType = TypeNotification.Information,
+                                IsActive = true,
+                                TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
+                                CreatedOn = DateTime.Now,
+                                ModifiedOn = DateTime.Now
+                            }, true);
                         }
                         _dbContext.SaveChanges();
                         await LoadPathologies();

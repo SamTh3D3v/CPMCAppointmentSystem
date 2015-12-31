@@ -922,7 +922,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _appointmentEndDraggingCommand
                     ?? (_appointmentEndDraggingCommand = new RelayCommand<AppointmentEndDraggingEventArgs>(async (args) =>
                     {
-                        var result = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Confirmation", "etes vous sure de vouloire faire deplacer ce rendez-vous", MessageDialogStyle.AffirmativeAndNegative));
+                        var result = await ((Application.Current.MainWindow as MetroWindow).ShowMessageAsync("Confirmation", "êtes-vous sûr de vouloir déplacer ce rendez-vous", MessageDialogStyle.AffirmativeAndNegative));
                         if (result == MessageDialogResult.Affirmative)
                         {
                             if (RestDayHelper.IsRestDay(args.To))

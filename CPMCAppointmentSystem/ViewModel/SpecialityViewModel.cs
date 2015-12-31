@@ -225,7 +225,21 @@ namespace CPMCAppointmentSystem.ViewModel
                             {
                                 NotificationId = Guid.NewGuid(),
                                 NotificationTitle = "Nouvelle Specialité",
-                                NotificationMessage = "La specialité :" + SelectedSpeciality.Name + " a été inserer",
+                                NotificationMessage = "La specialité :" + SelectedSpeciality.Name + " a été insérée",
+                                NotificationType = TypeNotification.Information,
+                                IsActive = true,
+                                TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
+                                CreatedOn = DateTime.Now,
+                                ModifiedOn = DateTime.Now
+                            });
+                        }
+                        else
+                        {
+                            _dbContext.Notifications.Add(new Notification()
+                            {
+                                NotificationId = Guid.NewGuid(),
+                                NotificationTitle = "Mise a jour d'une Specialité",
+                                NotificationMessage = "La specialité :" + SelectedSpeciality.Name + " a été mis à jour",
                                 NotificationType = TypeNotification.Information,
                                 IsActive = true,
                                 TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),
