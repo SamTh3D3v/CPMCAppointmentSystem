@@ -1383,7 +1383,7 @@ namespace CPMCAppointmentSystem.ViewModel
 
                                 GsmStateText += "\n " + ex.Message;
                             }
-                        });
+                        }).ContinueWith(d=>d.Dispose());
 
                         IsGsmProgressRingAcive = false;
 
@@ -1402,6 +1402,8 @@ namespace CPMCAppointmentSystem.ViewModel
 
                         ConnectionSettings.BaudRate = 9600;
                         ConnectionSettings.TimeOut = 300;
+                        await Task.Run(() =>
+                        { 
                         if (!GsmManager.GsmHelper.GetAvailablePortNamesInDevice().Any())
                         {
                             GsmStateText += "\n No availale ports, connection failed";
@@ -1443,7 +1445,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             GsmStateText += "\n Can't detect the Gsm device";
                             IsGsmSettingsValidated = false;
                         }
-
+                        }).ContinueWith(d => d.Dispose());
 
                         IsGsmProgressRingAcive = false;
                     }));
@@ -1811,8 +1813,10 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _userTypeCheckedCommand
                     ?? (_userTypeCheckedCommand = new RelayCommand<object>(async (obj) =>
                     {
-                        // var search = UserTypeDictionary.Where(ut => ut.IsAdded).Select(x => x.Entity.UserTypeId);
-                        //UsersList = new ObservableCollection<User>(await Task.Run(() => _dbContext.Users.Where(u => search.Contains(u.UserTypeId))));
+                        //var search = UserTypeToFilterCollection.Where(ut => ut.IsAdded).Select(x => x.Entity.UserTypeId).Distinct();
+                        ////UsersList = new ObservableCollection<User>(await Task.Run(() => _dbContext.Users.Where(u => u.UserTypes.Select(ui=>ui.UserTypeId).Intersect<Guid>(search).Any())));
+
+                        //UsersList = new ObservableCollection<User>(await Task.Run(() => _dbContext.Users.Where(u => u.UserTypes.Select(ui=>ui.UserTypeId).Intersect<Guid>(search).Any())));
 
                     }));
             }

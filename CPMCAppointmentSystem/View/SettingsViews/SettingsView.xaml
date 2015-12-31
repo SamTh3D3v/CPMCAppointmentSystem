@@ -101,7 +101,7 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <ToggleButton IsChecked="{Binding IsAdded,Mode=TwoWay}" Command="{Binding DataContext.UserTypeCheckedCommand,ElementName=RootGrid}" CommandParameter="{Binding Entity.UserTypeId}" x:Name="FilterButton" Width="45" Height="45"  Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
+                                            <ToggleButton IsChecked="True" Command="{Binding DataContext.UserTypeCheckedCommand,ElementName=RootGrid}" CommandParameter="{Binding Entity.UserTypeId}" x:Name="FilterButton" Width="45" Height="45"  Background="WhiteSmoke" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
                                                 <Path Stretch="Uniform"  Width="20" Height="20" Margin="0,0,0,0" >
                                                     <Path.Style>
                                                         <Style TargetType="Path">
@@ -168,7 +168,7 @@
                                 </syncfusion:SfDataGrid.Columns>
                             </syncfusion:SfDataGrid>
                         </Grid>
-                        <GridSplitter Grid.Row="0" Grid.RowSpan="2" Background="Gray" Width="1" Margin="1" Grid.Column="1" VerticalAlignment="Stretch"/>
+                        <GridSplitter Grid.Row="0" Grid.RowSpan="2" Background="Gray" Width="1" Margin="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
                         <Grid Grid.Row="0" Grid.Column="2" IsEnabled="{Binding IsFormEnabled,Mode=TwoWay}" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -274,7 +274,7 @@
                                 </Grid>
                             </GroupBox>
 
-                            <Expander IsExpanded="True" Grid.Row="2" Grid.Column="0"  Header="Rolls" IsEnabled="False">
+                            <Expander IsExpanded="True" Grid.Row="2" Grid.Column="0"  Header="Rolls">
                                 <Expander.Style>
                                     <Style TargetType="Expander">
                                         <Setter Property="IsEnabled" Value="True"/>
@@ -301,12 +301,12 @@
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv IsEditable="False" >
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Afficher les rendez-vous" IsChecked="{Binding ConnectedUserRollsCollection.AppointementViewAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Afficher les rendez-vous" IsChecked="{Binding ConnectedUserRollsCollection.AppointementViewAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Ajouter et modifier des rendez-vous" IsChecked="{Binding ConnectedUserRollsCollection.AppointementEditAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Ajouter et modifier des rendez-vous" IsChecked="{Binding ConnectedUserRollsCollection.AppointementEditAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
@@ -323,17 +323,17 @@
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Afficher la liste des médecins" IsChecked="{Binding ConnectedUserRollsCollection.DoctorsViewAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Afficher la liste des médecins" IsChecked="{Binding ConnectedUserRollsCollection.DoctorsViewAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Modifier et ajouter des médecins" IsChecked="{Binding ConnectedUserRollsCollection.DoctorsAddAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Modifier et ajouter des médecins" IsChecked="{Binding ConnectedUserRollsCollection.DoctorsAddAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Affecter des patient aux médecins" IsChecked="{Binding ConnectedUserRollsCollection.DoctorsEditAppointementAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Affecter des patient aux médecins" IsChecked="{Binding ConnectedUserRollsCollection.DoctorsEditAppointementAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
@@ -350,17 +350,17 @@
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Afficher la liste des patients" IsChecked="{Binding ConnectedUserRollsCollection.PatientsViewAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Afficher la liste des patients" IsChecked="{Binding ConnectedUserRollsCollection.PatientsViewAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Modifier les details des patients" IsChecked="{Binding ConnectedUserRollsCollection.PatientsEditAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Modifier les details des patients" IsChecked="{Binding ConnectedUserRollsCollection.PatientsEditAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Ajouter des Rdv pour des patients" IsChecked="{Binding ConnectedUserRollsCollection.PatientsEditAppointementAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Ajouter des Rdv pour des patients" IsChecked="{Binding ConnectedUserRollsCollection.PatientsEditAppointementAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
@@ -377,12 +377,12 @@
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Afficher la liste des spécialités" IsChecked="{Binding ConnectedUserRollsCollection.SpecialitiesViewAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Afficher la liste des spécialités" IsChecked="{Binding ConnectedUserRollsCollection.SpecialitiesViewAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Modifier et ajouter des spécialités" IsChecked="{Binding ConnectedUserRollsCollection.SpecialitiesEditAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Modifier et ajouter des spécialités" IsChecked="{Binding ConnectedUserRollsCollection.SpecialitiesEditAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
@@ -399,12 +399,12 @@
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Afficher la liste des pathologies" IsChecked="{Binding ConnectedUserRollsCollection.PathologiesViewAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Afficher la liste des pathologies" IsChecked="{Binding ConnectedUserRollsCollection.PathologiesViewAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Ajouter et modifier les pathologies" IsChecked="{Binding ConnectedUserRollsCollection.PathologiesEditAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Ajouter et modifier les pathologies" IsChecked="{Binding ConnectedUserRollsCollection.PathologiesEditAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
@@ -421,17 +421,17 @@
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Afficher mes patients" IsChecked="{Binding ConnectedUserRollsCollection.MyPatientsViewAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Afficher mes patients" IsChecked="{Binding ConnectedUserRollsCollection.MyPatientsViewAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv IsEditable="False" >
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Modifier les détails de mes patients" IsChecked="{Binding ConnectedUserRollsCollection.MyPatientsEditAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Modifier les détails de mes patients" IsChecked="{Binding ConnectedUserRollsCollection.MyPatientsEditAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv IsEditable="False" >
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Créer des Rdv pour mes patients" IsChecked="{Binding ConnectedUserRollsCollection.MyPatientsEditAppointementAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Créer des Rdv pour mes patients" IsChecked="{Binding ConnectedUserRollsCollection.MyPatientsEditAppointementAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
@@ -448,12 +448,12 @@
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv IsEditable="False" >
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Afficher les notifications à envoyer" IsChecked="{Binding ConnectedUserRollsCollection.SmsNotificationViewAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Afficher les notifications à envoyer" IsChecked="{Binding ConnectedUserRollsCollection.SmsNotificationViewAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv IsEditable="False" >
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Envoyer et modifier les notifications" IsChecked="{Binding ConnectedUserRollsCollection.SmsNotificationEditAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Envoyer et modifier les notifications" IsChecked="{Binding ConnectedUserRollsCollection.SmsNotificationEditAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
@@ -470,12 +470,12 @@
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv IsEditable="False" >
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Modifier Les paramètres des comptes des utilisateurs " IsChecked="{Binding ConnectedUserRollsCollection.AccountSettingsEditAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Modifier Les paramètres des comptes des utilisateurs " IsChecked="{Binding ConnectedUserRollsCollection.AccountSettingsEditAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Modifier les paramètres globaux" IsChecked="{Binding ConnectedUserRollsCollection.GlobaleSettingsEditAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Modifier les paramètres globaux" IsChecked="{Binding ConnectedUserRollsCollection.GlobaleSettingsEditAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
@@ -492,12 +492,12 @@
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv IsEditable="False" >
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Afficher les logs" IsChecked="{Binding ConnectedUserRollsCollection.LogViewAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Afficher les logs" IsChecked="{Binding ConnectedUserRollsCollection.LogViewAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                             <syncfusion:TreeViewItemAdv  IsEditable="False">
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Modifier les logs" IsChecked="{Binding ConnectedUserRollsCollection.LogEditAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Modifier les logs" IsChecked="{Binding ConnectedUserRollsCollection.LogEditAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
@@ -513,7 +513,7 @@
                                         <syncfusion:TreeViewItemAdv.Items>
                                             <syncfusion:TreeViewItemAdv IsEditable="False" >
                                                 <syncfusion:TreeViewItemAdv.Header>
-                                                    <CheckBox Content="Afficher les statistiques" IsChecked="{Binding ConnectedUserRollsCollection.StatisticsViewAllow,Mode=TwoWay}"/>
+                                                    <CheckBox IsEnabled="False" Content="Afficher les statistiques" IsChecked="{Binding ConnectedUserRollsCollection.StatisticsViewAllow,Mode=TwoWay}"/>
                                                 </syncfusion:TreeViewItemAdv.Header>
                                             </syncfusion:TreeViewItemAdv>
                                         </syncfusion:TreeViewItemAdv.Items>
