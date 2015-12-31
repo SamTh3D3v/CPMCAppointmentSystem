@@ -78,7 +78,8 @@
             <converters:GetTypeConverter x:Key="GetTypeConverter"/>
             <converters:ChartColorConverter x:Key="ChartColorConverter"/>
             <converters:LabelConverter x:Key="LabelConverter"/>
-            <converters:RdvCollectionToCanPrintConverter x:Key="RdvCollectionToCanPrintConverter"/>            
+            <converters:RdvCollectionToCanPrintConverter x:Key="RdvCollectionToCanPrintConverter"/>
+            <converters:UserTypesCollectionToStringConverter x:Key="UserTypesCollectionToStringConverter"/>            
         </ResourceDictionary>
 
 

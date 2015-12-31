@@ -164,7 +164,7 @@
                                     <syncfusion:GridTextColumn HeaderText="Nom" MappingName="UserNom" />
                                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="UserPrenom"/>
                                     <syncfusion:GridTextColumn HeaderText="UserName" MappingName="UserName"/>
-                                    <syncfusion:GridTextColumn HeaderText="Type" MappingName="UserType.UserTypeName"/>
+                                    <syncfusion:GridTextColumn HeaderText="Types" DisplayBinding="{Binding UserTypes,Converter={StaticResource UserTypesCollectionToStringConverter}}"/>
                                 </syncfusion:SfDataGrid.Columns>
                             </syncfusion:SfDataGrid>
                         </Grid>
