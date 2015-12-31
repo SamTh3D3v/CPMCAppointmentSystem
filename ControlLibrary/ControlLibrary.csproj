@@ -43,23 +43,23 @@
     </Reference>
     <Reference Include="Syncfusion.SfChart.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Syncfusion.SfChart.WPF.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfChart.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfGrid.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Syncfusion.SfGrid.WPF.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfGrid.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfInput.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Syncfusion.SfInput.WPF.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfInput.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfSchedule.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Syncfusion.SfSchedule.WPF.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfSchedule.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfShared.WPF, Version=13.3460.0.7, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Syncfusion.SfShared.WPF.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\13.3.0.7\Assemblies\4.5.1\Syncfusion.SfShared.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
