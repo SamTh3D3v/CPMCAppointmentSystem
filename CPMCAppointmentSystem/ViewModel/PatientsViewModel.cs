@@ -20,6 +20,7 @@ using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Syncfusion.Data.Extensions;
+using Syncfusion.Windows.Controls.Input;
 using Syncfusion.Windows.Reports;
 using Application = System.Windows.Application;
 
@@ -508,6 +509,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_updateBasedOnDateDepotFilterCommand = new RelayCommand(async () =>
                     {
                         await LoadFilterPatientListByDate();
+                        ListPatientsFilterText = "";
                     }));
             }
         }
@@ -520,15 +522,20 @@ namespace CPMCAppointmentSystem.ViewModel
             SearchService.DataSource = PatientList;
             RaisePropertyChanged("PatientList");
         }
-        private RelayCommand _startSearchServiceCommand;
-        public RelayCommand StartSearchServiceCommand
+        private RelayCommand<object> _startSearchServiceCommand;
+        public RelayCommand<object> StartSearchServiceCommand
         {
             get
             {
                 return _startSearchServiceCommand
-                    ?? (_startSearchServiceCommand = new RelayCommand(async () =>
+                    ?? (_startSearchServiceCommand = new RelayCommand<object>(async (tb) =>
                     {
                         PatientList = (await SearchService.SearchAsync(ListPatientsFilterText)).Matches;
+                        if (tb!=null)
+                        {
+                            var sfTextBoxExt = tb as SfTextBoxExt;
+                            if (sfTextBoxExt != null) sfTextBoxExt.Focus();
+                        }
                     }));
             }
         }
