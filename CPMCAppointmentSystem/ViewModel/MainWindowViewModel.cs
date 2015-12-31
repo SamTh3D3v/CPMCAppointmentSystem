@@ -334,7 +334,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_refreshNatificationsCommand = new RelayCommand(
                     () =>
                     {
-                        
+                        NotificationsCollection = SearchService.DataSource;
                     }));
             }
         }

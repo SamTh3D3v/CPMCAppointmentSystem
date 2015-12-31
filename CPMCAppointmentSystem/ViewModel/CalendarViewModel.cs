@@ -579,6 +579,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         ShowSpesificDayDoctors = true;
                         await LoadAllPatientsList();
                         await LoadAllDoctorsList();
+                        RaisePropertyChanged("SelectedRdv");
                     }));
             }
         }
@@ -1138,11 +1139,11 @@ namespace CPMCAppointmentSystem.ViewModel
                                     NotficationManager.AddNotification(new Notification()
                                     {
                                         NotificationId = Guid.NewGuid(),
-                                        NotificationTitle = "#Patient déjat pris un rdv",
+                                        NotificationTitle = "#Patient a déjà pris un rendez-vous",
                                         Image = rr.Patient.ProfilePicture,
                                         NotificationMessage =
-                                            "le patient "+rr.Patient.Nom+" "+rr.Patient.Prenom+" a déjat pris un rdv le  : " + rr.DateTimeRdv
-                                             + " effectuer une recherche pour plus de détails.",
+                                            "le patient " + rr.Patient.Nom + " " + rr.Patient.Prenom + " a déjà pris un rdv le  : " + rr.DateTimeRdv
+                                             + " éffectuer une recherche pour plus de détails.",
                                         NotificationType = TypeNotification.Information,
                                         IsActive = true,
                                         TypeUser = TypeUserUtility.WhichTypeUser(true, false, true),

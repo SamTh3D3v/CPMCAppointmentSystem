@@ -1302,7 +1302,7 @@ namespace CPMCAppointmentSystem.ViewModel
                                         NotificationTitle = "#Patient existant",
                                         Image = pp.ProfilePicture,
                                         NotificationMessage =
-                                            "Un patient avec le meme nom et prenom exist deja dans le system, sont numero d'ordre est : " +
+                                            "Un patient avec le même nom et prenom existe deja dans le système, son numéro d'ordre est : " +
                                             pp.NumeroDordre + " , effectuer une recherche pour confirmer."
                                     }, false));
                         }

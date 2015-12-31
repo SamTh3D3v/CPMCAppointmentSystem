@@ -96,7 +96,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Type du compte " Style="{DynamicResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" Foreground="Black" FontSize="20"/>
-                                <TextBlock Text="{Binding CurrentUser.UserType.UserTypeName}" Style="{DynamicResource TitleTextBlockStyle}" HorizontalAlignment="Center" Foreground="{StaticResource AccentColorBrush}" FontSize="18" Grid.Row="0" Grid.Column="1"/>
+                                <TextBlock Text="{Binding CurrentUser.UserTypes,Converter={StaticResource UserTypesCollectionToStringConverter}}" TextWrapping="Wrap" Style="{DynamicResource TitleTextBlockStyle}" HorizontalAlignment="Center" Foreground="{StaticResource AccentColorBrush}" FontSize="18" Grid.Row="0" Grid.Column="1"/>
                             </Grid>
                         </Border>
                         <Expander  Grid.Row="2" Header="Changer le mot de passe" Style="{StaticResource {x:Type Expander}}">

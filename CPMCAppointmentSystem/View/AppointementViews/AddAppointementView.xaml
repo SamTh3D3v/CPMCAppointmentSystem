@@ -127,16 +127,22 @@
                                 </i:Interaction.Triggers>
 
                                 <syncfusion:SfDataGrid.Columns>
-                                    <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
+                                    <syncfusion:GridTextColumn  HeaderText="Numéro d'ordre" MappingName="NumeroDordre"/>
+                                    <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom"/>
                                     <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Prenom" />
-                                    <syncfusion:GridTextColumn HeaderText="Field" MappingName="Field.Designation"/>
+                                    <syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation"/>
                                     <syncfusion:GridTextColumn HeaderText="Date de naiss" DisplayBinding="{Binding Path=DateDeNaissance,
-                                                                            StringFormat=d}"/>
-                                    <syncfusion:GridTextColumn HeaderText="Tel" MappingName="TelephoneFixe"/>
+                                                                            StringFormat='{}{0:dd/MM/yyyy}'}"/>
+                                    <syncfusion:GridTextColumn HeaderText="Télephone fixe" MappingName="TelephoneFixe" />
                                     <syncfusion:GridTextColumn HeaderText="Mobile 1" MappingName="TelephoneMobile1"/>
-                                    <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneDaccompagnant"/>
+                                    <syncfusion:GridTextColumn HeaderText="Mobile 2" MappingName="TelephoneDaccompagnant" />
                                     <syncfusion:GridTextColumn HeaderText="Willaya" MappingName="Adresse.Willaya.Designation"/>
-                                    <syncfusion:GridTextColumn HeaderText="Code Postale" MappingName="Adresse.CodePosatal"/>
+                                    <syncfusion:GridTextColumn HeaderText="City" MappingName="Adresse.City"/>
+                                    <syncfusion:GridTextColumn HeaderText="Adresse" MappingName="Adresse.AddressDesignation"/>
+                                    <syncfusion:GridCheckBoxColumn HeaderText="CarteProfessionel" MappingName="CarteProfessionel"/>
+                                    <syncfusion:GridTextColumn HeaderText="Pathologie" MappingName="Pathology.NomPathology"/>
+                                    <syncfusion:GridTextColumn HeaderText="Date de dépot" DisplayBinding="{Binding Path=DateDeDepot,
+                                                                            StringFormat='{}{0:dd/MM/yyyy}'}"/>
                                 </syncfusion:SfDataGrid.Columns>
                             </syncfusion:SfDataGrid>
                             <syncfusion:SfDataPager x:Name="PatientsDataPager"

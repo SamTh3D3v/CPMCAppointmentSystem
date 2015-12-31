@@ -1047,7 +1047,7 @@
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
-                                        <Button Grid.Column="1"  Margin="2" Command="{Binding ElementName=RootGrid,Path=DataContext.PrinRecuDeDepotCommand}">
+                                        <Button Grid.Column="1"  Margin="2" Command="{Binding ElementName=RootGrid,Path=DataContext.PreviewRecuDeDepoCommand}">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="{StaticResource Printer2Dark}" Width="20" Height="20" />
@@ -1072,7 +1072,7 @@
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
-                                        <Button Grid.Column="1"  Margin="2" Command="{Binding ElementName=RootGrid,Path=DataContext.PrintRdvCommand}">
+                                        <Button Grid.Column="1"  Margin="2" Command="{Binding ElementName=RootGrid,Path=DataContext.PreviewRdvCommand}">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="{StaticResource Printer2Dark}" Width="20" Height="20" />

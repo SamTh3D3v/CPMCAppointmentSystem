@@ -305,7 +305,7 @@
                     </syncfusion:SfSchedule>
                     <Popup x:Name="RadialPopup" IsEnabled="{Binding ConnectedUserRollsCollection.AppointementEditAllow,Mode=TwoWay}"  KeyDown="HandleEsc"  syncfusion:SkinStorage.VisualStyle="Metro" Placement="MousePoint" AllowsTransparency="True" IsOpen="False">
                         <syncfusion:SfRadialMenu IsEnabled="{Binding 
-                            ctedUserRollsCollection.AppointementEditAllow,Mode=TwoWay}"  x:Name="radialMenu" RimBackground="#FF28A5DB" RimRadiusFactor="0.9" 
+                            ConnectedUserRollsCollection.AppointementEditAllow,Mode=TwoWay}"  x:Name="radialMenu" RimBackground="#FF28A5DB" RimRadiusFactor="0.9" 
                                      IsOpen="False" Background="White" BorderBrush="Green" Padding="5"
                                      RadiusX="100" RadiusY="100"
                                      EnableFreeRotation="True" Visibility="Visible">

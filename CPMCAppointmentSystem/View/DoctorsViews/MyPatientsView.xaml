@@ -70,12 +70,12 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
-                <syncfusion:SfTextBoxExt Grid.Row="0" Grid.Column="0" Text="{Binding ListPatientsFilterText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
+                <syncfusion:SfTextBoxExt x:Name="TxtEditSearchTerms" Grid.Row="0" Grid.Column="0" Text="{Binding ListPatientsFilterText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 5"                                      
                                      Watermark="Filtrer les patients"  
                                      >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
-                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=StartSearchServiceCommand}"
+                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=StartSearchServiceCommand}" CommandParameter="{Binding ElementName=TxtEditSearchTerms}"
                             PassEventArgsToCommand="True" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -1006,7 +1006,7 @@
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
-                                        <Button Grid.Column="1"  Margin="2" Command="{Binding ElementName=RootGrid,Path=DataContext.PrinRecuDeDepotCommand}">
+                                        <Button Grid.Column="1"  Margin="2" Command="{Binding ElementName=RootGrid,Path=DataContext.PreviewRecuDeDepoCommand}">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="{StaticResource Printer2Dark}" Width="20" Height="20" />
@@ -1031,7 +1031,7 @@
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
-                                        <Button Grid.Column="1"  Margin="2" Command="{Binding ElementName=RootGrid,Path=DataContext.PrintRdvCommand}">
+                                        <Button Grid.Column="1"  Margin="2" Command="{Binding ElementName=RootGrid,Path=DataContext.PreviewRdvCommand}">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="{StaticResource Printer2Dark}" Width="20" Height="20" />
