@@ -35,6 +35,8 @@ namespace AMSSetupCustomAction
                 connectionStringSection.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
 
             config.Save();
+
+            ConfigurationManager.RefreshSection("connectionStrings");
         }
     }
 }

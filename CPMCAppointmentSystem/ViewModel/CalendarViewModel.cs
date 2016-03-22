@@ -701,11 +701,11 @@ namespace CPMCAppointmentSystem.ViewModel
                 brushStatus.Brush = new SolidColorBrush(Colors.LightGray);
                 if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMax))
                 {
-                    brushStatus.Status = sexe == "Male" ? "Boy" : "Girl";
+                    brushStatus.Status = sexe == "Masculin" ? "Boy" : "Girl";  //Féminin
                 }
                 else
                 {
-                    brushStatus.Status = sexe == "Male" ? "Man" : "Woman";
+                    brushStatus.Status = sexe == "Masculin" ? "Man" : "Woman";
                 }
             }
             else
@@ -714,7 +714,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 {
                     if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMax))
                     {
-                        brushStatus.Status = sexe == "Male" ? "Boy" : "Girl";
+                        brushStatus.Status = sexe == "Masculin" ? "Boy" : "Girl";
                         brushStatus.Brush =
                             new SolidColorBrush(
                                 (Color)ColorConverter.ConvertFromString(SettingsCollection["EnfantSetting"].Color));
@@ -722,7 +722,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }
                     else
                     {
-                        brushStatus.Status = sexe == "Male" ? "Man" : "Woman";
+                        brushStatus.Status = sexe == "Masculin" ? "Man" : "Woman";
                         if (carteProfessionel)
                         {
                             brushStatus.Brush = new SolidColorBrush(
@@ -731,10 +731,10 @@ namespace CPMCAppointmentSystem.ViewModel
                         }
                         else
                         {
-                            brushStatus.Brush = sexe == "Male" ? new SolidColorBrush(
+                            brushStatus.Brush = sexe == "Masculin" ? new SolidColorBrush(
                          (Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color)) : new SolidColorBrush(
                          (Color)ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
-                            brushStatus.Blink = sexe == "Male" ? SettingsCollection["HommeSetting"].Blink : SettingsCollection["FemmeSetting"].Blink;
+                            brushStatus.Blink = sexe == "Masculin" ? SettingsCollection["HommeSetting"].Blink : SettingsCollection["FemmeSetting"].Blink;
                         }
                     }
                 }

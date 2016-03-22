@@ -12,19 +12,14 @@
                 <Value xml:space="preserve"> </Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
               <TextRun>
                 <Value>RENDEZ - VOUS</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>Underline</TextDecoration>
                 </Style>
@@ -40,7 +35,7 @@
                 <Value />
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -52,14 +47,14 @@
                 <Value>Monsieur, Madame  </Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>=Parameters!NomPatient.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -67,7 +62,7 @@
                 <Value xml:space="preserve"> </Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -75,7 +70,7 @@
                 <Value>=Parameters!PrenomParient.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -88,50 +83,14 @@
                 <Value>Vous avez rendez vous de consulatation de Radiothérapie le </Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>=Parameters!DateRdv.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Avec le docteur </Value>
-                <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=Parameters!NomMedecin.Value</Value>
-                <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value xml:space="preserve"> </Value>
-                <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=Parameters!PrenomMedecin.Value</Value>
-                <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -144,7 +103,7 @@
                 <Value />
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -153,17 +112,17 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>- A votre arrivée dans le service: </Value>
+                <Value>    A votre arrivée dans le service: </Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>Adressez vous a l'accueil</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -171,7 +130,7 @@
                 <Value>, et remettez ce document à l'hotesse.</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -180,17 +139,29 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value> - Attendez en salle d'attente </Value>
+                <Value />
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>    Attendez en salle d'attente </Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>(Pour éviter l'encombrement, les accompagnateurs sont priés de rester dans les salles extérieures)</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -198,7 +169,7 @@
                 <Value>.</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -207,17 +178,29 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value> - Vous serez appelé au secrétariat pour l'ouverture du dossier médical. Vous devez présenter : le Livret de famille et un justificatif de votre adresse permanente (Reçu d'électricité). </Value>
+                <Value />
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>    Vous serez appelé au secrétariat pour l'ouverture du dossier médical. Vous devez présenter : le Livret de famille et un justificatif de votre adresse permanente (Reçu d'électricité). </Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>Les informations recueilles doivent étre très précises, afin d'éviter les erreurs.</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>Underline</TextDecoration>
                 </Style>
@@ -231,7 +214,7 @@
                 <Value />
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -240,10 +223,10 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Vous serez ensuite examiné par votre médecin en consultatio, muni de votre dossier médical :</Value>
+                <Value>    Vous serez ensuite examiné par votre médecin en consultatio, muni de votre dossier médical :</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -255,7 +238,7 @@
                 <Value> Dossier radiologique complet (les clichés vous seront restitués)</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -269,7 +252,7 @@
                 <Value> Compte rendu histologique</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -283,7 +266,7 @@
                 <Value> Compte rendu opératoire</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -297,7 +280,7 @@
                 <Value> Tous autre examen</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -311,7 +294,7 @@
                 <Value> CARTE D'IDENTITE</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -325,7 +308,7 @@
                 <Value />
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -334,17 +317,17 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Au terme de cette consultation, votre médecin vous donnera des explication relatives à votre prise en charge en radiothérapie, </Value>
+                <Value>    Au terme de cette consultation, votre médecin vous donnera des explication relatives à votre prise en charge en radiothérapie, </Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>posez lui toutes les questions que vous jugerez utiles</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>Underline</TextDecoration>
                 </Style>
@@ -353,7 +336,7 @@
                 <Value>.</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -361,7 +344,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox9</rd:DefaultName>
-        <Height>5.1389in</Height>
+        <Height>7.7014in</Height>
         <Width>6.64583in</Width>
         <Style>
           <Border>
@@ -374,7 +357,7 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>5.1389in</Height>
+    <Height>7.7014in</Height>
     <Style />
   </Body>
   <Width>6.64583in</Width>

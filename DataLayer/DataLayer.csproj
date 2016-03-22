@@ -92,9 +92,9 @@
     <Compile Include="Enums\TypeUser.cs" />
     <Compile Include="Helpers\ParameterManager.cs" />
     <Compile Include="Helpers\TypeUserUtility.cs" />
-    <Compile Include="Migrations\201512151330383_securityChanges.cs" />
-    <Compile Include="Migrations\201512151330383_securityChanges.Designer.cs">
-      <DependentUpon>201512151330383_securityChanges.cs</DependentUpon>
+    <Compile Include="Migrations\201512311155077_security changes v2.cs" />
+    <Compile Include="Migrations\201512311155077_security changes v2.Designer.cs">
+      <DependentUpon>201512311155077_security changes v2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entities\Adresse.cs" />
@@ -128,8 +128,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512151330383_securityChanges.resx">
-      <DependentUpon>201512151330383_securityChanges.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512311155077_security changes v2.resx">
+      <DependentUpon>201512311155077_security changes v2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
