@@ -2,10 +2,41 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
+             xmlns:chart="http://schemas.syncfusion.com/wpf"
+             
              mc:Ignorable="d" 
-                          d:DesignHeight="500" x:Name="RootPatientPerSexeUserControl" d:DesignWidth="920" DataContext="{Binding PatientsPerSexeChartViewModel,Source={StaticResource Locator}}">
+                          d:DesignHeight="500" x:Name="RootPatientPerSexeUserControl" d:DesignWidth="920" 
+             DataContext="{Binding PatientPerAgeChartViewModel,Source={StaticResource Locator}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientPerAgeLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientPerAgeUnLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
 
+        <DataTemplate x:Key="labelTemplate">
+            <TextBlock Text="{Binding LabelContent}" Foreground="Black"  FontSize="16"/>
+        </DataTemplate>
+
+        <Style TargetType="Line" x:Key="AxisStyle">
+            <Setter Property="Stroke" Value="DarkGray"  />
+            <Setter Property="StrokeThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="Line" x:Key="AxisStyle1">
+            <Setter Property="Stroke" Value="DarkGray"  />
+            <Setter Property="StrokeThickness" Value="0.5"/>
+        </Style>
+
+    </UserControl.Resources>
     <Grid Background="LightPink">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -28,5 +59,54 @@
             <Image Source="{StaticResource ChartLight}" Width="55"/>
             <TextBlock Text="Patient par age" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10 0"/>
         </StackPanel>
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Margin="5" Background="#99eeeeee">
+            <chart:SfChart AreaBorderThickness="0" 
+                       HorizontalAlignment="Center" Grid.RowSpan="2" >
+
+                <chart:SfChart.Header>
+                    <TextBlock FontSize="24" Foreground="Black" 
+                           FontFamily="Segoe UI" 
+                           Margin="0,20,0,10">Nombre des patients par tranches d'age</TextBlock>
+                </chart:SfChart.Header>
+                <chart:SfChart.PrimaryAxis>
+                    <chart:CategoryAxis EnableScrollBar="True"  EnableTouchMode="True"  Header="Tranches d'age" Foreground="Black"  FontSize="20" 
+                                     LabelTemplate="{StaticResource labelTemplate}"
+                                         LabelPlacement="OnTicks" 
+                                        LabelRotationAngle="-90"
+                                        Interval="1"                                        
+                                        Margin="2"
+                                     AxisLineStyle="{StaticResource AxisStyle1}" 
+                                     MajorTickLineStyle="{StaticResource AxisStyle}">
+                    </chart:CategoryAxis>
+                </chart:SfChart.PrimaryAxis>
+
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis FontSize="20" Minimum="0" Interval="1" EnableScrollBar="True" EnableTouchMode="True"
+                                     Header="Nombre des patients" Foreground="Black"
+                                     LabelTemplate="{StaticResource labelTemplate}" 
+                                     AxisLineStyle="{StaticResource AxisStyle}"
+                                     MajorTickLineStyle="{StaticResource AxisStyle}"/>
+                </chart:SfChart.SecondaryAxis>
+
+                <chart:ColumnSeries EnableAnimation="True" Palette="Metro" 
+                                ItemsSource="{Binding PatientPerAgeCollection}"  XBindingPath="Item" 
+                                YBindingPath="ItemsCount" Label="Nombre des patients" ShowTooltip="True" 
+                                chart:ChartTooltip.EnableAnimation="True">
+                    <chart:ColumnSeries.AdornmentsInfo>
+                        <chart:ChartAdornmentInfo AdornmentsPosition="Top" HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" ShowLabel="True" ShowMarker="True">
+                            <chart:ChartAdornmentInfo.LabelTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock Text="{Binding}" Foreground="White" 
+					       FontFamily="Segoe UI" Margin="0,50,0,0" FontSize="20"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </chart:ChartAdornmentInfo.LabelTemplate>
+                        </chart:ChartAdornmentInfo>
+                    </chart:ColumnSeries.AdornmentsInfo>
+                </chart:ColumnSeries>
+            </chart:SfChart>
+        </Grid>
     </Grid>
 </UserControl>

@@ -12,3 +12,8 @@ namespace ControlLibrary.ChartModel
         public double Count { get; set; }
     }
 }
+
+
+
+
+

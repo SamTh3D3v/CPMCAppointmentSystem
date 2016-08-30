@@ -714,8 +714,7 @@
                                                     </Grid.RowDefinitions>
                                                     <TextBlock Text="Code Couleur" VerticalAlignment="Center"/>
                                                     <xctk:ColorPicker Grid.Row="0" SelectedColor="{Binding SettingsCollection[EnfantSetting].Color,Converter={StaticResource FromArgbToColorConverter},Mode=TwoWay}" Grid.Column="1" Margin="30,5,5,5"  
-                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"                                                                                                                                                                                  
-                                            />
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                                                     <ToggleButton Grid.Column="2" Margin="5" IsChecked="{Binding SettingsCollection[EnfantSetting].Blink,Mode=TwoWay}" Grid.Row="0" Background="{StaticResource AccentColorBrush}" Content="Clignoter" Foreground="WhiteSmoke"/>
                                                     <TextBlock Text="Age maximum" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
                                                     <controls:NumericUpDown Margin="30,5,5,5" Minimum="1" Maximum="100"  Value="{Binding SettingsCollection[EnfantSetting].Information,Mode=TwoWay}"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"></controls:NumericUpDown>

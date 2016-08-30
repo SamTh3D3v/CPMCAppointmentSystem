@@ -931,7 +931,7 @@
                                                                             <sys:Boolean>False</sys:Boolean>
                                                                         </Condition.Value>
                                                                     </Condition>
-                                                                </MultiDataTrigger.Conditions>
+                                                                </MultiDataTrigger.Conditions>  
                                                                 <Setter Property="IsEnabled" Value="true" />
                                                             </MultiDataTrigger>
                                                         </Style.Triggers>
