@@ -459,6 +459,48 @@
                                         </syncfusion:TreeViewItemAdv.Items>
                                     </syncfusion:TreeViewItemAdv>
 
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource CentragePath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="Centrage" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="Afficher les dates de centrage" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.CentrageViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="Modifier les dates de centrage" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.CentrageEditAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
+                                    <syncfusion:TreeViewItemAdv >
+                                        <syncfusion:TreeViewItemAdv.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Fill="Black" Stretch="Uniform" Width="15" Height="15" Data="{StaticResource RcpPath}" Margin="2,5,10,0"/>
+                                                <TextBlock Text="RCP" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </syncfusion:TreeViewItemAdv.Header>
+                                        <syncfusion:TreeViewItemAdv.Items>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="Afficher RCP" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.RcpViewAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                            <syncfusion:TreeViewItemAdv IsEditable="False" >
+                                                <syncfusion:TreeViewItemAdv.Header>
+                                                    <CheckBox Content="Modifier RCP" IsChecked="{Binding SelectedUserType.Entity.RolesCollection.RcpEditAllow,Mode=TwoWay}"/>
+                                                </syncfusion:TreeViewItemAdv.Header>
+                                            </syncfusion:TreeViewItemAdv>
+                                        </syncfusion:TreeViewItemAdv.Items>
+                                    </syncfusion:TreeViewItemAdv>
+
 
                                     <syncfusion:TreeViewItemAdv >
                                         <syncfusion:TreeViewItemAdv.Header>

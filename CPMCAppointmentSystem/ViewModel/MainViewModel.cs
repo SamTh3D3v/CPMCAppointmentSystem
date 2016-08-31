@@ -218,6 +218,26 @@ namespace CPMCAppointmentSystem.ViewModel
                     () => InnerFrameNavigationService.NavigateTo(App.NotificationViewKey)));
             }
         }
+        private RelayCommand _centrageCommand;
+        public RelayCommand CentrageCommand
+        {
+            get
+            {
+                return _centrageCommand
+                    ?? (_centrageCommand = new RelayCommand(
+                    () => InnerFrameNavigationService.NavigateTo(App.CentrageViewKey)));
+            }
+        }
+        private RelayCommand _rcpCommand;
+        public RelayCommand RcpCommand
+        {
+            get
+            {
+                return _rcpCommand
+                    ?? (_rcpCommand = new RelayCommand(
+                    () => InnerFrameNavigationService.NavigateTo(App.RcpViewKey)));
+            }
+        }
         private RelayCommand _logCommand;
         public RelayCommand LogCommand
         {

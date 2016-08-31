@@ -32,6 +32,8 @@ namespace CPMCAppointmentSystem
         public static String SpecialityViewKey = "SpecialityView";
         public static String StatisticsViewKey = "StatisticsView";
         public static String NotificationViewKey = "NotificationView";
+        public static String CentrageViewKey = "CentrageView";
+        public static String RcpViewKey = "RcpView";
         public static String LogViewKey = "LogView";
         public static String RecuDeDepotReport = "Reports/RecuDeDepot.rdlc";
         public static String RendezVousReport = "Reports/Rendez_Vous.rdlc";

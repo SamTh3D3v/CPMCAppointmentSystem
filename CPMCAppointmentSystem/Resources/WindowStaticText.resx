@@ -132,6 +132,9 @@
   <data name="Login_UserPassWaterMark" xml:space="preserve">
     <value>Mot de passe</value>
   </data>
+  <data name="MainView_CentrageLabel" xml:space="preserve">
+    <value>Centrage</value>
+  </data>
   <data name="MainView_DoctorsLabel" xml:space="preserve">
     <value>Medecins</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="MainView_PlanificateurLabel" xml:space="preserve">
     <value>Planificateur</value>
+  </data>
+  <data name="MainView_RcpLabel" xml:space="preserve">
+    <value>RCP</value>
   </data>
   <data name="MainView_SettingsLabel" xml:space="preserve">
     <value>Paramètres</value>

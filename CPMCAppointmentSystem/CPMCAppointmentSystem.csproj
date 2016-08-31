@@ -297,6 +297,7 @@
       <DependentUpon>TileItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\CalendarViewModel.cs" />
+    <Compile Include="ViewModel\CentrageViewModel.cs" />
     <Compile Include="ViewModel\DoctorsViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
@@ -306,6 +307,7 @@
     <Compile Include="ViewModel\NotificationViewModel.cs" />
     <Compile Include="ViewModel\PathologiesViewModel.cs" />
     <Compile Include="ViewModel\PatientsViewModel.cs" />
+    <Compile Include="ViewModel\RcpViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\SpecialityViewModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModel.cs" />
@@ -328,6 +330,9 @@
     <Compile Include="View\AppointementViews\ListMedecinToAddView.xaml.cs">
       <DependentUpon>ListMedecinToAddView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CentrageView.xaml.cs">
+      <DependentUpon>CentrageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DoctorsViews\AddRdvFromDoctorsView.xaml.cs">
       <DependentUpon>AddRdvFromDoctorsView.xaml</DependentUpon>
     </Compile>
@@ -348,6 +353,9 @@
     </Compile>
     <Compile Include="View\PatienstViews\PreviewReportView.xaml.cs">
       <DependentUpon>PreviewReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RcpView.xaml.cs">
+      <DependentUpon>RcpView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsViews\AddNewUserTypeView.xaml.cs">
       <DependentUpon>AddNewUserTypeView.xaml</DependentUpon>
@@ -465,6 +473,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CentrageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\DoctorsViews\AddRdvFromDoctorsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -490,6 +502,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PatienstViews\PreviewReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RcpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -645,6 +661,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WindowStaticText.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config">
       <SubType>Designer</SubType>

@@ -1,0 +1,281 @@
+﻿<Page x:Class="CPMCAppointmentSystem.View.CentrageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:command="http://www.galasoft.ch/mvvmlight"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:local="clr-namespace:CPMCAppointmentSystem.View"
+       mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="700" 
+      DataContext="{Binding Source={StaticResource Locator}, Path=CentrageViewModel}"
+      syncfusion:LayoutControl.SetMetroMode="True"
+	 x:Name="RootPage"
+      Title="CentrageView">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=NotificationViewLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=NotificationViewUnLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Margin="0,2,0,-2">
+        <syncfusion:LayoutControl HeaderDescriptionText="Liste des patient en attente de centrage" Name="RootGrid"
+                        HeaderText="Centrage "
+                        LayoutMode="Metro"
+                        UserOptionsVisibility="Visible">
+            <syncfusion:LayoutControl.UserOptionsView>
+                <syncfusion:UserOptions HeaderText="Options" Width="auto">
+                    <GroupBox >
+                        <GroupBox.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Selectionner par date"/>
+                                <CheckBox x:Name="DataFilterCheckBox" Grid.Column="1" IsChecked="{Binding IsFilterCheckActivated,Mode=TwoWay}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Checked">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=ReloadRdvsCommand}"
+                            PassEventArgsToCommand="True" />
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="Unchecked">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=ReloadRdvsCommand}"
+                            PassEventArgsToCommand="True" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </CheckBox>
+                            </Grid>
+                        </GroupBox.Header>
+                        <GroupBox.Content>
+                            <Grid>
+                                <Calendar SelectedDate="{Binding SelectedDateDepo,Mode=TwoWay}" IsEnabled="{Binding IsFilterCheckActivated,Mode=TwoWay}"  VerticalAlignment="Stretch" Name="CalendarFilter" HorizontalAlignment="Stretch" SelectionMode="SingleDate">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectedDatesChanged">
+                                            <command:EventToCommand Command="{Binding Mode=OneWay, Path=ReloadRdvsCommand}"
+                            PassEventArgsToCommand="True" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Calendar>
+                            </Grid>
+                        </GroupBox.Content>
+                    </GroupBox>
+                </syncfusion:UserOptions>
+            </syncfusion:LayoutControl.UserOptionsView>
+            <syncfusion:LayoutControl.GridView>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <syncfusion:SfDataGrid AllowEditing="True" x:Name="SmsDataGrid"
+                                       AllowFiltering="True"
+                                       AutoGenerateColumns="False"
+                                       ColumnSizer="AutoWithLastColumnFill"
+                                        SelectedItem="{Binding SelectedRdv,Mode=TwoWay}"
+                                       IsGroupDropAreaExpanded="True"
+                                       ItemsSource="{Binding Path=PagedSource,
+                                                             ElementName=SmsDataPager}"
+                                           CurrentCellBorderBrush="DarkOrange"
+                                       RowHeight="40"
+                                           RowStyle="{StaticResource RdvRowStyle}"
+                                       NavigationMode="Cell"
+                                       ShowGroupDropArea="True">
+                        <syncfusion:SfDataGrid.Columns>
+                            <syncfusion:GridTextColumn HeaderText="Date" DisplayBinding="{Binding DateTimeRdv,StringFormat='{}{0:dd/MM/yyyy}'}"  AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Lieu" MappingName="LieuRdv"  AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Num D'ordre" MappingName="Patient.NumeroDordre"  AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Patient.Nom" AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Patient.Prenom"  AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Telephone Fixe" MappingName="Patient.TelephoneFixe" AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="Patient.TelephoneMobile1" AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Telephone d'accompagnant" MappingName="Patient.TelephoneDaccompagnant" AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Nom Medecin" MappingName="Medecin.User.UserNom" AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Prenom Medecin" MappingName="Medecin.User.UserPrenom" AllowEditing="False"/>
+                            <syncfusion:GridTemplateColumn HeaderText="Notification envoyé" MappingName="NotificationSent" AllowEditing="False">
+                                <syncfusion:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Width="20"
+                                           Height="20"
+                                           Source="{Binding NotificationSent,Converter={StaticResource SelecteImageConverter}}"
+                                           Stretch="UniformToFill">
+                                        </Image>
+                                    </DataTemplate>
+                                </syncfusion:GridTemplateColumn.CellTemplate>
+                            </syncfusion:GridTemplateColumn>
+                            <syncfusion:GridTemplateColumn HeaderText="Confirmation" MappingName="PatientConfirmRdv" AllowEditing="True">
+                                <syncfusion:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Width="20"
+                                           Height="20"
+                                           Source="{Binding PatientConfirmRdv,Converter={StaticResource SelecteImageConverter}}"
+                                           Stretch="UniformToFill">
+                                        </Image>
+                                    </DataTemplate>
+                                </syncfusion:GridTemplateColumn.CellTemplate>
+                                <syncfusion:GridTemplateColumn.EditTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="Confirmé" HorizontalContentAlignment="Center"  Padding="0" Margin="0" IsChecked="{Binding PatientConfirmRdv,Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </syncfusion:GridTemplateColumn.EditTemplate>
+                            </syncfusion:GridTemplateColumn>
+
+                        </syncfusion:SfDataGrid.Columns>
+                        <syncfusion:SfDataGrid.RecordContextMenu>
+                            <ContextMenu x:Name="RadialContextMenu" >
+                                <ContextMenu.Template>
+                                    <ControlTemplate>
+                                        <!--<syncfusion:SfRadialMenu x:Name="radialMenu" RimBackground="#FF28A5DB" RimRadiusFactor="0.9" 
+                                     IsOpen="True" Background="White" BorderBrush="Green" Padding="5"
+                                     RadiusX="100" RadiusY="100"
+                                     EnableFreeRotation="True" Visibility="Visible" >
+                                            <syncfusion:SfRadialMenu.Icon>
+                                                <Ellipse x:Name="centerRim" Fill="White" Stroke="Black" StrokeThickness="2" Height="30" Width="30"/>
+                                            </syncfusion:SfRadialMenu.Icon>
+                                            <syncfusion:SfRadialMenu.RenderTransform>
+                                                <TranslateTransform x:Name="transform2"/>
+                                            </syncfusion:SfRadialMenu.RenderTransform>
+                                            <syncfusion:SfRadialMenuItem  ShowMouseOverStyle="true"  MenuMouseOverBackgroundColor="LightSkyBlue" >
+                                                <syncfusion:SfRadialMenuItem.Header>
+                                                    <Border Background="Transparent" Padding="5" >
+                                                        <StackPanel Margin="10,10,0,0">
+                                                            <Path Width="25" UseLayoutRounding="False" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="1" Height="25" Fill="Black" Data="{StaticResource SmsPath}" />
+                                                            <TextBlock Text="Sms"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </syncfusion:SfRadialMenuItem.Header>
+                                                <syncfusion:SfRadialMenuItem CheckMode="None"  ShowMouseOverStyle="true"  MenuMouseOverBackgroundColor="LightSkyBlue" Click="SendSmsToPatentClick">
+                                                    <syncfusion:SfRadialMenuItem.Header>
+                                                        <Border Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <Path Height="30" Width="20"  UseLayoutRounding="True" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="1"  Fill="Black" Data="{StaticResource CallMobilePath}"  />
+                                                                <TextBlock Text="Patient"/>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </syncfusion:SfRadialMenuItem.Header>
+                                                </syncfusion:SfRadialMenuItem>
+                                                <syncfusion:SfRadialMenuItem CheckMode="None"  ShowMouseOverStyle="true"  MenuMouseOverBackgroundColor="LightSkyBlue" Click="SendSmsToPatentAccompClick">
+                                                    <syncfusion:SfRadialMenuItem.Header>
+                                                        <Border Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <Path UseLayoutRounding="True" Stretch="fill" RenderTransformOrigin="0.5,0.5" Opacity="1" Width="20" Height="30" Fill="Black" Data="{StaticResource CallMobilePath}" />
+                                                                <TextBlock Text="Accomp"/>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </syncfusion:SfRadialMenuItem.Header>
+                                                </syncfusion:SfRadialMenuItem>
+                                            </syncfusion:SfRadialMenuItem>
+                                            <syncfusion:SfRadialMenuItem   ShowMouseOverStyle="true"   MenuMouseOverBackgroundColor="LightSkyBlue"  >
+                                                <syncfusion:SfRadialMenuItem.Header>
+                                                    <Border Background="Transparent" Padding="5">
+                                                        <StackPanel>
+                                                            <Path Width="20"  UseLayoutRounding="False" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="1" Height="30" Fill="Black" Data="{StaticResource CallMobilePath}" />
+                                                            <TextBlock Text="Mobile"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </syncfusion:SfRadialMenuItem.Header>
+                                                <syncfusion:SfRadialMenuItem IsEnabled="False" CheckMode="None"  ShowMouseOverStyle="true"  MenuMouseOverBackgroundColor="LightSkyBlue" Click="CallPatentClick">
+                                                    <syncfusion:SfRadialMenuItem.Header >
+                                                        <Border Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <Path Height="30" Width="20"  UseLayoutRounding="True" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="1"  Fill="Black" Data="{StaticResource CallMobilePath}"  />
+                                                                <TextBlock Text="Patient"/>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </syncfusion:SfRadialMenuItem.Header>
+                                                </syncfusion:SfRadialMenuItem>
+                                                <syncfusion:SfRadialMenuItem IsEnabled="False" CheckMode="None"  ShowMouseOverStyle="true"  MenuMouseOverBackgroundColor="LightSkyBlue" Click="CallAccompClick">
+                                                    <syncfusion:SfRadialMenuItem.Header>
+                                                        <Border Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <Path UseLayoutRounding="True" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="1" Width="20" Height="30" Fill="Black" Data="{StaticResource CallMobilePath}" />
+                                                                <TextBlock Text="Accomp"/>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </syncfusion:SfRadialMenuItem.Header>
+                                                </syncfusion:SfRadialMenuItem>
+                                            </syncfusion:SfRadialMenuItem>
+                                            <syncfusion:SfRadialMenuItem  ShowMouseOverStyle="true" IsEnabled="False"  Click="CallFixClick" MenuMouseOverBackgroundColor="LightSkyBlue"  >
+                                                <syncfusion:SfRadialMenuItem.Header>
+                                                    <Border Background="Transparent" Padding="5">
+                                                        <StackPanel>
+                                                            <Path Width="20" UseLayoutRounding="False" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="1" Height="30" Fill="Black" Data="{StaticResource CallFixPath}"/>
+                                                            <TextBlock Text="Fix"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </syncfusion:SfRadialMenuItem.Header>
+                                            </syncfusion:SfRadialMenuItem>
+                                        </syncfusion:SfRadialMenu>-->
+                                    </ControlTemplate>
+                                </ContextMenu.Template>
+                            </ContextMenu>
+
+                        </syncfusion:SfDataGrid.RecordContextMenu>
+                    </syncfusion:SfDataGrid>
+                    <syncfusion:SfDataPager x:Name="SmsDataPager"
+                                       Grid.Row="1"                                       
+                                       Height="60"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"
+                                       AccentBackground="#FF53C3D5"
+                                       AccentForeground="White"
+                                       NumericButtonCount="10"
+                                       Orientation="Horizontal"
+                                       PageSize="16"
+                                       Source="{Binding RdvCollectionList}" />
+                </Grid>
+            </syncfusion:LayoutControl.GridView>
+
+        </syncfusion:LayoutControl>
+        <Grid Height="46" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,40,40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Path Data="{StaticResource SimPath}" Grid.Column="1" Stretch="Uniform" Width="46" Height="46" Margin="0" RenderTransformOrigin="0.5,0.5">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <TransformGroup.Children>
+                            <RotateTransform Angle="90" />
+                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                        </TransformGroup.Children>
+                    </TransformGroup>
+                </Path.RenderTransform>
+                <Path.Style>
+                    <Style TargetType="Path">
+                        <Setter Property="Fill" Value="LightGray"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSimActive}" Value="True">
+                                <Setter Property="Fill" Value="{StaticResource AccentColorBrush}"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Path.Style>
+            </Path>
+            <controls:ProgressRing Height="15" Width="15" Margin="2,2,5,2" Grid.Column="0" IsActive="{Binding IsProgressRingActive,Mode=TwoWay}"></controls:ProgressRing>
+            <Button x:Name="BtnRefresh" HorizontalContentAlignment="Center" ToolTip="Refresh" Style="{DynamicResource MetroCircleButtonStyle}"  Command="{Binding RefreshGsmDeviceCommand}"  Margin="5,2,5,2" Width="40" Height="40"  Grid.Column="2">
+                <Path Data="{StaticResource RefreshPath}" Width="20" Height="20" Stretch="Uniform">
+                    <Path.Style>
+                        <Style TargetType="Path">
+                            <Setter Property="Fill" Value="Black"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=BtnRefresh,Path=IsMouseOver}" Value="True">
+                                    <Setter Property="Fill" Value="{StaticResource AccentColorBrush}"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Path.Style>
+                </Path>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

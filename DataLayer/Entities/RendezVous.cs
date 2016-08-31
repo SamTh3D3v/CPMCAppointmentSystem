@@ -30,6 +30,11 @@ namespace DataLayer.Model
         private RdvState _rdvStateValue;
         private bool _blink;
 
+        //Centrage related
+        private DateTime? _arriveeEnPhysiqueDateTime;
+        private DateTime? _sortieDePhysiqueDateTime;
+        private bool _urgent;
+
         #endregion
         #region Properties
 
@@ -183,6 +188,83 @@ namespace DataLayer.Model
                 OnPropertyChanged();
             }
         }
+        
+        private DateTime? _centrageDateTime  ;    
+        public DateTime? CentrageDateTime
+        {
+            get
+            {
+                return _centrageDateTime;
+            }
+
+            set
+            {
+                if (_centrageDateTime == value)
+                {
+                    return;
+                }
+
+                _centrageDateTime = value;
+                OnPropertyChanged();
+            }
+        }
+              
+        public DateTime? ArriveeEnPhysiqueDateTime
+        {
+            get
+            {
+                return _arriveeEnPhysiqueDateTime;
+            }
+
+            set
+            {
+                if (_arriveeEnPhysiqueDateTime == value)
+                {
+                    return;
+                }
+
+                _arriveeEnPhysiqueDateTime = value;
+                OnPropertyChanged();
+            }
+        }        
+        public DateTime? SortieDePhysiqueDateTime               
+        {
+            get
+            {
+                return _sortieDePhysiqueDateTime;
+            }
+
+            set
+            {
+                if (_sortieDePhysiqueDateTime == value)
+                {
+                    return;
+                }
+
+                _sortieDePhysiqueDateTime = value;
+                OnPropertyChanged();
+            }
+        }
+              
+        public bool Urgent
+        {
+            get
+            {
+                return _urgent;
+            }
+
+            set
+            {
+                if (_urgent == value)
+                {
+                    return;
+                }
+
+                _urgent = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         #endregion
         #region INotifyPropertyChanged and IDataErrorInfo related logic

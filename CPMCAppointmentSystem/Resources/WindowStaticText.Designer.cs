@@ -106,6 +106,15 @@ namespace CPMCAppointmentSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Centrage.
+        /// </summary>
+        public static string MainView_CentrageLabel {
+            get {
+                return ResourceManager.GetString("MainView_CentrageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Medecins.
         /// </summary>
         public static string MainView_DoctorsLabel {
@@ -165,6 +174,15 @@ namespace CPMCAppointmentSystem.Resources {
         public static string MainView_PlanificateurLabel {
             get {
                 return ResourceManager.GetString("MainView_PlanificateurLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RCP.
+        /// </summary>
+        public static string MainView_RcpLabel {
+            get {
+                return ResourceManager.GetString("MainView_RcpLabel", resourceCulture);
             }
         }
         

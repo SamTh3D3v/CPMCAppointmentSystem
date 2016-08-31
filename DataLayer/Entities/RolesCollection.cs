@@ -38,6 +38,10 @@ namespace DataLayer.Model
         private bool _statisticsViewAllow;
         private bool _logViewAllow;
         private bool _logEditAllow;
+        private bool _rcpViewAllow;
+        private bool _rcpEditAllow;
+        private bool _centrageViewAllow;
+        private bool _centrageEditAllow;
 
         #endregion
         #region Properties
@@ -333,6 +337,82 @@ namespace DataLayer.Model
             }
         }
 
+        #endregion
+        #region Rcp View                    
+        public bool RcpViewAllow
+        {
+            get
+            {
+                return _rcpViewAllow;
+            }
+
+            set
+            {
+                if (_rcpViewAllow == value)
+                {
+                    return;
+                }
+
+                _rcpViewAllow = value;
+                OnPropertyChanged();
+            }
+        }        
+        public bool RcpEditAllow
+        {
+            get
+            {
+                return _rcpEditAllow;
+            }
+
+            set
+            {
+                if (_rcpEditAllow == value)
+                {
+                    return;
+                }
+
+                _rcpEditAllow = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+        #region CentrageView
+        public bool CentrageViewAllow
+        {
+            get
+            {
+                return _centrageViewAllow;
+            }
+
+            set
+            {
+                if (_centrageViewAllow == value)
+                {
+                    return;
+                }
+
+                _centrageViewAllow = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool CentrageEditAllow
+        {
+            get
+            {
+                return _centrageEditAllow;
+            }
+
+            set
+            {
+                if (_centrageEditAllow == value)
+                {
+                    return;
+                }
+
+                _centrageEditAllow = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
         #endregion
         #region INotifyPropertyChanged related

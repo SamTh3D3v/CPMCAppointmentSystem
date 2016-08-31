@@ -29,6 +29,8 @@ namespace CPMCAppointmentSystem.ViewModel
             SimpleIoc.Default.Register<SettingsViewModel>();
             SimpleIoc.Default.Register<SpecialityViewModel>();
             SimpleIoc.Default.Register<NotificationViewModel>();
+            SimpleIoc.Default.Register<CentrageViewModel>();
+            SimpleIoc.Default.Register<RcpViewModel>();
             SimpleIoc.Default.Register<StatisticsViewModel>();
             SimpleIoc.Default.Register<PatientsPerSexeChartViewModel>();
             SimpleIoc.Default.Register<MedecinPerPathologyChartViewModel>();
@@ -61,6 +63,8 @@ namespace CPMCAppointmentSystem.ViewModel
             InnerFrameNavigationService.Configure(App.SpecialityViewKey, new Uri("../View/SpecialitiesViews/SpecialiteView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.StatisticsViewKey, new Uri("../View/StatisticsView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.NotificationViewKey, new Uri("../View/NotificationView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.CentrageViewKey, new Uri("../View/CentrageView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.RcpViewKey, new Uri("../View/RcpView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.LogViewKey, new Uri("../View/LogViews/LogView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IInnerFrameNavigationService>(() => InnerFrameNavigationService);
         }
@@ -193,6 +197,28 @@ namespace CPMCAppointmentSystem.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<NotificationViewModel>();
+            }
+        }     
+     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public CentrageViewModel CentrageViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CentrageViewModel>();
+            }
+        }
+     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public RcpViewModel RcpViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<RcpViewModel>();
             }
         }
 
