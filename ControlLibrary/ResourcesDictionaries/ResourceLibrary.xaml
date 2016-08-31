@@ -79,7 +79,8 @@
             <converters:ChartColorConverter x:Key="ChartColorConverter"/>
             <converters:LabelConverter x:Key="LabelConverter"/>
             <converters:RdvCollectionToCanPrintConverter x:Key="RdvCollectionToCanPrintConverter"/>
-            <converters:UserTypesCollectionToStringConverter x:Key="UserTypesCollectionToStringConverter"/>            
+            <converters:UserTypesCollectionToStringConverter x:Key="UserTypesCollectionToStringConverter"/>
+            <converters:DaysCountConverter x:Key="DaysCountConverter"/>            
         </ResourceDictionary>
 
 

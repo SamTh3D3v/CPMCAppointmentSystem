@@ -94,7 +94,7 @@
                             <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Patient.Prenom"  AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Telephone Fixe" MappingName="Patient.TelephoneFixe" AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="Patient.TelephoneMobile1" AllowEditing="False"/>
-                            <syncfusion:GridTextColumn HeaderText="Telephone d'accompagnant" MappingName="Patient.TelephoneDaccompagnant" AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Telephone d'accompagnateur" MappingName="Patient.TelephoneDaccompagnant" AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Nom Medecin" MappingName="Medecin.User.UserNom" AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Prenom Medecin" MappingName="Medecin.User.UserPrenom" AllowEditing="False"/>
                             <syncfusion:GridTemplateColumn HeaderText="Notification envoyé" MappingName="NotificationSent" AllowEditing="False">

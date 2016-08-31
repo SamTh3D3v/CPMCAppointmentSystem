@@ -23,7 +23,7 @@ namespace CPMCAppointmentSystem.ViewModel
         #region Fields        
         private bool _allDataLoaded = false;
         private bool _stillInView;
-        private DateTime _selectedDateDepo = DateTime.Now;                
+        private DateTime _selectedDateRdvAvecMedecin = DateTime.Now;                
         private CpmcContext _dbContext = new CpmcContext();
         private ObservableCollection<RendezVous> _rdvCollectionList;
         private RendezVous _selectedRdv;
@@ -49,21 +49,21 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public DateTime SelectedDateDepo
+        public DateTime SelectedDateRdvAvecMedecin
         {
             get
             {
-                return _selectedDateDepo; ;
+                return _selectedDateRdvAvecMedecin; ;
             }
 
             set
             {
-                if (_selectedDateDepo == value)
+                if (_selectedDateRdvAvecMedecin == value)
                 {
                     return;
                 }
 
-                _selectedDateDepo = value;
+                _selectedDateRdvAvecMedecin = value;
                 RaisePropertyChanged();
             }
         }
@@ -168,8 +168,8 @@ namespace CPMCAppointmentSystem.ViewModel
              
 
         private async Task LoadRdvs()
-        {
-            var date = SelectedDateDepo.Date;
+        {            
+            var date = SelectedDateRdvAvecMedecin.Date;
             RdvCollectionList = IsFilterCheckActivated ? new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses.Where(rdv => DbFunctions.TruncateTime(rdv.DateTimeRdv) == date))) : new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
         }
         private RelayCommand _reloadRdvsCommand;

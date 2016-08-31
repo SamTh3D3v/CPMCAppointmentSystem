@@ -17,11 +17,11 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <command:EventToCommand Command="{Binding Mode=OneWay, Path=NotificationViewLoadedCommand}"
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=CentrageViewLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Unloaded">
-            <command:EventToCommand Command="{Binding Mode=OneWay, Path=NotificationViewUnLoadedCommand}"
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=CentrageViewUnLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -57,7 +57,7 @@
                         </GroupBox.Header>
                         <GroupBox.Content>
                             <Grid>
-                                <Calendar SelectedDate="{Binding SelectedDateDepo,Mode=TwoWay}" IsEnabled="{Binding IsFilterCheckActivated,Mode=TwoWay}"  VerticalAlignment="Stretch" Name="CalendarFilter" HorizontalAlignment="Stretch" SelectionMode="SingleDate">
+                                <Calendar SelectedDate="{Binding SelectedDateRdvAvecMedecin,Mode=TwoWay}" IsEnabled="{Binding IsFilterCheckActivated,Mode=TwoWay}"  VerticalAlignment="Stretch" Name="CalendarFilter" HorizontalAlignment="Stretch" SelectionMode="SingleDate">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectedDatesChanged">
                                             <command:EventToCommand Command="{Binding Mode=OneWay, Path=ReloadRdvsCommand}"
@@ -83,51 +83,75 @@
                                         SelectedItem="{Binding SelectedRdv,Mode=TwoWay}"
                                        IsGroupDropAreaExpanded="True"
                                        ItemsSource="{Binding Path=PagedSource,
-                                                             ElementName=SmsDataPager}"
+                                                             ElementName=RdvDataPager}"
                                            CurrentCellBorderBrush="DarkOrange"
                                        RowHeight="40"
                                            RowStyle="{StaticResource RdvRowStyle}"
                                        NavigationMode="Cell"
                                        ShowGroupDropArea="True">
                         <syncfusion:SfDataGrid.Columns>
-                            <syncfusion:GridTextColumn HeaderText="Date" DisplayBinding="{Binding DateTimeRdv,StringFormat='{}{0:dd/MM/yyyy}'}"  AllowEditing="False"/>
-                            <syncfusion:GridTextColumn HeaderText="Lieu" MappingName="LieuRdv"  AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Num D'ordre" MappingName="Patient.NumeroDordre"  AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Nom" MappingName="Patient.Nom" AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Prenom" MappingName="Patient.Prenom"  AllowEditing="False"/>
-                            <syncfusion:GridTextColumn HeaderText="Telephone Fixe" MappingName="Patient.TelephoneFixe" AllowEditing="False"/>
-                            <syncfusion:GridTextColumn HeaderText="Mobile" MappingName="Patient.TelephoneMobile1" AllowEditing="False"/>
-                            <syncfusion:GridTextColumn HeaderText="Telephone d'accompagnant" MappingName="Patient.TelephoneDaccompagnant" AllowEditing="False"/>
+                            <syncfusion:GridTextColumn HeaderText="Pathologie" MappingName="Patient.Pathology.NomPathology"  AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Nom Medecin" MappingName="Medecin.User.UserNom" AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Prenom Medecin" MappingName="Medecin.User.UserPrenom" AllowEditing="False"/>
-                            <syncfusion:GridTemplateColumn HeaderText="Notification envoyé" MappingName="NotificationSent" AllowEditing="False">
+                            <syncfusion:GridTextColumn HeaderText="Rdv medecin"   DisplayBinding="{Binding DateTimeRdv,StringFormat='{}{0:dd/MM/yyyy}'}"  AllowEditing="False"/>
+
+                            <syncfusion:GridTextColumn HeaderText="Urgence" MappingName="Urgent" AllowEditing="True"/>
+
+                            <syncfusion:GridTemplateColumn HeaderText="DATE CENTRAGE" MappingName="CentrageDateTime" AllowEditing="True">
                                 <syncfusion:GridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Width="20"
-                                           Height="20"
-                                           Source="{Binding NotificationSent,Converter={StaticResource SelecteImageConverter}}"
-                                           Stretch="UniformToFill">
-                                        </Image>
-                                    </DataTemplate>
-                                </syncfusion:GridTemplateColumn.CellTemplate>
-                            </syncfusion:GridTemplateColumn>
-                            <syncfusion:GridTemplateColumn HeaderText="Confirmation" MappingName="PatientConfirmRdv" AllowEditing="True">
-                                <syncfusion:GridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Image Width="20"
-                                           Height="20"
-                                           Source="{Binding PatientConfirmRdv,Converter={StaticResource SelecteImageConverter}}"
-                                           Stretch="UniformToFill">
-                                        </Image>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding CentrageDateTime,StringFormat='{}{0:dd/MM/yyyy}'}"/>
                                     </DataTemplate>
                                 </syncfusion:GridTemplateColumn.CellTemplate>
                                 <syncfusion:GridTemplateColumn.EditTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="Confirmé" HorizontalContentAlignment="Center"  Padding="0" Margin="0" IsChecked="{Binding PatientConfirmRdv,Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <syncfusion:DateTimeEdit DateTime="{Binding CentrageDateTime,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}'}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                     </DataTemplate>
                                 </syncfusion:GridTemplateColumn.EditTemplate>
                             </syncfusion:GridTemplateColumn>
-
+                            <syncfusion:GridTemplateColumn HeaderText="DATE ARRIVEE EN PHYSIQUE" MappingName="ArriveeEnPhysiqueDateTime" AllowEditing="True">
+                                <syncfusion:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding ArriveeEnPhysiqueDateTime,StringFormat='{}{0:dd/MM/yyyy}'}"/>
+                                    </DataTemplate>
+                                </syncfusion:GridTemplateColumn.CellTemplate>
+                                <syncfusion:GridTemplateColumn.EditTemplate>
+                                    <DataTemplate>
+                                        <syncfusion:DateTimeEdit DateTime="{Binding ArriveeEnPhysiqueDateTime,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}'}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    </DataTemplate>
+                                </syncfusion:GridTemplateColumn.EditTemplate>
+                            </syncfusion:GridTemplateColumn>
+                            <syncfusion:GridTextColumn HeaderText="⃤ 3"  AllowEditing="False">
+                                <syncfusion:GridTextColumn.ValueBinding>
+                                    <MultiBinding Converter="{StaticResource DaysCountConverter}">
+                                        <Binding Path="CentrageDateTime"/>
+                                        <Binding Path="ArriveeEnPhysiqueDateTime"/>
+                                    </MultiBinding>
+                                </syncfusion:GridTextColumn.ValueBinding>
+                            </syncfusion:GridTextColumn>
+                            <syncfusion:GridTemplateColumn HeaderText="DATE SORTIE DE PHYSIQUE" MappingName="SortieDePhysiqueDateTime" AllowEditing="True">
+                                <syncfusion:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding SortieDePhysiqueDateTime,StringFormat='{}{0:dd/MM/yyyy}'}"/>
+                                    </DataTemplate>
+                                </syncfusion:GridTemplateColumn.CellTemplate>
+                                <syncfusion:GridTemplateColumn.EditTemplate>
+                                    <DataTemplate>
+                                        <syncfusion:DateTimeEdit DateTime="{Binding SortieDePhysiqueDateTime,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}'}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    </DataTemplate>
+                                </syncfusion:GridTemplateColumn.EditTemplate>
+                            </syncfusion:GridTemplateColumn>
+                            <syncfusion:GridTextColumn HeaderText="⃤ 4"  AllowEditing="False">
+                                <syncfusion:GridTextColumn.ValueBinding>
+                                    <MultiBinding Converter="{StaticResource DaysCountConverter}">
+                                        <Binding Path="ArriveeEnPhysiqueDateTime"/>
+                                        <Binding Path="SortieDePhysiqueDateTime"/>
+                                    </MultiBinding>
+                                </syncfusion:GridTextColumn.ValueBinding>
+                            </syncfusion:GridTextColumn>
                         </syncfusion:SfDataGrid.Columns>
                         <syncfusion:SfDataGrid.RecordContextMenu>
                             <ContextMenu x:Name="RadialContextMenu" >
@@ -220,7 +244,7 @@
 
                         </syncfusion:SfDataGrid.RecordContextMenu>
                     </syncfusion:SfDataGrid>
-                    <syncfusion:SfDataPager x:Name="SmsDataPager"
+                    <syncfusion:SfDataPager x:Name="RdvDataPager"
                                        Grid.Row="1"                                       
                                        Height="60"
                                        HorizontalAlignment="Right"
@@ -235,47 +259,5 @@
             </syncfusion:LayoutControl.GridView>
 
         </syncfusion:LayoutControl>
-        <Grid Height="46" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,40,40">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Path Data="{StaticResource SimPath}" Grid.Column="1" Stretch="Uniform" Width="46" Height="46" Margin="0" RenderTransformOrigin="0.5,0.5">
-                <Path.RenderTransform>
-                    <TransformGroup>
-                        <TransformGroup.Children>
-                            <RotateTransform Angle="90" />
-                            <ScaleTransform ScaleX="1" ScaleY="1" />
-                        </TransformGroup.Children>
-                    </TransformGroup>
-                </Path.RenderTransform>
-                <Path.Style>
-                    <Style TargetType="Path">
-                        <Setter Property="Fill" Value="LightGray"></Setter>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsSimActive}" Value="True">
-                                <Setter Property="Fill" Value="{StaticResource AccentColorBrush}"></Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Path.Style>
-            </Path>
-            <controls:ProgressRing Height="15" Width="15" Margin="2,2,5,2" Grid.Column="0" IsActive="{Binding IsProgressRingActive,Mode=TwoWay}"></controls:ProgressRing>
-            <Button x:Name="BtnRefresh" HorizontalContentAlignment="Center" ToolTip="Refresh" Style="{DynamicResource MetroCircleButtonStyle}"  Command="{Binding RefreshGsmDeviceCommand}"  Margin="5,2,5,2" Width="40" Height="40"  Grid.Column="2">
-                <Path Data="{StaticResource RefreshPath}" Width="20" Height="20" Stretch="Uniform">
-                    <Path.Style>
-                        <Style TargetType="Path">
-                            <Setter Property="Fill" Value="Black"></Setter>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=BtnRefresh,Path=IsMouseOver}" Value="True">
-                                    <Setter Property="Fill" Value="{StaticResource AccentColorBrush}"></Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Path.Style>
-                </Path>
-            </Button>
-        </Grid>
     </Grid>
 </Page>
