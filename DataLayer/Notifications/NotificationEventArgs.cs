@@ -12,6 +12,7 @@ namespace DataLayer.Notifications
         public NotificationEventArgs(List<T> newResult)
         {
             NewResult = newResult;
+
         }
         public List<T> NewResult { get; private set; }
     }
