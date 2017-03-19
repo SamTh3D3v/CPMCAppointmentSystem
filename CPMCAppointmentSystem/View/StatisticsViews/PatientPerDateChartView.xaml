@@ -124,7 +124,7 @@
 
                 <chart:SfChart.SecondaryAxis>
                     <chart:NumericalAxis FontSize="20" Minimum="0" Interval="1" EnableScrollBar="True"  EnableTouchMode="True"
-                                     Header="Nombre des medecins" Foreground="Black"                                         
+                                     Header="Nombre des patients" Foreground="Black"                                         
                                      LabelTemplate="{StaticResource LabelTemplate}" 
                                      AxisLineStyle="{StaticResource AxisStyle}"
                                      MajorTickLineStyle="{StaticResource AxisStyle}"/>

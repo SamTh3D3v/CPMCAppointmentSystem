@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CPMCAppointmentSystem.View.StatisticsViews
 {
     /// <summary>
-    /// Interaction logic for NombreDesPatientPerDateChartView.xaml
+    /// Interaction logic for NombreDesPatientPerRCDChartView.xaml
     /// </summary>
-    public partial class NombreDesPatientPerDateChartView : UserControl
+    public partial class NombreDesPatientPerRcdChartView : UserControl
     {
-        public NombreDesPatientPerDateChartView()
+        public NombreDesPatientPerRcdChartView()
         {
             InitializeComponent();
         }

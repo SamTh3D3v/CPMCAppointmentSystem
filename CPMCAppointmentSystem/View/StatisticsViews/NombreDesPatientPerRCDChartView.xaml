@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CPMCAppointmentSystem.View.StatisticsViews.NombreDesPatientPerDateChartView"
+﻿<UserControl x:Class="CPMCAppointmentSystem.View.StatisticsViews.NombreDesPatientPerRcdChartView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -26,7 +26,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="45 5" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Image Source="{StaticResource ChartLight}" Width="55"/>
-            <TextBlock Text="Nombre des patients par date" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10 0"/>
+            <TextBlock Text="Nombre des patients par RCP" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10 0"/>
         </StackPanel>
     </Grid>
 </UserControl>

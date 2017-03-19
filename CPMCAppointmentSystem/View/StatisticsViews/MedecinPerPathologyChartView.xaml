@@ -68,6 +68,11 @@
                 </chart:SfChart.Header>
                 <chart:SfChart.PrimaryAxis>
                     <chart:CategoryAxis  Header="Pathologies" Foreground="Black"  FontSize="20" 
+                                         EnableScrollBar="True"  EnableTouchMode="True"
+                                          LabelPlacement="OnTicks" 
+                                        LabelRotationAngle="-90"
+                                        Interval="1"                                        
+                                        Margin="2"
                                      LabelTemplate="{StaticResource LabelTemplate}"
                                      AxisLineStyle="{StaticResource AxisStyle1}" 
                                      MajorTickLineStyle="{StaticResource AxisStyle}">
@@ -75,7 +80,8 @@
                 </chart:SfChart.PrimaryAxis>
 
                 <chart:SfChart.SecondaryAxis>
-                    <chart:NumericalAxis FontSize="20" Minimum="0" Maximum="40" Interval="5"  
+                    <chart:NumericalAxis
+                                         FontSize="20" Minimum="0" Interval="1" EnableScrollBar="True" EnableTouchMode="True"
                                      Header="Nombre des medecins" Foreground="Black"
                                      LabelTemplate="{StaticResource LabelTemplate}" 
                                      AxisLineStyle="{StaticResource AxisStyle}"

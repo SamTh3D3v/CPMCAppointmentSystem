@@ -417,8 +417,8 @@
     <Compile Include="View\StatisticsViews\MoyenneDateDepotDateRdvChartView.xaml.cs">
       <DependentUpon>MoyenneDateDepotDateRdvChartView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\StatisticsViews\NombreDesPatientPerDateChartView.xaml.cs">
-      <DependentUpon>NombreDesPatientPerDateChartView.xaml</DependentUpon>
+    <Compile Include="View\StatisticsViews\NombreDesPatientPerRCDChartView.xaml.cs">
+      <DependentUpon>NombreDesPatientPerRCDChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StatisticsViews\PathologyPerPatientSexeChartView.xaml.cs">
       <DependentUpon>PathologyPerPatientSexeChartView.xaml</DependentUpon>
@@ -589,7 +589,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\StatisticsViews\NombreDesPatientPerDateChartView.xaml">
+    <Page Include="View\StatisticsViews\NombreDesPatientPerRCDChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
