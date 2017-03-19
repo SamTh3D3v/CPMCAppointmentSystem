@@ -104,7 +104,7 @@
         </StackPanel>
         <Grid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Margin="5" Background="#99eeeeee">
             <chart:SfChart AreaBorderThickness="0" 
-                       HorizontalAlignment="Center" Grid.RowSpan="2">
+                       HorizontalAlignment="Center" Grid.RowSpan="2" >
 
                 <chart:SfChart.Header>
                     <TextBlock FontSize="24" Foreground="Black" 
@@ -112,7 +112,10 @@
                            Margin="0,20,0,10">Nombre des patient par date</TextBlock>
                 </chart:SfChart.Header>
                 <chart:SfChart.PrimaryAxis>
-                    <chart:CategoryAxis  Header="Date" Foreground="Black"  FontSize="20" 
+                    <chart:CategoryAxis  Header="Date" Foreground="Black"  FontSize="20" EnableScrollBar="True"  EnableTouchMode="True"
+                                         LabelPlacement="OnTicks" 
+                                        LabelRotationAngle="-90"
+                                         Interval="1"  
                                      LabelTemplate="{StaticResource LabelTemplate}"
                                      AxisLineStyle="{StaticResource AxisStyle1}" 
                                      MajorTickLineStyle="{StaticResource AxisStyle}">
@@ -120,16 +123,16 @@
                 </chart:SfChart.PrimaryAxis>
 
                 <chart:SfChart.SecondaryAxis>
-                    <chart:NumericalAxis FontSize="20" Minimum="0" Maximum="40" Interval="5"  
-                                     Header="Nombre des medecins" Foreground="Black"
+                    <chart:NumericalAxis FontSize="20" Minimum="0" Interval="1" EnableScrollBar="True"  EnableTouchMode="True"
+                                     Header="Nombre des medecins" Foreground="Black"                                         
                                      LabelTemplate="{StaticResource LabelTemplate}" 
                                      AxisLineStyle="{StaticResource AxisStyle}"
                                      MajorTickLineStyle="{StaticResource AxisStyle}"/>
                 </chart:SfChart.SecondaryAxis>
 
                 <chart:ColumnSeries EnableAnimation="True" Palette="Metro" 
-                                ItemsSource="{Binding PatientPerDateCollection}"  XBindingPath="Field" 
-                                YBindingPath="Count" Label="Nombre des medecins" ShowTooltip="True" 
+                                ItemsSource="{Binding PatientPerDateCollection,Mode=TwoWay}"  XBindingPath="Field" 
+                                YBindingPath="Count" Label="Nombre des patients" ShowTooltip="True"
                                 chart:ChartTooltip.EnableAnimation="True">
                     <chart:ColumnSeries.AdornmentsInfo>
                         <chart:ChartAdornmentInfo AdornmentsPosition="Top" HorizontalAlignment="Center" 
