@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="Audit\ParentAttribute.cs" />
     <Compile Include="Entities\Parameter.cs" />
+    <Compile Include="Entities\RCP.cs" />
     <Compile Include="Enums\AuditAction.cs" />
     <Compile Include="Enums\Days.cs" />
     <Compile Include="Enums\ParameterNames.cs" />
