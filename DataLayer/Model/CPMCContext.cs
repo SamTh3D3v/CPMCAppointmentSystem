@@ -45,6 +45,7 @@ namespace DataLayer.Model
         public DbSet<SchedulerSetting> SchedulerSettings { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Parameter> Parameters { get; set; }
+        public DbSet<RCP> Rcps { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

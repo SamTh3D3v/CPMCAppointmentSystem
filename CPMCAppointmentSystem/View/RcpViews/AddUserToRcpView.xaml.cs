@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CPMCAppointmentSystem.View
+namespace CPMCAppointmentSystem.View.RcpViews
 {
     /// <summary>
-    /// Interaction logic for RcpView.xaml
+    /// Interaction logic for AddUserToRcpView.xaml
     /// </summary>
-    public partial class RcpView : Page
+    public partial class AddUserToRcpView : Window
     {
-        public RcpView()
+        public AddUserToRcpView()
         {
             InitializeComponent();
         }

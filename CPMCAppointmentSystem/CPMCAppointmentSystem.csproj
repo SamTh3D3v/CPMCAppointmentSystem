@@ -354,7 +354,13 @@
     <Compile Include="View\PatienstViews\PreviewReportView.xaml.cs">
       <DependentUpon>PreviewReportView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RcpView.xaml.cs">
+    <Compile Include="View\RcpViews\AddPatientToRcpView.xaml.cs">
+      <DependentUpon>AddPatientToRcpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RcpViews\AddUserToRcpView.xaml.cs">
+      <DependentUpon>AddUserToRcpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RcpViews\RcpView.xaml.cs">
       <DependentUpon>RcpView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsViews\AddNewUserTypeView.xaml.cs">
@@ -505,7 +511,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RcpView.xaml">
+    <Page Include="View\RcpViews\AddPatientToRcpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RcpViews\AddUserToRcpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RcpViews\RcpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
