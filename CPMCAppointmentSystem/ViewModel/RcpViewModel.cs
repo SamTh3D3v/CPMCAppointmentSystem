@@ -20,8 +20,7 @@ namespace CPMCAppointmentSystem.ViewModel
     public class RcpViewModel: NavigableViewModelBase
     {
         #region Fields
-        private bool _allDataLoaded = false;
-        private AddUserToRcpView _addUserToRcpView;
+        private bool _allDataLoaded = false;        
         private AddPatientToRcpView _addPatientToRcpView;
         private AddUserToRcpView _addParticipantsToRcpView;
         private CpmcContext _dbContext;
@@ -86,40 +85,10 @@ namespace CPMCAppointmentSystem.ViewModel
                 _selectedRcp = value;
                 RaisePropertyChanged();
             }
-        }       
+        }
 
         #endregion
         #region Commands
-        private RelayCommand _addRcpCommand;
-        public RelayCommand AddRcpCommand
-        {
-            get
-            {
-                return _addRcpCommand
-                    ?? (_addRcpCommand = new RelayCommand(
-                    () =>
-                    {
-                        SelectedRcp = new RCP()
-                        {
-                            Patients = new ObservableCollection<Patient>(),
-                            Participants = new ObservableCollection<User>()
-                        };
-                    }));
-            }
-        }
-        private RelayCommand _addParticipantToRcp;
-        public RelayCommand AddParticipantToRcp
-        {
-            get
-            {
-                return _addParticipantToRcp
-                    ?? (_addParticipantToRcp = new RelayCommand(
-                    () =>
-                    {
-                      
-                    }));
-            }
-        }
         private RelayCommand _rcpViewLoadedCommand;
         public RelayCommand RcpViewLoadedCommand
         {
@@ -152,6 +121,36 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand _addRcpCommand;
+        public RelayCommand AddRcpCommand
+        {
+            get
+            {
+                return _addRcpCommand
+                    ?? (_addRcpCommand = new RelayCommand(
+                    () =>
+                    {
+                        SelectedRcp = new RCP()
+                        {
+                            Patients = new ObservableCollection<Patient>(),
+                            Participants = new ObservableCollection<User>()
+                        };
+                    }));
+            }
+        }
+        private RelayCommand _addParticipantToRcp;
+        public RelayCommand AddParticipantToRcp
+        {
+            get
+            {
+                return _addParticipantToRcp
+                    ?? (_addParticipantToRcp = new RelayCommand(
+                    () =>
+                    {
+                      
+                    }));
+            }
+        }        
         private RelayCommand _saveRcpCommand;
         public RelayCommand SaveRcpCommand
         {

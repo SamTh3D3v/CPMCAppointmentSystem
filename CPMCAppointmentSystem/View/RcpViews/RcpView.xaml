@@ -12,11 +12,11 @@
 	Title="RcpView">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <command:EventToCommand Command="{Binding Mode=OneWay, Path=RCPViewLoadedCommand}"
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=RcpViewLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Unloaded">
-            <command:EventToCommand Command="{Binding Mode=OneWay, Path=RCPViewUnLoadedCommand}"
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=RcpViewUnLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -28,7 +28,7 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Background="{StaticResource NavigationPanelBackgroundBrush}">
-            <!--the list of patients Grid-->
+            <!--the list of rcp Grid-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -38,8 +38,8 @@
                 <RowDefinition Height="10"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Margin="20,0,0,0" Text="Specialities" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" />
-            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddSpecialityCommand}">
+            <TextBlock Margin="20,0,0,0" Text="RCPs" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="0" />
+            <Button Grid.Row="0" Grid.Column="1"  Margin="10" Command="{Binding AddRcpCommand}">
                 <Button.Content>
                     <Image Source="{StaticResource AddNewDark}" Width="40" Height="40" ></Image>
                 </Button.Content>
@@ -50,12 +50,12 @@
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding SpecialityList}"
-                                   SelectedItem="{Binding SelectedSpeciality,Mode=TwoWay}"
+                                       ItemsSource="{Binding RcpList}"
+                                   SelectedItem="{Binding SelectedRcp,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
                 <Syncfusion:SfDataGrid.Columns>
-                    <Syncfusion:GridTextColumn HeaderText="Designation" MappingName="Name" />
-                    <Syncfusion:GridTextColumn HeaderText="Code du spécialité" MappingName="Code" />
+                    <Syncfusion:GridTextColumn HeaderText="Date" MappingName="DateTimeRcp" />
+                    <Syncfusion:GridTextColumn HeaderText="Désignation" MappingName="RcpTitle" />
                     <Syncfusion:GridTextColumn HeaderText="Description" MappingName="Description"/>
                 </Syncfusion:SfDataGrid.Columns>
             </Syncfusion:SfDataGrid>
@@ -85,17 +85,30 @@
                 </Grid.RowDefinitions>
                 <Image Source="{StaticResource SpecialityDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="Nom" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfTextBoxExt  Watermark="Nom du specilaité" x:Name="TxtEditNomSpec" 
-                                           Grid.Column="1" Text="{Binding SelectedSpeciality.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="Désignation" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <Syncfusion:SfTextBoxExt  Watermark="Désignation du rcp" x:Name="TxtEditNomDesRcp" 
+                                           Grid.Column="1" Text="{Binding SelectedRcp.RcpTitle,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="Code" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfTextBoxExt Watermark="Code du specialité"  x:Name="TxtEditCodeSpec" 
-                                         Text="{Binding SelectedSpeciality.Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" 
-                                         Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Date" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                <DatePicker  Name="DatePickerRcpDate" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                             SelectedDate="{Binding SelectedRcp.DateTimeRcp,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}',UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" >
+                    <DatePicker.Style>
+                        <Style TargetType="DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">
+                            <Setter Property="Background" Value="White" ></Setter>
+                            <Setter Property="BorderBrush" Value="#ffadb2b5"></Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="#fff4f4f4"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+
+                    </DatePicker.Style>
+
+                </DatePicker>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Description" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfTextBoxExt Watermark="Description du spécialité" x:Name="DescriptionBox" Text="{Binding SelectedSpeciality.Description,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2"  Height="Auto" />
+                <Syncfusion:SfTextBoxExt Watermark="Description du réunion" x:Name="DescriptionBox" Text="{Binding SelectedRcp.Description,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"  Grid.RowSpan="2"  Height="Auto" />
 
                 <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
@@ -103,7 +116,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveSpecialityCommand}" >
+                    <Button Grid.Column="0"  Margin="2" Command="{Binding SaveRcpCommand}" >
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
@@ -116,7 +129,7 @@
                                 <Style.Triggers>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding ElementName=TxtEditNomSpec, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditNomDesRcp, Path=(Validation.HasError)}" Value="false" />
                                             <Condition Binding="{Binding ElementName=TxtEditCodeSpec, Path=(Validation.HasError)}" Value="false" />
                                             <Condition>
                                                 <Condition.Binding>
