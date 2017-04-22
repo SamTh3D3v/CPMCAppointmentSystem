@@ -64,7 +64,7 @@ namespace CPMCAppointmentSystem.ViewModel
             InnerFrameNavigationService.Configure(App.StatisticsViewKey, new Uri("../View/StatisticsView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.NotificationViewKey, new Uri("../View/NotificationView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.CentrageViewKey, new Uri("../View/CentrageView.xaml", UriKind.Relative));
-            InnerFrameNavigationService.Configure(App.RcpViewKey, new Uri("../View/RcpView.xaml", UriKind.Relative));
+            InnerFrameNavigationService.Configure(App.RcpViewKey, new Uri("../View/RcpViews/RcpView.xaml", UriKind.Relative));
             InnerFrameNavigationService.Configure(App.LogViewKey, new Uri("../View/LogViews/LogView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IInnerFrameNavigationService>(() => InnerFrameNavigationService);
         }

@@ -86,11 +86,12 @@
                 <Image Source="{StaticResource SpecialityDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Désignation" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <Syncfusion:SfTextBoxExt  Watermark="Désignation du rcp" x:Name="TxtEditNomDesRcp" 
-                                           Grid.Column="1" Text="{Binding SelectedRcp.RcpTitle,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <Syncfusion:SfTextBoxExt  Watermark="Désignation du rcp" x:Name="TxtEditDesignationRcp" 
+                                           Grid.Column="1" Text="{Binding SelectedRcp.RcpTitle,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" 
+                                          Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Date" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <DatePicker  Name="DatePickerRcpDate" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                <DatePicker  Name="DatePickerRcpDate" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
                              SelectedDate="{Binding SelectedRcp.DateTimeRcp,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}',UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" >
                     <DatePicker.Style>
                         <Style TargetType="DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">
@@ -129,11 +130,12 @@
                                 <Style.Triggers>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding ElementName=TxtEditNomDesRcp, Path=(Validation.HasError)}" Value="false" />
-                                            <Condition Binding="{Binding ElementName=TxtEditCodeSpec, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=TxtEditDesignationRcp, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=DatePickerRcpDate, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=DescriptionBox, Path=(Validation.HasError)}" Value="false" />
                                             <Condition>
                                                 <Condition.Binding>
-                                                    <Binding Path="SelectedSpeciality" Converter="{StaticResource IsValueEqualToParameterConverter}">
+                                                    <Binding Path="SelectedRcp" Converter="{StaticResource IsValueEqualToParameterConverter}">
                                                         <Binding.ConverterParameter>
                                                             <x:Null/>
                                                         </Binding.ConverterParameter>
@@ -150,7 +152,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteSpecialityCommand}">
+                    <Button Grid.Column="1"  Margin="2" Command="{Binding DeleteRcpCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource DeleteDark}" Width="20" Height="20" />
@@ -161,7 +163,7 @@
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="IsEnabled" Value="True" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedSpeciality.SpecialiteId}">
+                                    <DataTrigger Binding="{Binding SelectedRcp.RcpId}">
                                         <DataTrigger.Value>
                                             <system:Guid>00000000-0000-0000-0000-000000000000</system:Guid>
                                         </DataTrigger.Value>
@@ -171,7 +173,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Button Grid.Column="2"  Margin="2" Command="{Binding CancelSpecialityChangesCommand}" >
+                    <Button Grid.Column="2"  Margin="2" Command="{Binding CancelRcpChangesCommand}" >
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
@@ -188,7 +190,7 @@
                                   CloseButtonType="Hide" ShowTabItemContextMenu="False"
                                   ShowTabListContextMenu="False" TabStripPlacement="Left" TabItemSelectedBackground="{Binding IsFormEnabled,Converter={StaticResource IsFormEnabledToSelectedTabBackGround}}">
 
-                    <Syncfusion:TabItemExt  MinHeight="35" x:Name="DoctorsTab">
+                    <Syncfusion:TabItemExt  MinHeight="35" x:Name="ParticipantsTab">
                         <Syncfusion:TabItemExt.HeaderTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -197,7 +199,7 @@
                                         <RowDefinition Height="2"/>
                                     </Grid.RowDefinitions>
                                     <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
-                                    <TextBlock Grid.Row="0" Text="Medecins"></TextBlock>
+                                    <TextBlock Grid.Row="0" Text="Participants"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </Syncfusion:TabItemExt.HeaderTemplate>
@@ -212,7 +214,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding AddDoctorToSpeciality}">
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding AddParticipantToRcp}">
                                     <Button.Style>
                                         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                                             <Setter Property="IsEnabled" Value="False"/>
@@ -221,7 +223,7 @@
                                                     <MultiDataTrigger.Conditions>
                                                         <Condition>
                                                             <Condition.Binding>
-                                                                <Binding Path="DataContext.SelectedSpeciality.SpecialiteId" ElementName="GridRoot" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:Guid.Empty}"/>
+                                                                <Binding Path="DataContext.SelectedRcp.RcpId" ElementName="GridRoot" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:Guid.Empty}"/>
                                                             </Condition.Binding>
                                                             <Condition.Value>
                                                                 <system:Boolean>False</system:Boolean>
@@ -237,7 +239,77 @@
                                         <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
                                     </Button.Content>
                                 </Button>
-                                <TextBlock Margin="20,0,0,0" Text="Medecins" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                                <TextBlock Margin="20,0,0,0" Text="Participants" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
+                                <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
+
+                                <Syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                       AllowDraggingColumns="True"
+                                       AllowEditing="False"
+                                       AllowFiltering="True"
+                                       ColumnSizer="AutoWithLastColumnFill"
+                                       AllowGrouping="True"
+                                       ItemsSource="{Binding SelectedRcp.Participants}"
+                                   SelectedItem="{Binding SelectedParticipant,Mode=TwoWay}"
+                                       ShowGroupDropArea="True" >
+                                    <Syncfusion:SfDataGrid.Columns>
+                                        <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
+                                        <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom"  />
+                                    </Syncfusion:SfDataGrid.Columns>
+                                </Syncfusion:SfDataGrid>
+
+                            </Grid>
+                        </Syncfusion:TabItemExt.Content>
+                    </Syncfusion:TabItemExt>
+                    <Syncfusion:TabItemExt  MinHeight="35" x:Name="PatientsTab">
+                        <Syncfusion:TabItemExt.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="2"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.Row="1" Fill="Black"></Rectangle>
+                                    <TextBlock Grid.Row="0" Text="Patients"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </Syncfusion:TabItemExt.HeaderTemplate>
+                        <Syncfusion:TabItemExt.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding AddPatientsToRcp}">
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition>
+                                                            <Condition.Binding>
+                                                                <Binding Path="DataContext.SelectedRcp.RcpId" ElementName="GridRoot" Converter="{StaticResource IsValueEqualToParameterConverter}" ConverterParameter="{x:Static system:Guid.Empty}"/>
+                                                            </Condition.Binding>
+                                                            <Condition.Value>
+                                                                <system:Boolean>False</system:Boolean>
+                                                            </Condition.Value>
+                                                        </Condition>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="IsEnabled" Value="True"/>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Content>
+                                        <Image Source="{StaticResource AddNewDark}" Width="25" Height="25" ></Image>
+                                    </Button.Content>
+                                </Button>
+                                <TextBlock Margin="20,0,0,0" Text="Patients" Style="{StaticResource TitleTextBlockStyle}" Grid.Row="0" Grid.Column="1" />
                                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1" Fill="LightGray" Margin="10,0,10,0"/>
 
                                 <Syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
@@ -245,13 +317,15 @@
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
-                                       ItemsSource="{Binding SelectedSpeciality.Medecins}"
-                                   SelectedItem="{Binding SelectedDoctor,Mode=TwoWay}"
+                                       ItemsSource="{Binding SelectedRcp.Patients}"
+                                   SelectedItem="{Binding SelectedPatient,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
                                     <Syncfusion:SfDataGrid.Columns>
+                                        <Syncfusion:GridTextColumn  HeaderText="Numéro d'ordre" MappingName="NumeroDordre"/>
                                         <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
-                                        <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom" />
-                                        <Syncfusion:GridTextColumn HeaderText="Mobile" MappingName="TelephoneMobile"/>
+                                        <Syncfusion:GridTextColumn HeaderText="Prénom" MappingName="User.UserPrenom" />
+                                        <Syncfusion:GridTextColumn HeaderText="Date de dépot" DisplayBinding="{Binding Path=DateDeDepot,
+                                                                            StringFormat='{}{0:dd/MM/yyyy}'}"/>
                                     </Syncfusion:SfDataGrid.Columns>
                                 </Syncfusion:SfDataGrid>
 
@@ -260,16 +334,6 @@
                     </Syncfusion:TabItemExt>
 
 
-                    <!--<Syncfusion:TabControlExt.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Header}"/>
-                        </DataTemplate>
-                    </Syncfusion:TabControlExt.ItemTemplate>
-                    <Syncfusion:TabControlExt.ContentTemplate>
-                        <DataTemplate>
-                            <local:Weather BorderBrush="{Binding ElementName=options, Path=BorderBrush}" x:Name="weather"/>
-                        </DataTemplate>
-                    </Syncfusion:TabControlExt.ContentTemplate>-->
                 </Syncfusion:TabControlExt>
             </Grid>
 

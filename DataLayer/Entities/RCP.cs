@@ -18,7 +18,7 @@ using DataLayer.Annotations;
 namespace DataLayer.Model
 {
     [Table("RCP")]
-    public class RCP : INotifyPropertyChanged
+    public class RCP : INotifyPropertyChanged,IDataErrorInfo
     {
         #region Fields    
         private DateTime _dateTimeRcp;
@@ -72,7 +72,7 @@ namespace DataLayer.Model
             }
         }
         #endregion
-        #region INotifyPropertyChanged related
+        #region INotifyPropertyChanged and IDataErrorInfo related logic
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -83,5 +83,26 @@ namespace DataLayer.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "RcpTitle")
+                {
+                    if (String.IsNullOrEmpty(RcpTitle))
+                        return "Spécifier un identifiant pour la réunion";                  
+                }
+              
+                if (columnName == "DateTimeRcp")
+                {
+                    if (DateTimeRcp.Date < DateTime.Today.Date)
+                        return "Spécifier une date valide";                                   
+                }
+                return String.Empty;
+            }
+        }
+
+        public string Error => String.Empty;
     }
 }

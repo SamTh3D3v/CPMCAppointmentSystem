@@ -27,11 +27,10 @@ namespace CPMCAppointmentSystem.ViewModel
         private ObservableCollection<RCP> _rcpList;
         private RCP _selectedRcp;
         private bool _isFormEnabled;
-        
+        private User _selectedParticipant;
+        private Patient _selectedPatient;
         #endregion
-        #region Properties
-       
-       
+        #region Properties     
         public bool IsFormEnabled
         {
             get
@@ -85,8 +84,43 @@ namespace CPMCAppointmentSystem.ViewModel
                 _selectedRcp = value;
                 RaisePropertyChanged();
             }
-        }
+        }    
+        public User SelectedParticipant
+        {
+            get
+            {
+                return _selectedParticipant;
+            }
 
+            set
+            {
+                if (_selectedParticipant == value)
+                {
+                    return;
+                }
+
+                _selectedParticipant = value;
+                RaisePropertyChanged();
+            }
+        }               
+        public Patient SelectedPatient
+        {
+            get
+            {
+                return _selectedPatient;
+            }
+
+            set
+            {
+                if (_selectedPatient == value)
+                {
+                    return;
+                }
+
+                _selectedPatient = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
         #region Commands
         private RelayCommand _rcpViewLoadedCommand;
@@ -133,7 +167,9 @@ namespace CPMCAppointmentSystem.ViewModel
                         SelectedRcp = new RCP()
                         {
                             Patients = new ObservableCollection<Patient>(),
-                            Participants = new ObservableCollection<User>()
+                            Participants = new ObservableCollection<User>(),
+                            DateTimeRcp = DateTime.Now
+
                         };
                     }));
             }
@@ -145,6 +181,19 @@ namespace CPMCAppointmentSystem.ViewModel
             {
                 return _addParticipantToRcp
                     ?? (_addParticipantToRcp = new RelayCommand(
+                    () =>
+                    {
+                      
+                    }));
+            }
+        }
+        private RelayCommand _addPartientsToRcp;
+        public RelayCommand AddPatientsToRcp
+        {
+            get
+            {
+                return _addPartientsToRcp
+                    ?? (_addPartientsToRcp = new RelayCommand(
                     () =>
                     {
                       

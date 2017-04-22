@@ -931,7 +931,7 @@
                                                                             <sys:Boolean>False</sys:Boolean>
                                                                         </Condition.Value>
                                                                     </Condition>
-                                                                </MultiDataTrigger.Conditions>  
+                                                                </MultiDataTrigger.Conditions>
                                                                 <Setter Property="IsEnabled" Value="true" />
                                                             </MultiDataTrigger>
                                                         </Style.Triggers>
@@ -1003,7 +1003,6 @@
                             </Grid>
                         </Syncfusion:TabItemExt.Content>
                     </Syncfusion:TabItemExt>
-
                     <Syncfusion:TabItemExt  MinHeight="35" x:Name="PrintTab">
                         <Syncfusion:TabItemExt.HeaderTemplate>
                             <DataTemplate>
@@ -1087,7 +1086,6 @@
                             </Grid>
                         </Syncfusion:TabItemExt.Content>
                     </Syncfusion:TabItemExt>
-
                     <Syncfusion:TabItemExt  MinHeight="35" x:Name="NotesTab">
                         <Syncfusion:TabItemExt.HeaderTemplate>
                             <DataTemplate>
