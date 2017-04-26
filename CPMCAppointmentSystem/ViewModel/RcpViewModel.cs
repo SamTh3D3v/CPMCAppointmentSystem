@@ -395,6 +395,19 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        private RelayCommand _addPatientToRcpLoadedCommand;
+        public RelayCommand AddPatientToRcpLoadedCommand
+        {
+            get
+            {
+                return _addPatientToRcpLoadedCommand
+                    ?? (_addPatientToRcpLoadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        //await LoadPatientsToAddList();
+                    }));
+            }
+        }
 
         private RelayCommand _saveRcpWhithParticipantsCommand;
         public RelayCommand SaveRcpWhithParticipantsCommand

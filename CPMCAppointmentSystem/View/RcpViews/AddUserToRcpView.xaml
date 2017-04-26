@@ -66,7 +66,7 @@
                     <syncfusion:SfDataGrid.Columns>
                         <syncfusion:GridTextColumn HeaderText="Nom" AllowEditing="False" MappingName="Entity.UserNom" />
                         <syncfusion:GridTextColumn HeaderText="Prenom" AllowEditing="False" MappingName="Entity.UserPrenom" />
-                        <syncfusion:GridTextColumn HeaderText="Mobile" AllowEditing="False" MappingName="Entity.UserTypes" />
+                        <syncfusion:GridTextColumn HeaderText="Role" AllowEditing="False" MappingName="Entity.UserTypes" />
                         <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" AllowEditing="True" MappingName="IsAdded"/>
                     </syncfusion:SfDataGrid.Columns>
                 </syncfusion:SfDataGrid>

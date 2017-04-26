@@ -245,6 +245,7 @@
                                 <Syncfusion:SfDataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                        AllowDraggingColumns="True"
                                        AllowEditing="False"
+                                                       AutoGenerateColumns="False"
                                        AllowFiltering="True"
                                        ColumnSizer="AutoWithLastColumnFill"
                                        AllowGrouping="True"
@@ -252,15 +253,15 @@
                                    SelectedItem="{Binding SelectedParticipant,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
                                     <Syncfusion:SfDataGrid.Columns>
-                                        <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
-                                        <Syncfusion:GridTextColumn HeaderText="Prenom" MappingName="User.UserPrenom"  />
+                                        <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="UserNom" />
+                                        <Syncfusion:GridTextColumn HeaderText="Prénom" MappingName="UserPrenom"  />
                                     </Syncfusion:SfDataGrid.Columns>
                                 </Syncfusion:SfDataGrid>
 
                             </Grid>
                         </Syncfusion:TabItemExt.Content>
                     </Syncfusion:TabItemExt>
-                    <Syncfusion:TabItemExt  MinHeight="35" x:Name="PatientsTab">
+                    <Syncfusion:TabItemExt  MinHeight="35" x:Name="PatientsTab" IsEnabled="False" ToolTip="Inprogress">
                         <Syncfusion:TabItemExt.HeaderTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -284,7 +285,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Row="0" Grid.Column="0"  Margin="10" Command="{Binding AddPatientsToRcp}">
+                                <Button Grid.Row="0" Grid.Column="0" IsEnabled="False"  Margin="10" Command="{Binding AddPatientsToRcp}">
                                     <Button.Style>
                                         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                                             <Setter Property="IsEnabled" Value="False"/>
@@ -317,13 +318,17 @@
                                        AllowEditing="False"
                                        AllowFiltering="True"
                                        AllowGrouping="True"
+                                       AutoGenerateColumns="False"
                                        ItemsSource="{Binding SelectedRcp.Patients}"
                                    SelectedItem="{Binding SelectedPatient,Mode=TwoWay}"
                                        ShowGroupDropArea="True" >
                                     <Syncfusion:SfDataGrid.Columns>
                                         <Syncfusion:GridTextColumn  HeaderText="Numéro d'ordre" MappingName="NumeroDordre"/>
-                                        <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="User.UserNom" />
-                                        <Syncfusion:GridTextColumn HeaderText="Prénom" MappingName="User.UserPrenom" />
+                                        <Syncfusion:GridTextColumn HeaderText="Nom" MappingName="Nom" />
+                                        <Syncfusion:GridTextColumn HeaderText="Prénom" MappingName="Prenom" />
+                                        <Syncfusion:GridTextColumn HeaderText="Sexe" MappingName="Sexe.Designation" />
+                                        <Syncfusion:GridTextColumn HeaderText="Date de naissance" DisplayBinding="{Binding Path=DateDeNaissance,
+                                                                            StringFormat='{}{0:dd/MM/yyyy}'}"/>
                                         <Syncfusion:GridTextColumn HeaderText="Date de dépot" DisplayBinding="{Binding Path=DateDeDepot,
                                                                             StringFormat='{}{0:dd/MM/yyyy}'}"/>
                                     </Syncfusion:SfDataGrid.Columns>
