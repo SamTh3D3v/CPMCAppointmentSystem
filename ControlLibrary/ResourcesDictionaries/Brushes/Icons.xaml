@@ -14,6 +14,7 @@
     <BitmapImage x:Key="DoctorDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Doctor.png"/>
     <BitmapImage x:Key="PathologyDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Pathology.png"/>
     <BitmapImage x:Key="SpecialityDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Speciality.png"/>
+    <BitmapImage x:Key="RcpDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/RcpDark.png"/>
     <BitmapImage x:Key="SaveDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Save_dark.png"/>
     <BitmapImage x:Key="CancelDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Cancel_dark.png"/>
     <BitmapImage x:Key="DeleteDark" UriSource="/ControlLibrary;component/Images/Icons/Dark/Delete_dark.png"/>

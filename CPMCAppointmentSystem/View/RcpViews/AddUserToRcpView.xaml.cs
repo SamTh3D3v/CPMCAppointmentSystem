@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace CPMCAppointmentSystem.View.RcpViews
 {
     /// <summary>
     /// Interaction logic for AddUserToRcpView.xaml
     /// </summary>
-    public partial class AddUserToRcpView : Window
+    public partial class AddUserToRcpView : MetroWindow
     {
         public AddUserToRcpView()
         {

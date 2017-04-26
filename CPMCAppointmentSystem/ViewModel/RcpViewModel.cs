@@ -29,6 +29,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private bool _isFormEnabled;
         private User _selectedParticipant;
         private Patient _selectedPatient;
+        private ObservableCollection<EntityToAdd<User>> _userToRcpLis ;
         #endregion
         #region Properties     
         public bool IsFormEnabled
@@ -121,8 +122,79 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
+        public ObservableCollection<EntityToAdd<User>> UsersToRcpList
+        {
+            get
+            {
+                return _userToRcpLis;
+            }
+
+            set
+            {
+                if (_userToRcpLis == value)
+                {
+                    return;
+                }
+
+                _userToRcpLis = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
         #region Commands
+        private RelayCommand _saveRcpWhithParticipantCommand;
+        public RelayCommand SaveRcpWhithParticipantCommand
+        {
+            get
+            {
+                return _saveRcpWhithParticipantCommand
+                    ?? (_saveRcpWhithParticipantCommand = new RelayCommand(async () =>
+                    {
+                        await SavePartipantsAddedToRcp();
+                        _dbContext.SaveChanges();
+                        _addParticipantsToRcpView.Close();
+
+                    }));
+            }
+        }
+        private async Task SavePartipantsAddedToRcp()
+        {
+            await Task.Run(() =>
+            {
+                if (SelectedRcp.Participants == null)
+                    SelectedRcp.Participants = new ObservableCollection<User>();
+                UsersToRcpList.ForEach(uToAdd =>
+                {
+                    if (uToAdd.IsAdded)
+                    {
+                        if (SelectedRcp.Participants.All(u => u.UserId != uToAdd.Entity.UserId))
+                        {
+                            SelectedRcp.Participants.Add(_dbContext.Users.Find(uToAdd.Entity.UserId));
+                        }
+                    }
+                    else
+                    {
+                        if (SelectedRcp.Participants.Any(u => u.UserId == uToAdd.Entity.UserId))
+                        {
+                            SelectedRcp.Participants.Remove(_dbContext.Users.Find(uToAdd.Entity.UserId));
+                        }
+                    }
+                });
+            });
+        }
+        private RelayCommand _canceRcpWithParticipantsCommand;
+        public RelayCommand CanceRcpWithParticipantsCommand
+        {
+            get
+            {
+                return _canceRcpWithParticipantsCommand
+                    ?? (_canceRcpWithParticipantsCommand = new RelayCommand(async () =>
+                    {
+                        _addParticipantsToRcpView.Close();
+                        await LoadParticipantsToAddList();
+                    }));
+            }
+        }       
         private RelayCommand _rcpViewLoadedCommand;
         public RelayCommand RcpViewLoadedCommand
         {
@@ -183,7 +255,16 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addParticipantToRcp = new RelayCommand(
                     () =>
                     {
-                      
+                        //If a New Rcp, First add it
+                        if (SelectedRcp.RcpId == Guid.Empty)
+                        {
+                            AddNewRcp();
+                        }
+                        //If a new Rcp                       
+
+                        _addParticipantsToRcpView = new AddUserToRcpView();
+                        _addParticipantsToRcpView.ShowDialog();
+
                     }));
             }
         }
@@ -196,7 +277,14 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_addPartientsToRcp = new RelayCommand(
                     () =>
                     {
-                      
+                        //If a New Rcp, First add it
+                        if (SelectedRcp.RcpId == Guid.Empty)
+                        {
+                            AddNewRcp();
+                        }                                            
+
+                        _addPatientToRcpView = new AddPatientToRcpView();
+                        _addPatientToRcpView.ShowDialog();
                     }));
             }
         }        
@@ -303,7 +391,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _addParticiapantToRcpLoadedCommand
                     ?? (_addParticiapantToRcpLoadedCommand = new RelayCommand(async () =>
                     {
-                         LoadUsersToAddList();
+                        await LoadParticipantsToAddList();
                     }));
             }
         }
@@ -368,23 +456,19 @@ namespace CPMCAppointmentSystem.ViewModel
 
             _dbContext.Rcps.Add(SelectedRcp);
             IsFormEnabled = false;
-        }
-
-        private void LoadUsersToAddList()
+        }     
+      
+        private async Task LoadParticipantsToAddList()
         {
-           // User = new ObservableCollection<Medecin>(_dbContext.Medecins);
+            UsersToRcpList = new ObservableCollection<EntityToAdd<User>>(await Task.Run(() => _dbContext.Users.Select(s => new EntityToAdd<User>()
+            {
+                Entity = s
+            })));
+            foreach (var userToAdd in UsersToRcpList)
+            {
+                userToAdd.IsAdded = SelectedRcp.Participants.Any(pp => userToAdd.Entity.UserId == pp.UserId);
+            }
         }
-        //private async Task LoadDoctorsToAddList()
-        //{
-        //    DoctorsToSpecialitiesList = new ObservableCollection<EntityToAdd<Medecin>>(await Task.Run(() => _dbContext.Medecins.Select(s => new EntityToAdd<Medecin>()
-        //    {
-        //        Entity = s
-        //    })));
-        //    foreach (var docToAdd in DoctorsToSpecialitiesList)
-        //    {
-        //        docToAdd.IsAdded = SelectedSpeciality.Medecins.Any(dp => docToAdd.Entity.MedecinId == dp.MedecinId);
-        //    }
-        //}
         #endregion
     }
 }

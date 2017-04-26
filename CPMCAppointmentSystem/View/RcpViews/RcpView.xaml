@@ -83,7 +83,7 @@
                     <RowDefinition Height="*"/>
 
                 </Grid.RowDefinitions>
-                <Image Source="{StaticResource SpecialityDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
+                <Image Source="{StaticResource RcpDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Désignation" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
                 <Syncfusion:SfTextBoxExt  Watermark="Désignation du rcp" x:Name="TxtEditDesignationRcp" 
@@ -91,7 +91,7 @@
                                           Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Date" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-                <DatePicker  Name="DatePickerRcpDate" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                <DatePicker  Name="DatePickerRcpDate" Margin="10 5" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
                              SelectedDate="{Binding SelectedRcp.DateTimeRcp,Mode=TwoWay,StringFormat='{}{0:dd/MM/yyyy}',UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=False}" >
                     <DatePicker.Style>
                         <Style TargetType="DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">

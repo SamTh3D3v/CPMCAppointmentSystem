@@ -1,12 +1,99 @@
-﻿<Window x:Class="CPMCAppointmentSystem.View.RcpViews.AddUserToRcpView"
+﻿<controls:MetroWindow x:Class="CPMCAppointmentSystem.View.RcpViews.AddUserToRcpView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPMCAppointmentSystem.View.RcpViews"
-        mc:Ignorable="d"
-        Title="AddUserToRcpView" Height="300" Width="300">
-    <Grid>
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        mc:Ignorable="d"        
+           Title="Ajouter un participant"
+        WindowStartupLocation="CenterScreen"
+                             WindowStyle="None"
+                      EnableDWMDropShadow="True"
+                      ResizeMode="CanResizeWithGrip"
+                      WindowTransitionsEnabled="False"  
+                      BorderBrush="{DynamicResource AccentColorBr}"
+                      BorderThickness="1"
         
+                      syncfusion:SkinStorage.VisualStyle="Metro"
+         Height="500" Width="700" 
+                             DataContext="{Binding Path=RcpViewModel, Source={StaticResource Locator}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=AddParticiapantToRcpLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid  Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Image Source="{StaticResource DoctorDark}" Grid.Column="0" Grid.Row="0" Width="75"/>
+
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Titre" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <syncfusion:SfTextBoxExt Margin="10 5" x:Name="NomBox" IsEnabled="False" Text="{Binding SelectedRcp.RcpTitle,Mode=TwoWay}" Grid.Column="1" HorizontalContentAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Date" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+        <DatePicker Margin="10 5" x:Name="CodeBox" IsEnabled="False" SelectedDate="{Binding SelectedRcp.DateTimeRcp,Mode=OneWay,StringFormat='{}{0:dd/MM/yyyy}'}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+
+        <Expander IsExpanded="True" x:Name="PExpander" Margin="5" Grid.Column="0" Grid.ColumnSpan="2" syncfusion:SkinStorage.VisualStyle="Metro"
+                  Grid.Row="3" Header="Selectionnez les participant à ajouté"  HorizontalAlignment="Stretch">
+            <Grid Margin="5"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                <syncfusion:SfDataGrid SelectionMode="Multiple"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" Background="WhiteSmoke"
+                                       ColumnSizer="Star"
+                                       AllowDraggingColumns="True"
+                                       AllowEditing="True"
+                                       AllowFiltering="True"
+                                       AllowGrouping="True"                                   
+                                       ItemsSource="{Binding UsersToRcpList}"
+                                   AutoGenerateColumns="False"                                   
+                                       ShowGroupDropArea="True" >
+
+                    <syncfusion:SfDataGrid.Columns>
+                        <syncfusion:GridTextColumn HeaderText="Nom" AllowEditing="False" MappingName="Entity.UserNom" />
+                        <syncfusion:GridTextColumn HeaderText="Prenom" AllowEditing="False" MappingName="Entity.UserPrenom" />
+                        <syncfusion:GridTextColumn HeaderText="Mobile" AllowEditing="False" MappingName="Entity.UserTypes" />
+                        <syncfusion:GridCheckBoxColumn HeaderText="Ajouter" AllowEditing="True" MappingName="IsAdded"/>
+                    </syncfusion:SfDataGrid.Columns>
+                </syncfusion:SfDataGrid>
+            </Grid>
+        </Expander>
+
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"  Margin="2" Command="{Binding SaveRcpWhithParticipantCommand}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource SaveDark}" Width="20" Height="20" />
+                        <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="1"  Margin="2" Command="{Binding CanceRcpWithParticipantsCommand}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource CancelDark}" Width="20" Height="20" />
+                        <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </Grid>
     </Grid>
-</Window>
+    </controls:MetroWindow>
