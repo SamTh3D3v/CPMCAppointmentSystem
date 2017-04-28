@@ -11,6 +11,7 @@ using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using Syncfusion.Windows.Shared;
 
 namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
 {
@@ -109,7 +110,10 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                                 Count = p.Count()
 
                             })):
-                            new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.Where(p=>DbFunctions.TruncateTime(p.DateDeDepot)>DateDebut && DbFunctions.TruncateTime(p.DateDeDepot)<DateFin).GroupBy(p => DbFunctions.TruncateTime(p.DateDeDepot))
+                            new ObservableCollection<EntityPerFieldCountModel>
+                            (_dbContext.Patients.Where(p=>DbFunctions.TruncateTime
+                            (p.DateDeDepot)>DateDebut && DbFunctions.TruncateTime
+                            (p.DateDeDepot)<DateFin).GroupBy(p => DbFunctions.TruncateTime(p.DateDeDepot))
                             .AsEnumerable().Select(p => new EntityPerFieldCountModel()
                             {
                                 Field = ((DateTime)p.Key).ToString("dd/MM/yyyy"),
@@ -118,14 +122,21 @@ namespace CPMCAppointmentSystem.ViewModel.StatisticsViewModels
                             }));
                         break;
                     case "Month":
-                        PatientPerDateCollection =(!PatientEntreEnabled)? new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.AsEnumerable().GroupBy(p => new { p.DateDeDepot.Month, p.DateDeDepot.Year }).AsEnumerable().Select(p => new EntityPerFieldCountModel()
+                        PatientPerDateCollection =(!PatientEntreEnabled)? 
+                        new ObservableCollection<EntityPerFieldCountModel>
+                        (_dbContext.Patients.AsEnumerable().GroupBy(p => new
+                        { p.DateDeDepot.Month, p.DateDeDepot.Year }).
+                        AsEnumerable().OrderBy(p=>p.Key.Year).ThenBy(p=>p.Key.Month).Select(p => new EntityPerFieldCountModel()
                             {
-                                Field = (p.Key.Month).ToString(),
+                                Field = (new DateTime(p.Key.Year,p.Key.Month,1)).ToString("MM/yyyy"),
                                 Count = p.Count()
 
-                            })):new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.Where(p=>DbFunctions.TruncateTime(p.DateDeDepot)>DateDebut && DbFunctions.TruncateTime(p.DateDeDepot)<DateFin).AsEnumerable().GroupBy(p => new { p.DateDeDepot.Month, p.DateDeDepot.Year }).AsEnumerable().Select(p => new EntityPerFieldCountModel()
+                            })):new ObservableCollection<EntityPerFieldCountModel>(_dbContext.Patients.Where
+                            (p=>DbFunctions.TruncateTime(p.DateDeDepot)>DateDebut && DbFunctions.TruncateTime(p.DateDeDepot)<DateFin).
+                            AsEnumerable().GroupBy(p => new { p.DateDeDepot.Month, p.DateDeDepot.Year }).OrderBy(p => p.Key.Year).ThenBy(p => p.Key.Month)
+                            .AsEnumerable().Select(p => new EntityPerFieldCountModel()
                             {
-                                Field = (p.Key.Month).ToString(),
+                                Field = (new DateTime(p.Key.Year, p.Key.Month, 1)).ToString("MM/yyyy"),
                                 Count = p.Count()
 
                             }));
