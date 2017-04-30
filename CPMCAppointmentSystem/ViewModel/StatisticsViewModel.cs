@@ -52,6 +52,21 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
+        private RelayCommand _statisticalViewUnloadedCommand;
+
+        public RelayCommand StatisticalViewUnloadedCommand
+        {
+            get
+            {
+                return _statisticalViewUnloadedCommand
+                    ?? (_statisticalViewUnloadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        
+                    }));
+            }
+        }
         
         #endregion
         #region Ctors and Methods

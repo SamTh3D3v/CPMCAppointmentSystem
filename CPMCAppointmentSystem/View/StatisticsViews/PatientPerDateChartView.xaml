@@ -26,7 +26,7 @@
         </Style>
         <Storyboard x:Key="PatientPerDateCloseStoryBorad">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="204">
+                <EasingDoubleKeyFrame KeyTime="0" Value="304">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <BackEase EasingMode="EaseInOut"/>
                     </EasingDoubleKeyFrame.EasingFunction>
@@ -45,7 +45,7 @@
                         <BackEase EasingMode="EaseInOut"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="204">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="304">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <BackEase EasingMode="EaseInOut"/>
                     </EasingDoubleKeyFrame.EasingFunction>
@@ -53,18 +53,18 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="RotateToOpenStoryboard">
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
-        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="180"/>
-        	</DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="180"/>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="RotateToCloseStoryboard">
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
-        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-180"/>
-        	</DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-180"/>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-    </UserControl.Resources>	
+    </UserControl.Resources>
     <!--<UserControl.Triggers>
 		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
 			<BeginStoryboard x:Name="PatientPerDateCloseStoryBorad_BeginStoryboard" Storyboard="{StaticResource PatientPerDateCloseStoryBorad}"/>
@@ -157,9 +157,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Border HorizontalAlignment="Right" Margin="0,0,9,0" Background="#FF515151" Width="100" CornerRadius="10,0,0,0">
-                <TextBlock Text="Option" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,30,0" Style="{StaticResource BodyTextBlockStyle}" Foreground="White"/>
+                <TextBlock Text="Filtrer" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,30,0" Style="{StaticResource BodyTextBlockStyle}" Foreground="White"/>
             </Border>
-            <Grid x:Name="grid" Grid.Row="1" Background="WhiteSmoke" Height="0">
+            <Grid IsEnabled="{Binding IsAllDataLoaded,Mode=TwoWay}" x:Name="grid" Grid.Row="1" Background="WhiteSmoke" Height="0">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Triggers>
@@ -175,6 +175,7 @@
                     </Style>
                 </Grid.Style>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -212,10 +213,21 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox  Grid.Row="1" Style="{StaticResource {x:Type GroupBox}}">
-                    <GroupBox.Header>  
+                    <GroupBox.Header>
                         <Grid>
                             <TextBlock Text="PATIENT ENTRE" HorizontalAlignment="Left" Foreground="White"/>
-                            <CheckBox HorizontalAlignment="Right" x:Name="CbPatientEntre" IsChecked="{Binding PatientEntreEnabled,Mode=TwoWay}"/>
+                            <CheckBox HorizontalAlignment="Right" x:Name="CbPatientEntre" IsChecked="{Binding PatientEntreEnabled,Mode=TwoWay}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterActivatedCommand}"
+                            PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterActivatedCommand}"
+                            PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </CheckBox>
                         </Grid>
                     </GroupBox.Header>
                     <Grid IsEnabled="{Binding ElementName=CbPatientEntre,Path=IsChecked,Mode=TwoWay}">
@@ -229,8 +241,72 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Date debut" Grid.Column="0" Grid.Row="0"/>
                         <TextBlock Text="Date Fin" Grid.Column="0" Grid.Row="1"/>
-                        <DatePicker SelectedDate="{Binding DateDebut,Mode=TwoWay}"  Grid.Column="1" Grid.Row="0"/>
-                        <DatePicker SelectedDate="{Binding DateFin,Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+                        <DatePicker SelectedDate="{Binding DateDebut,Mode=TwoWay}" Grid.Column="1" Grid.Row="0">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectedDateChanged">
+                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterActivatedCommand}"
+                            PassEventArgsToCommand="True" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </DatePicker>
+                        <DatePicker SelectedDate="{Binding DateFin,Mode=TwoWay}" Grid.Column="1" Grid.Row="1">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectedDateChanged">
+                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterActivatedCommand}"
+                            PassEventArgsToCommand="True" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </DatePicker>
+                    </Grid>
+                </GroupBox>
+                <GroupBox  Grid.Row="2" Style="{StaticResource {x:Type GroupBox}}">
+                    <GroupBox.Header>
+                        <Grid>
+                            <TextBlock Text="Filtrer par rendez vous" HorizontalAlignment="Left" Foreground="White"/>
+                            <CheckBox HorizontalAlignment="Right" x:Name="CbRdvFilter" IsChecked="{Binding PatientsWithRdvFilterIsEnabled,Mode=TwoWay}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterActivatedCommand}"
+                            PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <command:EventToCommand Command="{Binding Mode=OneWay, Path=FilterActivatedCommand}"
+                            PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </CheckBox>
+                                      
+                        </Grid>
+                    </GroupBox.Header>
+                    <!--Bad code bellow-->
+                    <Grid IsEnabled="{Binding ElementName=CbRdvFilter,Path=IsChecked,Mode=TwoWay}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <RadioButton Content="Patient sans rdv" IsChecked="{Binding PatientsWithNoRdv,Mode=TwoWay}" Grid.Row="0">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <command:EventToCommand  Command="{Binding Mode=OneWay, Path=PatientWithRdvFilterCommand}" PassEventArgsToCommand="True" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </RadioButton>
+                        <RadioButton Content="Patient avec rdv" IsChecked="{Binding PatientsWithRdv,Mode=TwoWay}" Grid.Row="1">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientWithRdvFilterCommand}" PassEventArgsToCommand="True" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </RadioButton>
+                        <RadioButton Content="Patient avce rdv due" Grid.Row="2" IsChecked="{Binding PatientWithDueRdv,Mode=TwoWay}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <command:EventToCommand Command="{Binding Mode=OneWay, Path=PatientWithRdvFilterCommand}" PassEventArgsToCommand="True" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </RadioButton>
                     </Grid>
                 </GroupBox>
             </Grid>
@@ -255,15 +331,15 @@
                         </Style>
                     </Path.Style>
                     <Path.Effect>
-                		<DropShadowEffect Direction="0" ShadowDepth="1" Color="#FF4ACEF5" Opacity="0.75" BlurRadius="10"/>
-                	</Path.Effect>
+                        <DropShadowEffect Direction="0" ShadowDepth="1" Color="#FF4ACEF5" Opacity="0.75" BlurRadius="10"/>
+                    </Path.Effect>
                     <Path.RenderTransform>
-                    	<TransformGroup>
-                    		<ScaleTransform/>
-                    		<SkewTransform/>
-                    		<RotateTransform Angle="0"/>
-                    		<TranslateTransform/>
-                    	</TransformGroup>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
                     </Path.RenderTransform>
                 </Path>
             </Grid>

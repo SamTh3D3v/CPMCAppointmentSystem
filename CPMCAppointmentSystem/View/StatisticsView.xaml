@@ -15,6 +15,10 @@
             <command:EventToCommand Command="{Binding Mode=OneWay, Path=StatisticsViewLoadedCommand}"
                             PassEventArgsToCommand="True" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding Mode=OneWay, Path=StatisticsViewLoadedCommand}"
+                            PassEventArgsToCommand="True" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <Grid>
