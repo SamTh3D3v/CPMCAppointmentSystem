@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using CPMCAppointmentSystem.Helpers;
 using DataLayer;
@@ -134,11 +135,13 @@ namespace CPMCAppointmentSystem.ViewModel
                 return _centrageViewLoadedCommand
                     ?? (_centrageViewLoadedCommand = new RelayCommand(async () =>
                     {
+                        Messenger.Default.Send<String>(ErrorMessages.LoadingDataMessage.Body, "enableLoading");                        
                         _allDataLoaded = false;
                         _stillInView = true;
                         _dbContext = new CpmcContext();
                         await LoadRdvs();                       
                         _allDataLoaded = true;
+                        Messenger.Default.Send<String>("", "desableLoading");
                     }));
             }
         }        
@@ -168,9 +171,20 @@ namespace CPMCAppointmentSystem.ViewModel
              
 
         private async Task LoadRdvs()
-        {            
-            var date = SelectedDateRdvAvecMedecin.Date;
-            RdvCollectionList = IsFilterCheckActivated ? new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses.Where(rdv => DbFunctions.TruncateTime(rdv.DateTimeRdv) == date))) : new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
+        {
+            try
+            {
+                var date = SelectedDateRdvAvecMedecin.Date;
+                RdvCollectionList = IsFilterCheckActivated ? new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses.Where(rdv => DbFunctions.TruncateTime(rdv.DateTimeRdv) == date))) : new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
+            }
+            catch (Exception e)
+            {
+                
+                Debug.Write("something went wrong: "+e.Message);
+            }  
+                                        
+            
+
         }
         private RelayCommand _reloadRdvsCommand;
         public RelayCommand ReloadRdvsCommand

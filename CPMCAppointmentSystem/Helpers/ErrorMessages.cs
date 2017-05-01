@@ -18,6 +18,7 @@ namespace CPMCAppointmentSystem.Helpers
         public static Message ThisIsARestDayMessage = new Message() { Body = "Vous avez sélectionné un jour férié ou vous ne pouvez pas ajouter de rdv ", Header = "Jour férié" };
         public static Message CantLogInMessage = new Message() { Body = "Utilisateur inconnu ou mot de passe erroné", Header = "#Error2_Pass" };
         public static Message LogInInProgressMessage = new Message() { Body = "connexion en cours", Header = "#Error2_Login" };
+        public static Message LoadingDataMessage = new Message() { Body = "chargement de données", Header = "#DataLoad" };
 
         
 

@@ -97,9 +97,7 @@
                             <syncfusion:GridTextColumn HeaderText="Nom Medecin" MappingName="Medecin.User.UserNom" AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Prenom Medecin" MappingName="Medecin.User.UserPrenom" AllowEditing="False"/>
                             <syncfusion:GridTextColumn HeaderText="Rdv medecin"   DisplayBinding="{Binding DateTimeRdv,StringFormat='{}{0:dd/MM/yyyy}'}"  AllowEditing="False"/>
-
                             <syncfusion:GridTextColumn HeaderText="Urgence" MappingName="Urgent" AllowEditing="True"/>
-
                             <syncfusion:GridTemplateColumn HeaderText="DATE CENTRAGE" MappingName="CentrageDateTime" AllowEditing="True">
                                 <syncfusion:GridTemplateColumn.CellTemplate>
                                     <DataTemplate>
