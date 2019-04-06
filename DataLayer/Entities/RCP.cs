@@ -103,6 +103,6 @@ namespace DataLayer.Model
             }
         }
 
-        public string Error => String.Empty;
+        public string Error { get; set; }
     }
 }

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using CPMCAppointmentSystem.Helpers;
+﻿using CPMCAppointmentSystem.Helpers;
 using DataLayer.Model;
 using GalaSoft.MvvmLight.Messaging;
 using Syncfusion.UI.Xaml.Schedule;
 using Syncfusion.Windows.Controls.Navigation;
-using Syncfusion.Windows.Forms.Tools.Navigation;
+using System;
+using System.Linq;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace CPMCAppointmentSystem.View.AppointementViews
 {
@@ -146,6 +146,12 @@ namespace CPMCAppointmentSystem.View.AppointementViews
         private void Calendar_OnSelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CalendarFilter.SelectedDate != null) Schedule.MoveToDate(CalendarFilter.SelectedDate.Value);
+        }
+
+        private void Schedule_VisibleDatesChanging(object sender, VisibleDatesChangingEventArgs e)
+        {
+            //Dispatcher.InvokeAsync(()=> 
+            //MessageBox.Show(((Collection<DateTime>)e.NewValue).First() + "-->"+ ((Collection<DateTime>)e.NewValue).Last()));            
         }
     }
 }

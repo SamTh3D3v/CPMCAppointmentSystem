@@ -71,7 +71,8 @@ namespace CPMCAppointmentSystem.SubModel
         }
         public async Task LoadSchedulerSettings()
         {
-            ScheduleSettingsCollection=new ObservableCollection<SchedulerSetting>(await Task.Run(() => _dbContext.SchedulerSettings));           
+            ScheduleSettingsCollection=new ObservableCollection<SchedulerSetting>(await _dbContext.SchedulerSettings.ToListAsync());
+
             if (!ScheduleSettingsCollection.Any())
             {
                 //Get the schedule settings from the settings Xml file then save them to the database  //todo
@@ -103,8 +104,10 @@ namespace CPMCAppointmentSystem.SubModel
                     Color = "#ff00ffff",
                     Information = "7"
                 });
-                _dbContext.SaveChanges();
-                ScheduleSettingsCollection = new ObservableCollection<SchedulerSetting>(await Task.Run(() => _dbContext.SchedulerSettings));
+                await _dbContext.SaveChangesAsync();
+
+                ScheduleSettingsCollection = new ObservableCollection<SchedulerSetting>(await _dbContext.SchedulerSettings.ToListAsync());
+
                 ScheduleSettingsCollection.CollectionChanged += (s, e) =>
                 {
                     if (CollectionChanged != null)

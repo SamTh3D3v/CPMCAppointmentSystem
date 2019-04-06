@@ -632,7 +632,7 @@ namespace CPMCAppointmentSystem.ViewModel
         {
             _dbContext = new CpmcContext();
             await LoadScheduleSettings();
-            RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses));
+            RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses.Include(x=>x.Patient)));
             _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
             RdvousCollection.ForEach((rdv) =>
             {

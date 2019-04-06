@@ -97,6 +97,10 @@
     <Compile Include="Migrations\201512311155077_security changes v2.Designer.cs">
       <DependentUpon>201512311155077_security changes v2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803311208020_Centrage Chnges.cs" />
+    <Compile Include="Migrations\201803311208020_Centrage Chnges.Designer.cs">
+      <DependentUpon>201803311208020_Centrage Chnges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entities\Adresse.cs" />
     <Compile Include="Audit\Auditable.cs" />
@@ -131,6 +135,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201512311155077_security changes v2.resx">
       <DependentUpon>201512311155077_security changes v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803311208020_Centrage Chnges.resx">
+      <DependentUpon>201803311208020_Centrage Chnges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
