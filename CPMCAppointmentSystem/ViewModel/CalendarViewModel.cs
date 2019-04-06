@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using CPMCAppointmentSystem.Helpers;
+﻿using CPMCAppointmentSystem.Helpers;
 using CPMCAppointmentSystem.SubModel;
 using CPMCAppointmentSystem.View.AppointementViews;
 using DataLayer;
@@ -20,6 +10,15 @@ using MahApps.Metro.Controls.Dialogs;
 using Syncfusion.Data.Extensions;
 using Syncfusion.UI.Xaml.Schedule;
 using Syncfusion.Windows.Shared;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CPMCAppointmentSystem.ViewModel
 {
@@ -52,6 +51,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private Medecin _selectedMedecinInAddAptView;
         private ObservableCollection<EntityToAdd<Medecin>> _addDoctorsToFilterListAdd;
         private ObservableCollection<Medecin> _doctorsInFilter = new ObservableCollection<Medecin>();
+        private ObservableCollection<DateTime> _calendarVisibleDates;
         private bool _filterByPatientIsChecked;
         private bool _filterByMedecinIsChecked;
         private ListMedecinToAddView _listMedecinToAddView;
@@ -59,6 +59,7 @@ namespace CPMCAppointmentSystem.ViewModel
         private int _lowerValue;
         private int _ageUpperValue;
         #endregion
+
         #region Properties
         public RolesCollection ConnectedUserRollsCollection
         {
@@ -262,7 +263,7 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public DateTime SelectedDateInScedule { get; set; }
+        public DateTime SelectedDateInSchedule { get; set; }
         public bool FilterByPatientIsChecked
         {
             get
@@ -461,51 +462,8 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
-        #endregion
-        #region Commands
-        private RelayCommand _cancelMedecinFilterCommand;
-        public RelayCommand CancelMedecinFilterCommand
-        {
-            get
-            {
-                return _cancelMedecinFilterCommand
-                    ?? (_cancelMedecinFilterCommand = new RelayCommand(
-                    () => _listMedecinToAddView.Close()));
-            }
-        }
-        private RelayCommand _applyMedecinFilterCommand;
-        public RelayCommand ApplyMedecinFilterCommand
-        {
-            get
-            {
-                return _applyMedecinFilterCommand
-                    ?? (_applyMedecinFilterCommand = new RelayCommand(async () =>
-                    {
-                        DoctorsInFilter = new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x => x.IsAdded).Select(x => x.Entity));
-                        _listMedecinToAddView.Close();
-                        await LoadRendezVous();
-                    }));
-            }
-        }
-        private RelayCommand _showListDesMedecinFilterCommand;
-        public RelayCommand ShowListDesMedecinFilterCommand
-        {
-            get
-            {
-                return _showListDesMedecinFilterCommand
-                    ?? (_showListDesMedecinFilterCommand = new RelayCommand(
-                    () =>
-                    {
-                        //to be updated
-                        _listMedecinToAddView = new ListMedecinToAddView();
-                        _listMedecinToAddView.ShowDialog();
-
-                    }));
-            }
-        }
 
         private User _connectedUser;
-
         public User ConnectedUser
         {
             get
@@ -524,6 +482,128 @@ namespace CPMCAppointmentSystem.ViewModel
                 RaisePropertyChanged();
             }
         }
+        public ObservableCollection<System.DateTime> CalendarVisibleDates
+        {
+            get
+            {
+                return _calendarVisibleDates;
+            }
+
+            set
+            {
+                if (_calendarVisibleDates == value)
+                {
+                    return;
+                }
+
+                _calendarVisibleDates = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Filter Commands
+
+        private RelayCommand _cancelMedecinFilterCommand;
+        public RelayCommand CancelMedecinFilterCommand
+        {
+            get
+            {
+                return _cancelMedecinFilterCommand
+                    ?? (_cancelMedecinFilterCommand = new RelayCommand(
+                    () => _listMedecinToAddView.Close()));
+            }
+        }
+
+        private RelayCommand _applyMedecinFilterCommand;
+        public RelayCommand ApplyMedecinFilterCommand
+        {
+            get
+            {
+                return _applyMedecinFilterCommand
+                    ?? (_applyMedecinFilterCommand = new RelayCommand(async () =>
+                    {
+                        DoctorsInFilter = new ObservableCollection<Medecin>(AddDoctorsToFilterList.Where(x => x.IsAdded).Select(x => x.Entity));
+                        _listMedecinToAddView.Close();
+                        await LoadRendezVous();
+                    }));
+            }
+        }
+
+        private RelayCommand _showListDesMedecinFilterCommand;
+        public RelayCommand ShowListDesMedecinFilterCommand
+        {
+            get
+            {
+                return _showListDesMedecinFilterCommand
+                    ?? (_showListDesMedecinFilterCommand = new RelayCommand(
+                    () =>
+                    {
+                        //to be updated
+                        _listMedecinToAddView = new ListMedecinToAddView();
+                        _listMedecinToAddView.ShowDialog();
+
+                    }));
+            }
+        }
+
+        private RelayCommand _filterCalendarPerMedecinCheckedCommand;
+        public RelayCommand FilterCalendarReloadCommand
+        {
+            get
+            {
+                return _filterCalendarPerMedecinCheckedCommand
+                    ?? (_filterCalendarPerMedecinCheckedCommand = new RelayCommand(async () =>
+                    {
+                        await LoadRendezVous();
+                    }));
+            }
+        }
+
+        private RelayCommand _filterAgeRangeCheckedCommand;
+        public RelayCommand FilterAgeRangeCheckedCommand
+        {
+            get
+            {
+                return _filterAgeRangeCheckedCommand
+                    ?? (_filterAgeRangeCheckedCommand = new RelayCommand(
+                    () =>
+                    {
+
+                    }));
+            }
+        }
+
+        private RelayCommand _filterCartePrCheckedCommand;
+        public RelayCommand FilterCartePrCheckedCommand
+        {
+            get
+            {
+                return _filterCartePrCheckedCommand
+                    ?? (_filterCartePrCheckedCommand = new RelayCommand(
+                    () =>
+                    {
+                    }));
+            }
+        }
+
+        private RelayCommand _dtrDaysSelectionChangedCommand;
+        public RelayCommand DtrDaysSelectionChangedCommand
+        {
+            get
+            {
+                return _dtrDaysSelectionChangedCommand
+                    ?? (_dtrDaysSelectionChangedCommand = new RelayCommand(async () =>
+                    {
+                        await LoadAllDoctorsList();
+                    }));
+            }
+        }
+
+        #endregion
+
+        #region Calendar Events Commands
+
         private RelayCommand _calendarViewLoadedCommand;
         public RelayCommand CalendarViewLoadedCommand
         {
@@ -567,6 +647,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
         private RelayCommand _addAppointementViewLoadedCommand;
         public RelayCommand AddAppointementViewLoadedCommand
         {
@@ -596,153 +677,8 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
-
-        private async Task LoadDoctorsToAddList()
-        {
-            AddDoctorsToFilterList = new ObservableCollection<EntityToAdd<Medecin>>(await Task.Run(() => _dbContext.Medecins.Select(s => new EntityToAdd<Medecin>()
-            {
-                Entity = s,
-            })));
-            AddDoctorsToFilterList.ForEach(d =>
-            {
-                d.IsAdded = DoctorsInFilter.Select(df => df.MedecinId).Contains(d.Entity.MedecinId);
-            });
-        }
-
-        private async Task LoadAllDoctorsList()
-        {
-            //Convert From DayOfWeek (Date Time) To Days Enum
-            var day = (Days)Math.Pow(2, (((double)(SelectedRdv.DateTimeRdv.DayOfWeek)) + 1) % 7);
-            AllDoctorsCollection = ShowSpesificDayDoctors ? new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins.Where(m => m.JoursDeTravail.HasFlag(day)))) : new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
-        }
-
-
-
-        private async Task LoadAllPatientsList()
-        {
-            AllPatientsCollection = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
-        }
-
-        private void LoadAddAppointmentViewItemSources()
-        {
-            //Load Other stuff
-        }
-
-        private async Task LoadRendezVous()
-        {
-            _dbContext = new CpmcContext();
-            await LoadScheduleSettings();
-            RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses.Include(x=>x.Patient)));
-            _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
-            RdvousCollection.ForEach((rdv) =>
-            {
-                var brStBl = GetBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
-                    rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel);
-                //Update the rdv status based on rdv date
-                rdv.Status = new ScheduleAppointmentStatus()
-                {
-                    Brush =
-                        brStBl.Brush,
-                    Status =
-                        brStBl.Status
-                };
-                rdv.Blink = brStBl.Blink;
-                if (FilterByMedecinIsChecked)
-                {
-                    if (DoctorsInFilter.Select(d => d.MedecinId).Contains(rdv.Medecin.MedecinId))
-                    {
-                        if (RespectTranchDageFilters(rdv) && RespectCarteProFilters(rdv))
-                            PatientsScheduleAppointmentCollection.Add(rdv);
-                    }
-                }
-                else
-                {
-                    if (RespectTranchDageFilters(rdv) && RespectCarteProFilters(rdv))
-                        PatientsScheduleAppointmentCollection.Add(rdv);
-                }
-            });
-            await LoadRestDays();
-            RestDaysCollection.ForEach(rd =>
-            {
-                PatientsScheduleAppointmentCollection.Add(rd);
-            });
-            RaisePropertyChanged("PatientsScheduleAppointmentCollection");
-        }
-
-        private async Task LoadRestDays()
-        {
-            RestDaysCollection = new ObservableCollection<JourFerie>(await Task.Run(() => _dbContext.JourFeries));
-        }
-
-        private bool RespectTranchDageFilters(RendezVous rdv)
-        {
-            return TrancheDageIsChecked && (DateTime.Now - rdv.Patient.DateDeNaissance).TotalDays / 365 >= AgeLowerValue &&
-                   (DateTime.Now - rdv.Patient.DateDeNaissance).TotalDays / 365 <= AgeUpperValue || !TrancheDageIsChecked;
-        }
-        private bool RespectCarteProFilters(RendezVous rdv)
-        {
-            return CarteProFilterIsEnabled && rdv.Patient.CarteProfessionel == CarteProIsChecked || !CarteProFilterIsEnabled;
-        }
-
-        private async Task LoadScheduleSettings()
-        {
-            SettingsCollection = new SettingsCollection();
-            await SettingsCollection.LoadSchedulerSettings();
-        }
-
-
-        private BrushStatus GetBrushFromSettings(DateTime dateTimeRdv, DateTime dateDeNaissance, string sexe, bool carteProfessionel)
-        {
-            var brushStatus = new BrushStatus();
-            var ageMax = SettingsCollection["EnfantSetting"].Information;
-
-            if (dateTimeRdv.Date < DateTime.Now.Date)
-            {
-                brushStatus.Brush = new SolidColorBrush(Colors.LightGray);
-                if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMax))
-                {
-                    brushStatus.Status = sexe == "Masculin" ? "Boy" : "Girl";  //Féminin
-                }
-                else
-                {
-                    brushStatus.Status = sexe == "Masculin" ? "Man" : "Woman";
-                }
-            }
-            else
-            {
-                if (ageMax != null)
-                {
-                    if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMax))
-                    {
-                        brushStatus.Status = sexe == "Masculin" ? "Boy" : "Girl";
-                        brushStatus.Brush =
-                            new SolidColorBrush(
-                                (Color)ColorConverter.ConvertFromString(SettingsCollection["EnfantSetting"].Color));
-                        brushStatus.Blink = SettingsCollection["EnfantSetting"].Blink;
-                    }
-                    else
-                    {
-                        brushStatus.Status = sexe == "Masculin" ? "Man" : "Woman";
-                        if (carteProfessionel)
-                        {
-                            brushStatus.Brush = new SolidColorBrush(
-                                (Color)ColorConverter.ConvertFromString(SettingsCollection["ProSetting"].Color));
-                            brushStatus.Blink = SettingsCollection["ProSetting"].Blink;
-                        }
-                        else
-                        {
-                            brushStatus.Brush = sexe == "Masculin" ? new SolidColorBrush(
-                         (Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color)) : new SolidColorBrush(
-                         (Color)ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
-                            brushStatus.Blink = sexe == "Masculin" ? SettingsCollection["HommeSetting"].Blink : SettingsCollection["FemmeSetting"].Blink;
-                        }
-                    }
-                }
-            }
-            return brushStatus;
-        }
+        
         private RelayCommand<object> _scheduleOnAppointmentEditorOpeningCommand;
-
         public RelayCommand<object> ScheduleOnAppointmentEditorOpeningCommand
         {
             get
@@ -751,7 +687,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_scheduleOnAppointmentEditorOpeningCommand = new RelayCommand<object>(
                     (obj) =>
                     {
-                        var d = SelectedDateInScedule.Date;
+                        var d = SelectedDateInSchedule.Date;
                         if (RestDaysCollection.Any(r => r.DateJourFerie == d)) return;
                         _addAppointementView = new AddAppointementView();
 
@@ -767,7 +703,7 @@ namespace CPMCAppointmentSystem.ViewModel
                             {
                                 SelectedRdv = new RendezVous()
                                 {
-                                    DateTimeRdv = SelectedDateInScedule
+                                    DateTimeRdv = SelectedDateInSchedule
                                 };
 
                             }
@@ -777,6 +713,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
         private RelayCommand _cancelAppointementChangesCommand;
         public RelayCommand CancelAppointementChangesCommand
         {
@@ -787,6 +724,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     () => _addAppointementView.Close()));
             }
         }
+
         private RelayCommand _deleteAppointementCommand;
         public RelayCommand DeleteAppointementCommand
         {
@@ -807,6 +745,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
         private RelayCommand _saveAppointementCommand;
         public RelayCommand SaveAppointementCommand
         {
@@ -829,13 +768,8 @@ namespace CPMCAppointmentSystem.ViewModel
 
                     }));
             }
-        }
-        private void AddNewAppointement()
-        {
-            //Added by Farouk for Audit purpose
-            SelectedRdv.RendezVousId = Guid.NewGuid();
-            _dbContext.RendezVouses.Add(SelectedRdv);
-        }
+        }        
+
         private RelayCommand<ScheduleClickEventArgs> _onScheduleClickCommand;
         public RelayCommand<ScheduleClickEventArgs> OnScheduleClickCommand
         {
@@ -845,10 +779,11 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_onScheduleClickCommand = new RelayCommand<ScheduleClickEventArgs>(
                     (args) =>
                     {
-                        SelectedDateInScedule = (DateTime)args.SelectedDate;
+                        SelectedDateInSchedule = (DateTime)args.SelectedDate;
                     }));
             }
         }
+
         private RelayCommand _dayScheduleTypeSelectedCommand;
         public RelayCommand DayScheduleTypeSelectedCommand
         {
@@ -862,6 +797,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
         private RelayCommand _monthScheduleTypeSelectedCommand;
         public RelayCommand MonthScheduleTypeSelectedCommand
         {
@@ -875,6 +811,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
         private RelayCommand _weekScheduleTypeSelectedCommand;
         public RelayCommand WeekScheduleTypeSelectedCommand
         {
@@ -888,6 +825,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
         private RelayCommand _workWeekScheduleTypeSelectedCommand;
         public RelayCommand WorkWeekScheduleTypeSelectedCommand
         {
@@ -901,6 +839,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
         private RelayCommand _timeLineScheduleTypeSelectedCommand;
         public RelayCommand TimeLineScheduleTypeSelectedCommand
         {
@@ -914,6 +853,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
         private RelayCommand<AppointmentEndDraggingEventArgs> _appointmentEndDraggingCommand;
         public RelayCommand<AppointmentEndDraggingEventArgs> AppointmentEndDraggingCommand
         {
@@ -948,8 +888,16 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
+        private ICommand _visibleDateChanging;
+        public ICommand VisibleDateChangingCommand
+        {
+            get { return _visibleDateChanging; }
+        }
+        
+        #endregion
 
-        //RadialGradientBrush menu commands
+        #region Rdial Menu Commands
+
         private RelayCommand<object> _addAppointementFromRadialMenuCommand;
         public RelayCommand<object> AddAppointementFromRadialMenuCommand
         {
@@ -966,7 +914,7 @@ namespace CPMCAppointmentSystem.ViewModel
                         {
                             SelectedRdv = new RendezVous()
                             {
-                                DateTimeRdv = SelectedDateInScedule
+                                DateTimeRdv = SelectedDateInSchedule
                             };
                             _addAppointementView.ShowDialog();
                             sfSchedule.Refresh();
@@ -974,6 +922,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
         private RelayCommand<object> _editAppointementFromRadialMenuCommand;
         public RelayCommand<object> EditAppointementFromRadialMenuCommand
         {
@@ -1033,9 +982,9 @@ namespace CPMCAppointmentSystem.ViewModel
                     ?? (_pastAppointementFromRadialMenuCommand = new RelayCommand<object>(async (obj) =>
                     {
                         var sfSchedule = obj as SfSchedule;
-                        if (sfSchedule != null && _cutedAppointement != null && SelectedDateInScedule != null)
+                        if (sfSchedule != null && _cutedAppointement != null && SelectedDateInSchedule != null)
                         {
-                            _dbContext.RendezVouses.Find(_cutedAppointement.RendezVousId).DateTimeRdv = SelectedDateInScedule;
+                            _dbContext.RendezVouses.Find(_cutedAppointement.RendezVousId).DateTimeRdv = SelectedDateInSchedule;
                             _dbContext.SaveChanges();
                             await LoadRendezVous();
                             sfSchedule.Refresh();
@@ -1043,6 +992,7 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+
         private RelayCommand<object> _deleteAppointementFromRadialMenuCommand;
         public RelayCommand<object> DeleteAppointementFromRadialMenuCommand
         {
@@ -1071,55 +1021,8 @@ namespace CPMCAppointmentSystem.ViewModel
             }
         }
 
-        private RelayCommand _filterCalendarPerMedecinCheckedCommand;
-        public RelayCommand FilterCalendarReloadCommand
-        {
-            get
-            {
-                return _filterCalendarPerMedecinCheckedCommand
-                    ?? (_filterCalendarPerMedecinCheckedCommand = new RelayCommand(async () =>
-                    {
-                        await LoadRendezVous();
-                    }));
-            }
-        }
-        private RelayCommand _filterAgeRangeCheckedCommand;
-        public RelayCommand FilterAgeRangeCheckedCommand
-        {
-            get
-            {
-                return _filterAgeRangeCheckedCommand
-                    ?? (_filterAgeRangeCheckedCommand = new RelayCommand(
-                    () =>
-                    {
-
-                    }));
-            }
-        }
-        private RelayCommand _filterCartePrCheckedCommand;
-        public RelayCommand FilterCartePrCheckedCommand
-        {
-            get
-            {
-                return _filterCartePrCheckedCommand
-                    ?? (_filterCartePrCheckedCommand = new RelayCommand(
-                    () =>
-                    {
-                    }));
-            }
-        }
-        private RelayCommand _dtrDaysSelectionChangedCommand;
-        public RelayCommand DtrDaysSelectionChangedCommand
-        {
-            get
-            {
-                return _dtrDaysSelectionChangedCommand
-                    ?? (_dtrDaysSelectionChangedCommand = new RelayCommand(async () =>
-                    {
-                        await LoadAllDoctorsList();
-                    }));
-            }
-        }
+        #endregion       
+        
         #region Notification Realted Commands
         private RelayCommand _searchForExistingRdvsCommand;
         public RelayCommand SearchForExistingRdvsCommand
@@ -1154,16 +1057,170 @@ namespace CPMCAppointmentSystem.ViewModel
                     }));
             }
         }
+        #endregion        
+
+        #region Helper Methods
+        private void AddNewAppointement()
+        {
+            //Added by Farouk for Audit purpose
+            SelectedRdv.RendezVousId = Guid.NewGuid();
+            _dbContext.RendezVouses.Add(SelectedRdv);
+        }
+        private async Task LoadDoctorsToAddList()
+        {
+            AddDoctorsToFilterList = new ObservableCollection<EntityToAdd<Medecin>>(await Task.Run(() => _dbContext.Medecins.Select(s => new EntityToAdd<Medecin>()
+            {
+                Entity = s,
+            })));
+            AddDoctorsToFilterList.ForEach(d =>
+            {
+                d.IsAdded = DoctorsInFilter.Select(df => df.MedecinId).Contains(d.Entity.MedecinId);
+            });
+        }
+        private async Task LoadAllDoctorsList()
+        {
+            //Convert From DayOfWeek (Date Time) To Days Enum
+            var day = (Days)Math.Pow(2, (((double)(SelectedRdv.DateTimeRdv.DayOfWeek)) + 1) % 7);
+            AllDoctorsCollection = ShowSpesificDayDoctors ? new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins.Where(m => m.JoursDeTravail.HasFlag(day)))) : new ObservableCollection<Medecin>(await Task.Run(() => _dbContext.Medecins));
+        }
+        private async Task LoadAllPatientsList()
+        {
+            AllPatientsCollection = new ObservableCollection<Patient>(await Task.Run(() => _dbContext.Patients));
+        }
+        private void LoadAddAppointmentViewItemSources()
+        {
+            //Load Other stuff
+        }
+        private async Task LoadRendezVous()
+        {
+            _dbContext = new CpmcContext();
+            await LoadScheduleSettings();
+            var fromDate = CalendarVisibleDates.FirstOrDefault();
+            var toDate = CalendarVisibleDates.LastOrDefault();
+
+            RdvousCollection = new ObservableCollection<RendezVous>(await Task.Run(() => _dbContext.RendezVouses.Include(x => x.Patient)
+            .Where(x=>x.DateTimeRdv>fromDate && x.DateTimeRdv<=toDate)));
+            _patientsScheduleAppointmentCollection = new ScheduleAppointmentCollection();
+            RdvousCollection.ForEach((rdv) =>
+            {
+                var brStBl = GetBrushFromSettings(rdv.DateTimeRdv, rdv.Patient.DateDeNaissance,
+                    rdv.Patient.Sexe.Designation, rdv.Patient.CarteProfessionel);
+                //Update the rdv status based on rdv date
+                rdv.Status = new ScheduleAppointmentStatus()
+                {
+                    Brush =
+                        brStBl.Brush,
+                    Status =
+                        brStBl.Status
+                };
+                rdv.Blink = brStBl.Blink;
+                if (FilterByMedecinIsChecked)
+                {
+                    if (DoctorsInFilter.Select(d => d.MedecinId).Contains(rdv.Medecin.MedecinId))
+                    {
+                        if (RespectTranchDageFilters(rdv) && RespectCarteProFilters(rdv))
+                            PatientsScheduleAppointmentCollection.Add(rdv);
+                    }
+                }
+                else
+                {
+                    if (RespectTranchDageFilters(rdv) && RespectCarteProFilters(rdv))
+                        PatientsScheduleAppointmentCollection.Add(rdv);
+                }
+            });
+            await LoadRestDays();
+            RestDaysCollection.ForEach(rd =>
+            {
+                PatientsScheduleAppointmentCollection.Add(rd);
+            });
+            RaisePropertyChanged("PatientsScheduleAppointmentCollection");
+        }
+        private async Task LoadRestDays()
+        {
+            RestDaysCollection = new ObservableCollection<JourFerie>(await Task.Run(() => _dbContext.JourFeries));
+        }
+        private bool RespectTranchDageFilters(RendezVous rdv)
+        {
+            return TrancheDageIsChecked && (DateTime.Now - rdv.Patient.DateDeNaissance).TotalDays / 365 >= AgeLowerValue &&
+                   (DateTime.Now - rdv.Patient.DateDeNaissance).TotalDays / 365 <= AgeUpperValue || !TrancheDageIsChecked;
+        }
+        private bool RespectCarteProFilters(RendezVous rdv)
+        {
+            return CarteProFilterIsEnabled && rdv.Patient.CarteProfessionel == CarteProIsChecked || !CarteProFilterIsEnabled;
+        }
+        private async Task LoadScheduleSettings()
+        {
+            SettingsCollection = new SettingsCollection();
+            await SettingsCollection.LoadSchedulerSettings();
+        }
+        private BrushStatus GetBrushFromSettings(DateTime dateTimeRdv, DateTime dateDeNaissance, string sexe, bool carteProfessionel)
+        {
+            var brushStatus = new BrushStatus();
+            var ageMax = SettingsCollection["EnfantSetting"].Information;
+
+            if (dateTimeRdv.Date < DateTime.Now.Date)
+            {
+                brushStatus.Brush = new SolidColorBrush(Colors.LightGray);
+                if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMax))
+                {
+                    brushStatus.Status = sexe == "Masculin" ? "Boy" : "Girl";  //Féminin
+                }
+                else
+                {
+                    brushStatus.Status = sexe == "Masculin" ? "Man" : "Woman";
+                }
+            }
+            else
+            {
+                if (ageMax != null)
+                {
+                    if ((DateTime.Now.Year - dateDeNaissance.Year) < int.Parse(ageMax))
+                    {
+                        brushStatus.Status = sexe == "Masculin" ? "Boy" : "Girl";
+                        brushStatus.Brush =
+                            new SolidColorBrush(
+                                (Color)ColorConverter.ConvertFromString(SettingsCollection["EnfantSetting"].Color));
+                        brushStatus.Blink = SettingsCollection["EnfantSetting"].Blink;
+                    }
+                    else
+                    {
+                        brushStatus.Status = sexe == "Masculin" ? "Man" : "Woman";
+                        if (carteProfessionel)
+                        {
+                            brushStatus.Brush = new SolidColorBrush(
+                                (Color)ColorConverter.ConvertFromString(SettingsCollection["ProSetting"].Color));
+                            brushStatus.Blink = SettingsCollection["ProSetting"].Blink;
+                        }
+                        else
+                        {
+                            brushStatus.Brush = sexe == "Masculin" ? new SolidColorBrush(
+                         (Color)ColorConverter.ConvertFromString(SettingsCollection["HommeSetting"].Color)) : new SolidColorBrush(
+                         (Color)ColorConverter.ConvertFromString(SettingsCollection["FemmeSetting"].Color));
+                            brushStatus.Blink = sexe == "Masculin" ? SettingsCollection["HommeSetting"].Blink : SettingsCollection["FemmeSetting"].Blink;
+                        }
+                    }
+                }
+            }
+            return brushStatus;
+        }
+        private async void VisibleDateChanging(VisibleDatesChangingEventArgs arg)
+        {
+            CalendarVisibleDates = arg.NewValue as ObservableCollection<DateTime>;
+            await LoadRendezVous();
+        }
         #endregion
-        #endregion
+
         #region Ctors and Methods
         public CalendarViewModel(IFrameNavigationService mainFrameNavigationService, IInnerFrameNavigationService innerFrameNavigationService)
             : base(mainFrameNavigationService, innerFrameNavigationService)
         {
+
             Messenger.Default.Register<DateTime>(this, (d) =>
             {
-                SelectedDateInScedule = d;
+                SelectedDateInSchedule = d;
             });
+
+            _visibleDateChanging = new DelegateCommand<VisibleDatesChangingEventArgs>(VisibleDateChanging);
         }
         #endregion
     }

@@ -10,6 +10,7 @@
       xmlns:appointementViews="clr-namespace:CPMCAppointmentSystem.View.AppointementViews"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:model="clr-namespace:DataLayer.Model;assembly=DataLayer"
+      xmlns:scheduleCommand="clr-namespace:CPMCAppointmentSystem.ScheduleControl.Commands"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1000"
 	Title="CalendarView" DataContext="{Binding Source={StaticResource Locator},Path=CalendarViewModel}">
@@ -163,8 +164,10 @@
                    syncfusion:DockingManager.Header="Docking Manager" >
                     <syncfusion:SfSchedule MouseLeave="Schedule_OnMouseLeave" ContextMenuOpening="Schedule_OnContextMenuOpening" ShowAppointmentNavigationButtons="True"  ScheduleClick="Schedule_OnScheduleClick"  
                                            x:Name="Schedule"  Appointments="{Binding PatientsScheduleAppointmentCollection,Mode=TwoWay}" 
-                                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="True" Margin="5" ShowAllDay="True"   
-                                   ScheduleType="{Binding SelectedScheduleType,Mode=TwoWay}" EnableTouch="False" TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening" VisibleDatesChanging="Schedule_VisibleDatesChanging">
+                                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowNonWorkingHours="False" Margin="5" ShowAllDay="True"   
+                                   ScheduleType="{Binding SelectedScheduleType,Mode=TwoWay}" EnableTouch="False" TimeInterval="ThirtyMin" IntervalHeight="40" AppointmentEditorOpening="Schedule_OnAppointmentEditorOpening"                                            
+                                           scheduleCommand:VisibleDatesChangingCommandWithEventArgs.Command="{Binding VisibleDateChangingCommand}" 
+                                           >
                         <syncfusion:SfSchedule.NextNavigationButtonTemplate>
                             <DataTemplate>
                                 <Button ToolTip="Aller au rdv suivant">

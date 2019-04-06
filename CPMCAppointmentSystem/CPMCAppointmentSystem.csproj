@@ -282,6 +282,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WindowStaticText.fr.resx</DependentUpon>
     </Compile>
+    <Compile Include="Schedule\SfScheduleCommands.cs" />
     <Compile Include="SubModel\BarModel.cs" />
     <Compile Include="SubModel\DataBaseSettings.cs" />
     <Compile Include="SubModel\EntityToAdd.cs" />
